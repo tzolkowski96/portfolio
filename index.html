@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tobin Zolkowski - Data Analyst Portfolio showcasing projects in data analysis, visualization, and machine learning">
+    <title>Tobin Zolkowski - Data Analyst Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --text-color: #333;
+            --background-color: #f4f4f4;
+            --card-background: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: #ecf0f1;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        nav {
+            background-color: var(--secondary-color);
+            padding: 1rem;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0.5rem 1rem;
+        }
+
+        nav ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover, nav ul li a:focus {
+            color: #3498db;
+        }
+
+        main {
+            margin: 2rem auto;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .project {
+            background-color: var(--card-background);
+            border-radius: 5px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project:hover, .project:focus-within {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .skills-container {
+            height: 400px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover, button:focus {
+            background-color: var(--secondary-color);
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        @media (max-width: 768px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-container {
+                height: 300px;
+            }
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        #project-filter {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div id="canvas-container" aria-hidden="true"></div>
+    <header>
+        <div class="container">
+            <h1>Tobin Zolkowski</h1>
+            <p>Data Analyst | Problem Solver | Innovator</p>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main id="main-content" class="container">
+        <section id="about">
+            <h2>About Me</h2>
+            <p>With over 2 years of experience in data analysis, I specialize in transforming complex data into actionable insights. My expertise spans across Excel, Python, SQL, Tableau, and Looker. I'm passionate about empowering users to harness their own data and driving a culture of informed decision-making.</p>
+        </section>
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <canvas id="skillsChart"></canvas>
+            </div>
+        </section>
+        <section id="projects">
+            <h2>Projects</h2>
+            <div id="project-filter">
+                <label for="project-select">Filter projects:</label>
+                <select id="project-select">
+                    <option value="all">All Projects</option>
+                    <option value="data-analysis">Data Analysis</option>
+                    <option value="machine-learning">Machine Learning</option>
+                    <option value="visualization">Data Visualization</option>
+                    <option value="research">Research</option>
+                </select>
+            </div>
+            <div class="project-grid">
+                <div class="project" data-category="data-analysis visualization">
+                    <h3>Global Population Growth Analysis</h3>
+                    <p>Conducted statistical analysis and data visualization using Tableau and Python to assess the impacts of rapid population growth on countries across income levels.</p>
+                </div>
+                <div class="project" data-category="data-analysis">
+                    <h3>Student Disability Accommodation Database</h3>
+                    <p>Designed and implemented an end-to-end relational database solution to streamline accommodation coordination for students with disabilities.</p>
+                </div>
+                <div class="project" data-category="data-analysis visualization">
+                    <h3>Telecom Spatial Analytics Dashboard</h3>
+                    <p>Created a spatial analytics dashboard highlighting premium client opportunities using Tableau bivariate choropleth maps.</p>
+                </div>
+                <div class="project" data-category="machine-learning">
+                    <h3>Data Mining for Continuing Education Interests</h3>
+                    <p>Utilized Python and scikit-learn to build machine learning models predicting Portuguese-language students' interest in continuing education programs.</p>
+                </div>
+                <div class="project" data-category="research">
+                    <h3>Cyber Threats in K-12 Schools During COVID-19</h3>
+                    <p>Researched and authored a journalistic article uncovering alarming trends of increased hacking and cyber attacks on K-12 schools during the COVID-19 pandemic.</p>
+                </div>
+                <div class="project" data-category="data-analysis">
+                    <h3>Academic Information System Data Management</h3>
+                    <p>Led data management recommendations for the Academic Information System at University of Wisconsin-Madison.</p>
+                </div>
+                <div class="project" data-category="data-analysis">
+                    <h3>Nutritional Data Statistical Analysis</h3>
+                    <p>Performed statistical hypothesis testing and distribution analysis on nutritional data from MyFoodData.com to increase public accessibility to food composition details.</p>
+                </div>
+                <div class="project" data-category="research">
+                    <h3>Ethical Dilemmas of Data Manipulation Study</h3>
+                    <p>Conducted an in-depth study investigating the ethical dilemmas arising when organizations manipulate data, providing concrete examples of corporations abusing data.</p>
+                </div>
+                <div class="project" data-category="research data-analysis">
+                    <h3>Foreign Language Skills and Standardized Test Performance Study</h3>
+                    <p>Designed and executed a study examining the correlation between foreign language proficiency and standardized test results.</p>
+                </div>
+                <div class="project" data-category="machine-learning data-analysis">
+                    <h3>Employee Churn Prediction: A Capstone Project</h3>
+                    <p>Developed machine learning models to predict employee churn using various features related to employee characteristics and job satisfaction. Implemented Logistic Regression, Random Forest, and XGBoost classifiers, achieving accuracy levels up to 98%.</p>
+                </div>
+            </div>
+        </section>
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <form>
+                <label for="name" class="visually-hidden">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                
+                <label for="email" class="visually-hidden">Your Email</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                
+                <label for="message" class="visually-hidden">Your Message</label>
+                <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+    <script>
+        // Animated background
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        for (let i = 0; i < 5000; i++) {
+            vertices.push(THREE.MathUtils.randFloatSpread(2000));
+            vertices.push(THREE.MathUtils.randFloatSpread(2000));
+            vertices.push(THREE.MathUtils.randFloatSpread(2000));
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        const material = new THREE.PointsMaterial({ color: 0x888888, size: 3 });
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        camera.position.z = 1000;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            points.rotation.x += 0.0005;
+            points.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animations
+        gsap.from("header", { opacity: 0, y: -50, duration: 1 });
+        gsap.from("nav", { opacity: 0, y: -20, duration: 1, delay: 0.5 });
+        gsap.from("main section", { opacity: 0, y: 50, duration: 1, stagger: 0.2, delay: 1 });
+
+        // Skills Radar Chart
+        const ctx = document.getElementById('skillsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Excel', 'Python', 'SQL', 'Tableau', 'Looker', 'ETL', 'Data Visualization', 'Statistical Analysis', 'Machine Learning'],
+                datasets: [{
+                    label: 'Skill Level',
+                    data: [90, 85, 80, 85, 75, 80, 90, 85, 70],
+                    backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    pointBackgroundColor: 'rgba(52, 152, 219, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(52, 152, 219, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: false
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+
+        // Project filtering
+        const projectSelect = document.getElementById('project-select');
+        const projects = document.querySelectorAll('.project');
+
+        projectSelect.addEventListener('change', function() {
+            const selectedCategory = this.value;
+            projects.forEach(project => {
+                if (selectedCategory === 'all' || project.dataset.category.includes(selectedCategory)) {
+                    project.style.display = 'block';
+                } else {
+                    project.style.display = 'none';
+                }
+            });
+        });
+
+        // Lazy loading for project cards
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        projects.forEach(project => {
+            observer.observe(project);
+        });
+
+        // Resize event listener for responsive canvas
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

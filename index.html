@@ -62,12 +62,14 @@
             margin-bottom: 1.2rem;
             position: relative;
             z-index: 1;
+            opacity: 0;
         }
 
         header p {
             font-size: 1.5rem;
             position: relative;
             z-index: 1;
+            opacity: 0;
         }
 
         header::after {
@@ -85,6 +87,7 @@
         nav {
             background-color: var(--secondary-color);
             padding: 1rem;
+            opacity: 0;
         }
 
         nav ul {
@@ -118,6 +121,7 @@
         section {
             margin-bottom: 3rem;
             text-align: center;
+            opacity: 0;
         }
 
         h2 {
@@ -343,11 +347,28 @@
                 width: 50px;
             }
         }
+
+        #full-screen-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #full-screen-animation.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <div id="canvas-container" aria-hidden="true"></div>
+    <div id="full-screen-animation"></div>
     <header>
         <div class="container">
             <h1>Tobin Zolkowski</h1>
@@ -520,9 +541,11 @@
         });
 
         // Animated background with Vanta.js
-        var setVanta = () => {
-            if (window.VANTA) window.VANTA.NET({
-                el: "header",
+        var vantaEffect;
+        var setVanta = (el) => {
+            if (vantaEffect) vantaEffect.destroy();
+            vantaEffect = window.VANTA.NET({
+                el: el,
                 mouseControls: true,
                 touchControls: true,
                 gyroControls: false,
@@ -539,7 +562,19 @@
                 threejs: window.THREE
             })
         }
-        setVanta();
+
+        // Initial full screen animation
+        setVanta('#full-screen-animation');
+
+        setTimeout(() => {
+            gsap.to('#full-screen-animation', { opacity: 0, duration: 1, onComplete: () => {
+                document.getElementById('full-screen-animation').classList.add('hidden');
+                setVanta('header');
+                gsap.to('nav', { opacity: 1, duration: 1 });
+                gsap.to('header h1, header p', { opacity: 1, y: 0, duration: 1 });
+                gsap.to('section', { opacity: 1, y: 0, duration: 1, stagger: 0.2 });
+            }});
+        }, 3000); // Change this value to control the duration of the full screen animation
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -552,7 +587,6 @@
         });
 
         // Animations
-        gsap.from("header", { opacity: 0, y: -50, duration: 1 });
         gsap.from("nav", { opacity: 0, y: -20, duration: 1, delay: 0.5 });
         gsap.from(".page.active section", { opacity: 0, y: 50, duration: 1, stagger: 0.2, delay: 1 });
 
@@ -590,7 +624,7 @@
 
         // Resize event listener for responsive canvas
         window.addEventListener('resize', () => {
-            setVanta();
+            setVanta('header');
         });
     </script>
 </body>

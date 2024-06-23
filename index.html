@@ -10,11 +10,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
+            --primary-color: #1e2a38;
+            --secondary-color: #2874a6;
+            --accent-color: #c0392b;
             --text-color: #333;
-            --background-color: #ecf0f1;
+            --background-color: #f4f6f7;
             --card-background: #fff;
             --font-family-base: 'Roboto', sans-serif;
             --font-family-title: 'Playfair Display', serif;
@@ -36,14 +36,14 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 2rem;
         }
 
         header {
             background-color: var(--primary-color);
             color: #ecf0f1;
             text-align: center;
-            padding: 4rem 0;
+            padding: 6rem 0;
             position: relative;
             overflow: hidden;
         }
@@ -98,13 +98,18 @@
             color: var(--accent-color);
         }
 
-        main {
-            margin: 2rem auto;
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
             animation: fadeIn 1s ease-out;
         }
 
         section {
             margin-bottom: 3rem;
+            text-align: center;
         }
 
         h2 {
@@ -127,26 +132,26 @@
             animation: expand 0.5s ease-out forwards;
         }
 
-        .about-container {
+        .about-container, .skills-container, .project-grid {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 2rem;
             flex-wrap: wrap;
+            gap: 2rem;
         }
 
-        .about-text {
+        .about-text, .skill, .project {
             flex: 1;
             min-width: 280px;
             text-align: center;
         }
 
-        .about-text p {
+        .about-text p, .skill p, .project p {
             margin-bottom: 1rem;
             font-size: 1.1rem;
         }
 
-        .about-quotes {
+        .about-quotes, .skill, .project {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -161,84 +166,29 @@
             text-align: center;
         }
 
-        .about-quote::before {
-            content: "“";
+        .about-quote::before, .about-quote::after {
             font-size: 2rem;
             color: var(--accent-color);
-        }
-
-        .about-quote::after {
-            content: "”";
-            font-size: 2rem;
-            color: var(--accent-color);
-        }
-
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            padding: 0 1rem;
-        }
-
-        .skill {
-            background-color: var(--card-background);
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            flex: 1 1 250px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 0.5s forwards;
-        }
-
-        .skill:hover, .skill:focus-within {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .skill h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-            color: var(--accent-color);
-        }
-
-        .skill p {
-            margin: 0;
-            font-size: 1rem;
         }
 
         .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
             padding: 0 1rem;
-            animation: fadeInUp 1s ease-out;
         }
 
-        .project {
+        .skill, .project {
             background-color: var(--card-background);
             border-radius: 10px;
             padding: 1.5rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center;
             opacity: 0;
             transform: translateY(50px);
             animation: fadeInUp 0.5s forwards;
         }
 
-        .project:hover, .project:focus-within {
+        .skill:hover, .skill:focus-within, .project:hover, .project:focus-within {
             transform: translateY(-5px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .project h3 {
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-            color: var(--secondary-color);
         }
 
         #contact-info {
@@ -265,16 +215,6 @@
         #contact-info a:hover {
             color: var(--accent-color);
             transform: scale(1.1);
-        }
-
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.1;
         }
 
         .contact-form {
@@ -308,11 +248,7 @@
         }
 
         @media (max-width: 768px) {
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .about-container {
+            .about-container, .skills-container, .project-grid {
                 flex-direction: column;
                 text-align: center;
             }
@@ -402,15 +338,19 @@
     <nav>
         <div class="container">
             <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about" data-page="about">About</a></li>
+                <li><a href="#skills" data-page="skills">Skills</a></li>
+                <li><a href="#projects" data-page="projects">Projects</a></li>
+                <li><a href="#contact" data-page="contact">Contact</a></li>
             </ul>
         </div>
     </nav>
     <main id="main-content" class="container">
-        <section id="about">
+        <section id="welcome" class="page active">
+            <h2>Welcome to My Portfolio</h2>
+            <p>Explore my work and skills in data analysis, visualization, and machine learning.</p>
+        </section>
+        <section id="about" class="page">
             <h2>About Me</h2>
             <div class="about-container">
                 <div class="about-text">
@@ -430,7 +370,7 @@
                 </div>
             </div>
         </section>
-        <section id="skills">
+        <section id="skills" class="page">
             <h2>Skills</h2>
             <div class="skills-container">
                 <div class="skill">
@@ -455,7 +395,7 @@
                 </div>
             </div>
         </section>
-        <section id="projects">
+        <section id="projects" class="page">
             <h2>Projects</h2>
             <div id="project-filter">
                 <label for="project-select">Filter projects:</label>
@@ -510,7 +450,7 @@
                 </div>
             </div>
         </section>
-        <section id="contact">
+        <section id="contact" class="page">
             <h2>Interested in collaborating? Contact me!</h2>
             <form class="contact-form">
                 <label for="name" class="visually-hidden">Your Name</label>
@@ -531,7 +471,22 @@
         </section>
     </main>
     <script>
-        // Animated background
+        // Page navigation
+        const links = document.querySelectorAll('nav a');
+        const pages = document.querySelectorAll('.page');
+
+        links.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.getElementById(pageId).classList.add('active');
+            });
+        });
+
+        // Animated background with Three.js
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer();
@@ -539,7 +494,7 @@
         document.getElementById('canvas-container').appendChild(renderer.domElement);
 
         const geometry = new THREE.SphereGeometry(50, 32, 32);
-        const material = new THREE.MeshBasicMaterial({ color: 0x3498db, wireframe: true });
+        const material = new THREE.MeshBasicMaterial({ color: 0x2874a6, wireframe: true });
         const sphere = new THREE.Mesh(geometry, material);
         scene.add(sphere);
 
@@ -566,7 +521,7 @@
         // Animations
         gsap.from("header", { opacity: 0, y: -50, duration: 1 });
         gsap.from("nav", { opacity: 0, y: -20, duration: 1, delay: 0.5 });
-        gsap.from("main section", { opacity: 0, y: 50, duration: 1, stagger: 0.2, delay: 1 });
+        gsap.from(".page.active section", { opacity: 0, y: 50, duration: 1, stagger: 0.2, delay: 1 });
 
         // Project filtering
         const projectSelect = document.getElementById('project-select');

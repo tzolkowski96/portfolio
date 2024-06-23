@@ -5,19 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Tobin Zolkowski - Data Analyst Portfolio showcasing projects in data analysis, visualization, and machine learning">
     <title>Tobin Zolkowski - Data Analyst Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Calendas+Plus:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root {
             --primary-color: #1e2a38;
-            --secondary-color: #2874a6;
-            --accent-color: #c0392b;
+            --secondary-color: #A1C9D7;
+            --accent-color: #F49586;
             --text-color: #333;
-            --background-color: #f4f6f7;
+            --background-color: #A1C9D7;
             --card-background: #fff;
-            --font-family-base: 'Roboto', sans-serif;
-            --font-family-title: 'Playfair Display', serif;
+            --font-family-base: 'Montserrat', sans-serif;
+            --font-family-title: 'Calendas Plus', serif;
+            --header-font-color: #F0E4CE;
+            --highlight-color: #F49586;
+            --quote-color: #F0E4CE;
         }
 
         * {
@@ -40,8 +43,8 @@
         }
 
         header {
-            background-color: var(--primary-color);
-            color: #ecf0f1;
+            background-color: var(--secondary-color);
+            color: var(--header-font-color);
             text-align: center;
             padding: 6rem 0;
             position: relative;
@@ -54,12 +57,15 @@
             margin-bottom: 1rem;
             position: relative;
             z-index: 1;
+            display: inline-block;
+            width: fit-content;
         }
 
         header p {
             font-size: 1.2rem;
             position: relative;
             z-index: 1;
+            display: inline-block;
         }
 
         header::after {
@@ -75,7 +81,7 @@
         }
 
         nav {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-color);
             padding: 1rem;
         }
 
@@ -87,7 +93,7 @@
         }
 
         nav ul li a {
-            color: #ecf0f1;
+            color: var(--header-font-color);
             text-decoration: none;
             font-weight: bold;
             font-size: 1.1rem;
@@ -116,7 +122,7 @@
             margin-bottom: 1rem;
             font-family: var(--font-family-title);
             font-size: 2.5rem;
-            color: var(--primary-color);
+            color: var(--text-color);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -162,7 +168,7 @@
         .about-quote {
             font-family: var(--font-family-title);
             font-size: 1.5rem;
-            color: var(--secondary-color);
+            color: var(--quote-color);
             text-align: center;
         }
 
@@ -193,8 +199,8 @@
 
         #contact-info {
             text-align: center;
-            background-color: var(--secondary-color);
-            color: #ecf0f1;
+            background-color: var(--primary-color);
+            color: var(--header-font-color);
             padding: 2rem 0;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -206,7 +212,7 @@
         }
 
         #contact-info a {
-            color: #ecf0f1;
+            color: var(--header-font-color);
             text-decoration: none;
             font-weight: bold;
             transition: color 0.3s ease, transform 0.3s ease;
@@ -237,7 +243,7 @@
             border: none;
             border-radius: 5px;
             background-color: var(--primary-color);
-            color: #ecf0f1;
+            color: var(--header-font-color);
             font-size: 1.1rem;
             cursor: pointer;
             transition: background-color 0.3s ease;
@@ -331,13 +337,14 @@
     <div id="canvas-container" aria-hidden="true"></div>
     <header>
         <div class="container">
-            <h1>Tobin Zolkowski</h1>
+            <h1 style="width: fit-content; display: inline-block;">Tobin Zolkowski</h1>
             <p>Data Analyst | Problem Solver | Innovator</p>
         </div>
     </header>
     <nav>
         <div class="container">
             <ul>
+                <li><a href="#home" data-page="home">Home</a></li>
                 <li><a href="#about" data-page="about">About</a></li>
                 <li><a href="#skills" data-page="skills">Skills</a></li>
                 <li><a href="#projects" data-page="projects">Projects</a></li>
@@ -346,9 +353,9 @@
         </div>
     </nav>
     <main id="main-content" class="container">
-        <section id="welcome" class="page active">
-            <h2>Welcome to My Portfolio</h2>
-            <p>Explore my work and skills in data analysis, visualization, and machine learning.</p>
+        <section id="home" class="page active">
+            <h2 style="color: #000;">Welcome to My Portfolio</h2>
+            <p style="color: #000;">Explore my work and skills in data analysis, visualization, and machine learning.</p>
         </section>
         <section id="about" class="page">
             <h2>About Me</h2>
@@ -451,7 +458,7 @@
             </div>
         </section>
         <section id="contact" class="page">
-            <h2>Interested in collaborating? Contact me!</h2>
+            <h2>Interested in collaborating?<br>Contact me!</h2>
             <form class="contact-form" id="contact-form">
                 <label for="name" class="visually-hidden">Your Name</label>
                 <input type="text" id="name" name="name" placeholder="Your Name" required aria-required="true">

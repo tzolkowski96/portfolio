@@ -51,22 +51,22 @@
             background-color: var(--primary-color);
             color: var(--header-font-color);
             text-align: center;
-            padding: 6rem 0;
+            padding: 4rem 0;
             position: relative;
             overflow: hidden;
         }
 
         header h1 {
             font-family: var(--font-family-title);
-            font-size: 4rem;
-            margin-bottom: 1.2rem;
+            font-size: 3rem;
+            margin-bottom: 1rem;
             position: relative;
             z-index: 1;
             opacity: 0;
         }
 
         header p {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             position: relative;
             z-index: 1;
             opacity: 0;
@@ -164,11 +164,11 @@
             line-height: 1.6;
         }
 
-        .about-quotes, .skill, .project {
+        .about-quotes {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
@@ -177,12 +177,9 @@
             font-size: 1.5rem;
             color: var(--quote-color);
             text-align: center;
-            animation: fadeInQuote 2s ease-in-out infinite alternate;
-        }
-
-        .about-quote::before, .about-quote::after {
-            font-size: 2rem;
-            color: var(--accent-color);
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
         }
 
         .project-grid {
@@ -366,17 +363,6 @@
             }
         }
 
-        @keyframes fadeInQuote {
-            from {
-                opacity: 0.7;
-                transform: translateY(0);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(-10px);
-            }
-        }
-
         #full-screen-animation {
             position: fixed;
             top: 0;
@@ -458,8 +444,7 @@
     <main id="main-content" class="container">
         <section id="home" class="page active">
             <h2>Welcome to My Portfolio</h2>
-            <p>Explore my work and skills in data analysis, visualization, and machine learning.</p>
-            <p>I am passionate about turning data into actionable insights and driving strategic growth through data-driven decision making.</p>
+            <p>Explore my work and skills in data analysis, visualization, and machine learning. I am passionate about turning data into actionable insights and driving strategic growth through data-driven decision-making.</p>
         </section>
         <section id="about" class="page">
             <h2>About Me</h2>
@@ -498,6 +483,10 @@
                         <div class="skill-item">
                             <i class="fa-solid fa-code"></i>
                             <span>R (Basic)</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fa-solid fa-code"></i>
+                            <span>HTML (Basic)</span>
                         </div>
                     </div>
                 </div>
@@ -688,11 +677,10 @@
                 document.getElementById('full-screen-animation').classList.add('hidden');
                 setVanta('header');
                 gsap.to('nav', { opacity: 1, duration: 1 });
-                gsap.fromTo('header h1', { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 1.5, ease: "bounce.out" });
-                gsap.fromTo('header p', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1.5, delay: 0.5, ease: "power4.out" });
+                gsap.fromTo('header h1, header p', { opacity: 0 }, { opacity: 1, duration: 1.5, ease: "power4.out" });
                 gsap.to('section', { opacity: 1, y: 0, duration: 1, stagger: 0.2 });
             }});
-        }, 1500); // Reduced the duration of the full screen animation
+        }, 1500);
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

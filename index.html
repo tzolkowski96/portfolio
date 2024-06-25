@@ -177,6 +177,7 @@
             font-size: 1.5rem;
             color: var(--quote-color);
             text-align: center;
+            animation: fadeInQuote 2s ease-in-out infinite alternate;
         }
 
         .about-quote::before, .about-quote::after {
@@ -360,6 +361,17 @@
             }
         }
 
+        @keyframes fadeInQuote {
+            from {
+                opacity: 0.7;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+        }
+
         #full-screen-animation {
             position: fixed;
             top: 0;
@@ -375,6 +387,46 @@
 
         #full-screen-animation.hidden {
             display: none;
+        }
+
+        .skill-category {
+            margin-bottom: 2rem;
+        }
+
+        .skill-category h3 {
+            font-family: var(--font-family-title);
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background-color: var(--card-background);
+            border-radius: 5px;
+            padding: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .skill-item:hover, .skill-item:focus-within {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-item i {
+            font-size: 1.5rem;
+            color: var(--highlight-color);
         }
     </style>
 </head>
@@ -402,6 +454,7 @@
         <section id="home" class="page active">
             <h2>Welcome to My Portfolio</h2>
             <p>Explore my work and skills in data analysis, visualization, and machine learning.</p>
+            <p>I am passionate about turning data into actionable insights and driving strategic growth through data-driven decision making.</p>
         </section>
         <section id="about" class="page">
             <h2>About Me</h2>
@@ -426,30 +479,76 @@
         <section id="skills" class="page">
             <h2>Skills</h2>
             <div class="skills-container">
-                <div class="skill">
+                <div class="skill-category">
                     <h3>Programming Languages</h3>
-                    <p><i class="fa-brands fa-python"></i> Python (Advanced)</p>
-                    <p><i class="fa-solid fa-database"></i> SQL (Advanced)</p>
-                    <p><i class="fa-solid fa-code"></i> R (Basic)</p>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <i class="fa-brands fa-python"></i>
+                            <span>Python (Advanced)</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fa-solid fa-database"></i>
+                            <span>SQL (Advanced)</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fa-solid fa-code"></i>
+                            <span>R (Basic)</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill">
+                <div class="skill-category">
                     <h3>Data Visualization</h3>
-                    <p><i class="fa-solid fa-chart-bar"></i> Tableau (Intermediate)</p>
-                    <p><i class="fa-solid fa-chart-pie"></i> Power BI (Basic)</p>
-                    <p><i class="fa-solid fa-chart-line"></i> Looker (Intermediate)</p>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <i class="fa-solid fa-chart-bar"></i>
+                            <span>Tableau (Intermediate)</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span>Power BI (Basic)</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span>Looker (Intermediate)</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill">
+                <div class="skill-category">
                     <h3>Data Processing</h3>
-                    <p><i class="fa-solid fa-file-excel"></i> Excel (Advanced)</p>
-                    <p>Extract, Transform, Load processes (Basic)</p>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <i class="fa-solid fa-file-excel"></i>
+                            <span>Excel (Advanced)</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Extract, Transform, Load processes (Basic)</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill">
+                <div class="skill-category">
                     <h3>Languages</h3>
-                    <p><i class="fa-solid fa-language"></i> English (Fluent)</p>
-                    <p><i class="fa-solid fa-language"></i> American Sign Language (Fluent)</p>
-                    <p><i class="fa-solid fa-language"></i> French (Conversational)</p>
-                    <p><i class="fa-solid fa-language"></i> Spanish (Conversational)</p>
-                    <p><i class="fa-solid fa-language"></i> Italian (Basic)</p>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <i class="fa-solid fa-language"></i>
+                            <span>English (Fluent)</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fa-solid fa-language"></i>
+                            <span>American Sign Language (Fluent)</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fa-solid fa-language"></i>
+                            <span>French (Conversational)</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fa-solid fa-language"></i>
+                            <span>Spanish (Conversational)</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fa-solid fa-language"></i>
+                            <span>Italian (Basic)</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -529,8 +628,8 @@
                 <button type="submit">Send Message</button>
             </form>
             <div id="contact-info">
-                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200" target="_blank" rel="noopener noreferrer">Tobin Zolkowski</a></p>
-                <p><strong>GitHub:</strong> <a href="https://github.com/tzolkowski96/tzolkowski96" target="_blank" rel="noopener noreferrer">tzolkowski96</a></p>
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i> Tobin Zolkowski</a></p>
+                <p><strong>GitHub:</strong> <a href="https://github.com/tzolkowski96/tzolkowski96" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> tzolkowski96</a></p>
             </div>
         </section>
     </main>

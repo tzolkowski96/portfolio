@@ -251,6 +251,14 @@
             font-size: 1.1rem;
         }
 
+        .contact-form input:invalid {
+            border-color: #e74c3c;
+        }
+
+        .contact-form input:valid {
+            border-color: #2ecc71;
+        }
+
         .contact-form button {
             padding: 0.75rem;
             border: none;
@@ -325,11 +333,8 @@
             font-weight: bold;
         }
 
-        #project-filter select {
-            padding: 0.5rem;
-            border-radius: 5px;
-            border: 1px solid var(--primary-color);
-            font-size: 1.1rem;
+        #project-filter input {
+            margin: 0 0.5rem;
         }
 
         @keyframes fadeIn {
@@ -556,13 +561,14 @@
             <h2>Projects</h2>
             <div id="project-filter">
                 <label for="project-select">Filter projects:</label>
-                <select id="project-select" aria-label="Project Filter">
-                    <option value="all">All Projects</option>
-                    <option value="data-analysis">Data Analysis</option>
-                    <option value="machine-learning">Machine Learning</option>
-                    <option value="visualization">Data Visualization</option>
-                    <option value="research">Research</option>
-                </select>
+                <div>
+                    <label><input type="checkbox" name="project-category" value="all" checked> All Projects</label>
+                    <label><input type="checkbox" name="project-category" value="data-analysis"> Data Analysis</label>
+                    <label><input type="checkbox" name="project-category" value="machine-learning"> Machine Learning</label>
+                    <label><input type="checkbox" name="project-category" value="visualization"> Data Visualization</label>
+                    <label><input type="checkbox" name="project-category" value="research"> Research</label>
+                    <label><input type="checkbox" name="project-category" value="data-management"> Data Management</label>
+                </div>
             </div>
             <div class="project-grid">
                 <div class="project" data-category="data-analysis visualization">
@@ -579,12 +585,12 @@
                     <p>Investigated increased cyber attacks on K-12 schools during COVID-19, identifying key threats and advocating for stronger data privacy legislation and security awareness.</p>
                     <p><a href="https://github.com/tzolkowski96/cyber-threats" target="_blank">View on GitHub</a></p>
                 </div>
-                <div class="project" data-category="data-analysis">
+                <div class="project" data-category="data-analysis data-management">
                     <h3>Student Disability Accommodation Database</h3>
                     <p>Developed a relational database to streamline accommodation coordination for students with disabilities, enabling comprehensive management of student-instructor assignments and service provider details.</p>
                     <p><a href="https://github.com/tzolkowski96/disability-accommodation" target="_blank">View on GitHub</a></p>
                 </div>
-                <div class="project" data-category="data-analysis">
+                <div class="project" data-category="data-analysis data-management">
                     <h3>Academic Information System Data Management</h3>
                     <p>Improved student academic performance by implementing a Distributed Decision Support Structure and establishing a data privacy framework.</p>
                 </div>
@@ -620,10 +626,10 @@
                 <input type="text" id="name" name="name" placeholder="Your Name" required aria-required="true">
                 
                 <label for="email" class="visually-hidden">Your Email</label>
-                <input type="email" id="email" name="email" placeholder="Your Email" required aria-required="true">
+                <input type="email" id="email" name="email" placeholder="Your Email" required aria-required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
                 
                 <label for="message" class="visually-hidden">Your Message</label>
-                <textarea id="message" name="message" placeholder="Your Message" required aria-required="true"></textarea>
+                <textarea id="message" name="message" placeholder="Your Message" required aria-required="true" minlength="10"></textarea>
                 
                 <button type="submit">Send Message</button>
             </form>
@@ -703,20 +709,23 @@
         gsap.from(".page.active section", { opacity: 0, y: 50, duration: 1, stagger: 0.2, delay: 1 });
 
         // Project filtering
-        const projectSelect = document.getElementById('project-select');
+        const projectCheckboxes = document.querySelectorAll('#project-filter input[name="project-category"]');
         const projects = document.querySelectorAll('.project');
 
-        projectSelect.addEventListener('change', function() {
-            const selectedCategory = this.value;
-            projects.forEach(project => {
-                if (selectedCategory === 'all' || project.dataset.category.includes(selectedCategory)) {
-                    project.style.display = 'block';
-                    project.classList.add('visible');
-                    gsap.from(project, { opacity: 0, duration: 0.5 });
-                } else {
-                    project.style.display = 'none';
-                    project.classList.remove('visible');
-                }
+        projectCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const selectedCategories = Array.from(projectCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+                projects.forEach(project => {
+                    const projectCategories = project.dataset.category.split(' ');
+                    if (selectedCategories.includes('all') || selectedCategories.some(cat => projectCategories.includes(cat))) {
+                        project.style.display = 'block';
+                        project.classList.add('visible');
+                        gsap.from(project, { opacity: 0, duration: 0.5 });
+                    } else {
+                        project.style.display = 'none';
+                        project.classList.remove('visible');
+                    }
+                });
             });
         });
 

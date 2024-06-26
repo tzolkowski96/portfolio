@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,14 +52,14 @@
             background-color: var(--primary-color);
             color: var(--header-font-color);
             text-align: center;
-            padding: 4rem 0;
+            padding: 6rem 0 4rem;
             position: relative;
             overflow: hidden;
         }
 
         header h1 {
             font-family: var(--font-family-title);
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
             position: relative;
             z-index: 1;
@@ -66,7 +67,7 @@
         }
 
         header p {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             position: relative;
             z-index: 1;
             opacity: 0;
@@ -79,7 +80,7 @@
             left: 50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
             transform: translateX(-50%);
             z-index: 0;
         }
@@ -101,11 +102,12 @@
             color: var(--header-font-color);
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             transition: color 0.3s ease;
         }
 
-        nav ul li a:hover, nav ul li a:focus {
+        nav ul li a:hover,
+        nav ul li a:focus {
             color: var(--accent-color);
         }
 
@@ -144,7 +146,9 @@
             animation: expand 0.5s ease-out forwards;
         }
 
-        .about-container, .skills-container, .project-grid {
+        .about-container,
+        .skills-container,
+        .project-grid {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -152,13 +156,17 @@
             gap: 2rem;
         }
 
-        .about-text, .skill, .project {
+        .about-text,
+        .skill,
+        .project {
             flex: 1;
             min-width: 280px;
             text-align: center;
         }
 
-        .about-text p, .skill p, .project p {
+        .about-text p,
+        .skill p,
+        .project p {
             margin-bottom: 1rem;
             font-size: 1.2rem;
             line-height: 1.6;
@@ -186,23 +194,28 @@
             padding: 0 1rem;
         }
 
-        .skill, .project {
+        .skill,
+        .project {
             background-color: var(--card-background);
             border-radius: 10px;
             padding: 1.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             opacity: 0;
             transform: translateY(50px);
             animation: fadeInUp 0.5s forwards;
         }
 
-        .skill:hover, .skill:focus-within, .project:hover, .project:focus-within {
+        .skill:hover,
+        .skill:focus-within,
+        .project:hover,
+        .project:focus-within {
             transform: translateY(-5px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
-        .skill:focus-within, .project:focus-within {
+        .skill:focus-within,
+        .project:focus-within {
             outline: 2px solid var(--accent-color);
         }
 
@@ -240,7 +253,8 @@
             max-width: 600px;
         }
 
-        .contact-form input, .contact-form textarea {
+        .contact-form input,
+        .contact-form textarea {
             width: 100%;
             padding: 0.75rem;
             border: 1px solid #ccc;
@@ -276,13 +290,15 @@
         }
 
         @media (max-width: 768px) {
-            .about-container, .skills-container, .project-grid {
+            .about-container,
+            .skills-container,
+            .project-grid {
                 flex-direction: column;
                 text-align: center;
             }
 
             header h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
 
             header p {
@@ -338,6 +354,7 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
@@ -348,6 +365,7 @@
                 opacity: 0;
                 transform: translateY(50px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -358,6 +376,7 @@
             from {
                 width: 0;
             }
+
             to {
                 width: 50px;
             }
@@ -410,7 +429,8 @@
             cursor: pointer;
         }
 
-        .skill-item:hover, .skill-item:focus-within {
+        .skill-item:hover,
+        .skill-item:focus-within {
             transform: translateY(-5px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
@@ -421,6 +441,7 @@
         }
     </style>
 </head>
+
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <div id="full-screen-animation"></div>
@@ -613,13 +634,13 @@
             <form class="contact-form" id="contact-form" action="https://formspree.io/f/myzggjel" method="POST">
                 <label for="name" class="visually-hidden">Your Name</label>
                 <input type="text" id="name" name="name" placeholder="Your Name" required aria-required="true">
-                
+
                 <label for="email" class="visually-hidden">Your Email</label>
                 <input type="email" id="email" name="email" placeholder="Your Email" required aria-required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-                
+
                 <label for="message" class="visually-hidden">Your Message</label>
                 <textarea id="message" name="message" placeholder="Your Message" required aria-required="true" minlength="10"></textarea>
-                
+
                 <button type="submit">Send Message</button>
             </form>
             <div id="contact-info">
@@ -634,7 +655,7 @@
         const pages = document.querySelectorAll('.page');
 
         links.forEach(link => {
-            link.addEventListener('click', function(event) {
+            link.addEventListener('click', function (event) {
                 event.preventDefault();
                 const pageId = link.getAttribute('data-page');
                 pages.forEach(page => {
@@ -679,7 +700,7 @@
                 gsap.to('nav', { opacity: 1, duration: 1 });
                 gsap.fromTo('header h1, header p', { opacity: 0 }, { opacity: 1, duration: 1.5, ease: "power4.out" });
                 gsap.to('section', { opacity: 1, y: 0, duration: 1, stagger: 0.2 });
-            }});
+            } });
         }, 1500);
 
         // Smooth scrolling
@@ -701,7 +722,7 @@
         const projects = document.querySelectorAll('.project');
 
         projectCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
+            checkbox.addEventListener('change', function () {
                 const selectedCategories = Array.from(projectCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
                 projects.forEach(project => {
                     const projectCategories = project.dataset.category.split(' ');
@@ -738,4 +759,5 @@
         });
     </script>
 </body>
+
 </html>

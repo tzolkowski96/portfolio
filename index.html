@@ -382,6 +382,16 @@
             }
         }
 
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
         #full-screen-animation {
             position: fixed;
             top: 0;
@@ -571,7 +581,7 @@
             <h2>Projects</h2>
             <div id="project-filter">
                 <label for="project-select">Filter projects:</label>
-                <div>
+                <div class="filter-options">
                     <label><input type="checkbox" name="project-category" value="all" checked> All Projects</label>
                     <label><input type="checkbox" name="project-category" value="data-analysis"> Data Analysis</label>
                     <label><input type="checkbox" name="project-category" value="machine-learning"> Machine Learning</label>
@@ -727,12 +737,9 @@
                 projects.forEach(project => {
                     const projectCategories = project.dataset.category.split(' ');
                     if (selectedCategories.includes('all') || selectedCategories.some(cat => projectCategories.includes(cat))) {
-                        project.style.display = 'block';
-                        project.classList.add('visible');
-                        gsap.from(project, { opacity: 0, duration: 0.5 });
+                        gsap.to(project, { opacity: 1, duration: 0.5, display: 'block' });
                     } else {
-                        project.style.display = 'none';
-                        project.classList.remove('visible');
+                        gsap.to(project, { opacity: 0, duration: 0.5, onComplete: () => project.style.display = 'none' });
                     }
                 });
             });

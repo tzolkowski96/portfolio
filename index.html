@@ -27,6 +27,7 @@
             --highlight-color: #F8B400;
             --quote-color: #333;
             --button-hover-color: #F8B400;
+            --error-color: #e74c3c;
         }
 
         * {
@@ -188,6 +189,11 @@
             border-left: 4px solid var(--accent-color);
             padding-left: 1rem;
             margin: 1rem 0;
+            transition: transform 0.3s ease;
+        }
+
+        .about-quote:hover {
+            transform: scale(1.05);
         }
 
         .project-grid {
@@ -204,6 +210,7 @@
             opacity: 0;
             transform: translateY(50px);
             animation: fadeInUp 0.5s forwards;
+            cursor: grab;
         }
 
         .skill:hover,
@@ -262,11 +269,13 @@
             font-size: 1.1rem;
         }
 
-        .contact-form input:invalid {
-            border-color: #e74c3c;
+        .contact-form input:invalid,
+        .contact-form textarea:invalid {
+            border-color: var(--error-color);
         }
 
-        .contact-form input:valid {
+        .contact-form input:valid,
+        .contact-form textarea:valid {
             border-color: #2ecc71;
         }
 
@@ -278,7 +287,7 @@
             color: var(--header-font-color);
             font-size: 1.1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .contact-form button:hover {
@@ -289,12 +298,43 @@
             outline: 2px solid var(--accent-color);
         }
 
+        .contact-form button.shake {
+            animation: shake 0.5s;
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.9rem;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-5px);
+            }
+            50% {
+                transform: translateX(5px);
+            }
+            75% {
+                transform: translateX(-5px);
+            }
+        }
+
         @media (max-width: 768px) {
             .about-container,
             .skills-container,
             .project-grid {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            header {
+                padding: 4rem 0 3rem;
             }
 
             header h1 {
@@ -348,6 +388,33 @@
 
         #project-filter input {
             margin: 0 0.5rem;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--primary-color);
+            border-radius: 3px;
+            position: relative;
+            top: 4px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #project-filter input:checked {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        #project-filter input:checked::after {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            background-color: #fff;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            border-radius: 1px;
         }
 
         @keyframes fadeIn {
@@ -461,7 +528,7 @@
             <p>Data Guy | Solution Finder | Lifelong Learner</p>
         </div>
     </header>
-    <nav>
+    <nav role="navigation">
         <div class="container">
             <ul>
                 <li><a href="#home" data-page="home">Home</a></li>
@@ -519,6 +586,10 @@
                             <i class="fa-solid fa-code"></i>
                             <span>HTML (Basic)</span>
                         </div>
+                        <div class="skill-item">
+                            <i class="fa-solid fa-code"></i>
+                            <span>JSON (Intermediate)</span>
+                        </div>
                     </div>
                 </div>
                 <div class="skill-category">
@@ -546,7 +617,24 @@
                             <span>Excel (Advanced)</span>
                         </div>
                         <div class="skill-item">
+                            <i class="fa-solid fa-database"></i>
+                            <span>Microsoft Access (Intermediate)</span>
+                        </div>
+                        <div class="skill-item">
                             <span>Extract, Transform, Load processes (Basic)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Version Control</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <i class="fa-brands fa-git"></i>
+                            <span>Git (Intermediate)</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fa-brands fa-github"></i>
+                            <span>GitHub (Intermediate)</span>
                         </div>
                     </div>
                 </div>
@@ -641,15 +729,18 @@
         </section>
         <section id="contact" class="page">
             <h2>Interested in collaborating?<br>Contact me!</h2>
-            <form class="contact-form" id="contact-form" action="https://formspree.io/f/myzggjel" method="POST">
+            <form class="contact-form" id="contact-form" action="https://formspree.io/f/myzggjel" method="POST" novalidate>
                 <label for="name" class="visually-hidden">Your Name</label>
                 <input type="text" id="name" name="name" placeholder="Your Name" required aria-required="true">
+                <div id="name-error" class="error-message">Name is required.</div>
 
                 <label for="email" class="visually-hidden">Your Email</label>
                 <input type="email" id="email" name="email" placeholder="Your Email" required aria-required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                <div id="email-error" class="error-message">A valid email is required.</div>
 
                 <label for="message" class="visually-hidden">Your Message</label>
                 <textarea id="message" name="message" placeholder="Your Message" required aria-required="true" minlength="10"></textarea>
+                <div id="message-error" class="error-message">Message must be at least 10 characters long.</div>
 
                 <button type="submit">Send Message</button>
             </form>
@@ -733,6 +824,15 @@
 
         projectCheckboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function () {
+                if (checkbox.value === 'all' && checkbox.checked) {
+                    projectCheckboxes.forEach(cb => {
+                        if (cb !== checkbox) {
+                            cb.checked = false;
+                        }
+                    });
+                } else {
+                    document.querySelector('#project-filter input[name="project-category"][value="all"]').checked = false;
+                }
                 const selectedCategories = Array.from(projectCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
                 projects.forEach(project => {
                     const projectCategories = project.dataset.category.split(' ');
@@ -763,6 +863,98 @@
         // Resize event listener for responsive canvas
         window.addEventListener('resize', () => {
             setVanta('header');
+        });
+
+        // Drag and drop functionality for project cards
+        projects.forEach(project => {
+            project.addEventListener('dragstart', () => {
+                project.classList.add('dragging');
+            });
+
+            project.addEventListener('dragend', () => {
+                project.classList.remove('dragging');
+            });
+        });
+
+        document.querySelector('.project-grid').addEventListener('dragover', (e) => {
+            e.preventDefault();
+            const afterElement = getDragAfterElement(e.clientY);
+            const draggable = document.querySelector('.dragging');
+            if (afterElement == null) {
+                e.currentTarget.appendChild(draggable);
+            } else {
+                e.currentTarget.insertBefore(draggable, afterElement);
+            }
+        });
+
+        function getDragAfterElement(y) {
+            const draggableElements = [...document.querySelectorAll('.project-grid .project:not(.dragging)')];
+
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        // Form validation with animation and error messages
+        const form = document.getElementById('contact-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        const nameError = document.getElementById('name-error');
+        const emailError = document.getElementById('email-error');
+        const messageError = document.getElementById('message-error');
+        const sendButton = form.querySelector('button[type="submit"]');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            let valid = true;
+
+            if (!nameInput.value) {
+                nameError.style.display = 'block';
+                valid = false;
+            } else {
+                nameError.style.display = 'none';
+            }
+
+            if (!emailInput.value || !emailInput.validity.valid) {
+                emailError.style.display = 'block';
+                valid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            if (!messageInput.value || messageInput.value.length < 10) {
+                messageError.style.display = 'block';
+                valid = false;
+            } else {
+                messageError.style.display = 'none';
+            }
+
+            if (valid) {
+                form.submit();
+            } else {
+                sendButton.classList.add('shake');
+                setTimeout(() => sendButton.classList.remove('shake'), 500);
+            }
+        });
+
+        // Animating send button on mouse move
+        sendButton.addEventListener('mousemove', function (e) {
+            const rect = sendButton.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            sendButton.style.transform = `translate(${x * 0.05}px, ${y * 0.05}px)`;
+        });
+
+        sendButton.addEventListener('mouseleave', function () {
+            sendButton.style.transform = 'translate(0, 0)';
         });
     </script>
 </body>

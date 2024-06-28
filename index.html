@@ -9,7 +9,6 @@
     <meta name="author" content="Tobin Zolkowski">
     <title>Tobin Zolkowski - Data Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Calendas+Plus:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
@@ -300,6 +299,7 @@
 
         .contact-form button.shake {
             animation: shake 0.5s;
+            background-color: var(--error-color);
         }
 
         .error-message {
@@ -501,9 +501,10 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
             cursor: pointer;
+            width: 120px;
         }
 
         .skill-item:hover,
@@ -512,9 +513,22 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
-        .skill-item i {
-            font-size: 1.5rem;
-            color: var(--highlight-color);
+        .skill-item img {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-item span {
+            display: block;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .skill-level {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #777;
         }
     </style>
 </head>
@@ -586,24 +600,29 @@
                     <h3>Programming Languages</h3>
                     <div class="skill-list">
                         <div class="skill-item">
-                            <i class="fa-brands fa-python"></i>
-                            <span>Python (Advanced)</span>
+                            <img src="https://img.icons8.com/color/48/python--v1.png" alt="python--v1"/>
+                            <span>Python</span>
+                            <div class="skill-level">Advanced</div>
                         </div>
                         <div class="skill-item">
-                            <i class="fa-solid fa-database"></i>
-                            <span>SQL (Advanced)</span>
+                            <img src="https://img.icons8.com/external-flat-juicy-fish/60/external-sql-coding-and-development-flat-flat-juicy-fish.png" alt="external-sql-coding-and-development-flat-flat-juicy-fish"/>
+                            <span>SQL</span>
+                            <div class="skill-level">Advanced</div>
                         </div>
                         <div class="skill-item">
-                            <i class="fa-solid fa-code"></i>
-                            <span>R (Basic)</span>
+                            <img src="https://img.icons8.com/fluency/48/rstudio.png" alt="rstudio"/>
+                            <span>R</span>
+                            <div class="skill-level">Basic</div>
                         </div>
                         <div class="skill-item">
-                            <i class="fa-solid fa-code"></i>
-                            <span>HTML (Basic)</span>
+                            <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="html-5--v1"/>
+                            <span>HTML</span>
+                            <div class="skill-level">Basic</div>
                         </div>
                         <div class="skill-item">
-                            <i class="fa-solid fa-code"></i>
-                            <span>JSON (Intermediate)</span>
+                            <img src="https://img.icons8.com/glyph-neue/64/json.png" alt="json"/>
+                            <span>JSON</span>
+                            <div class="skill-level">Intermediate</div>
                         </div>
                     </div>
                 </div>
@@ -611,16 +630,19 @@
                     <h3>Data Visualization</h3>
                     <div class="skill-list">
                         <div class="skill-item">
-                            <i class="fa-solid fa-chart-bar"></i>
-                            <span>Tableau (Intermediate)</span>
+                            <img src="https://img.icons8.com/color/48/tableau-software.png" alt="tableau-software"/>
+                            <span>Tableau</span>
+                            <div class="skill-level">Intermediate</div>
                         </div>
                         <div class="skill-item">
-                            <i class="fa-solid fa-chart-pie"></i>
-                            <span>Power BI (Basic)</span>
+                            <img src="https://img.icons8.com/color/48/power-bi.png" alt="power-bi"/>
+                            <span>Power BI</span>
+                            <div class="skill-level">Basic</div>
                         </div>
                         <div class="skill-item">
-                            <i class="fa-solid fa-chart-line"></i>
-                            <span>Looker (Intermediate)</span>
+                            <img src="https://img.icons8.com/color/48/google-looker.png" alt="google-looker"/>
+                            <span>Looker</span>
+                            <div class="skill-level">Intermediate</div>
                         </div>
                     </div>
                 </div>
@@ -628,15 +650,24 @@
                     <h3>Data Processing</h3>
                     <div class="skill-list">
                         <div class="skill-item">
-                            <i class="fa-solid fa-file-excel"></i>
-                            <span>Excel (Advanced)</span>
+                            <img src="https://img.icons8.com/color/48/ms-excel.png" alt="ms-excel"/>
+                            <span>Excel</span>
+                            <div class="skill-level">Advanced</div>
                         </div>
                         <div class="skill-item">
-                            <i class="fa-solid fa-database"></i>
-                            <span>Microsoft Access (Intermediate)</span>
+                            <img src="https://img.icons8.com/color/48/ms-access.png" alt="ms-access"/>
+                            <span>Microsoft Access</span>
+                            <div class="skill-level">Intermediate</div>
                         </div>
                         <div class="skill-item">
-                            <span>Extract, Transform, Load processes (Basic)</span>
+                            <img src="https://img.icons8.com/ios/50/data-in-both-directions.png" alt="data-in-both-directions"/>
+                            <span>ETL Processes</span>
+                            <div class="skill-level">Basic</div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://img.icons8.com/fluency/48/microsoft-power-automate-2020.png" alt="microsoft-power-automate-2020"/>
+                            <span>Power Automate</span>
+                            <div class="skill-level">Intermediate</div>
                         </div>
                     </div>
                 </div>
@@ -644,12 +675,14 @@
                     <h3>Version Control</h3>
                     <div class="skill-list">
                         <div class="skill-item">
-                            <i class="fa-brands fa-git"></i>
-                            <span>Git (Intermediate)</span>
+                            <img src="https://img.icons8.com/color/48/git.png" alt="git"/>
+                            <span>Git</span>
+                            <div class="skill-level">Intermediate</div>
                         </div>
                         <div class="skill-item">
-                            <i class="fa-brands fa-github"></i>
-                            <span>GitHub (Intermediate)</span>
+                            <img src="https://img.icons8.com/glyph-neue/64/github.png" alt="github"/>
+                            <span>GitHub</span>
+                            <div class="skill-level">Intermediate</div>
                         </div>
                     </div>
                 </div>
@@ -657,24 +690,29 @@
                     <h3>Languages</h3>
                     <div class="skill-list">
                         <div class="skill-item">
-                            <i class="fa-solid fa-language"></i>
-                            <span>English (Fluent)</span>
+                            <img src="https://img.icons8.com/color/48/usa.png" alt="usa"/>
+                            <span>English</span>
+                            <div class="skill-level">Fluent</div>
                         </div>
                         <div class="skill-item">
-                            <i class="fa-solid fa-language"></i>
-                            <span>American Sign Language (Fluent)</span>
+                            <img src="https://img.icons8.com/ios/50/sign-language-interpretation.png" alt="sign-language-interpretation"/>
+                            <span>American Sign Language</span>
+                            <div class="skill-level">Fluent</div>
                         </div>
                         <div class="skill-item">
-                            <i class="fa-solid fa-language"></i>
-                            <span>French (Conversational)</span>
+                            <img src="https://img.icons8.com/color/48/france.png" alt="france"/>
+                            <span>French</span>
+                            <div class="skill-level">Conversational</div>
                         </div>
                         <div class="skill-item">
-                            <i class="fa-solid fa-language"></i>
-                            <span>Spanish (Conversational)</span>
+                            <img src="https://img.icons8.com/color/48/spain.png" alt="spain"/>
+                            <span>Spanish</span>
+                            <div class="skill-level">Conversational</div>
                         </div>
                         <div class="skill-item">
-                            <i class="fa-solid fa-language"></i>
-                            <span>Italian (Basic)</span>
+                            <img src="https://img.icons8.com/color/48/italy.png" alt="italy"/>
+                            <span>Italian</span>
+                            <div class="skill-level">Basic</div>
                         </div>
                     </div>
                 </div>
@@ -694,48 +732,48 @@
                 </div>
             </div>
             <div class="project-grid">
-                <div class="project" data-category="data-analysis visualization">
+                <div class="project" data-category="data-analysis visualization" draggable="true">
                     <h3>Global Population Growth Analysis</h3>
                     <p>Used Tableau and Python to analyze the impact of population growth on countries' ecological and resource sustainability. Highlighted need for female empowerment and equitable resource distribution.</p>
                 </div>
-                <div class="project" data-category="machine-learning">
+                <div class="project" data-category="machine-learning" draggable="true">
                     <h3>Data Mining for Continuing Education Interests</h3>
                     <p>Built machine learning models with Python to predict students' interest in continuing education. Improved model accuracy by 12% with hyperparameter tuning.</p>
                     <p><a href="https://github.com/tzolkowski96/education-interest" target="_blank">View on GitHub</a></p>
                 </div>
-                <div class="project" data-category="research">
+                <div class="project" data-category="research" draggable="true">
                     <h3>Cyber Threats in K-12 Schools During COVID-19</h3>
                     <p>Investigated increased cyber attacks on K-12 schools during COVID-19, identifying key threats and advocating for stronger data privacy legislation and security awareness.</p>
                     <p><a href="https://github.com/tzolkowski96/cyber-threats" target="_blank">View on GitHub</a></p>
                 </div>
-                <div class="project" data-category="data-analysis data-management">
+                <div class="project" data-category="data-analysis data-management" draggable="true">
                     <h3>Student Disability Accommodation Database</h3>
                     <p>Developed a relational database to streamline accommodation coordination for students with disabilities, enabling comprehensive management of student-instructor assignments and service provider details.</p>
                     <p><a href="https://github.com/tzolkowski96/disability-accommodation" target="_blank">View on GitHub</a></p>
                 </div>
-                <div class="project" data-category="data-analysis data-management">
+                <div class="project" data-category="data-analysis data-management" draggable="true">
                     <h3>Academic Information System Data Management</h3>
                     <p>Improved student academic performance by implementing a Distributed Decision Support Structure and establishing a data privacy framework.</p>
                 </div>
-                <div class="project" data-category="data-analysis">
+                <div class="project" data-category="data-analysis" draggable="true">
                     <h3>Nutritional Data Statistical Analysis</h3>
                     <p>Performed statistical hypothesis testing on nutritional data to promote public health through nutritional awareness.</p>
                     <p><a href="https://github.com/tzolkowski96/nutritional-analysis" target="_blank">View on GitHub</a></p>
                 </div>
-                <div class="project" data-category="research">
+                <div class="project" data-category="research" draggable="true">
                     <h3>Ethical Dilemmas of Data Manipulation Study</h3>
                     <p>Investigated ethical issues in data manipulation and developed a plan for ethical data usage, using the Confidentiality, Integrity, Availability triad model.</p>
                 </div>
-                <div class="project" data-category="research data-analysis">
+                <div class="project" data-category="research data-analysis" draggable="true">
                     <h3>Foreign Language Skills and Standardized Test Performance Study</h3>
                     <p>Examined the correlation between foreign language proficiency and standardized test results, highlighting the benefits of language education on test performance.</p>
                     <p><a href="https://github.com/tzolkowski96/language-study" target="_blank">View on GitHub</a></p>
                 </div>
-                <div class="project" data-category="data-analysis visualization">
+                <div class="project" data-category="data-analysis visualization" draggable="true">
                     <h3>Telecom Spatial Analytics Dashboard</h3>
                     <p>Created a spatial analytics dashboard using Tableau to identify premium client opportunities. Highlighted top subscriber cities for targeted marketing.</p>
                 </div>
-                <div class="project" data-category="machine-learning data-analysis">
+                <div class="project" data-category="machine-learning data-analysis" draggable="true">
                     <h3>Employee Churn Prediction</h3>
                     <p>Developed machine learning models to predict employee churn using various features related to employee characteristics and job satisfaction. Achieved up to 98% accuracy.</p>
                     <p><a href="https://github.com/tzolkowski96/employee-churn" target="_blank">View on GitHub</a></p>
@@ -760,8 +798,8 @@
                 <button type="submit">Send Message</button>
             </form>
             <div id="contact-info">
-                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i> Tobin Zolkowski</a></p>
-                <p><strong>GitHub:</strong> <a href="https://github.com/tzolkowski96/tzolkowski96" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> tzolkowski96</a></p>
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200" target="_blank" rel="noopener noreferrer"><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/linkedin.png" alt="LinkedIn"></a></p>
+                <p><strong>GitHub:</strong> <a href="https://github.com/tzolkowski96/tzolkowski96" target="_blank" rel="noopener noreferrer"><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/github.png" alt="GitHub"></a></p>
             </div>
         </section>
     </main>
@@ -881,6 +919,19 @@
         });
 
         // Drag and drop functionality for project cards
+        const projectGrid = document.querySelector('.project-grid');
+
+        projectGrid.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            const afterElement = getDragAfterElement(projectGrid, e.clientY);
+            const draggable = document.querySelector('.dragging');
+            if (afterElement == null) {
+                projectGrid.appendChild(draggable);
+            } else {
+                projectGrid.insertBefore(draggable, afterElement);
+            }
+        });
+
         projects.forEach(project => {
             project.addEventListener('dragstart', () => {
                 project.classList.add('dragging');
@@ -891,19 +942,8 @@
             });
         });
 
-        document.querySelector('.project-grid').addEventListener('dragover', (e) => {
-            e.preventDefault();
-            const afterElement = getDragAfterElement(e.clientY);
-            const draggable = document.querySelector('.dragging');
-            if (afterElement == null) {
-                e.currentTarget.appendChild(draggable);
-            } else {
-                e.currentTarget.insertBefore(draggable, afterElement);
-            }
-        });
-
-        function getDragAfterElement(y) {
-            const draggableElements = [...document.querySelectorAll('.project-grid .project:not(.dragging)')];
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('.project:not(.dragging)')];
 
             return draggableElements.reduce((closest, child) => {
                 const box = child.getBoundingClientRect();
@@ -965,11 +1005,11 @@
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
 
-            sendButton.style.transform = `translate(${x * 0.05}px, ${y * 0.05}px)`;
+            sendButton.style.transform = `translate(${x * 0.05}px, ${y * 0.05}px) scale(1.05)`;
         });
 
         sendButton.addEventListener('mouseleave', function () {
-            sendButton.style.transform = 'translate(0, 0)';
+            sendButton.style.transform = 'translate(0, 0) scale(1)';
         });
     </script>
 </body>

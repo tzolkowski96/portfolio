@@ -232,6 +232,7 @@
             padding: 2rem 0;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
         }
 
         #contact-info p {
@@ -314,12 +315,15 @@
             0%, 100% {
                 transform: translateX(0);
             }
+
             25% {
                 transform: translateX(-5px);
             }
+
             50% {
                 transform: translateX(5px);
             }
+
             75% {
                 transform: translateX(-5px);
             }
@@ -347,6 +351,11 @@
 
             h2 {
                 font-size: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
 
@@ -529,6 +538,32 @@
             margin-top: 0.5rem;
             font-size: 0.8rem;
             color: #777;
+        }
+
+        /* LinkedIn and GitHub icons styling */
+        #contact-info a img {
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+
+        #contact-info p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Copyright */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: var(--primary-color);
+            color: var(--header-font-color);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -798,11 +833,14 @@
                 <button type="submit">Send Message</button>
             </form>
             <div id="contact-info">
-                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200" target="_blank" rel="noopener noreferrer"><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/linkedin.png" alt="LinkedIn"></a></p>
-                <p><strong>GitHub:</strong> <a href="https://github.com/tzolkowski96/tzolkowski96" target="_blank" rel="noopener noreferrer"><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/github.png" alt="GitHub"></a></p>
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200" target="_blank" rel="noopener noreferrer"><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/linkedin.png" alt="LinkedIn">Connect</a></p>
+                <p><strong>GitHub:</strong> <a href="https://github.com/tzolkowski96/tzolkowski96" target="_blank" rel="noopener noreferrer"><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/github.png" alt="GitHub">Explore</a></p>
             </div>
         </section>
     </main>
+    <footer>
+        <p>&copy; 2024 Tobin Zolkowski. All rights reserved.</p>
+    </footer>
     <script>
         // Page navigation
         const links = document.querySelectorAll('nav a');
@@ -1002,8 +1040,8 @@
         // Animating send button on mouse move
         sendButton.addEventListener('mousemove', function (e) {
             const rect = sendButton.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
 
             sendButton.style.transform = `translate(${x * 0.05}px, ${y * 0.05}px) scale(1.05)`;
         });

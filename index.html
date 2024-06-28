@@ -544,6 +544,7 @@
         #contact-info a img {
             vertical-align: middle;
             margin-right: 0.5rem;
+            filter: invert(1);
         }
 
         #contact-info p {
@@ -564,6 +565,47 @@
         footer p {
             margin: 0;
             font-size: 1rem;
+        }
+
+        /* Home and About sections improvements */
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .intro {
+            font-size: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .about-text p {
+            text-align: left;
+            padding: 0 1rem;
+        }
+
+        .about-text {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1rem;
+        }
+
+        .about-quote {
+            border: none;
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-quote::before {
+            content: "“";
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .about-quote::after {
+            content: "”";
+            font-size: 2rem;
+            color: var(--accent-color);
         }
     </style>
 </head>
@@ -591,12 +633,15 @@
     <main id="main-content" class="container">
         <section id="home" class="page active">
             <h2>Welcome to My Portfolio</h2>
+            <p class="intro">
+                Are you overwhelmed by complex data? I can help.
+            </p>
             <p>
-                <strong>Problem:</strong> Are you overwhelmed by complex data?
+                <span class="highlight">Problem:</span> Complex data can be overwhelming.
                 <br><br>
-                <strong>Agitate:</strong> It can be daunting to uncover valuable insights and miss out on strategic opportunities due to data complexity.
+                <span class="highlight">Agitate:</span> Valuable insights may be missed, and strategic opportunities can be lost due to data complexity.
                 <br><br>
-                <strong>Solution:</strong> Explore my portfolio to see how I turn intricate data into actionable insights that drive strategic growth. Let's work together to leverage data for smarter, data-driven decisions.
+                <span class="highlight">Solution:</span> Explore my portfolio to see how I transform intricate data into actionable insights that drive strategic growth. Let's work together to leverage data for smarter, data-driven decisions.
             </p>
         </section>
         <section id="about" class="page">
@@ -604,26 +649,26 @@
             <div class="about-container">
                 <div class="about-text">
                     <p>
-                        <strong>Qualify:</strong> Seeking to harness data for strategic growth?
+                        <span class="highlight">Qualify:</span> Are you looking to harness data for strategic growth?
                         <br><br>
-                        <strong>Understand:</strong> With over 2 years of experience in data analysis, I know the challenges of making data-driven decisions.
+                        <span class="highlight">Understand:</span> With over 2 years of experience in data analysis, I understand the challenges of making data-driven decisions.
                         <br><br>
-                        <strong>Educate:</strong> I specialize in transforming complex data into clear, actionable insights using tools like Excel, Python, SQL, Tableau, and Looker.
+                        <span class="highlight">Educate:</span> I specialize in transforming complex data into clear, actionable insights using tools like Excel, Python, SQL, Tableau, and Looker.
                         <br><br>
-                        <strong>Stimulate:</strong> Imagine making informed decisions that propel growth and efficiency.
+                        <span class="highlight">Stimulate:</span> Imagine making informed decisions that propel growth and efficiency.
                         <br><br>
-                        <strong>Transition:</strong> Passionate about empowering users with data and fostering informed decision-making, I'm always eager to explore new opportunities and collaborations. Let's connect!
+                        <span class="highlight">Transition:</span> Passionate about empowering users with data and fostering informed decision-making, I'm always eager to explore new opportunities and collaborations. Let's connect!
                     </p>
                 </div>
                 <div class="about-quotes">
                     <div class="about-quote">
-                        "Empowering users to harness their own data is my mission."
+                        Empowering users to harness their own data is my mission.
                     </div>
                     <div class="about-quote">
-                        "My contributions have consistently fueled strategic growth across various sectors."
+                        My contributions have consistently fueled strategic growth across various sectors.
                     </div>
                     <div class="about-quote">
-                        "I'm committed to ethical data usage and maintaining data privacy."
+                        I'm committed to ethical data usage and maintaining data privacy.
                     </div>
                 </div>
             </div>
@@ -885,6 +930,9 @@
         // Initial full screen animation
         setVanta('#full-screen-animation');
 
+        // Detect mobile devices
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
         setTimeout(() => {
             gsap.to('#full-screen-animation', { opacity: 0, duration: 1, onComplete: () => {
                 document.getElementById('full-screen-animation').classList.add('hidden');
@@ -893,7 +941,7 @@
                 gsap.fromTo('header h1, header p', { opacity: 0 }, { opacity: 1, duration: 1.5, ease: "power4.out" });
                 gsap.to('section', { opacity: 1, y: 0, duration: 1, stagger: 0.2 });
             } });
-        }, 1500);
+        }, isMobile ? 1000 : 1500);
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

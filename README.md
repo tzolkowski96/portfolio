@@ -35,8 +35,6 @@ This portfolio is designed to provide a comprehensive view of my professional ca
 ## 📁 Repository Structure
 
 - `index.html`: The main HTML file for the portfolio website
-- `styles.css`: CSS file containing all styles for the website
-- `scripts.js`: JavaScript file for interactivity and animations
 - `images/`: Folder containing all images used in the website
   - `1725315110335.jpeg`: Profile picture
 

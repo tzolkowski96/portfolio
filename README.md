@@ -37,6 +37,8 @@ This portfolio is designed to provide a comprehensive view of my professional ca
 - `index.html`: The main HTML file for the portfolio website
 - `images/`: Folder containing all images used in the website
   - `1725315110335.jpeg`: Profile picture
+- `styles.css`: The main CSS file for styling the portfolio website
+- `script.js`: The main JavaScript file for interactive features
 
 ## 🌟 Future Enhancements
 

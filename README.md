@@ -1,3 +1,5 @@
+Here's an updated README.md file based on the current structure of your portfolio repository:
+
 # Tobin Zolkowski's Portfolio
 
 Welcome to the repository for my personal portfolio website. This site showcases my skills, projects, and experience as a Data Insight Specialist.
@@ -28,17 +30,16 @@ This portfolio is designed to provide a comprehensive view of my professional ca
 ## 🛠️ Technologies Used
 
 - HTML5
-- CSS3 (for styling)
+- CSS3 (inline styling)
 - JavaScript (ES6+)
 - Various libraries and frameworks (see Acknowledgments)
 
 ## 📁 Repository Structure
 
-- `index.html`: The main HTML file for the portfolio website
+- `index.html`: The main HTML file containing all content, styles, and scripts for the portfolio website
 - `images/`: Folder containing all images used in the website
   - `1725315110335.jpeg`: Profile picture
-- `styles.css`: The main CSS file for styling the portfolio website
-- `script.js`: The main JavaScript file for interactive features
+- `README.md`: This file, providing an overview of the repository
 
 ## 🌟 Future Enhancements
 
@@ -46,14 +47,13 @@ This portfolio is designed to provide a comprehensive view of my professional ca
 - [ ] Implement dark mode for improved user experience
 - [ ] Integrate live data visualization demos
 - [ ] Expand project section with more detailed case studies
+- [ ] Separate CSS and JavaScript into their own files for better maintainability
 
 ## 🙏 Acknowledgments
 
 This website utilizes the following resources:
 
-- [Bootstrap](https://getbootstrap.com/) for responsive design
 - [Font Awesome](https://fontawesome.com/) for icons
-- [jQuery](https://jquery.com/) for DOM manipulation
 - [Vanta.js](https://www.vantajs.com/) for animated backgrounds
 - [GSAP](https://greensock.com/gsap/) for smooth animations
 - [Three.js](https://threejs.org/) for 3D graphics
@@ -67,8 +67,8 @@ This website is hosted on GitHub Pages. Any changes pushed to the main branch wi
 
 For inquiries or collaboration opportunities:
 - Use the contact form on the website
-- Connect with me on [LinkedIn](https://www.linkedin.com/in/tobin-zolkowski/)
-- Check out my [GitHub](https://github.com/tzolkowski96)
+- Connect with me on [LinkedIn](https://www.linkedin.com/in/tobin-zolkowski-844873200/)
+- Check out my [GitHub](https://github.com/tzolkowski96/tzolkowski96)
 
 ## 📄 License
 

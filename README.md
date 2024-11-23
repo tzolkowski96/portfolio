@@ -1,79 +1,58 @@
-Here's an updated README.md file based on the current structure of your portfolio repository:
+# Portfolio Redirect Page
 
-# Tobin Zolkowski's Portfolio
+This repository contains a redirect page that points visitors to my new portfolio website.
 
-Welcome to the repository for my personal portfolio website. This site showcases my skills, projects, and experience as a Data Insight Specialist.
+## 🌐 New Portfolio Location
 
-## 🌐 Live Website
+My updated portfolio is now hosted at [https://tobin-data-portfolio.netlify.app/](https://tobin-data-portfolio.netlify.app/)
 
-Visit my portfolio at [https://tzolkowski96.github.io/portfolio/](https://tzolkowski96.github.io/portfolio/)
+## 📋 About This Repository
 
-## 📋 Overview
+This repository contains a professional redirect page that:
+- Automatically redirects visitors after 10 seconds
+- Provides a preview of the new portfolio
+- Ensures a smooth transition for users
+- Works across all devices and platforms
 
-This portfolio is designed to provide a comprehensive view of my professional capabilities and achievements in the field of data analysis and visualization.
+## 🛠️ Technical Implementation
 
-### Key Sections
-
-- **🏠 Home**: A brief introduction and overview of my professional focus
-- **👤 About**: Detailed background, education, and my data philosophy
-- **🛠️ Skills**: A comprehensive list of my technical and soft skills
-- **💼 Projects**: Showcase of various data analysis, machine learning, and web development projects
-- **📬 Contact**: A form for visitors to get in touch
-
-## 🚀 Features
-
-- Responsive design for optimal viewing on various devices
-- Interactive project showcase with filtering options
-- Animated backgrounds and transitions for enhanced user experience
-- Contact form for easy communication
-
-## 🛠️ Technologies Used
-
+The redirect page uses:
 - HTML5
-- CSS3 (inline styling)
-- JavaScript (ES6+)
-- Various libraries and frameworks (see Acknowledgments)
+- CSS3 with modern features:
+  - CSS Variables
+  - Flexbox
+  - Media Queries
+  - Responsive units
+- JavaScript for countdown
+- Font Awesome icons
+- Mobile-first responsive design
 
-## 📁 Repository Structure
+## 📱 Cross-Platform Support
 
-- `index.html`: The main HTML file containing all content, styles, and scripts for the portfolio website
-- `images/`: Folder containing all images used in the website
-  - `1725315110335.jpeg`: Profile picture
-- `README.md`: This file, providing an overview of the repository
+The page is optimized for:
+- Desktop browsers
+- Mobile devices
+- Tablets
+- Touch interfaces
+- Various screen sizes
 
-## 🌟 Future Enhancements
+## 🔄 Redirect Features
 
-- [ ] Add a blog section for sharing data insights and tutorials
-- [ ] Implement dark mode for improved user experience
-- [ ] Integrate live data visualization demos
-- [ ] Expand project section with more detailed case studies
-- [ ] Separate CSS and JavaScript into their own files for better maintainability
-
-## 🙏 Acknowledgments
-
-This website utilizes the following resources:
-
-- [Font Awesome](https://fontawesome.com/) for icons
-- [Vanta.js](https://www.vantajs.com/) for animated backgrounds
-- [GSAP](https://greensock.com/gsap/) for smooth animations
-- [Three.js](https://threejs.org/) for 3D graphics
-- [Google Fonts](https://fonts.google.com/) for typography
-
-## 🚀 Deployment
-
-This website is hosted on GitHub Pages. Any changes pushed to the main branch will automatically update the live site.
+- 10-second automatic redirect
+- Visual countdown timer
+- Loading animation
+- Manual redirect link
+- Preview of new portfolio content
+- Responsive design
+- Touch-friendly interface
 
 ## 📞 Contact
 
 For inquiries or collaboration opportunities:
-- Use the contact form on the website
-- Connect with me on [LinkedIn](https://www.linkedin.com/in/tobin-zolkowski-844873200/)
-- Check out my [GitHub](https://github.com/tzolkowski96/tzolkowski96)
+- Visit my new portfolio at [https://tobin-data-portfolio.netlify.app/](https://tobin-data-portfolio.netlify.app/)
+- Connect on [LinkedIn](https://www.linkedin.com/in/tobin-zolkowski-844873200/)
+- GitHub: [tzolkowski96](https://github.com/tzolkowski96)
 
 ## 📄 License
 
 © 2024 Tobin Zolkowski. All rights reserved.
-
----
-
-Thank you for visiting my portfolio repository!

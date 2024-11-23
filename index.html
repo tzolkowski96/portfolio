@@ -7,97 +7,136 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="description" content="Redirect page to Tobin's new data portfolio website on Netlify">
     <meta http-equiv="refresh" content="10; url=https://tobin-data-portfolio.netlify.app/">
+    <meta name="theme-color" content="#4299e1">
+    <meta name="keywords" content="portfolio, data analysis, visualization, technical skills">
+    <meta name="author" content="Tobin">
+    <meta name="robots" content="noindex">
     <link rel="icon" href="https://www.google.com/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" loading="lazy">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     <title>Portfolio Redirect</title>
     <style>
         :root {
-            --primary: #2c3e50;
-            --accent: #0066cc;
-            --bg-hover: #f0f7ff;
+            --primary: #2d3748;
+            --accent: #4299e1;
+            --bg-hover: #ebf8ff;
+            --text-secondary: #718096;
+            --gradient-start: #4299e1;
+            --gradient-end: #667eea;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
             max-width: 100%;
-            width: 600px;
-            margin: 20px auto;
+            width: min(700px, 95%);
+            margin: 40px auto;
             text-align: center;
-            line-height: 1.6;
+            line-height: 1.8;
             color: var(--primary);
-            padding: 15px;
-            background-color: #fafafa;
+            padding: 20px;
+            background: linear-gradient(135deg, #f6f9fc 0%, #ffffff 100%);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
         .container {
             background: white;
-            padding: clamp(1rem, 5vw, 2.5rem);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: clamp(1.5rem, 6vw, 3rem);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
+            border: 1px solid rgba(0,0,0,0.05);
+            will-change: transform;
+            backface-visibility: hidden;
         }
         h1 {
-            color: var(--primary);
+            position: relative;
+            color: var(--primary); /* Fallback */
             margin-bottom: 1.5em;
-            font-size: 2.2em;
+            font-size: 2.5em;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background-image: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         a {
             color: var(--accent);
             text-decoration: none;
-            transition: all 0.3s ease;
-            padding: clamp(8px, 2vw, 16px);
-            border-radius: 4px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 12px 24px;
+            border-radius: 8px;
             display: inline-block;
-            margin-top: 10px;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
+            margin-top: 15px;
+            font-weight: 500;
+            border: 2px solid transparent;
+            outline-offset: 2px;
         }
         a:hover {
             background: var(--bg-hover);
-            text-decoration: underline;
-            transform: translateY(-1px);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.15);
+        }
+        a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
         }
         .loader {
-            width: 24px;
-            height: 24px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--accent);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e2e8f0;
+            border-top: 2px solid var(--accent);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 0.8s linear infinite;
             display: inline-block;
-            margin-left: 10px;
+            margin-left: 8px;
             vertical-align: middle;
+            will-change: transform;
         }
         #countdown {
-            font-weight: bold;
+            font-weight: 600;
             color: var(--accent);
         }
         .preview-box {
-            background: var(--bg-hover);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border: 1px solid #eee;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
-        
+        .preview-box:hover {
+            transform: translateY(-2px);
+        }
         .preview-icon {
-            font-size: 48px;
-            color: var(--accent);
-            margin-bottom: 15px;
+            position: relative;
+            font-size: 52px;
+            color: var(--accent); /* Fallback */
+            margin-bottom: 20px;
+            background-image: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        
         .preview-text {
-            color: var(--primary);
-            font-size: 1.1em;
-            margin: 10px 0;
+            color: var(--text-secondary);
+            font-size: 1.15em;
+            margin: 15px 0;
+            line-height: 1.7;
         }
         .redirect-info {
-            margin: 20px 0;
-            padding: 15px;
+            margin: 25px 0;
+            padding: 20px;
             background: var(--bg-hover);
-            border-radius: 6px;
+            border-radius: 12px;
+            border: 1px solid rgba(66, 153, 225, 0.2);
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -105,57 +144,95 @@
         }
         @media (max-width: 480px) {
             body {
-                margin: 10px auto;
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 1.8em;
-                margin-bottom: 1em;
-            }
-
-            .preview-box {
+                margin: 20px auto;
                 padding: 15px;
             }
-
-            .preview-icon {
-                font-size: 36px;
+            h1 {
+                font-size: 2em;
             }
-
+            .preview-box {
+                padding: 20px;
+            }
+            .preview-icon {
+                font-size: 42px;
+            }
             .preview-text {
-                font-size: 1em;
+                font-size: 1.05em;
             }
         }
-
         @media (hover: none) {
-            a:hover {
+            a:hover, .preview-box:hover {
                 transform: none;
             }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        /* Custom scrollbar for better UX */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gradient-end);
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" role="main">
         <h1>Portfolio Has Moved!</h1>
-        <div class="preview-box">
+        <div class="preview-box" role="region" aria-label="Portfolio preview">
             <i class="fas fa-laptop-code preview-icon"></i>
             <p class="preview-text">My updated portfolio features data analysis projects, visualizations, and technical skills.</p>
         </div>
-        <div class="redirect-info">
+        <div class="redirect-info" role="status" aria-live="polite">
             <p>This portfolio has been moved to a new location.</p>
             <p>You will be redirected in <span id="countdown">10</span> seconds <span class="loader"></span></p>
         </div>
         <p>If you are not redirected, please click:<br>
-            <a href="https://tobin-data-portfolio.netlify.app/">Visit New Portfolio →</a>
+            <a href="https://tobin-data-portfolio.netlify.app/" aria-label="Visit new portfolio website">Visit New Portfolio →</a>
         </p>
     </div>
     <script>
+        // Improved countdown script with error handling
         let count = 10;
         const countdown = setInterval(() => {
-            count--;
-            document.getElementById('countdown').textContent = count;
-            if (count <= 0) clearInterval(countdown);
+            try {
+                count--;
+                const countdownElement = document.getElementById('countdown');
+                if (countdownElement) {
+                    countdownElement.textContent = count;
+                }
+                if (count <= 0) {
+                    clearInterval(countdown);
+                    window.location.href = 'https://tobin-data-portfolio.netlify.app/';
+                }
+            } catch (error) {
+                console.error('Countdown error:', error);
+                clearInterval(countdown);
+            }
         }, 1000);
+
+        // Add page visibility handling
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                clearInterval(countdown);
+            }
+        });
     </script>
 </body>
 </html>

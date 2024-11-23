@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -17,6 +17,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     <title>Portfolio Redirect</title>
+    <!-- Add preload hints -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
+    <!-- Enhance meta tags -->
+    <meta property="og:title" content="Tobin's Data Portfolio">
+    <meta property="og:description" content="Data analysis portfolio featuring projects, visualizations, and technical skills">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- Add no-js fallback -->
+    <script>document.documentElement.classList.remove('no-js');</script>
     <style>
         :root {
             --primary: #2d3748;
@@ -50,6 +60,8 @@
             border: 1px solid rgba(0,0,0,0.05);
             will-change: transform;
             backface-visibility: hidden;
+            content-visibility: auto;
+            contain-intrinsic-size: 0 500px;
         }
         h1 {
             position: relative;
@@ -190,6 +202,10 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--gradient-end);
         }
+        /* Add to existing styles */
+        .no-js .redirect-info {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -208,8 +224,23 @@
         </p>
     </div>
     <script>
-        // Improved countdown script with error handling
+        // Enhanced redirect handling
         let count = 10;
+        const redirectUrl = 'https://tobin-data-portfolio.netlify.app/';
+        
+        function handleRedirect() {
+            try {
+                window.location.href = redirectUrl;
+            } catch (error) {
+                console.error('Redirect failed:', error);
+                // Show manual redirect button if automatic redirect fails
+                const redirectInfo = document.querySelector('.redirect-info');
+                if (redirectInfo) {
+                    redirectInfo.innerHTML = '<p>Automatic redirect failed. Please use the link below.</p>';
+                }
+            }
+        }
+
         const countdown = setInterval(() => {
             try {
                 count--;
@@ -219,7 +250,7 @@
                 }
                 if (count <= 0) {
                     clearInterval(countdown);
-                    window.location.href = 'https://tobin-data-portfolio.netlify.app/';
+                    handleRedirect();
                 }
             } catch (error) {
                 console.error('Countdown error:', error);
@@ -227,10 +258,30 @@
             }
         }, 1000);
 
-        // Add page visibility handling
+        // Enhanced page visibility handling
+        let timeHidden;
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
+                timeHidden = Date.now();
                 clearInterval(countdown);
+            } else {
+                // Adjust countdown based on hidden time
+                const timeVisible = Date.now();
+                const hiddenDuration = Math.floor((timeVisible - timeHidden) / 1000);
+                count = Math.max(0, count - hiddenDuration);
+                if (count > 0) {
+                    countdown = setInterval(countdownTick, 1000);
+                } else {
+                    handleRedirect();
+                }
+            }
+        });
+
+        // Add fallback for navigation errors
+        window.addEventListener('unhandledrejection', (event) => {
+            if (event.reason instanceof TypeError && event.reason.message.includes('Failed to navigate')) {
+                console.error('Navigation failed:', event.reason);
+                handleRedirect();
             }
         });
     </script>

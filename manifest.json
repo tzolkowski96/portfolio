@@ -1,0 +1,27 @@
+
+{
+  "name": "Tobin's Data Portfolio",
+  "short_name": "Portfolio",
+  "description": "Data analysis portfolio featuring projects and visualizations",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4299e1",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "orientation": "portrait",
+  "categories": ["portfolio", "data", "analytics"],
+  "prefer_related_applications": false
+}

@@ -5,21 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="description" content="Redirect page to Tobin's new data portfolio website on Netlify">
-    <meta http-equiv="refresh" content="10; url=https://tobin-data-portfolio.netlify.app/">
+    <meta name="description" content="My data analysis portfolio has moved. Explore updated projects, visualizations, and technical skills on my new website.">
     <meta name="theme-color" content="#4299e1">
     <meta name="keywords" content="portfolio, data analysis, visualization, technical skills">
     <meta name="author" content="Tobin">
     <meta name="robots" content="noindex">
-    <link rel="icon" href="https://www.google.com/favicon.ico">
+    <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" loading="lazy">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     <title>Portfolio Redirect</title>
-    <!-- Add preload hints -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" as="style">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
     <!-- Enhance meta tags -->
     <meta property="og:title" content="Tobin's Data Portfolio">
     <meta property="og:description" content="Data analysis portfolio featuring projects, visualizations, and technical skills">
@@ -27,6 +23,20 @@
     <meta name="twitter:card" content="summary_large_image">
     <!-- Add no-js fallback -->
     <script>document.documentElement.classList.remove('no-js');</script>
+    <!-- Add security headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+    
+    <!-- Optimize resource loading -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="modulepreload" href="script.js">
+    
+    <!-- Add manifest for PWA support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4299e1" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a202c" media="(prefers-color-scheme: dark)">
     <style>
         :root {
             --primary: #2d3748;
@@ -35,6 +45,19 @@
             --text-secondary: #718096;
             --gradient-start: #4299e1;
             --gradient-end: #667eea;
+            --dark-bg: #1a202c;
+            --dark-text: #e2e8f0;
+            --dark-accent: #63b3ed;
+            --progress-height: 8px;
+            --progress-gradient: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 50%, var(--gradient-start) 100%);
+            --progress-shadow: 0 2px 4px rgba(66, 153, 225, 0.2);
+            --progress-shine: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --preview-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            --info-gradient: linear-gradient(135deg, var(--bg-hover) 0%, #dbeafe 100%);
+            --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
@@ -45,7 +68,7 @@
             line-height: 1.8;
             color: var(--primary);
             padding: 20px;
-            background: linear-gradient(135deg, #f6f9fc 0%, #ffffff 100%);
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -74,11 +97,12 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: fadeInDown 1s ease-out;
         }
         a {
             color: var(--accent);
             text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease-in-out;
             padding: 12px 24px;
             border-radius: 8px;
             display: inline-block;
@@ -90,8 +114,8 @@
         a:hover {
             background: var(--bg-hover);
             border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.15);
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(66, 153, 225, 0.2);
         }
         a:focus-visible {
             outline: 2px solid var(--accent);
@@ -114,18 +138,43 @@
             color: var(--accent);
         }
         .preview-box {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            padding: 30px;
-            border-radius: 12px;
+            background: var(--preview-gradient);
+            padding: clamp(20px, 4vw, 30px);
+            border-radius: 16px;
             margin: 25px 0;
-            border: 1px solid rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-            will-change: transform;
-            backface-visibility: hidden;
+            border: 1px solid rgba(66, 153, 225, 0.1);
+            transition: transform 0.4s var(--transition-bounce),
+                       box-shadow 0.3s var(--transition-smooth);
             transform: translateZ(0);
+            will-change: transform, box-shadow;
+            perspective: 1000px;
+            backface-visibility: hidden;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out;
         }
         .preview-box:hover {
-            transform: translateY(-2px);
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: var(--card-shadow-hover);
+        }
+        .preview-box::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                120deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                transparent 100%
+            );
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--transition-smooth);
+            pointer-events: none;
+            mix-blend-mode: soft-light;
+        }
+        .preview-box:hover::after {
+            transform: translateX(100%);
         }
         .preview-icon {
             position: relative;
@@ -136,6 +185,13 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            transform: translateZ(0);
+            transition: transform 0.4s var(--transition-bounce);
+            transform-origin: center;
+            backface-visibility: hidden;
+        }
+        .preview-box:hover .preview-icon {
+            transform: scale(1.1) rotate(-3deg);
         }
         .preview-text {
             color: var(--text-secondary);
@@ -145,14 +201,42 @@
         }
         .redirect-info {
             margin: 25px 0;
-            padding: 20px;
-            background: var(--bg-hover);
-            border-radius: 12px;
+            padding: clamp(15px, 3vw, 25px);
+            background: var(--info-gradient);
+            border-radius: 16px;
             border: 1px solid rgba(66, 153, 225, 0.2);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            animation: pulseAttention 2s infinite;
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pulseAttention {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
         @media (max-width: 480px) {
             body {
@@ -174,6 +258,16 @@
         }
         @media (hover: none) {
             a:hover, .preview-box:hover {
+                transform: none;
+            }
+            .preview-box:hover {
+                transform: none;
+                box-shadow: var(--card-shadow);
+            }
+            .preview-box::after {
+                display: none;
+            }
+            .preview-box:hover .preview-icon {
                 transform: none;
             }
         }
@@ -206,47 +300,171 @@
         .no-js .redirect-info {
             display: none;
         }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+                color: var(--dark-text);
+            }
+            .container {
+                background: var(--dark-bg);
+                border-color: rgba(255,255,255,0.1);
+            }
+            .preview-box {
+                background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+                border-color: rgba(255,255,255,0.1);
+            }
+            .redirect-info {
+                background: linear-gradient(135deg, rgba(66, 153, 225, 0.1) 0%, rgba(66, 153, 225, 0.05) 100%);
+                border-color: rgba(99, 179, 237, 0.2);
+            }
+            .progress-bar {
+                --progress-shadow: 0 2px 4px rgba(99, 179, 237, 0.3);
+            }
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--progress-height);
+            background: var(--progress-gradient);
+            transform-origin: 0 50%;
+            transform: scaleX(0);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            box-shadow: var(--progress-shadow);
+            overflow: hidden;
+            backdrop-filter: blur(4px);
+            animation: progressPulse 2s ease-in-out infinite;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--progress-shine);
+            animation: progressShine 2s ease-in-out infinite;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes progressShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .progress-bar {
+                animation: none;
+            }
+            .progress-bar::before {
+                animation: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --progress-height: 6px;
+            }
+        }
+
+        /* Add hardware acceleration for smoother animations */
+        .preview-box,
+        .preview-icon {
+            transform: translate3d(0, 0, 0);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        @supports not (perspective: 1000px) {
+            .preview-box {
+                transform: translateZ(0);
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="progress-bar" 
+         role="progressbar" 
+         aria-valuemin="0" 
+         aria-valuemax="100" 
+         aria-valuenow="0"
+         aria-label="Page redirect progress">
+    </div>
+    <div id="error-boundary" hidden>
+        <p>Something went wrong. Please try refreshing the page.</p>
+    </div>
     <div class="container" role="main">
         <h1>Portfolio Has Moved!</h1>
         <div class="preview-box" role="region" aria-label="Portfolio preview">
-            <i class="fas fa-laptop-code preview-icon"></i>
-            <p class="preview-text">My updated portfolio features data analysis projects, visualizations, and technical skills.</p>
+            <i class="fas fa-laptop-code preview-icon" aria-hidden="true"></i>
+            <p class="preview-text">My updated portfolio features innovative data analysis projects, interactive visualizations, and advanced technical skills.</p>
         </div>
         <div class="redirect-info" role="status" aria-live="polite">
-            <p>This portfolio has been moved to a new location.</p>
-            <p>You will be redirected in <span id="countdown">10</span> seconds <span class="loader"></span></p>
+            <p>Your portfolio experience awaits at the new location!</p>
+            <p>Redirecting in <span id="countdown" aria-label="Countdown timer">10</span> seconds <span class="loader" aria-hidden="true"></span></p>
         </div>
         <p>If you are not redirected, please click:<br>
             <a href="https://tobin-data-portfolio.netlify.app/" aria-label="Visit new portfolio website">Visit New Portfolio →</a>
         </p>
     </div>
-    <script>
-        // Enhanced redirect handling
+    <noscript>
+        <div class="redirect-info" role="status" aria-live="polite">
+            <p>JavaScript is disabled in your browser. Please enable JavaScript or use the link below to navigate to the new portfolio.</p>
+            <a href="https://tobin-data-portfolio.netlify.app/" aria-label="Visit new portfolio website">Visit New Portfolio →</a>
+        </div>
+    </noscript>
+    <script defer>
+        // Refactored redirect handling
         let count = 10;
         const redirectUrl = 'https://tobin-data-portfolio.netlify.app/';
-        
-        function handleRedirect() {
-            try {
-                window.location.href = redirectUrl;
-            } catch (error) {
-                console.error('Redirect failed:', error);
-                // Show manual redirect button if automatic redirect fails
-                const redirectInfo = document.querySelector('.redirect-info');
-                if (redirectInfo) {
-                    redirectInfo.innerHTML = '<p>Automatic redirect failed. Please use the link below.</p>';
-                }
+        const countdownElement = document.getElementById('countdown');
+        let countdown;
+
+        function updateProgress(percentage) {
+            const progressBar = document.querySelector('.progress-bar');
+            if (progressBar) {
+                // Smooth easing function for progress
+                const ease = t => t * (2 - t);
+                const scaled = ease(percentage / 100);
+                
+                progressBar.style.transform = `scaleX(${scaled})`;
+                progressBar.setAttribute('aria-valuenow', Math.round(percentage));
+                
+                // Update ARIA label for screen readers
+                progressBar.setAttribute('aria-label', 
+                    `Redirect progress: ${Math.round(percentage)}%`
+                );
             }
         }
 
-        const countdown = setInterval(() => {
+        function countdownTick() {
             try {
                 count--;
-                const countdownElement = document.getElementById('countdown');
                 if (countdownElement) {
                     countdownElement.textContent = count;
+                    updateProgress((10 - count) * 10);
                 }
                 if (count <= 0) {
                     clearInterval(countdown);
@@ -256,7 +474,33 @@
                 console.error('Countdown error:', error);
                 clearInterval(countdown);
             }
-        }, 1000);
+        }
+
+        // Add retry mechanism
+        let retryCount = 0;
+        const MAX_RETRIES = 3;
+
+        function handleRedirect() {
+            try {
+                if (retryCount < MAX_RETRIES) {
+                    window.location.href = redirectUrl;
+                    retryCount++;
+                } else {
+                    throw new Error('Max retries exceeded');
+                }
+            } catch (error) {
+                console.error('Redirect failed:', error);
+                const redirectInfo = document.querySelector('.redirect-info');
+                if (redirectInfo) {
+                    redirectInfo.innerHTML = `
+                        <p>Automatic redirect failed. Please use the link below.</p>
+                        <p class="error-message">Error: ${error.message}</p>
+                    `;
+                }
+            }
+        }
+
+        countdown = setInterval(countdownTick, 1000);
 
         // Enhanced page visibility handling
         let timeHidden;
@@ -265,7 +509,6 @@
                 timeHidden = Date.now();
                 clearInterval(countdown);
             } else {
-                // Adjust countdown based on hidden time
                 const timeVisible = Date.now();
                 const hiddenDuration = Math.floor((timeVisible - timeHidden) / 1000);
                 count = Math.max(0, count - hiddenDuration);
@@ -282,6 +525,50 @@
             if (event.reason instanceof TypeError && event.reason.message.includes('Failed to navigate')) {
                 console.error('Navigation failed:', event.reason);
                 handleRedirect();
+            }
+        });
+
+        // Add lazy loading
+        document.addEventListener('DOMContentLoaded', () => {
+            const lazyElements = document.querySelectorAll('.lazy-load');
+            lazyElements.forEach(element => {
+                element.classList.add('loaded');
+            });
+        });
+
+        // Add error boundary handler
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            document.getElementById('error-boundary').hidden = false;
+            return false;
+        };
+
+        // Enhance performance with requestAnimationFrame
+        function updateProgressSmooth(percentage) {
+            requestAnimationFrame(() => {
+                const progressBar = document.querySelector('.progress-bar');
+                if (progressBar) {
+                    const ease = t => t * (2 - t);
+                    const scaled = ease(percentage / 100);
+                    progressBar.style.transform = `scaleX(${scaled})`;
+                }
+            });
+        }
+
+        // Add offline support
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(console.error);
+        }
+
+        // Optimize animation performance
+        document.querySelectorAll('.preview-box, .preview-icon').forEach(el => {
+            el.style.willChange = 'transform';
+        });
+
+        // Remove will-change after animation
+        document.addEventListener('transitionend', (e) => {
+            if (e.target.classList.contains('preview-box') || 
+                e.target.classList.contains('preview-icon')) {
+                e.target.style.willChange = 'auto';
             }
         });
     </script>

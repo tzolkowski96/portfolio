@@ -37,6 +37,50 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4299e1" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#1a202c" media="(prefers-color-scheme: dark)">
+    <!-- Enhanced meta tags -->
+    <meta name="application-name" content="Tobin's Portfolio">
+    <meta name="apple-mobile-web-app-title" content="Tobin's Portfolio">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-TileColor" content="#4299e1">
+    <meta property="og:site_name" content="Tobin's Portfolio">
+    <meta property="og:image" content="/icons/icon-512.png">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:creator" content="@tobinzolkowski">
+    
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Tobin's Data Portfolio",
+      "description": "Data analysis portfolio featuring projects and visualizations",
+      "url": "https://tobin-data-portfolio.netlify.app/",
+      "author": {
+        "@type": "Person",
+        "name": "Tobin Zolkowski",
+        "sameAs": [
+          "https://www.linkedin.com/in/tobin-zolkowski-844873200/",
+          "https://github.com/tzolkowski96"
+        ]
+      }
+    }
+    </script>
+
+    <!-- Improved resource loading -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_0ew.woff2" crossorigin>
+    <link rel="preload" href="/icons/icon-192.png" as="image">
+    
+    <!-- Enhanced error handling -->
+    <script>
+        window.addEventListener('error', function(e) {
+            if (document.getElementById('error-boundary')) {
+                document.getElementById('error-boundary').hidden = false;
+            }
+            console.error('Global error:', e.error);
+            return false;
+        });
+    </script>
     <style>
         :root {
             --primary: #2d3748;
@@ -402,6 +446,34 @@
                 transform: translateZ(0);
             }
         }
+
+        /* Enhanced accessibility styles */
+        @media (prefers-contrast: more) {
+            :root {
+                --accent: #0056b3;
+                --primary: #000000;
+                --text-secondary: #363636;
+            }
+        }
+
+        /* Enhanced focus styles */
+        *:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+        }
+
+        /* Reduced motion improvements */
+        @media (prefers-reduced-motion: reduce) {
+            .progress-bar::before,
+            .preview-box::after {
+                display: none;
+            }
+            
+            .redirect-info {
+                animation: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -571,6 +643,35 @@
                 e.target.style.willChange = 'auto';
             }
         });
+
+        // Enhanced offline support
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    registration.addEventListener('updatefound', () => {
+                        const newWorker = registration.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                // New content is available
+                                console.log('New content available, please refresh.');
+                            }
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Service Worker registration failed:', error);
+                });
+        }
+
+        // Enhanced performance monitoring
+        if ('PerformanceObserver' in window) {
+            const observer = new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    console.log(`${entry.name}: ${entry.startTime}ms`);
+                }
+            });
+            observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input'] });
+        }
     </script>
 </body>
 </html>

@@ -187,61 +187,79 @@
             border-radius: 16px;
             margin: 25px 0;
             border: 1px solid rgba(66, 153, 225, 0.1);
-            transition: transform 0.4s var(--transition-bounce),
-                       box-shadow 0.3s var(--transition-smooth);
-            transform: translateZ(0);
+            transition: 
+                transform 0.5s var(--transition-bounce),
+                box-shadow 0.4s var(--transition-smooth),
+                border-color 0.3s ease;
+            transform: perspective(1000px) translateZ(0);
             will-change: transform, box-shadow;
-            perspective: 1000px;
-            backface-visibility: hidden;
-            box-shadow: var(--card-shadow);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 1s ease-out;
+            backface-visibility: visible;
+            transform-style: flat;
+            box-shadow: 
+                var(--card-shadow),
+                0 0 0 rgba(66, 153, 225, 0);
         }
+
         .preview-box:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-5px);
+            box-shadow: 
+                var(--card-shadow-hover),
+                0 0 40px rgba(66, 153, 225, 0.2);
+            border-color: var(--accent);
         }
+
         .preview-box::after {
             content: '';
             position: absolute;
             inset: 0;
             background: linear-gradient(
-                120deg,
+                135deg,
                 transparent 0%,
-                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 20%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0) 80%,
                 transparent 100%
             );
-            transform: translateX(-100%);
-            transition: transform 0.6s var(--transition-smooth);
+            transform: translateX(-100%) skewX(-15deg);
+            transition: transform 0.8s var(--transition-smooth);
             pointer-events: none;
             mix-blend-mode: soft-light;
         }
+
         .preview-box:hover::after {
-            transform: translateX(100%);
+            transform: translateX(100%) skewX(-15deg);
         }
+
         .preview-icon {
             position: relative;
             font-size: 52px;
-            color: var(--accent); /* Fallback */
+            color: var(--accent);
             margin-bottom: 20px;
             background-image: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            transform: translateZ(0);
-            transition: transform 0.4s var(--transition-bounce);
+            transition: transform 0.5s var(--transition-bounce);
             transform-origin: center;
-            backface-visibility: hidden;
+            z-index: 1;
         }
+
         .preview-box:hover .preview-icon {
             transform: scale(1.1) rotate(-3deg);
         }
-        .preview-text {
-            color: var(--text-secondary);
-            font-size: 1.15em;
-            margin: 15px 0;
-            line-height: 1.7;
+
+        @media (prefers-reduced-motion: reduce) {
+            .preview-box,
+            .preview-icon {
+                transition: none;
+                transform: none !important;
+            }
+            .preview-box:hover {
+                border-color: var(--accent);
+            }
+            .preview-box::after {
+                display: none;
+            }
         }
         .redirect-info {
             margin: 25px 0;
@@ -475,6 +493,23 @@
             }
         }
     </style>
+    <!-- Enhanced resource hints -->
+    <link rel="preload" href="/sw.js" as="script" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="modulepreload" href="script.js" as="script">
+    <link rel="prefetch" href="https://tobin-data-portfolio.netlify.app/">
+    
+    <!-- Enhanced meta tags -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="application-name" content="Tobin's Portfolio">
+    <meta name="msapplication-navbutton-color" content="#4299e1">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- Security headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https: data:;">
+    <meta http-equiv="X-DNS-Prefetch-Control" content="on">
 </head>
 <body>
     <div class="progress-bar" 
@@ -484,8 +519,19 @@
          aria-valuenow="0"
          aria-label="Page redirect progress">
     </div>
+    <!-- Enhanced error boundary -->
     <div id="error-boundary" hidden>
-        <p>Something went wrong. Please try refreshing the page.</p>
+        <div class="error-container" role="alert">
+            <p>Something went wrong. Please try refreshing the page or visit the new portfolio directly.</p>
+            <div class="error-actions">
+                <button onclick="window.location.reload()" class="error-button">Refresh Page</button>
+                <a href="https://tobin-data-portfolio.netlify.app/" class="error-link">Visit New Portfolio</a>
+            </div>
+        </div>
+    </div>
+    <!-- Offline notification -->
+    <div id="offline-notification" hidden role="alert" aria-live="polite">
+        <p>You appear to be offline. Some features may be limited.</p>
     </div>
     <div class="container" role="main">
         <h1>Portfolio Has Moved!</h1>
@@ -672,6 +718,117 @@
             });
             observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input'] });
         }
+
+        // Web Vitals Monitoring
+        function sendToAnalytics(metric) {
+            const body = JSON.stringify({
+                name: metric.name,
+                value: metric.value,
+                id: metric.id
+            });
+            
+            (navigator.sendBeacon && navigator.sendBeacon('/analytics', body)) || 
+            fetch('/analytics', {
+                body,
+                method: 'POST',
+                keepalive: true
+            });
+        }
+
+        // Error Recovery
+        let redirectAttempts = 0;
+        const MAX_REDIRECT_ATTEMPTS = 3;
+
+        function safeRedirect(url) {
+            if (redirectAttempts >= MAX_REDIRECT_ATTEMPTS) {
+                console.error('Max redirect attempts reached');
+                return false;
+            }
+            
+            try {
+                redirectAttempts++;
+                window.location.href = url;
+                return true;
+            } catch (e) {
+                console.error('Redirect failed:', e);
+                return false;
+            }
+        }
+
+        // Back Button Interception
+        window.addEventListener('popstate', function(event) {
+            event.preventDefault();
+            const confirmed = confirm('Are you sure you want to leave? The portfolio has moved to a new location.');
+            if (confirmed) {
+                history.back();
+            } else {
+                history.pushState(null, '', window.location.href);
+            }
+        });
+
+        // Enhanced Error Boundary
+        window.addEventListener('error', function(event) {
+            const errorBoundary = document.getElementById('error-boundary');
+            if (errorBoundary) {
+                errorBoundary.innerHTML = `
+                    <div class="error-container">
+                        <p>Something went wrong. Please try refreshing the page.</p>
+                        <button onclick="window.location.reload()">Refresh Page</button>
+                    </div>
+                `;
+                errorBoundary.hidden = false;
+            }
+            console.error('Runtime error:', event.error);
+        });
+
+        // Performance Monitoring
+        if ('PerformanceObserver' in window) {
+            try {
+                new PerformanceObserver((entryList) => {
+                    for (const entry of entryList.getEntries()) {
+                        sendToAnalytics(entry);
+                    }
+                }).observe({ entryTypes: ['largest-contentful-paint', 'fid', 'cls', 'ttfb'] });
+            } catch (e) {
+                console.error('Performance monitoring error:', e);
+            }
+        }
+
+        // Enhanced offline detection
+        window.addEventListener('online', function() {
+            document.getElementById('offline-notification').hidden = true;
+        });
+        
+        window.addEventListener('offline', function() {
+            document.getElementById('offline-notification').hidden = false;
+        });
+
+        // Performance monitoring
+        if ('performance' in window) {
+            window.performance.mark('app-init');
+        }
+
+        // Progressive enhancement
+        document.documentElement.classList.remove('no-js');
+        
+        // Enhanced error recovery
+        function recoverFromError() {
+            const redirectUrl = 'https://tobin-data-portfolio.netlify.app/';
+            const fallbackHtml = `
+                <div class="container">
+                    <h1>Portfolio Has Moved</h1>
+                    <p>Please visit the new location:</p>
+                    <a href="${redirectUrl}">Continue to New Portfolio →</a>
+                </div>
+            `;
+            
+            if (document.body.innerHTML.trim() === '') {
+                document.body.innerHTML = fallbackHtml;
+            }
+        }
+
+        window.addEventListener('error', recoverFromError);
+        window.addEventListener('unhandledrejection', recoverFromError);
     </script>
 </body>
 </html>

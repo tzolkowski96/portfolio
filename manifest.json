@@ -1,9 +1,8 @@
-
 {
   "name": "Tobin's Data Portfolio",
   "short_name": "Portfolio",
-  "description": "Data analysis portfolio featuring projects and visualizations",
-  "start_url": "/",
+  "description": "Data analysis portfolio showcasing projects and expertise",
+  "start_url": "/?source=pwa",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4299e1",
@@ -15,13 +14,27 @@
       "purpose": "any maskable"
     },
     {
+      "src": "icons/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
       "src": "icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
   ],
-  "orientation": "portrait",
+  "orientation": "any",
   "categories": ["portfolio", "data", "analytics"],
-  "prefer_related_applications": false
+  "shortcuts": [
+    {
+      "name": "View Portfolio",
+      "url": "https://tobin-data-portfolio.netlify.app/",
+      "description": "Go directly to the main portfolio"
+    }
+  ],
+  "prefer_related_applications": false,
+  "display_override": ["window-controls-overlay", "standalone"]
 }

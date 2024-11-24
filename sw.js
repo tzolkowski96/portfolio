@@ -1,5 +1,4 @@
-
-const CACHE_VERSION = 'v1.0.0';
+const CACHE_VERSION = 'v1.1.0';
 const CACHE_NAME = `portfolio-cache-${CACHE_VERSION}`;
 const OFFLINE_URL = '/offline.html';
 
@@ -8,9 +7,10 @@ const STATIC_ASSETS = [
   '/index.html',
   '/favicon.ico',
   '/manifest.json',
+  '/offline.html',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap'
-];
+].map(url => url + `?v=${CACHE_VERSION}`);
 
 // Install event - cache static assets
 self.addEventListener('install', event => {
@@ -43,7 +43,9 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       fetch(event.request)
         .catch(() => {
-          return caches.match(OFFLINE_URL) || caches.match(event.request);
+          return caches.match(OFFLINE_URL)
+            .then(response => response || caches.match('/index.html'))
+            .catch(() => new Response('Offline page not available'));
         })
     );
     return;

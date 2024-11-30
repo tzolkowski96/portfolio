@@ -1,24 +1,66 @@
 # Portfolio Redirect Page
 
-Modern PWA-enabled redirect page pointing to my updated portfolio website.
+Modern, performance-optimized redirect page with comprehensive PWA capabilities.
 
-## 🔗 Current Portfolio
+## 🔗 New Portfolio Location
 
 [https://tobin-data-portfolio.netlify.app/](https://tobin-data-portfolio.netlify.app/)
 
-## ✨ Key Features
+## ✨ Features
 
-- Progressive Web App (PWA) with offline support
-- Automatic 10-second redirect with visual feedback
-- Performance optimized with modern web standards
-- Cross-platform and accessibility compliant
-- Dark mode support
+- **Progressive Web App (PWA)**
+  - Offline support with fallback page
+  - Installable on mobile devices
+  - Service worker caching strategies
+  - Background sync capabilities
 
-## 🛠️ Tech Stack
+- **Performance Optimized**
+  - Resource preloading
+  - Critical CSS inlining
+  - Optimized asset loading
+  - Performance monitoring
 
-- HTML5, CSS3, ES6+ JavaScript
-- Service Workers for offline functionality
-- Web App Manifest for PWA support
+- **Enhanced UX**
+  - Smart retry mechanism
+  - Visual countdown indicator
+  - Smooth animations
+  - Loading states
+
+- **Accessibility**
+  - ARIA attributes
+  - Keyboard navigation
+  - Screen reader support
+  - High contrast support
+
+- **Cross Platform**
+  - Responsive design
+  - Dark mode support
+  - Touch-optimized
+  - Cross-browser compatible
+
+## 🛠️ Technical Stack
+
+- HTML5 with semantic markup
+- Modern CSS3 (CSS Custom Properties, Grid, Flexbox)
+- ES6+ JavaScript
+- Service Workers
+- Web App Manifest
+- Performance APIs
+
+## 🔒 Security
+
+- Content Security Policy
+- HTTPS enforced
+- XSS protection
+- Secure resource loading
+
+## 📱 Progressive Features
+
+- Offline functionality
+- Install prompts
+- Push notifications ready
+- Share target API
+- Protocol handlers
 
 ## 📞 Contact
 
@@ -29,3 +71,6 @@ Modern PWA-enabled redirect page pointing to my updated portfolio website.
 ## 📄 License
 
 © 2024 Tobin Zolkowski. All rights reserved.
+
+---
+Built with modern web standards and optimal performance in mind.

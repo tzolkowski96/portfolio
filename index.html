@@ -1,402 +1,66 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="description" content="My data analysis portfolio has moved. Explore updated projects, visualizations, and technical skills on my new website.">
-    <meta name="theme-color" content="#4299e1">
-    <meta name="keywords" content="portfolio, data analysis, visualization, technical skills">
-    <meta name="author" content="Tobin">
-    <meta name="robots" content="noindex">
-    <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" loading="lazy">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My data analysis portfolio has moved to a new platform with improved features and updated content.">
+    <meta name="theme-color" content="#4299e1" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#2d3748" media="(prefers-color-scheme: dark)">
+    
+    <!-- Enhanced Social Media Tags -->
+    <meta property="og:title" content="Tobin's Portfolio - New Location">
+    <meta property="og:description" content="My data analysis portfolio has moved to a new platform with improved features.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://tobin-data-portfolio.netlify.app/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tobin's Portfolio - New Location">
+    <meta name="twitter:description" content="Data analysis portfolio with improved features and content">
+    <title>Portfolio Redirect</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
-    <title>Portfolio Redirect</title>
-    <!-- Enhance meta tags -->
-    <meta property="og:title" content="Tobin's Data Portfolio">
-    <meta property="og:description" content="Data analysis portfolio featuring projects, visualizations, and technical skills">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <!-- Add no-js fallback -->
-    <script>document.documentElement.classList.remove('no-js');</script>
-    <!-- Add security headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https:;">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preload" href="icons/icon-192.png" as="image">
+    <link rel="preload" href="manifest.json" as="fetch" crossorigin>
+    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="modulepreload" href="sw.js">
     
-    <!-- Optimize resource loading -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    <link rel="modulepreload" href="script.js">
-    
-    <!-- Add manifest for PWA support -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#4299e1" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#1a202c" media="(prefers-color-scheme: dark)">
-    <!-- Enhanced meta tags -->
-    <meta name="application-name" content="Tobin's Portfolio">
-    <meta name="apple-mobile-web-app-title" content="Tobin's Portfolio">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-TileColor" content="#4299e1">
-    <meta property="og:site_name" content="Tobin's Portfolio">
-    <meta property="og:image" content="/icons/icon-512.png">
-    <meta property="og:locale" content="en_US">
-    <meta name="twitter:creator" content="@tobinzolkowski">
-    
-    <!-- Structured data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Tobin's Data Portfolio",
-      "description": "Data analysis portfolio featuring projects and visualizations",
-      "url": "https://tobin-data-portfolio.netlify.app/",
-      "author": {
-        "@type": "Person",
-        "name": "Tobin Zolkowski",
-        "sameAs": [
-          "https://www.linkedin.com/in/tobin-zolkowski-844873200/",
-          "https://github.com/tzolkowski96"
-        ]
-      }
-    }
-    </script>
+    <!-- Instant.Page for faster navigation -->
+    <script src="//instant.page/5.1.1" type="module" integrity="sha384-MWfCL6g1OTGsbSwfuMHc8+8J2u71/LA8dzlIN3ycajckxuZZmF+DNjdm7O6H3PSq"></script>
 
-    <!-- Improved resource loading -->
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_0ew.woff2" crossorigin>
-    <link rel="preload" href="/icons/icon-192.png" as="image">
-    
-    <!-- Enhanced error handling -->
-    <script>
-        window.addEventListener('error', function(e) {
-            if (document.getElementById('error-boundary')) {
-                document.getElementById('error-boundary').hidden = false;
-            }
-            console.error('Global error:', e.error);
-            return false;
-        });
-    </script>
     <style>
         :root {
             --primary: #2d3748;
             --accent: #4299e1;
-            --bg-hover: #ebf8ff;
-            --text-secondary: #718096;
-            --gradient-start: #4299e1;
-            --gradient-end: #667eea;
-            --dark-bg: #1a202c;
-            --dark-text: #e2e8f0;
-            --dark-accent: #63b3ed;
-            --progress-height: 8px;
-            --progress-gradient: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 50%, var(--gradient-start) 100%);
-            --progress-shadow: 0 2px 4px rgba(66, 153, 225, 0.2);
-            --progress-shine: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --preview-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            --info-gradient: linear-gradient(135deg, var(--bg-hover) 0%, #dbeafe 100%);
-            --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-            --base-font-size: clamp(16px, 3.5vw, 18px);
-            --h1-font-size: clamp(1.75rem, 5vw, 2.5rem);
-        }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            max-width: 100%;
-            width: min(700px, 95%);
-            margin: 40px auto;
-            text-align: center;
-            line-height: 1.6;
-            color: var(--primary);
-            padding: 20px;
-            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            font-size: var(--base-font-size);
-        }
-        .container {
-            background: white;
-            padding: clamp(1.5rem, 6vw, 3rem);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            border: 1px solid rgba(0,0,0,0.05);
-            will-change: transform;
-            backface-visibility: hidden;
-            content-visibility: auto;
-            contain-intrinsic-size: 0 500px;
-        }
-        h1 {
-            position: relative;
-            color: var(--primary); /* Fallback */
-            margin-bottom: 1.5em;
-            font-size: var(--h1-font-size);
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background-image: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeInDown 1s ease-out;
-        }
-        a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: all 0.3s ease-in-out;
-            padding: 12px 24px;
-            border-radius: 8px;
-            display: inline-block;
-            margin-top: 15px;
-            font-weight: 500;
-            border: 2px solid transparent;
-            outline-offset: 2px;
-        }
-        a:hover {
-            background: var(--bg-hover);
-            border-color: var(--accent);
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(66, 153, 225, 0.2);
-        }
-        a:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 4px;
-        }
-        .loader {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #e2e8f0;
-            border-top: 2px solid var(--accent);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: inline-block;
-            margin-left: 8px;
-            vertical-align: middle;
-            will-change: transform;
-        }
-        #countdown {
-            font-weight: 600;
-            color: var(--accent);
-        }
-        .preview-box {
-            background: var(--preview-gradient);
-            padding: clamp(20px, 4vw, 30px);
-            border-radius: 16px;
-            margin: 25px 0;
-            border: 1px solid rgba(66, 153, 225, 0.1);
-            transition: 
-                transform 0.5s var(--transition-bounce),
-                box-shadow 0.4s var(--transition-smooth),
-                border-color 0.3s ease;
-            transform: perspective(1000px) translateZ(0);
-            will-change: transform, box-shadow;
-            backface-visibility: visible;
-            transform-style: flat;
-            box-shadow: 
-                var(--card-shadow),
-                0 0 0 rgba(66, 153, 225, 0);
-        }
-
-        .preview-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 
-                var(--card-shadow-hover),
-                0 0 40px rgba(66, 153, 225, 0.2);
-            border-color: var(--accent);
-        }
-
-        .preview-box::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                135deg,
-                transparent 0%,
-                rgba(255, 255, 255, 0) 20%,
-                rgba(255, 255, 255, 0.4) 50%,
-                rgba(255, 255, 255, 0) 80%,
-                transparent 100%
-            );
-            transform: translateX(-100%) skewX(-15deg);
-            transition: transform 0.8s var(--transition-smooth);
-            pointer-events: none;
-            mix-blend-mode: soft-light;
-        }
-
-        .preview-box:hover::after {
-            transform: translateX(100%) skewX(-15deg);
-        }
-
-        .preview-icon {
-            position: relative;
-            font-size: 52px;
-            color: var(--accent);
-            margin-bottom: 20px;
-            background-image: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            transition: transform 0.5s var(--transition-bounce);
-            transform-origin: center;
-            z-index: 1;
-        }
-
-        .preview-box:hover .preview-icon {
-            transform: scale(1.1) rotate(-3deg);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .preview-box,
-            .preview-icon {
-                transition: none;
-                transform: none !important;
-            }
-            .preview-box:hover {
-                border-color: var(--accent);
-            }
-            .preview-box::after {
-                display: none;
-            }
-        }
-        .redirect-info {
-            margin: 25px 0;
-            padding: clamp(15px, 3vw, 25px);
-            background: var(--info-gradient);
-            border-radius: 16px;
-            border: 1px solid rgba(66, 153, 225, 0.2);
-            box-shadow: var(--card-shadow);
-            position: relative;
-            overflow: hidden;
-            animation: pulseAttention 2s infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes pulseAttention {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-        @media (max-width: 480px) {
-            body {
-                margin: 10px auto;
-                padding: 10px;
-                font-size: 16px;
-            }
-            h1 {
-                font-size: 1.75em;
-                margin-bottom: 1em;
-            }
-            .preview-box {
-                padding: 15px;
-                margin: 15px 0;
-            }
-            .preview-icon {
-                font-size: 36px;
-                margin-bottom: 15px;
-            }
-            a {
-                padding: 10px 20px;
-                width: 100%;
-                box-sizing: border-box;
-                margin: 8px 0;
-            }
-            .redirect-info {
-                padding: 15px;
-                margin: 15px 0;
-            }
-        }
-        @media (hover: none) {
-            a:hover, .preview-box:hover {
-                transform: none;
-            }
-            .preview-box:hover {
-                transform: none;
-                box-shadow: var(--card-shadow);
-            }
-            .preview-box::after {
-                display: none;
-            }
-            .preview-box:hover .preview-icon {
-                transform: none;
-            }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
-        }
-        /* Custom scrollbar for better UX */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gradient-end);
-        }
-        /* Add to existing styles */
-        .no-js .redirect-info {
-            display: none;
+            --background: #f7fafc;
+            --card: #ffffff;
+            --spacing: clamp(1.5rem, 5vw, 2.5rem);
+            --progress: #63b3ed;
         }
 
         @media (prefers-color-scheme: dark) {
-            body {
-                background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-                color: var(--dark-text);
+            :root {
+                --primary: #e2e8f0;
+                --background: #1a202c;
+                --card: #2d3748;
+                --progress: #90cdf4;
             }
-            .container {
-                background: var(--dark-bg);
-                border-color: rgba(255,255,255,0.1);
-            }
-            .preview-box {
-                background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-                border-color: rgba(255,255,255,0.1);
-            }
-            .redirect-info {
-                background: linear-gradient(135deg, rgba(66, 153, 225, 0.1) 0%, rgba(66, 153, 225, 0.05) 100%);
-                border-color: rgba(99, 179, 237, 0.2);
-            }
-            .progress-bar {
-                --progress-shadow: 0 2px 4px rgba(99, 179, 237, 0.3);
-            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--background);
+            color: var(--primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: var(--spacing);
         }
 
         .progress-bar {
@@ -404,488 +68,330 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: var(--progress-height);
-            background: var(--progress-gradient);
+            height: 3px;
+            background: var(--progress);
             transform-origin: 0 50%;
             transform: scaleX(0);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-            box-shadow: var(--progress-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .card {
+            position: relative;
             overflow: hidden;
-            backdrop-filter: blur(4px);
-            animation: progressPulse 2s ease-in-out infinite;
+            background: var(--card);
+            padding: var(--spacing);
+            border-radius: 16px;
+            box-shadow: 
+                0 4px 6px -1px rgba(0,0,0,0.1),
+                0 10px 15px -3px rgba(0,0,0,0.05);
+            width: min(100%, 440px);
+            text-align: center;
         }
 
-        .progress-bar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--progress-shine);
-            animation: progressShine 2s ease-in-out infinite;
+        h1 {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            margin-bottom: 1rem;
         }
 
-        .progress-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 50%;
-            background: linear-gradient(
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
+        p {
+            margin-bottom: 1.5rem;
         }
 
-        @keyframes progressPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
+        .button {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.875rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(66, 153, 225, 0.25);
+            text-decoration: none;
+            transition: opacity 0.2s;
         }
 
-        @keyframes progressShine {
-            0% { left: -100%; }
-            100% { left: 100%; }
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(66, 153, 225, 0.3);
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            .progress-bar {
-                animation: none;
-            }
-            .progress-bar::before {
-                animation: none;
-            }
+        .button:active {
+            transform: translateY(0);
+        }
+
+        /* Improve loading state */
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        #countdown {
+            font-weight: 600;
+            color: var(--accent);
         }
 
         @media (max-width: 480px) {
-            :root {
-                --progress-height: 6px;
+            .card {
+                padding: 1.5rem;
             }
         }
 
-        /* Add hardware acceleration for smoother animations */
-        .preview-box,
-        .preview-icon {
-            transform: translate3d(0, 0, 0);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        .notice {
+            background: rgba(66, 153, 225, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--accent);
+            animation: slideIn 0.5s ease-out;
+            transition: transform 0.2s ease;
         }
 
-        @supports not (perspective: 1000px) {
-            .preview-box {
-                transform: translateZ(0);
+        .notice:hover {
+            transform: translateY(-2px);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
             }
-        }
-
-        /* Enhanced accessibility styles */
-        @media (prefers-contrast: more) {
-            :root {
-                --accent: #0056b3;
-                --primary: #000000;
-                --text-secondary: #363636;
-            }
-        }
-
-        /* Enhanced focus styles */
-        *:focus-visible {
-            outline: 3px solid var(--accent);
-            outline-offset: 2px;
-            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-        }
-
-        /* Reduced motion improvements */
-        @media (prefers-reduced-motion: reduce) {
-            .progress-bar::before,
-            .preview-box::after {
-                display: none;
-            }
-            
-            .redirect-info {
-                animation: none;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        /* Touch device optimizations */
-        @media (hover: none) and (pointer: coarse) {
-            a, .preview-box {
-                cursor: pointer;
-                -webkit-tap-highlight-color: rgba(66, 153, 225, 0.2);
-            }
-            
-            a:active, .preview-box:active {
-                transform: scale(0.98);
-                transition: transform 0.1s;
-            }
-            
-            .preview-box {
-                touch-action: manipulation;
-            }
-            
-            /* Increase touch targets */
-            a, button {
-                min-height: 44px;
-                min-width: 44px;
-            }
+        .notice-title {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        /* Landscape orientation optimizations */
-        @media screen and (orientation: landscape) and (max-height: 500px) {
-            .container {
-                max-width: 90%;
-                margin: 0.5rem auto;
-            }
-            
-            .preview-box {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                text-align: left;
-            }
-            
-            .preview-icon {
-                margin-bottom: 0;
-                font-size: 32px;
-            }
+        .notice-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .info-text {
+            font-size: 0.9375rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .countdown-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .countdown-circle {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .countdown-circle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            opacity: 0.2;
+        }
+
+        .countdown-circle::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
+            animation: circle 10s linear forwards;
+            transform-origin: center;
+        }
+
+        @keyframes circle {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Loading States */
+        .loading-skeleton {
+            background: linear-gradient(90deg, 
+                var(--card) 25%, 
+                rgba(66, 153, 225, 0.1) 50%, 
+                var(--card) 75%
+            );
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Improved Error States */
+        .error-boundary {
+            border: 1px solid #e53e3e;
+            background: rgba(229, 62, 62, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
         }
     </style>
-    <!-- Enhanced resource hints -->
-    <link rel="preload" href="/sw.js" as="script" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="modulepreload" href="script.js" as="script">
-    <link rel="prefetch" href="https://tobin-data-portfolio.netlify.app/">
-    
-    <!-- Enhanced meta tags -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="application-name" content="Tobin's Portfolio">
-    <meta name="msapplication-navbutton-color" content="#4299e1">
-    <meta name="msapplication-starturl" content="/">
-    <meta name="msapplication-tap-highlight" content="no">
-    
-    <!-- Security headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https: data:;">
-    <meta http-equiv="X-DNS-Prefetch-Control" content="on">
+
+    <!-- Performance Monitoring -->
+    <script>
+        window.performance.mark('script-start');
+        
+        // Web Vitals
+        addEventListener('DOMContentLoaded', () => {
+            window.performance.mark('script-end');
+            window.performance.measure('script-execution', 'script-start', 'script-end');
+        });
+    </script>
 </head>
 <body>
-    <div class="progress-bar" 
-         role="progressbar" 
-         aria-valuemin="0" 
-         aria-valuemax="100" 
-         aria-valuenow="0"
-         aria-label="Page redirect progress">
-    </div>
-    <!-- Enhanced error boundary -->
-    <div id="error-boundary" hidden>
-        <div class="error-container" role="alert">
-            <p>Something went wrong. Please try refreshing the page or visit the new portfolio directly.</p>
-            <div class="error-actions">
-                <button onclick="window.location.reload()" class="error-button">Refresh Page</button>
-                <a href="https://tobin-data-portfolio.netlify.app/" class="error-link">Visit New Portfolio</a>
+    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+    <main class="card">
+        <h1>Portfolio Has Moved</h1>
+        
+        <div class="notice">
+            <div class="notice-title">
+                <svg class="notice-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                </svg>
+                Important Update
             </div>
+            <p class="info-text">
+                The GitHub portfolio website has been discontinued. My portfolio has been relocated to a new platform with improved features and updated content.
+            </p>
+            <p class="info-text">
+                All projects, visualizations, and technical demonstrations can now be found at the new location.
+            </p>
         </div>
-    </div>
-    <!-- Offline notification -->
-    <div id="offline-notification" hidden role="alert" aria-live="polite">
-        <p>You appear to be offline. Some features may be limited.</p>
-    </div>
-    <div class="container" role="main">
-        <h1>Portfolio Has Moved!</h1>
-        <div class="preview-box" role="region" aria-label="Portfolio preview">
-            <i class="fas fa-laptop-code preview-icon" aria-hidden="true"></i>
-            <p class="preview-text">My updated portfolio features innovative data analysis projects, interactive visualizations, and advanced technical skills.</p>
-        </div>
-        <div class="redirect-info" role="status" aria-live="polite">
-            <p>Your portfolio experience awaits at the new location!</p>
-            <p>Redirecting in <span id="countdown" aria-label="Countdown timer">10</span> seconds <span class="loader" aria-hidden="true"></span></p>
-        </div>
-        <p>If you are not redirected, please click:<br>
-            <a href="https://tobin-data-portfolio.netlify.app/" aria-label="Visit new portfolio website">Visit New Portfolio →</a>
+
+        <p aria-live="polite">
+            <span class="countdown-wrapper">
+                Redirecting in <span class="countdown-circle"><span id="countdown">10</span></span> seconds
+                <span class="loading" aria-hidden="true"></span>
+            </span>
         </p>
-    </div>
-    <noscript>
-        <div class="redirect-info" role="status" aria-live="polite">
-            <p>JavaScript is disabled in your browser. Please enable JavaScript or use the link below to navigate to the new portfolio.</p>
-            <a href="https://tobin-data-portfolio.netlify.app/" aria-label="Visit new portfolio website">Visit New Portfolio →</a>
-        </div>
-    </noscript>
-    <script defer>
-        // Refactored redirect handling
+        <a href="https://tobin-data-portfolio.netlify.app/" class="button">
+            Visit New Portfolio
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3.33337 8H12.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M8 3.33337L12.6667 8.00004L8 12.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+    </main>
+
+    <!-- Error Boundary Container -->
+    <div id="error-container" hidden class="error-boundary" role="alert"></div>
+
+    <script>
+        const progressBar = document.querySelector('.progress-bar');
         let count = 10;
-        const redirectUrl = 'https://tobin-data-portfolio.netlify.app/';
-        const countdownElement = document.getElementById('countdown');
-        let countdown;
+        const total = 10;
 
-        function updateProgress(percentage) {
-            const progressBar = document.querySelector('.progress-bar');
-            if (progressBar) {
-                // Smooth easing function for progress
-                const ease = t => t * (2 - t);
-                const scaled = ease(percentage / 100);
-                
-                progressBar.style.transform = `scaleX(${scaled})`;
-                progressBar.setAttribute('aria-valuenow', Math.round(percentage));
-                
-                // Update ARIA label for screen readers
-                progressBar.setAttribute('aria-label', 
-                    `Redirect progress: ${Math.round(percentage)}%`
-                );
-            }
+        function updateProgress() {
+            const progress = ((total - count) / total) * 100;
+            progressBar.style.transform = `scaleX(${progress / 100})`;
+            progressBar.setAttribute('aria-valuenow', progress);
         }
 
-        function countdownTick() {
-            try {
-                count--;
-                if (countdownElement) {
-                    countdownElement.textContent = count;
-                    updateProgress((10 - count) * 10);
-                }
-                if (count <= 0) {
-                    clearInterval(countdown);
-                    handleRedirect();
-                }
-            } catch (error) {
-                console.error('Countdown error:', error);
-                clearInterval(countdown);
-            }
-        }
-
-        // Add retry mechanism
-        let retryCount = 0;
-        const MAX_RETRIES = 3;
-
-        function handleRedirect() {
-            try {
-                if (retryCount < MAX_RETRIES) {
-                    window.location.href = redirectUrl;
-                    retryCount++;
-                } else {
-                    throw new Error('Max retries exceeded');
-                }
-            } catch (error) {
-                console.error('Redirect failed:', error);
-                const redirectInfo = document.querySelector('.redirect-info');
-                if (redirectInfo) {
-                    redirectInfo.innerHTML = `
-                        <p>Automatic redirect failed. Please use the link below.</p>
-                        <p class="error-message">Error: ${error.message}</p>
-                    `;
-                }
-            }
-        }
-
-        countdown = setInterval(countdownTick, 1000);
-
-        // Enhanced page visibility handling
-        let timeHidden;
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                timeHidden = Date.now();
-                clearInterval(countdown);
-            } else {
-                const timeVisible = Date.now();
-                const hiddenDuration = Math.floor((timeVisible - timeHidden) / 1000);
-                count = Math.max(0, count - hiddenDuration);
-                if (count > 0) {
-                    countdown = setInterval(countdownTick, 1000);
-                } else {
-                    handleRedirect();
-                }
-            }
-        });
-
-        // Add fallback for navigation errors
-        window.addEventListener('unhandledrejection', (event) => {
-            if (event.reason instanceof TypeError && event.reason.message.includes('Failed to navigate')) {
-                console.error('Navigation failed:', event.reason);
-                handleRedirect();
-            }
-        });
-
-        // Add lazy loading
-        document.addEventListener('DOMContentLoaded', () => {
-            const lazyElements = document.querySelectorAll('.lazy-load');
-            lazyElements.forEach(element => {
-                element.classList.add('loaded');
-            });
-        });
-
-        // Add error boundary handler
-        window.onerror = function(msg, url, lineNo, columnNo, error) {
-            document.getElementById('error-boundary').hidden = false;
-            return false;
-        };
-
-        // Enhance performance with requestAnimationFrame
-        function updateProgressSmooth(percentage) {
-            requestAnimationFrame(() => {
-                const progressBar = document.querySelector('.progress-bar');
-                if (progressBar) {
-                    const ease = t => t * (2 - t);
-                    const scaled = ease(percentage / 100);
-                    progressBar.style.transform = `scaleX(${scaled})`;
-                }
-            });
-        }
-
-        // Add offline support
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(console.error);
-        }
-
-        // Optimize animation performance
-        document.querySelectorAll('.preview-box, .preview-icon').forEach(el => {
-            el.style.willChange = 'transform';
-        });
-
-        // Remove will-change after animation
-        document.addEventListener('transitionend', (e) => {
-            if (e.target.classList.contains('preview-box') || 
-                e.target.classList.contains('preview-icon')) {
-                e.target.style.willChange = 'auto';
-            }
-        });
-
-        // Enhanced offline support
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => {
-                    registration.addEventListener('updatefound', () => {
-                        const newWorker = registration.installing;
-                        newWorker.addEventListener('statechange', () => {
-                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                // New content is available
-                                console.log('New content available, please refresh.');
-                            }
-                        });
-                    });
-                })
-                .catch(error => {
-                    console.error('Service Worker registration failed:', error);
-                });
-        }
-
-        // Enhanced performance monitoring
-        if ('PerformanceObserver' in window) {
-            const observer = new PerformanceObserver((list) => {
-                for (const entry of list.getEntries()) {
-                    console.log(`${entry.name}: ${entry.startTime}ms`);
-                }
-            });
-            observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input'] });
-        }
-
-        // Web Vitals Monitoring
-        function sendToAnalytics(metric) {
-            const body = JSON.stringify({
-                name: metric.name,
-                value: metric.value,
-                id: metric.id
-            });
+        const countdown = setInterval(() => {
+            count--;
+            document.getElementById('countdown').textContent = count;
+            updateProgress();
             
-            (navigator.sendBeacon && navigator.sendBeacon('/analytics', body)) || 
-            fetch('/analytics', {
-                body,
-                method: 'POST',
-                keepalive: true
-            });
-        }
-
-        // Error Recovery
-        let redirectAttempts = 0;
-        const MAX_REDIRECT_ATTEMPTS = 3;
-
-        function safeRedirect(url) {
-            if (redirectAttempts >= MAX_REDIRECT_ATTEMPTS) {
-                console.error('Max redirect attempts reached');
-                return false;
+            if (count <= 0) {
+                clearInterval(countdown);
+                attemptRedirect('https://tobin-data-portfolio.netlify.app/');
             }
-            
-            try {
-                redirectAttempts++;
-                window.location.href = url;
-                return true;
-            } catch (e) {
-                console.error('Redirect failed:', e);
-                return false;
-            }
-        }
+        }, 1000);
 
-        // Back Button Interception
-        window.addEventListener('popstate', function(event) {
-            event.preventDefault();
-            const confirmed = confirm('Are you sure you want to leave? The portfolio has moved to a new location.');
-            if (confirmed) {
-                history.back();
-            } else {
-                history.pushState(null, '', window.location.href);
-            }
-        });
-
-        // Enhanced Error Boundary
-        window.addEventListener('error', function(event) {
-            const errorBoundary = document.getElementById('error-boundary');
-            if (errorBoundary) {
-                errorBoundary.innerHTML = `
-                    <div class="error-container">
-                        <p>Something went wrong. Please try refreshing the page.</p>
-                        <button onclick="window.location.reload()">Refresh Page</button>
-                    </div>
+        // Enhanced Error Handling
+        window.addEventListener('error', (event) => {
+            const errorContainer = document.getElementById('error-container');
+            if (errorContainer) {
+                errorContainer.hidden = false;
+                errorContainer.innerHTML = `
+                    <p>There was an error loading the page. Please try again.</p>
+                    <button onclick="window.location.reload()" class="button">
+                        Reload Page
+                    </button>
                 `;
-                errorBoundary.hidden = false;
             }
-            console.error('Runtime error:', event.error);
+            console.error('Page Error:', event.error);
         });
 
         // Performance Monitoring
         if ('PerformanceObserver' in window) {
+            const observer = new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    console.log(`${entry.name}: ${entry.startTime.toFixed(2)}ms`);
+                }
+            });
+            observer.observe({ entryTypes: ['paint', 'largest-contentful-paint'] });
+        }
+
+        // Add retry mechanism
+        let redirectAttempts = 0;
+        const MAX_REDIRECT_ATTEMPTS = 3;
+
+        async function attemptRedirect(url) {
+            if (redirectAttempts >= MAX_REDIRECT_ATTEMPTS) {
+                showError('Maximum redirect attempts reached. Please use the button below.');
+                return;
+            }
+
             try {
-                new PerformanceObserver((entryList) => {
-                    for (const entry of entryList.getEntries()) {
-                        sendToAnalytics(entry);
-                    }
-                }).observe({ entryTypes: ['largest-contentful-paint', 'fid', 'cls', 'ttfb'] });
-            } catch (e) {
-                console.error('Performance monitoring error:', e);
+                redirectAttempts++;
+                const response = await fetch(url, { method: 'HEAD' });
+                if (response.ok) {
+                    window.location.href = url;
+                } else {
+                    throw new Error('Destination unavailable');
+                }
+            } catch (error) {
+                console.error('Redirect failed:', error);
+                setTimeout(() => attemptRedirect(url), 2000);
             }
         }
 
-        // Enhanced offline detection
-        window.addEventListener('online', function() {
-            document.getElementById('offline-notification').hidden = true;
-        });
-        
-        window.addEventListener('offline', function() {
-            document.getElementById('offline-notification').hidden = false;
-        });
-
-        // Performance monitoring
-        if ('performance' in window) {
-            window.performance.mark('app-init');
-        }
-
-        // Progressive enhancement
-        document.documentElement.classList.remove('no-js');
-        
-        // Enhanced error recovery
-        function recoverFromError() {
-            const redirectUrl = 'https://tobin-data-portfolio.netlify.app/';
-            const fallbackHtml = `
-                <div class="container">
-                    <h1>Portfolio Has Moved</h1>
-                    <p>Please visit the new location:</p>
-                    <a href="${redirectUrl}">Continue to New Portfolio →</a>
-                </div>
-            `;
-            
-            if (document.body.innerHTML.trim() === '') {
-                document.body.innerHTML = fallbackHtml;
+        function showError(message) {
+            const errorContainer = document.getElementById('error-container');
+            if (errorContainer) {
+                errorContainer.hidden = false;
+                errorContainer.innerHTML = `
+                    <p>${message}</p>
+                    <button onclick="window.location.reload()" class="button">
+                        Try Again
+                    </button>
+                `;
             }
         }
-
-        window.addEventListener('error', recoverFromError);
-        window.addEventListener('unhandledrejection', recoverFromError);
     </script>
 </body>
 </html>

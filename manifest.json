@@ -36,5 +36,37 @@
     }
   ],
   "prefer_related_applications": false,
-  "display_override": ["window-controls-overlay", "standalone"]
+  "display_override": ["window-controls-overlay", "standalone"],
+  "screenshots": [
+    {
+      "src": "screenshots/desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Desktop view of portfolio"
+    }
+  ],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
+  "related_applications": [],
+  "protocol_handlers": [
+    {
+      "protocol": "web+portfolio",
+      "url": "/?search=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/share-target/",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
 }

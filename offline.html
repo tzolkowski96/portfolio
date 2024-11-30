@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Portfolio Redirect</title>
+    <style>
+        :root {
+            --primary: #2d3748;
+            --accent: #4299e1;
+            --background: #f7fafc;
+            --card: #ffffff;
+            --spacing: clamp(1.5rem, 5vw, 2.5rem);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #e2e8f0;
+                --background: #1a202c;
+                --card: #2d3748;
+            }
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            background: var(--background);
+            color: var(--primary);
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            padding: var(--spacing);
+        }
+
+        .card {
+            background: var(--card);
+            padding: var(--spacing);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            width: min(100%, 440px);
+            text-align: center;
+        }
+
+        .button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .offline-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <svg class="offline-icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21L24 8.98C20.93 5.9 16.69 4 12 4zM2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07l-2.85 2.86C16.46 10.71 14.31 10 12 10c-2.31 0-4.46.71-6.23 1.93L2.92 9.07z"/>
+        </svg>
+        <h1>You're Offline</h1>
+        <p>Please check your internet connection and try again.</p>
+        <button onclick="retryConnection()" class="button">
+            Retry Connection
+        </button>
+    </main>
+
+    <script>
+        function retryConnection() {
+            if (navigator.onLine) {
+                window.location.reload();
+            } else {
+                alert('Still offline. Please check your connection.');
+            }
+        }
+
+        window.addEventListener('online', () => window.location.reload());
+    </script>
+</body>
+</html>

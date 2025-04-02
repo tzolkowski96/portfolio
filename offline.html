@@ -3,62 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="You are currently offline. Portfolio redirect page will be available when you reconnect.">
+    <meta name="theme-color" content="#4299e1" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#2d3748" media="(prefers-color-scheme: dark)">
     <title>Offline - Portfolio Redirect</title>
-    <style>
-        :root {
-            --primary: #2d3748;
-            --accent: #4299e1;
-            --background: #f7fafc;
-            --card: #ffffff;
-            --spacing: clamp(1.5rem, 5vw, 2.5rem);
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --primary: #e2e8f0;
-                --background: #1a202c;
-                --card: #2d3748;
-            }
-        }
-
-        body {
-            font-family: system-ui, sans-serif;
-            background: var(--background);
-            color: var(--primary);
-            min-height: 100vh;
-            margin: 0;
-            display: grid;
-            place-items: center;
-            padding: var(--spacing);
-        }
-
-        .card {
-            background: var(--card);
-            padding: var(--spacing);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            width: min(100%, 440px);
-            text-align: center;
-        }
-
-        .button {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 1rem;
-        }
-
-        .offline-icon {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/offline.css">
 </head>
 <body>
     <main class="card">
@@ -66,22 +18,35 @@
             <path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21L24 8.98C20.93 5.9 16.69 4 12 4zM2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07l-2.85 2.86C16.46 10.71 14.31 10 12 10c-2.31 0-4.46.71-6.23 1.93L2.92 9.07z"/>
         </svg>
         <h1>You're Offline</h1>
-        <p>Please check your internet connection and try again.</p>
-        <button onclick="retryConnection()" class="button">
-            Retry Connection
+        <p>The portfolio redirect page requires an internet connection to function properly.</p>
+        
+        <div class="offline-info">
+            <div class="info-title">What's happening?</div>
+            <p>You're trying to access Tobin's portfolio redirect page, but you appear to be offline. This page helps redirect visitors to the new portfolio location at:</p>
+            <div class="url-display">https://tobin-data-portfolio.netlify.app/</div>
+        </div>
+        
+        <div class="connection-status" id="connection-status">
+            Checking connection...
+        </div>
+        
+        <button onclick="retryConnection()" class="button" id="retry-button">
+            <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Check Connection
+        </button>
+        
+        <button onclick="copyPortfolioUrl()" class="button secondary-button" id="copy-button">
+            <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Copy Portfolio URL
         </button>
     </main>
 
-    <script>
-        function retryConnection() {
-            if (navigator.onLine) {
-                window.location.reload();
-            } else {
-                alert('Still offline. Please check your connection.');
-            }
-        }
+    <div id="copy-toast" class="toast" hidden>URL copied to clipboard</div>
 
-        window.addEventListener('online', () => window.location.reload());
-    </script>
+    <script src="js/offline.js" defer></script>
 </body>
 </html>

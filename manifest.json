@@ -1,72 +1,69 @@
 {
-  "name": "Tobin's Data Portfolio",
-  "short_name": "Portfolio",
-  "description": "Data analysis portfolio showcasing projects and expertise",
-  "start_url": "/?source=pwa",
+  "name": "Tobin's Data Portfolio - New Location",
+  "short_name": "Data Portfolio",
+  "description": "Redirect to Tobin's new data analysis portfolio with improved features and projects",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#4299e1",
+  "background_color": "#f8f9fa",
+  "theme_color": "#0d6efd",
   "icons": [
     {
-      "src": "icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "/img/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     },
     {
-      "src": "icons/icon-384.png",
-      "sizes": "384x384",
+      "src": "/img/icon-192.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-512.png",
+      "src": "/img/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/img/maskable-icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "orientation": "any",
-  "categories": ["portfolio", "data", "analytics"],
   "shortcuts": [
     {
-      "name": "View Portfolio",
+      "name": "Visit New Portfolio",
+      "short_name": "Portfolio",
+      "description": "Go directly to Tobin's new portfolio site",
       "url": "https://tobin-data-portfolio.netlify.app/",
-      "description": "Go directly to the main portfolio"
+      "icons": [
+        {
+          "src": "/img/icon-96.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://tobin-data-portfolio.netlify.app/"
     }
   ],
   "prefer_related_applications": false,
-  "display_override": ["window-controls-overlay", "standalone"],
   "screenshots": [
     {
-      "src": "screenshots/desktop.png",
-      "sizes": "1920x1080",
+      "src": "/img/screenshot.png",
+      "sizes": "1280x720",
       "type": "image/png",
-      "form_factor": "wide",
-      "label": "Desktop view of portfolio"
+      "platform": "wide",
+      "label": "Tobin's Portfolio Redirect Page"
     }
   ],
-  "edge_side_panel": {
-    "preferred_width": 400
-  },
-  "handle_links": "preferred",
-  "launch_handler": {
-    "client_mode": ["navigate-existing", "auto"]
-  },
-  "related_applications": [],
-  "protocol_handlers": [
-    {
-      "protocol": "web+portfolio",
-      "url": "/?search=%s"
-    }
-  ],
-  "share_target": {
-    "action": "/share-target/",
-    "method": "GET",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  }
+  "orientation": "any",
+  "categories": ["portfolio", "productivity", "data", "analysis"],
+  "dir": "ltr",
+  "lang": "en-US"
 }

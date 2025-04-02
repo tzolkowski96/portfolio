@@ -2,396 +2,137 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="My data analysis portfolio has moved to a new platform with improved features and updated content.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Tobin's data analysis portfolio has moved to a new platform with improved visualizations, projects, and case studies.">
     <meta name="theme-color" content="#4299e1" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#2d3748" media="(prefers-color-scheme: dark)">
     
-    <!-- Enhanced Social Media Tags -->
+    <!-- SEO and Open Graph tags -->
     <meta property="og:title" content="Tobin's Portfolio - New Location">
-    <meta property="og:description" content="My data analysis portfolio has moved to a new platform with improved features.">
+    <meta property="og:description" content="Tobin's data analysis portfolio has moved to a new platform with improved features, projects, and case studies.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://tobin-data-portfolio.netlify.app/og-image.jpg">
+    <meta property="og:url" content="https://tobin-data-portfolio.netlify.app/">
+    <meta property="og:image" content="/img/og-image.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Tobin's Portfolio - New Location">
     <meta name="twitter:description" content="Data analysis portfolio with improved features and content">
-    <title>Portfolio Redirect</title>
+    
+    <!-- Apple-specific meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Tobin's Portfolio">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://tobin-data-portfolio.netlify.app/">
+    
+    <title>Tobin's Portfolio - Redirecting</title>
+    
+    <!-- Preconnect and preload for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="preload" href="icons/icon-192.png" as="image">
-    <link rel="preload" href="manifest.json" as="fetch" crossorigin>
-    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="modulepreload" href="sw.js">
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Instant.Page for faster navigation -->
+    <!-- Favicon and app icons -->
+    <link rel="icon" href="/img/favicon.ico" sizes="any">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Preload resources -->
+    <link rel="preload" href="manifest.json" as="fetch" crossorigin>
+    <link rel="modulepreload" href="sw.js">
+    <link rel="modulepreload" href="js/script.js">
+    <link rel="preload" href="css/style.css" as="style">
+    
+    <!-- Instant.page for prefetching -->
     <script src="//instant.page/5.1.1" type="module" integrity="sha384-MWfCL6g1OTGsbSwfuMHc8+8J2u71/LA8dzlIN3ycajckxuZZmF+DNjdm7O6H3PSq"></script>
 
-    <style>
-        :root {
-            --primary: #2d3748;
-            --accent: #4299e1;
-            --background: #f7fafc;
-            --card: #ffffff;
-            --spacing: clamp(1.5rem, 5vw, 2.5rem);
-            --progress: #63b3ed;
-        }
+    <link rel="stylesheet" href="css/style.css">
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --primary: #e2e8f0;
-                --background: #1a202c;
-                --card: #2d3748;
-                --progress: #90cdf4;
+    <!-- Three.js import map -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.163.0/build/three.module.js"
             }
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: var(--background);
-            color: var(--primary);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            padding: var(--spacing);
-        }
-
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--progress);
-            transform-origin: 0 50%;
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .card {
-            position: relative;
-            overflow: hidden;
-            background: var(--card);
-            padding: var(--spacing);
-            border-radius: 16px;
-            box-shadow: 
-                0 4px 6px -1px rgba(0,0,0,0.1),
-                0 10px 15px -3px rgba(0,0,0,0.05);
-            width: min(100%, 440px);
-            text-align: center;
-        }
-
-        h1 {
-            font-size: clamp(1.5rem, 5vw, 2rem);
-            margin-bottom: 1rem;
-        }
-
-        p {
-            margin-bottom: 1.5rem;
-        }
-
-        .button {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--accent);
-            color: white;
-            padding: 0.875rem 1.75rem;
-            border-radius: 8px;
-            font-weight: 600;
-            box-shadow: 0 2px 4px rgba(66, 153, 225, 0.25);
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-
-        .button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px rgba(66, 153, 225, 0.3);
-        }
-
-        .button:active {
-            transform: translateY(0);
-        }
-
-        /* Improve loading state */
-        .loading {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #ffffff;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        #countdown {
-            font-weight: 600;
-            color: var(--accent);
-        }
-
-        @media (max-width: 480px) {
-            .card {
-                padding: 1.5rem;
-            }
-        }
-
-        .notice {
-            background: rgba(66, 153, 225, 0.1);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--accent);
-            animation: slideIn 0.5s ease-out;
-            transition: transform 0.2s ease;
-        }
-
-        .notice:hover {
-            transform: translateY(-2px);
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .notice-title {
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .notice-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        .info-text {
-            font-size: 0.9375rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .countdown-wrapper {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .countdown-circle {
-            position: relative;
-            width: 24px;
-            height: 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .countdown-circle::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid var(--accent);
-            opacity: 0.2;
-        }
-
-        .countdown-circle::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid var(--accent);
-            clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
-            animation: circle 10s linear forwards;
-            transform-origin: center;
-        }
-
-        @keyframes circle {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Enhanced Loading States */
-        .loading-skeleton {
-            background: linear-gradient(90deg, 
-                var(--card) 25%, 
-                rgba(66, 153, 225, 0.1) 50%, 
-                var(--card) 75%
-            );
-            background-size: 200% 100%;
-            animation: skeleton-loading 1.5s infinite;
-        }
-
-        @keyframes skeleton-loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* Improved Error States */
-        .error-boundary {
-            border: 1px solid #e53e3e;
-            background: rgba(229, 62, 62, 0.1);
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-        }
-    </style>
-
-    <!-- Performance Monitoring -->
+    </script>
+    
+    <!-- Preload animation polyfill -->
     <script>
-        window.performance.mark('script-start');
-        
-        // Web Vitals
-        addEventListener('DOMContentLoaded', () => {
-            window.performance.mark('script-end');
-            window.performance.measure('script-execution', 'script-start', 'script-end');
-        });
+        // Web Animation API polyfill detection
+        if (!('animate' in document.createElement('div'))) {
+            const polyfill = document.createElement('script');
+            polyfill.src = 'https://unpkg.com/web-animations-js@2.3.2/web-animations.min.js';
+            document.head.appendChild(polyfill);
+        }
     </script>
 </head>
 <body>
-    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
-    <main class="card">
-        <h1>Portfolio Has Moved</h1>
-        
-        <div class="notice">
-            <div class="notice-title">
-                <svg class="notice-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                </svg>
-                Important Update
-            </div>
-            <p class="info-text">
-                The GitHub portfolio website has been discontinued. My portfolio has been relocated to a new platform with improved features and updated content.
-            </p>
-            <p class="info-text">
-                All projects, visualizations, and technical demonstrations can now be found at the new location.
-            </p>
-        </div>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    
+    <main class="container">
+        <div class="card">
+            <div class="card-content">
+                <div class="logo" aria-hidden="true">
+                    <div class="logo-symbol">T</div>
+                </div>
+                
+                <h1>Portfolio Has Moved</h1>
+                
+                <div class="notice" role="region" aria-label="Important update about portfolio relocation">
+                    <div class="notice-title">
+                        <svg class="notice-icon" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                        Important Update
+                    </div>
+                    <p class="info-text">
+                        The GitHub portfolio website has been discontinued. My portfolio has been relocated to a new platform with improved features and updated content.
+                    </p>
+                    <p class="info-text">
+                        All projects, visualizations, and technical demonstrations can now be found at the new location. You will be redirected shortly.
+                    </p>
+                    <div class="destination-url">
+                        <span class="url-label">New URL:</span>
+                        <a href="https://tobin-data-portfolio.netlify.app/" class="url-link" rel="noopener">tobin-data-portfolio.netlify.app</a>
+                        <button class="copy-btn" aria-label="Copy URL" title="Copy URL to clipboard">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
 
-        <p aria-live="polite">
-            <span class="countdown-wrapper">
-                Redirecting in <span class="countdown-circle"><span id="countdown">10</span></span> seconds
-                <span class="loading" aria-hidden="true"></span>
-            </span>
-        </p>
-        <a href="https://tobin-data-portfolio.netlify.app/" class="button">
-            Visit New Portfolio
-            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M3.33337 8H12.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M8 3.33337L12.6667 8.00004L8 12.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </a>
+                <div class="countdown-wrapper" aria-live="polite">
+                    <div class="countdown-display">
+                        <div class="countdown-circle">
+                            <svg class="countdown-svg" viewBox="0 0 120 120" aria-hidden="true">
+                                <circle class="countdown-track" cx="60" cy="60" r="54" stroke-width="12"></circle>
+                                <circle class="countdown-progress" cx="60" cy="60" r="54" stroke-width="12"></circle>
+                            </svg>
+                            <span id="countdown" class="countdown-number">7</span>
+                        </div>
+                    </div>
+                    <p class="countdown-text">Redirecting in <span class="sr-only">7</span> seconds</p>
+                    <button class="cancel-redirect" aria-label="Cancel automatic redirect">Cancel</button>
+                </div>
+
+                <a href="https://tobin-data-portfolio.netlify.app/" class="button" rel="noopener">
+                    <span class="button-text">Visit New Portfolio Now</span>
+                    <svg aria-hidden="true" class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
     </main>
 
-    <!-- Error Boundary Container -->
+    <div id="copy-toast" class="toast" role="status" aria-live="polite" hidden>URL copied to clipboard</div>
     <div id="error-container" hidden class="error-boundary" role="alert"></div>
 
-    <script>
-        const progressBar = document.querySelector('.progress-bar');
-        let count = 10;
-        const total = 10;
-
-        function updateProgress() {
-            const progress = ((total - count) / total) * 100;
-            progressBar.style.transform = `scaleX(${progress / 100})`;
-            progressBar.setAttribute('aria-valuenow', progress);
-        }
-
-        const countdown = setInterval(() => {
-            count--;
-            document.getElementById('countdown').textContent = count;
-            updateProgress();
-            
-            if (count <= 0) {
-                clearInterval(countdown);
-                attemptRedirect('https://tobin-data-portfolio.netlify.app/');
-            }
-        }, 1000);
-
-        // Enhanced Error Handling
-        window.addEventListener('error', (event) => {
-            const errorContainer = document.getElementById('error-container');
-            if (errorContainer) {
-                errorContainer.hidden = false;
-                errorContainer.innerHTML = `
-                    <p>There was an error loading the page. Please try again.</p>
-                    <button onclick="window.location.reload()" class="button">
-                        Reload Page
-                    </button>
-                `;
-            }
-            console.error('Page Error:', event.error);
-        });
-
-        // Performance Monitoring
-        if ('PerformanceObserver' in window) {
-            const observer = new PerformanceObserver((list) => {
-                for (const entry of list.getEntries()) {
-                    console.log(`${entry.name}: ${entry.startTime.toFixed(2)}ms`);
-                }
-            });
-            observer.observe({ entryTypes: ['paint', 'largest-contentful-paint'] });
-        }
-
-        // Add retry mechanism
-        let redirectAttempts = 0;
-        const MAX_REDIRECT_ATTEMPTS = 3;
-
-        async function attemptRedirect(url) {
-            if (redirectAttempts >= MAX_REDIRECT_ATTEMPTS) {
-                showError('Maximum redirect attempts reached. Please use the button below.');
-                return;
-            }
-
-            try {
-                redirectAttempts++;
-                const response = await fetch(url, { method: 'HEAD' });
-                if (response.ok) {
-                    window.location.href = url;
-                } else {
-                    throw new Error('Destination unavailable');
-                }
-            } catch (error) {
-                console.error('Redirect failed:', error);
-                setTimeout(() => attemptRedirect(url), 2000);
-            }
-        }
-
-        function showError(message) {
-            const errorContainer = document.getElementById('error-container');
-            if (errorContainer) {
-                errorContainer.hidden = false;
-                errorContainer.innerHTML = `
-                    <p>${message}</p>
-                    <button onclick="window.location.reload()" class="button">
-                        Try Again
-                    </button>
-                `;
-            }
-        }
-    </script>
+    <script src="js/script.js" defer></script>
+    <script type="module" src="js/animation.js"></script>
 </body>
 </html>

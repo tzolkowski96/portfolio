@@ -1,6 +1,6 @@
-# Portfolio Redirect Page
+# Portfolio Redirect Website
 
-Modern, performance-optimized redirect page with comprehensive PWA capabilities.
+A modern, performance-optimized redirect page with visual countdown, 3D animation, and comprehensive offline support.
 
 ## 🔗 New Portfolio Location
 
@@ -8,59 +8,80 @@ Modern, performance-optimized redirect page with comprehensive PWA capabilities.
 
 ## ✨ Features
 
+- **Enhanced User Experience**
+  - Visual countdown timer with progress bar
+  - Interactive 3D background animation using Three.js
+  - Smooth transitions and modern UI elements
+  - Automatically redirects after 7 seconds
+
 - **Progressive Web App (PWA)**
-  - Offline support with fallback page
-  - Installable on mobile devices
-  - Service worker caching strategies
-  - Background sync capabilities
+  - Full offline support with helpful offline page
+  - Installable on mobile devices and desktops
+  - Advanced service worker caching strategies
+  - Reliable performance in various network conditions
 
 - **Performance Optimized**
-  - Resource preloading
-  - Critical CSS inlining
-  - Optimized asset loading
-  - Performance monitoring
+  - Resource preloading and prefetching
+  - Modern CSS with efficient animations
+  - Optimized JavaScript with ES6+ features
+  - Performance monitoring for analytics
 
-- **Enhanced UX**
-  - Smart retry mechanism
-  - Visual countdown indicator
-  - Smooth animations
-  - Loading states
-
-- **Accessibility**
-  - ARIA attributes
-  - Keyboard navigation
-  - Screen reader support
-  - High contrast support
-
-- **Cross Platform**
-  - Responsive design
-  - Dark mode support
-  - Touch-optimized
-  - Cross-browser compatible
+- **Accessibility & Design**
+  - Dark/Light mode based on system preference
+  - Responsive design for all device sizes
+  - Reduced motion mode for users who prefer it
+  - ARIA attributes for screen readers
+  - Proper focus management for keyboard users
 
 ## 🛠️ Technical Stack
 
-- HTML5 with semantic markup
-- Modern CSS3 (CSS Custom Properties, Grid, Flexbox)
-- ES6+ JavaScript
-- Service Workers
-- Web App Manifest
-- Performance APIs
+- **Frontend**
+  - HTML5 with semantic elements
+  - CSS3 (Custom Properties, Flexbox, Grid)
+  - ES6+ JavaScript with modules
+  - Three.js for 3D animation
 
-## 🔒 Security
+- **PWA Features**
+  - Service Worker with strategic caching
+  - Web App Manifest for installation
+  - Offline fallback page
+  - Custom offline experience
 
-- Content Security Policy
-- HTTPS enforced
-- XSS protection
-- Secure resource loading
+## 🖥️ Project Structure
+
+```
+├── index.html           # Main redirect page
+├── manifest.json        # PWA manifest file
+├── offline.html         # Offline fallback page
+├── sw.js               # Service Worker
+├── css/
+│   ├── style.css        # Main styles
+│   └── offline.css      # Offline page styles
+└── js/
+    ├── script.js        # Main redirect logic
+    ├── animation.js     # Three.js 3D background
+    └── offline.js       # Offline page functionality
+```
+
+## 🚀 Performance Features
+
+- Optimized asset loading with preconnect and preload
+- Minimal resource footprint with shared CSS variables
+- JavaScript execution optimizations
+- Efficient rendering with hardware acceleration
 
 ## 📱 Progressive Features
 
-- Offline functionality
-- Install prompts
-- Push notifications ready
-- Share target API
-- Protocol handlers
+- Reliable offline experience with clear messaging
+- URL copying in offline mode for later access
+- Connection status monitoring
+- Automatic reload when connection is restored
+
+## 📋 Browser Support
+
+- All modern browsers (Chrome, Firefox, Safari, Edge)
+- Graceful degradation for older browsers
+- Mobile-optimized experience
 
 ## 📞 Contact
 
@@ -70,7 +91,8 @@ Modern, performance-optimized redirect page with comprehensive PWA capabilities.
 
 ## 📄 License
 
-© 2024 Tobin Zolkowski. All rights reserved.
+© 2025 Tobin Zolkowski. All rights reserved.
 
 ---
-Built with modern web standards and optimal performance in mind.
+
+🔄 This redirect page will automatically take you to the new portfolio in 7 seconds, or you can click the button to go there immediately.

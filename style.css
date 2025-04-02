@@ -1,6 +1,9 @@
+/* Combined Styles from style.css and offline.css */
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
 :root {
+    /* Light Theme Variables */
     --light-bg: #f8f9fa;
     --light-card-bg: #ffffff;
     --light-text: #212529;
@@ -8,7 +11,10 @@
     --light-accent-hover: #0b5ed7;
     --light-border: #dee2e6;
     --light-notice-bg: rgba(13, 110, 253, 0.08);
+    --light-offline-accent: #e53e3e; /* Error color for offline */
+    --light-offline-notice-bg: rgba(229, 62, 62, 0.08);
 
+    /* Dark Theme Variables */
     --dark-bg: #1a1a1a; /* Darker background */
     --dark-card-bg: #2c2c2c; /* Slightly lighter card */
     --dark-text: #e9ecef;
@@ -16,13 +22,16 @@
     --dark-accent-hover: #2563eb; /* Tailwind Blue 600 */
     --dark-border: #495057;
     --dark-notice-bg: rgba(59, 130, 246, 0.15);
+    --dark-offline-accent: #fc8181; /* Lighter error color for offline */
+    --dark-offline-notice-bg: rgba(252, 129, 129, 0.15);
 
+    /* Common Variables */
     --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --border-radius-lg: 16px; /* Increased radius for modern look */
+    --border-radius-lg: 16px;
     --border-radius-md: 12px;
     --border-radius-sm: 8px;
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12); /* Enhanced shadow */
+    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
     --transition-speed: 0.2s;
 }
 
@@ -36,6 +45,10 @@ body {
     --border-color: var(--light-border);
     --notice-bg-color: var(--light-notice-bg);
     --url-bg-color: rgba(13, 110, 253, 0.04);
+    --offline-accent-color: var(--light-offline-accent);
+    --offline-notice-bg-color: var(--light-offline-notice-bg);
+    --offline-button-bg-color: var(--light-offline-accent);
+    --offline-button-hover-color: #c53030; /* Darker red */
 }
 
 /* Apply dark theme when preferred */
@@ -49,6 +62,10 @@ body {
         --border-color: var(--dark-border);
         --notice-bg-color: var(--dark-notice-bg);
         --url-bg-color: rgba(59, 130, 246, 0.08);
+        --offline-accent-color: var(--dark-offline-accent);
+        --offline-notice-bg-color: var(--dark-offline-notice-bg);
+        --offline-button-bg-color: var(--dark-offline-accent);
+        --offline-button-hover-color: #f56565; /* Lighter red */
     }
 }
 
@@ -85,12 +102,12 @@ body {
     background-color: var(--card-bg-color);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-md);
-    width: min(100%, 520px); /* Slightly wider */
+    width: min(100%, 520px);
     overflow: hidden;
     border: 1px solid var(--border-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color var(--transition-speed) ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
     position: relative;
-    backdrop-filter: blur(5px); /* Frosted glass effect */
+    backdrop-filter: blur(5px);
     background-color: rgba(var(--card-bg-color), 0.9);
 }
 
@@ -124,6 +141,7 @@ body {
     font-size: 32px;
     font-weight: 700;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color var(--transition-speed) ease;
 }
 
 h1 {
@@ -131,13 +149,15 @@ h1 {
     font-weight: 700;
     margin-bottom: 1.5rem;
     color: var(--text-color);
-    letter-spacing: -0.01em; /* Tighter letter spacing for modern look */
+    letter-spacing: -0.01em;
+    transition: color var(--transition-speed) ease;
 }
 
 p {
     margin-bottom: 1.5rem;
     color: var(--text-color);
     opacity: 0.9;
+    transition: color var(--transition-speed) ease;
 }
 
 .notice {
@@ -159,6 +179,7 @@ p {
     align-items: center;
     gap: 0.5rem;
     font-size: 1.1rem;
+    transition: color var(--transition-speed) ease;
 }
 
 .notice-icon {
@@ -172,6 +193,7 @@ p {
     color: var(--text-color);
     opacity: 0.85;
     margin-bottom: 0.75rem;
+    transition: color var(--transition-speed) ease;
 }
 
 .info-text:last-child {
@@ -189,6 +211,7 @@ p {
     border: 1px solid var(--border-color);
     flex-wrap: wrap;
     gap: 0.5rem;
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
 }
 
 .url-label {
@@ -196,6 +219,7 @@ p {
     font-size: 0.85rem;
     color: var(--accent-color);
     margin-right: 0.25rem;
+    transition: color var(--transition-speed) ease;
 }
 
 .url-link {
@@ -207,6 +231,7 @@ p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: color var(--transition-speed) ease;
 }
 
 .url-link:hover {
@@ -311,7 +336,7 @@ p {
     color: var(--text-color);
     opacity: 0.6;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, color var(--transition-speed) ease;
     text-decoration: underline;
     margin-top: 0.5rem;
 }
@@ -352,21 +377,23 @@ p {
 .countdown-track {
     fill: none;
     stroke: var(--border-color);
+    transition: stroke var(--transition-speed) ease;
 }
 
 .countdown-progress {
     fill: none;
     stroke: var(--accent-color);
     stroke-linecap: round;
-    stroke-dasharray: 339.292;  /* Circumference = 2 * π * radius */
+    stroke-dasharray: 339.292;  /* Circumference = 2 * π * 54 (radius) */
     stroke-dashoffset: 0;
-    transition: stroke-dashoffset 1s linear;
+    transition: stroke-dashoffset 1s linear, stroke var(--transition-speed) ease;
 }
 
 .countdown-number {
     font-size: 2.5rem;
     font-weight: 700;
     color: var(--accent-color);
+    transition: color var(--transition-speed) ease;
 }
 
 .countdown-text {
@@ -374,6 +401,7 @@ p {
     color: var(--text-color);
     opacity: 0.8;
     margin-bottom: 0;
+    transition: color var(--transition-speed) ease;
 }
 
 /* Screen reader only class */
@@ -404,6 +432,7 @@ p {
     z-index: 100;
     pointer-events: none;
     animation: fadeInOut 2.5s ease forwards;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
 }
 
 @keyframes fadeInOut {
@@ -413,9 +442,9 @@ p {
 
 /* Error boundary styles */
 .error-boundary {
-    border: 1px solid #e53e3e;
-    background: rgba(229, 62, 62, 0.1);
-    color: #b91c1c;
+    border: 1px solid var(--offline-accent-color);
+    background: var(--offline-notice-bg-color);
+    color: var(--offline-accent-color);
     padding: 1.25rem;
     border-radius: var(--border-radius-md);
     margin-top: 1.5rem;
@@ -427,13 +456,7 @@ p {
     z-index: 100;
     width: min(90%, 480px);
     box-shadow: var(--shadow-md);
-}
-
-@media (prefers-color-scheme: dark) {
-    .error-boundary {
-        background: rgba(229, 62, 62, 0.2);
-        color: #f87171;
-    }
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
 }
 
 .error-boundary p {
@@ -442,15 +465,16 @@ p {
 }
 
 .error-boundary .button {
-    background-color: #dc3545;
+    background-color: var(--offline-accent-color);
     color: white;
     font-size: 0.9rem;
     padding: 0.75rem 1.5rem;
 }
 
 .error-boundary .button:hover {
-    background-color: #c82333;
+    background-color: var(--offline-button-hover-color);
 }
+
 
 /* Canvas styling */
 #bg-canvas {
@@ -475,15 +499,6 @@ p {
     }
 }
 
-@keyframes shimmer {
-    0% {
-        background-position: -100% 0;
-    }
-    100% {
-        background-position: 100% 0;
-    }
-}
-
 @keyframes pulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.05); }
@@ -493,113 +508,112 @@ p {
     animation: fadeIn 0.8s ease-out forwards;
 }
 
-.logo, h1, .notice, .countdown-wrapper, .button {
+.logo, h1, .notice, .countdown-wrapper, .button, #offline-notice {
     opacity: 0;
     animation: fadeIn 0.6s ease-out forwards;
 }
 
-.logo {
-    animation-delay: 0.1s;
-}
-
-h1 {
-    animation-delay: 0.2s;
-}
-
-.notice {
-    animation-delay: 0.3s;
-}
-
-.countdown-wrapper {
-    animation-delay: 0.4s;
-}
-
-.button {
-    animation-delay: 0.5s;
-}
+.logo { animation-delay: 0.1s; }
+h1 { animation-delay: 0.2s; }
+.notice { animation-delay: 0.3s; }
+.countdown-wrapper { animation-delay: 0.4s; }
+.button { animation-delay: 0.5s; }
+#offline-notice { animation-delay: 0.1s; } /* Offline notice fades in quickly */
 
 /* Pulse animation for countdown when nearly finished */
 .countdown-ending .countdown-number {
     animation: pulse 0.5s ease-in-out infinite;
-    color: #e53e3e;
+    color: var(--offline-accent-color); /* Use error color for urgency */
 }
 
 .countdown-ending .countdown-progress {
-    stroke: #e53e3e;
+    stroke: var(--offline-accent-color); /* Use error color for urgency */
 }
+
+/* Offline-specific styles integrated */
+.notice-offline {
+    background-color: var(--offline-notice-bg-color);
+    border-color: rgba(var(--offline-accent-color), 0.2);
+    text-align: center; /* Center offline notice text */
+}
+
+.notice-title-offline {
+    color: var(--offline-accent-color);
+    justify-content: center; /* Center title elements */
+}
+
+.notice-title-offline .notice-icon {
+    color: var(--offline-accent-color); /* Ensure icon uses offline color */
+}
+
+.button-offline {
+    background-color: var(--offline-button-bg-color);
+    color: white;
+    margin-top: 1rem; /* Space above button */
+}
+
+.button-offline:hover {
+    background-color: var(--offline-button-hover-color);
+}
+
+.button-offline .button-icon {
+    margin-right: 0.5rem; /* Add space like original offline button */
+}
+
 
 /* Accessibility Improvements */
 @media (prefers-reduced-motion: reduce) {
-    .button:hover {
-        transform: none;
-    }
-    
-    .card, .logo, h1, .notice, .countdown-wrapper, .button {
+    .button:hover { transform: none; }
+    .card, .logo, h1, .notice, .countdown-wrapper, .button, #offline-notice {
         animation: none;
         opacity: 1;
     }
-    
-    .button:hover .button-icon {
-        transform: none;
-    }
-    
-    .button:before {
-        display: none;
-    }
-    
-    .countdown-progress {
-        transition: none;
-    }
-    
-    .card:hover {
-        transform: none;
-    }
-    
-    .countdown-ending .countdown-number {
-        animation: none;
-    }
-    
-    .toast {
-        animation: none;
-    }
+    .button:hover .button-icon { transform: none; }
+    .button:before { display: none; }
+    .countdown-progress { transition: none; }
+    .card:hover { transform: none; }
+    .countdown-ending .countdown-number { animation: none; }
+    .toast { animation: none; }
 }
 
-/* Better focus styles for keyboard navigation */
+/* Better focus styles */
 :focus {
     outline: 2px solid var(--accent-color);
     outline-offset: 2px;
 }
-
-:focus:not(:focus-visible) {
-    outline: none;
-}
+:focus:not(:focus-visible) { outline: none; }
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
-    .countdown-circle {
-        width: 80px;
-        height: 80px;
+    .countdown-circle { width: 80px; height: 80px; }
+    .countdown-number { font-size: 2rem; }
+    .button { padding: 0.85rem 1.5rem; }
+    .notice { padding: 1.25rem; }
+    .destination-url { flex-direction: column; align-items: flex-start; }
+    .copy-btn { align-self: flex-end; margin-top: -2.5rem; }
+}
+
+/* Ripple Effect Styles */
+.button {
+    position: relative;
+    overflow: hidden;
+}
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
     }
-    
-    .countdown-number {
-        font-size: 2rem;
-    }
-    
-    .button {
-        padding: 0.85rem 1.5rem;
-    }
-    
-    .notice {
-        padding: 1.25rem;
-    }
-    
-    .destination-url {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .copy-btn {
-        align-self: flex-end;
-        margin-top: -2.5rem;
-    }
+}
+.copy-btn.active {
+    transform: scale(0.95);
+    background-color: var(--border-color);
+    opacity: 1;
 }

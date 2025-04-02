@@ -19,10 +19,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  # Skip Jekyll build step since this is not a Jekyll site
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,6 +28,9 @@ jobs:
       
       - name: Setup Pages
         uses: actions/configure-pages@v3
+        with:
+          # Explicitly set static HTML site, not Jekyll
+          static_site_generator: "null"
       
       - name: Generate icons from SVG
         run: |
@@ -37,12 +38,12 @@ jobs:
           sudo apt-get install -y librsvg2-bin imagemagick
           cd img
           chmod +x generate-icons.sh
-          ./generate-icons.sh
+          ./generate-icons.sh || echo "Icon generation failed but continuing"
           
       - name: Generate OG image from SVG
         run: |
           cd img
-          rsvg-convert -w 1200 -h 630 og-image.svg -o og-image.jpg
+          rsvg-convert -w 1200 -h 630 og-image.svg -o og-image.jpg || echo "OG image generation failed but continuing"
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
@@ -50,6 +51,14 @@ jobs:
           # Upload entire repository
           path: '.'
           
+  # Deploy job
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1

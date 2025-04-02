@@ -45,11 +45,11 @@ jobs:
           rsvg-convert -w 1200 -h 630 og-image.svg -o og-image.jpg
           
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
           path: '.'
           
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v1

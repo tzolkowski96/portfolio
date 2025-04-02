@@ -1,20 +1,21 @@
 const CACHE_NAME = 'portfolio-redirect-v1';
 const OFFLINE_URL = 'offline.html';
+const BASE_PATH = '/portfolio/'; // GitHub Pages base path
 
 // Assets to cache immediately on service worker install
 const PRECACHE_ASSETS = [
-  '/',
-  'index.html',
-  'offline.html',
-  'manifest.json',
-  'css/style.css',
-  'css/offline.css',
-  'js/script.js',
-  'js/animation.js',
-  'js/offline.js',
-  'img/favicon.svg',
-  'img/favicon.ico',
-  'img/apple-touch-icon.png'
+  BASE_PATH,
+  BASE_PATH + 'index.html',
+  BASE_PATH + 'offline.html',
+  BASE_PATH + 'manifest.json',
+  BASE_PATH + 'css/style.css',
+  BASE_PATH + 'css/offline.css',
+  BASE_PATH + 'js/script.js',
+  BASE_PATH + 'js/animation.js',
+  BASE_PATH + 'js/offline.js',
+  BASE_PATH + 'img/favicon.svg',
+  BASE_PATH + 'img/favicon.ico',
+  BASE_PATH + 'img/apple-touch-icon.png'
 ];
 
 // Install event - precache key assets
@@ -51,12 +52,28 @@ self.addEventListener('activate', event => {
   );
 });
 
+// Helper function to normalize URLs for GitHub Pages
+function normalizeUrl(url) {
+  const urlObj = new URL(url);
+  // Handle both local development and GitHub Pages paths
+  if (urlObj.pathname.startsWith(BASE_PATH) || urlObj.pathname === '/') {
+    return url;
+  }
+  // For GitHub Pages, ensure paths have the correct base
+  if (urlObj.origin === self.location.origin && !urlObj.pathname.startsWith(BASE_PATH)) {
+    return urlObj.origin + BASE_PATH + urlObj.pathname.replace(/^\//, '');
+  }
+  return url;
+}
+
 // Fetch event - respond with cached content when possible
 self.addEventListener('fetch', event => {
   // Skip cross-origin requests
   if (event.request.url.startsWith(self.location.origin)) {
+    const normalizedUrl = normalizeUrl(event.request.url);
+    
     event.respondWith(
-      caches.match(event.request)
+      caches.match(normalizedUrl)
         .then(cachedResponse => {
           // Return cached response if available
           if (cachedResponse) {
@@ -87,13 +104,13 @@ self.addEventListener('fetch', event => {
               
               // If the request is for a page, show the offline page
               if (event.request.mode === 'navigate') {
-                return caches.match(OFFLINE_URL);
+                return caches.match(BASE_PATH + OFFLINE_URL);
               }
               
               // For image requests, return a placeholder or alternative
               if (event.request.destination === 'image') {
                 return new Response(
-                  '<svg xmlns="http://www.w3.org/200/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="#f8f9fa"/><text x="50%" y="50%" font-family="sans-serif" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#a0aec0">Image</text></svg>',
+                  '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="#f8f9fa"/><text x="50%" y="50%" font-family="sans-serif" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#a0aec0">Image</text></svg>',
                   { headers: {'Content-Type': 'image/svg+xml'} }
                 );
               }

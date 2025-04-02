@@ -18,12 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let connectionChecker = setInterval(() => {
         if (navigator.onLine) {
             clearInterval(connectionChecker);
-            window.location.href = '/';
+            window.location.href = '/portfolio/';
         }
     }, 5000);
     
     // Listen for online events
     window.addEventListener('online', () => {
-        window.location.href = '/';
+        window.location.href = '/portfolio/';
     });
 });

@@ -2,31 +2,31 @@
   "name": "Tobin's Data Portfolio - New Location",
   "short_name": "Data Portfolio",
   "description": "Redirect to Tobin's new data analysis portfolio with improved features and projects",
-  "start_url": "/",
+  "start_url": "/portfolio/",
   "display": "standalone",
   "background_color": "#f8f9fa",
   "theme_color": "#0d6efd",
   "icons": [
     {
-      "src": "/img/favicon.svg",
+      "src": "/portfolio/img/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/img/icon-192.png",
+      "src": "/portfolio/img/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/img/icon-512.png",
+      "src": "/portfolio/img/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/img/maskable-icon.png",
+      "src": "/portfolio/img/maskable-icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
@@ -40,7 +40,7 @@
       "url": "https://tobin-data-portfolio.netlify.app/",
       "icons": [
         {
-          "src": "/img/icon-96.png",
+          "src": "/portfolio/img/icon-96.png",
           "sizes": "96x96"
         }
       ]
@@ -55,7 +55,7 @@
   "prefer_related_applications": false,
   "screenshots": [
     {
-      "src": "/img/screenshot.png",
+      "src": "/portfolio/img/screenshot.png",
       "sizes": "1280x720",
       "type": "image/png",
       "platform": "wide",

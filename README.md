@@ -11,28 +11,21 @@ A clean, professional redirect page that automatically sends visitors to my new 
 - Progressive Web App (PWA) capabilities
 - Accessibility optimized
 
-## Deployment Status
-
-[![Deploy to GitHub Pages](https://github.com/username/portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/username/portfolio/actions/workflows/deploy.yml)
-
 ## GitHub Pages Deployment
 
-This site is configured to automatically deploy to GitHub Pages when changes are pushed to the main branch. The deployment process:
-
-1. Automatically builds and optimizes the site
-2. Generates all required icon sizes from SVG sources
-3. Creates OpenGraph images for social sharing
-4. Deploys to GitHub Pages
+This site is configured to automatically deploy to GitHub Pages using the standard GitHub Pages deployment method.
 
 ### How to Enable GitHub Pages for this Repository
 
-After pushing this code to GitHub:
+To deploy this site to GitHub Pages:
 
 1. Go to your repository on GitHub
 2. Click on "Settings" tab
 3. In the left sidebar, click on "Pages"
-4. Under "Source", select "GitHub Actions"
-5. The site will automatically deploy on the first push to main
+4. Under "Source", select "Deploy from a branch"
+5. Choose "main" branch and "/" (root) folder
+6. Click "Save"
+7. Your site will be published at https://[username].github.io/portfolio/
 
 ## Local Development
 
@@ -44,6 +37,20 @@ To run this project locally:
    python -m http.server
    ```
 3. Visit http://localhost:8000
+
+## Icon Generation
+
+The repository includes a script to generate all required icon sizes from the SVG source files:
+
+```
+cd img
+chmod +x generate-icons.sh
+./generate-icons.sh
+```
+
+This requires librsvg2-bin and ImageMagick to be installed:
+- On macOS: `brew install librsvg imagemagick`
+- On Ubuntu/Debian: `sudo apt-get install librsvg2-bin imagemagick`
 
 ## Customization
 

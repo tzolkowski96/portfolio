@@ -1,98 +1,59 @@
-# Portfolio Redirect Website
+# Portfolio Redirect Site
 
-A modern, performance-optimized redirect page with visual countdown, 3D animation, and comprehensive offline support.
+A clean, professional redirect page that automatically sends visitors to my new portfolio location.
 
-## 🔗 New Portfolio Location
+## Features
 
-[https://tobin-data-portfolio.netlify.app/](https://tobin-data-portfolio.netlify.app/)
+- Automatic redirection with a countdown timer
+- Mobile responsive design
+- Dark/light mode support based on system preferences
+- Offline support with service worker
+- Progressive Web App (PWA) capabilities
+- Accessibility optimized
 
-## ✨ Features
+## Deployment Status
 
-- **Enhanced User Experience**
-  - Visual countdown timer with progress bar
-  - Interactive 3D background animation using Three.js
-  - Smooth transitions and modern UI elements
-  - Automatically redirects after 7 seconds
+[![Deploy to GitHub Pages](https://github.com/username/portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/username/portfolio/actions/workflows/deploy.yml)
 
-- **Progressive Web App (PWA)**
-  - Full offline support with helpful offline page
-  - Installable on mobile devices and desktops
-  - Advanced service worker caching strategies
-  - Reliable performance in various network conditions
+## GitHub Pages Deployment
 
-- **Performance Optimized**
-  - Resource preloading and prefetching
-  - Modern CSS with efficient animations
-  - Optimized JavaScript with ES6+ features
-  - Performance monitoring for analytics
+This site is configured to automatically deploy to GitHub Pages when changes are pushed to the main branch. The deployment process:
 
-- **Accessibility & Design**
-  - Dark/Light mode based on system preference
-  - Responsive design for all device sizes
-  - Reduced motion mode for users who prefer it
-  - ARIA attributes for screen readers
-  - Proper focus management for keyboard users
+1. Automatically builds and optimizes the site
+2. Generates all required icon sizes from SVG sources
+3. Creates OpenGraph images for social sharing
+4. Deploys to GitHub Pages
 
-## 🛠️ Technical Stack
+### How to Enable GitHub Pages for this Repository
 
-- **Frontend**
-  - HTML5 with semantic elements
-  - CSS3 (Custom Properties, Flexbox, Grid)
-  - ES6+ JavaScript with modules
-  - Three.js for 3D animation
+After pushing this code to GitHub:
 
-- **PWA Features**
-  - Service Worker with strategic caching
-  - Web App Manifest for installation
-  - Offline fallback page
-  - Custom offline experience
+1. Go to your repository on GitHub
+2. Click on "Settings" tab
+3. In the left sidebar, click on "Pages"
+4. Under "Source", select "GitHub Actions"
+5. The site will automatically deploy on the first push to main
 
-## 🖥️ Project Structure
+## Local Development
 
-```
-├── index.html           # Main redirect page
-├── manifest.json        # PWA manifest file
-├── offline.html         # Offline fallback page
-├── sw.js               # Service Worker
-├── css/
-│   ├── style.css        # Main styles
-│   └── offline.css      # Offline page styles
-└── js/
-    ├── script.js        # Main redirect logic
-    ├── animation.js     # Three.js 3D background
-    └── offline.js       # Offline page functionality
-```
+To run this project locally:
 
-## 🚀 Performance Features
+1. Clone the repository
+2. Open index.html in a browser or use a local server
+   ```
+   python -m http.server
+   ```
+3. Visit http://localhost:8000
 
-- Optimized asset loading with preconnect and preload
-- Minimal resource footprint with shared CSS variables
-- JavaScript execution optimizations
-- Efficient rendering with hardware acceleration
+## Customization
 
-## 📱 Progressive Features
+To customize for your own use:
 
-- Reliable offline experience with clear messaging
-- URL copying in offline mode for later access
-- Connection status monitoring
-- Automatic reload when connection is restored
+1. Update the redirect URL in js/script.js
+2. Modify the content in index.html
+3. Adjust the colors in css/style.css
+4. Replace icon designs in img/favicon.svg
 
-## 📋 Browser Support
+## License
 
-- All modern browsers (Chrome, Firefox, Safari, Edge)
-- Graceful degradation for older browsers
-- Mobile-optimized experience
-
-## 📞 Contact
-
-- Portfolio: [tobin-data-portfolio.netlify.app](https://tobin-data-portfolio.netlify.app/)
-- LinkedIn: [Tobin Zolkowski](https://www.linkedin.com/in/tobin-zolkowski-844873200/)
-- GitHub: [tzolkowski96](https://github.com/tzolkowski96)
-
-## 📄 License
-
-© 2025 Tobin Zolkowski. All rights reserved.
-
----
-
-🔄 This redirect page will automatically take you to the new portfolio in 7 seconds, or you can click the button to go there immediately.
+MIT

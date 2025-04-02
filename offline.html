@@ -2,51 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="You are currently offline. Portfolio redirect page will be available when you reconnect.">
-    <meta name="theme-color" content="#4299e1" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#2d3748" media="(prefers-color-scheme: dark)">
-    <title>Offline - Portfolio Redirect</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/offline.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Offline page for Tobin's portfolio redirect.">
+    <meta name="theme-color" content="#4299e1">
+    <title>Offline - Tobin's Portfolio</title>
+    <link rel="stylesheet" href="./css/offline.css">
+    <link rel="icon" href="./img/favicon.svg" type="image/svg+xml">
 </head>
 <body>
-    <main class="card">
-        <svg class="offline-icon" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21L24 8.98C20.93 5.9 16.69 4 12 4zM2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07l-2.85 2.86C16.46 10.71 14.31 10 12 10c-2.31 0-4.46.71-6.23 1.93L2.92 9.07z"/>
-        </svg>
-        <h1>You're Offline</h1>
-        <p>The portfolio redirect page requires an internet connection to function properly.</p>
-        
-        <div class="offline-info">
-            <div class="info-title">What's happening?</div>
-            <p>You're trying to access Tobin's portfolio redirect page, but you appear to be offline. This page helps redirect visitors to the new portfolio location at:</p>
-            <div class="url-display">https://tobin-data-portfolio.netlify.app/</div>
-        </div>
-        
-        <div class="connection-status" id="connection-status">
-            Checking connection...
-        </div>
-        
-        <button onclick="retryConnection()" class="button" id="retry-button">
-            <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" />
+    <div class="offline-container">
+        <div class="offline-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="1" y1="1" x2="23" y2="23"></line>
+                <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+                <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+                <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+                <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                <line x1="12" y1="20" x2="12.01" y2="20"></line>
             </svg>
-            Check Connection
-        </button>
-        
-        <button onclick="copyPortfolioUrl()" class="button secondary-button" id="copy-button">
-            <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            Copy Portfolio URL
-        </button>
-    </main>
-
-    <div id="copy-toast" class="toast" hidden>URL copied to clipboard</div>
-
-    <script src="js/offline.js" defer></script>
+        </div>
+        <h1>You're offline</h1>
+        <p>It looks like you don't have an internet connection right now.</p>
+        <p>The portfolio redirect site requires internet access to function properly.</p>
+        <div class="button-container">
+            <button class="retry-button" id="retry-button">
+                <svg class="retry-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="1 4 1 10 7 10"></polyline>
+                    <polyline points="23 20 23 14 17 14"></polyline>
+                    <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                </svg>
+                Try Again
+            </button>
+        </div>
+        <div class="info-box">
+            <p>New portfolio URL: <strong>tobin-data-portfolio.netlify.app</strong></p>
+            <p>Please visit once you're back online.</p>
+        </div>
+    </div>
+    <script src="./js/offline.js"></script>
 </body>
 </html>

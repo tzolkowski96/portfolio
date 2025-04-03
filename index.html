@@ -3,30 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Tobin's data analysis portfolio has moved to a new platform with improved visualizations, projects, and case studies.">
-    <meta name="theme-color" content="#43a0e5" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#2c3e50" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="Tobin's data analysis portfolio is relocating. Experience the transition with our dynamic redirect visualization.">
+    <meta name="theme-color" content="#1a1d23" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#e0e8f0" media="(prefers-color-scheme: light)"> <!-- Adjusted light theme color -->
 
-    <meta property="og:title" content="Tobin's Portfolio - New Location">
-    <meta property="og:description" content="Tobin's data analysis portfolio has moved to a new platform with improved features, projects, and case studies.">
+    <meta property="og:title" content="Portfolio Relocation | Tobin's Data Analysis">
+    <meta property="og:description" content="My data analysis portfolio has moved! Follow the redirect to the new, enhanced platform.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tobin-data-portfolio.netlify.app/">
+    <meta property="og:url" content="https://tobin-data-portfolio.netlify.app/"> <!-- Ensure this is the NEW URL -->
+    <!-- Add og:image later if you have a compelling preview image -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tobin's Portfolio - New Location">
-    <meta name="twitter:description" content="Data analysis portfolio with improved features and content">
+    <meta name="twitter:title" content="Portfolio Relocation | Tobin's Data Analysis">
+    <meta name="twitter:description" content="Data analysis portfolio moving to an improved platform.">
+    <!-- Add twitter:image later -->
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Tobin's Portfolio">
+    <meta name="apple-mobile-web-app-title" content="Tobin Redirect">
 
-    <link rel="canonical" href="https://tobin-data-portfolio.netlify.app/">
+    <link rel="canonical" href="https://tobin-data-portfolio.netlify.app/"> <!-- NEW URL -->
 
     <title>Tobin's Portfolio - Redirecting...</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 
@@ -41,106 +43,80 @@
     </script>
 
     <script>
-        // Mark script start for performance measurement
         window.performance.mark('script-start');
-
-        // Optional: Web Animations API polyfill (consider removing if support is sufficient)
-        // if (!('animate' in document.createElement('div'))) { ... }
     </script>
 
 </head>
 <body>
+    <!-- Canvas for 3D Background -->
     <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-    <main class="container">
-        <div class="card">
-            <div class="card-content">
-                <div class="logo" aria-hidden="true">
+    <!-- Main Content Overlay -->
+    <main class="content-overlay">
+        <div class="content-wrapper">
+
+            <div class="header-section">
+                 <div class="logo" aria-hidden="true">
                     <div class="logo-symbol">T</div>
-                </div>
-
-                <h1>Portfolio Location Update</h1>
-
-                 <div id="offline-notice" class="notice notice-offline" hidden>
-                     <div class="notice-title notice-title-offline">
-                        <svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="1" y1="1" x2="23" y2="23"></line>
-                            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
-                            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
-                            <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
-                            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
-                            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
-                            <line x1="12" y1="20" x2="12.01" y2="20"></line>
-                        </svg>
-                        You Appear Offline
-                    </div>
-                    <p class="info-text">An internet connection is needed to visit the portfolio. Please reconnect and try again.</p>
-                     <p class="info-text info-text-small">New portfolio URL: <strong>tobin-data-portfolio.netlify.app</strong></p>
-                     <button class="button button-offline" id="retry-button">
-                        <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="1 4 1 10 7 10"></polyline>
-                            <polyline points="23 20 23 14 17 14"></polyline>
-                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
-                        </svg>
-                        Retry Connection
-                    </button>
-                </div>
-
-                <div id="online-content">
-                    <div class="notice" role="region" aria-label="Important update about portfolio relocation">
-                        <div class="notice-title">
-                            <svg class="notice-icon" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                            </svg>
-                            Heads Up! This Site Has Moved
-                        </div>
-                        <p class="info-text">
-                            My data analysis portfolio has a new home with updated projects and interactive visualizations.
-                        </p>
-                        <p class="info-text info-text-small">
-                            You'll be automatically redirected to the new site shortly.
-                        </p>
-                        <div class="destination-url">
-                            <span class="url-label">New URL:</span>
-                            <a href="https://tobin-data-portfolio.netlify.app/" class="url-link" rel="noopener noreferrer" target="_blank">tobin-data-portfolio.netlify.app</a>
-                            <button class="copy-btn" aria-label="Copy URL" title="Copy URL to clipboard">
-                                <svg id="copy-icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                </svg>
-                                <svg id="copy-icon-success" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
-                                   <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="countdown-wrapper" aria-live="polite">
-                        <div class="countdown-display">
-                            <div class="countdown-circle">
-                                <svg class="countdown-svg" viewBox="0 0 120 120" aria-hidden="true">
-                                    <circle class="countdown-track" cx="60" cy="60" r="54" stroke-width="8"></circle>
-                                    <circle class="countdown-progress" cx="60" cy="60" r="54" stroke-width="8"></circle>
-                                </svg>
-                                <span id="countdown" class="countdown-number">7</span>
-                            </div>
-                        </div>
-                        <p id="countdown-text" class="countdown-text">Redirecting you in <span class="sr-only">7</span> seconds...</p>
-                        <button id="cancel-redirect" class="cancel-redirect" aria-label="Cancel automatic redirect">Cancel Redirect</button>
-                    </div>
-
-                    <a href="https://tobin-data-portfolio.netlify.app/" id="manual-redirect-button" class="button" rel="noopener noreferrer">
-                        <span class="button-text">Visit New Site Now</span>
-                        <svg aria-hidden="true" class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
+                 </div>
+                <h1>Portfolio Relocation Initiated</h1>
+                <p class="subtitle">My data analysis portfolio has warped to a new location with enhanced features and visualizations.</p>
             </div>
-        </div>
+
+            <!-- Offline Notice -->
+            <div id="offline-notice" class="notice notice-offline" hidden>
+                <div class="notice-title notice-title-offline">
+                    <svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="1" y1="1" x2="23" y2="23"></line><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path><path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line>
+                    </svg>
+                    Connection Lost
+                </div>
+                <p class="info-text">A stable connection is required to engage the warp drive. Please reconnect.</p>
+                <p class="info-text info-text-small">Destination Coordinates: <strong>tobin-data-portfolio.netlify.app</strong></p>
+                <button class="button button-offline" id="retry-button">
+                    <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+                    Retry Connection
+                </button>
+            </div>
+
+            <!-- Online Content -->
+            <div id="online-content">
+                 <div class="destination-info">
+                    <span class="url-label">Destination Locked:</span>
+                    <div class="url-container">
+                        <a href="https://tobin-data-portfolio.netlify.app/" class="url-link" rel="noopener noreferrer" target="_blank" title="Open new site in new tab">tobin-data-portfolio.netlify.app</a>
+                        <button class="copy-btn" aria-label="Copy Coordinates" title="Copy URL to clipboard">
+                            <svg id="copy-icon-default" class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            <svg id="copy-icon-success" class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="countdown-wrapper" aria-live="polite">
+                    <div class="countdown-display">
+                        <div class="countdown-circle">
+                            <svg class="countdown-svg" viewBox="0 0 120 120" aria-hidden="true">
+                                <circle class="countdown-track" cx="60" cy="60" r="54" stroke-width="6"></circle>
+                                <circle class="countdown-progress" cx="60" cy="60" r="54" stroke-width="8"></circle>
+                            </svg>
+                            <span id="countdown" class="countdown-number">10</span>
+                        </div>
+                    </div>
+                    <p id="countdown-text" class="countdown-text">Engaging warp drive in <span class="sr-only">10</span> seconds...</p>
+                    <button id="cancel-redirect" class="cancel-redirect" aria-label="Cancel automatic warp jump">Cancel Jump</button>
+                </div>
+
+                <a href="https://tobin-data-portfolio.netlify.app/" id="manual-redirect-button" class="button button-primary" rel="noopener noreferrer">
+                    <span class="button-text">Jump to New Site Now</span>
+                    <svg aria-hidden="true" class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+            </div>
+
+        </div><!-- /content-wrapper -->
     </main>
 
-    <div id="copy-toast" class="toast" role="status" aria-live="polite" hidden>URL copied to clipboard!</div>
+    <!-- Notifications -->
+    <div id="copy-toast" class="toast" role="status" aria-live="polite" hidden>Coordinates copied!</div>
     <div id="error-container" hidden class="error-boundary" role="alert"></div>
 
     <script src="script.js" type="module"></script>

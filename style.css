@@ -1,108 +1,107 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700&display=swap');
 
 :root {
-    /* Light Theme Variables */
-    --light-bg-start: #eef2f7;
-    --light-bg-end: #d5e1ef;
-    --light-card-bg: rgba(255, 255, 255, 0.75);
-    --light-text: #2c3e50; /* Slightly softer black */
-    --light-accent: #3498db; /* Brighter blue */
-    --light-accent-hover: #2980b9;
-    --light-border: rgba(0, 0, 0, 0.1);
-    --light-notice-bg: rgba(52, 152, 219, 0.1);
-    --light-offline-accent: #e74c3c; /* Softer red */
-    --light-offline-notice-bg: rgba(231, 76, 60, 0.1);
+    /* Theme Variables (Dark Dominant) */
+    --dark-bg-start: #0d1018; /* Deep space blue/black */
+    --dark-bg-end: #1a1f2c;
+    --dark-text: #e1e8f0; /* Slightly blueish white */
+    --dark-text-secondary: rgba(225, 232, 240, 0.7);
+    --dark-accent: #00f2fe; /* Bright cyan/aqua */
+    --dark-accent-glow: rgba(0, 242, 254, 0.4);
+    --dark-accent-hover: #61faff;
+    --dark-accent-secondary: #ff00a0; /* Magenta accent for contrast */
+    --dark-accent-secondary-glow: rgba(255, 0, 160, 0.3);
+    --dark-offline-accent: #ff5f5f; /* Vibrant red */
+    --dark-offline-glow: rgba(255, 95, 95, 0.4);
 
-    /* Dark Theme Variables */
-    --dark-bg-start: #1f2329; /* Darker */
-    --dark-bg-end: #2c3e50; /* Slate blue */
-    --dark-card-bg: rgba(44, 62, 80, 0.7); /* Semi-transparent dark */
-    --dark-text: #ecf0f1; /* Off-white */
-    --dark-accent: #5dade2; /* Lighter blue for dark mode */
-    --dark-accent-hover: #3498db; /* Match light accent */
-    --dark-border: rgba(255, 255, 255, 0.15);
-    --dark-notice-bg: rgba(93, 173, 226, 0.15);
-    --dark-offline-accent: #f1948a; /* Lighter red */
-    --dark-offline-notice-bg: rgba(241, 148, 138, 0.15);
+    /* Light Theme Variables (Less emphasis, but functional) */
+    --light-bg-start: #e8eff7;
+    --light-bg-end: #d0dde9;
+    --light-text: #1f2937;
+    --light-text-secondary: rgba(31, 41, 55, 0.7);
+    --light-accent: #007bff;
+    --light-accent-glow: rgba(0, 123, 255, 0.2);
+    --light-accent-hover: #0056b3;
+    --light-accent-secondary: #dc3545;
+    --light-accent-secondary-glow: rgba(220, 53, 69, 0.2);
+    --light-offline-accent: #dc3545;
+    --light-offline-glow: rgba(220, 53, 69, 0.3);
+
 
     /* Common Variables */
-    --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --border-radius-lg: 18px; /* Slightly larger radius */
-    --border-radius-md: 12px;
-    --border-radius-sm: 8px;
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 10px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.05);
-    --shadow-lg: 0 15px 45px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.08);
+    --font-primary: 'Inter', sans-serif;
+    --font-display: 'Orbitron', sans-serif; /* Techy font */
+    --border-radius-md: 10px;
+    --border-radius-sm: 6px;
     --transition-speed: 0.3s;
-    --transition-bezier: cubic-bezier(0.4, 0, 0.2, 1); /* Smoother ease */
+    --transition-bezier: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Apply light theme by default */
+/* Apply dark theme by default */
 body {
-    --bg-gradient: linear-gradient(135deg, var(--light-bg-start) 0%, var(--light-bg-end) 100%);
-    --card-bg-color: var(--light-card-bg);
-    --text-color: var(--light-text);
-    --accent-color: var(--light-accent);
-    --accent-hover-color: var(--light-accent-hover);
-    --border-color: var(--light-border);
-    --notice-bg-color: var(--light-notice-bg);
-    --notice-border-color: rgba(52, 152, 219, 0.2);
-    --notice-hover-bg-color: rgba(52, 152, 219, 0.15);
-    --url-bg-color: rgba(52, 152, 219, 0.05);
-    --offline-accent-color: var(--light-offline-accent);
-    --offline-notice-bg-color: var(--light-offline-notice-bg);
-    --offline-notice-border-color: rgba(231, 76, 60, 0.2);
-    --offline-button-bg-color: var(--light-offline-accent);
-    --offline-button-hover-color: #c0392b; /* Darker red */
-    --card-backdrop-blur: 10px;
+    --bg-gradient: linear-gradient(135deg, var(--dark-bg-start) 0%, var(--dark-bg-end) 100%);
+    --text-color: var(--dark-text);
+    --text-secondary-color: var(--dark-text-secondary);
+    --accent-color: var(--dark-accent);
+    --accent-hover-color: var(--dark-accent-hover);
+    --accent-glow-color: var(--dark-accent-glow);
+    --accent-secondary-color: var(--dark-accent-secondary);
+    --accent-secondary-glow-color: var(--dark-accent-secondary-glow);
+    --border-color: rgba(225, 232, 240, 0.15);
+    --overlay-bg: rgba(13, 16, 24, 0.3); /* Subtle dark overlay */
+    --button-primary-bg: linear-gradient(45deg, var(--accent-color), var(--accent-secondary-color));
+    --button-primary-hover-bg: linear-gradient(45deg, var(--accent-hover-color), #ff33b8);
+    --offline-accent-color: var(--dark-offline-accent);
+    --offline-glow: var(--dark-offline-glow);
+    --offline-bg-color: rgba(255, 95, 95, 0.1);
+    --offline-border-color: rgba(255, 95, 95, 0.3);
+    --offline-button-bg: linear-gradient(45deg, var(--offline-accent-color), #cc4c4c);
+    --offline-button-hover-bg: linear-gradient(45deg, #cc4c4c, var(--offline-accent-color));
+    --text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* Apply dark theme when preferred */
-@media (prefers-color-scheme: dark) {
+/* Apply light theme when preferred */
+@media (prefers-color-scheme: light) {
     body {
-        --bg-gradient: linear-gradient(135deg, var(--dark-bg-start) 0%, var(--dark-bg-end) 100%);
-        --card-bg-color: var(--dark-card-bg);
-        --text-color: var(--dark-text);
-        --accent-color: var(--dark-accent);
-        --accent-hover-color: var(--dark-accent-hover);
-        --border-color: var(--dark-border);
-        --notice-bg-color: var(--dark-notice-bg);
-        --notice-border-color: rgba(93, 173, 226, 0.25);
-        --notice-hover-bg-color: rgba(93, 173, 226, 0.2);
-        --url-bg-color: rgba(93, 173, 226, 0.1);
-        --offline-accent-color: var(--dark-offline-accent);
-        --offline-notice-bg-color: var(--dark-offline-notice-bg);
-        --offline-notice-border-color: rgba(241, 148, 138, 0.25);
-        --offline-button-bg-color: var(--dark-offline-accent);
-        --offline-button-hover-color: #ec7063; /* Lighter red hover */
-        --card-backdrop-blur: 12px;
+        --bg-gradient: linear-gradient(135deg, var(--light-bg-start) 0%, var(--light-bg-end) 100%);
+        --text-color: var(--light-text);
+        --text-secondary-color: var(--light-text-secondary);
+        --accent-color: var(--light-accent);
+        --accent-hover-color: var(--light-accent-hover);
+        --accent-glow-color: var(--light-accent-glow);
+        --accent-secondary-color: var(--light-accent-secondary);
+        --accent-secondary-glow-color: var(--light-accent-secondary-glow);
+        --border-color: rgba(31, 41, 55, 0.15);
+        --overlay-bg: rgba(255, 255, 255, 0.2);
+        --button-primary-bg: linear-gradient(45deg, var(--accent-color), var(--accent-secondary-color));
+        --button-primary-hover-bg: linear-gradient(45deg, var(--accent-hover-color), #b02a37);
+        --offline-accent-color: var(--light-offline-accent);
+        --offline-glow: var(--light-offline-glow);
+        --offline-bg-color: rgba(220, 53, 69, 0.1);
+        --offline-border-color: rgba(220, 53, 69, 0.3);
+        --offline-button-bg: linear-gradient(45deg, var(--offline-accent-color), #b02a37);
+        --offline-button-hover-bg: linear-gradient(45deg, #b02a37, var(--offline-accent-color));
+        --text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-    font-family: var(--font-family);
+    font-family: var(--font-primary);
     background-image: var(--bg-gradient);
     color: var(--text-color);
-    line-height: 1.7; /* Slightly more spacing */
+    line-height: 1.6;
     min-height: 100vh;
     padding: 0;
     margin: 0;
     transition: background-image var(--transition-speed) ease, color var(--transition-speed) ease;
     position: relative;
-    overflow-x: hidden;
+    overflow: hidden; /* Prevent scrollbars from 3D elements */
 }
 
-/* Canvas styling */
+/* 3D Canvas takes full background */
 #bg-canvas {
     position: fixed;
     top: 0;
@@ -111,564 +110,429 @@ body {
     height: 100%;
     z-index: 0;
     display: block;
-    opacity: 0.9; /* Slightly less opaque */
-    transition: opacity var(--transition-speed) ease;
+    opacity: 1; /* Make it fully visible */
+    transition: opacity 0.5s ease;
 }
 
-.container {
+/* Content Overlay */
+.content-overlay {
+    position: relative;
+    z-index: 10;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding: 1.5rem;
-    position: relative;
-    z-index: 10;
-}
-
-/* Enhanced Card with Glassmorphism */
-.card {
-    background-color: var(--card-bg-color);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-md);
-    width: min(100%, 540px); /* Slightly wider */
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-    backdrop-filter: blur(var(--card-backdrop-blur));
-    -webkit-backdrop-filter: blur(var(--card-backdrop-blur)); /* Safari */
-    transition: transform 0.4s var(--transition-bezier),
-                box-shadow 0.4s var(--transition-bezier),
-                background-color var(--transition-speed) ease,
-                border-color var(--transition-speed) ease;
-    position: relative; /* Needed for pseudo-elements if any */
-}
-
-.card:hover {
-    transform: translateY(-8px) scale(1.01); /* More pronounced hover */
-    box-shadow: var(--shadow-lg);
-}
-
-.card-content {
-    padding: clamp(2rem, 6vw, 3rem); /* More padding */
+    padding: 2rem 1.5rem;
     text-align: center;
+    background: var(--overlay-bg); /* Subtle overlay for readability */
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }
 
-/* Logo styling */
+.content-wrapper {
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem; /* Spacing between sections */
+}
+
+/* Header Section */
+.header-section {
+    animation: fadeInDown 0.8s var(--transition-bezier) 0.1s forwards;
+    opacity: 0;
+}
+
 .logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.75rem;
-}
-
-.logo-symbol {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background-image: linear-gradient(45deg, var(--accent-color), var(--accent-hover-color));
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 36px;
-    font-weight: 700;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    transition: background-image var(--transition-speed) ease, transform 0.3s var(--transition-bezier);
-}
-.logo-symbol:hover {
-    transform: scale(1.1) rotate(5deg); /* Add slight rotation on hover */
-}
-
-h1 {
-    font-size: clamp(1.8rem, 5.5vw, 2.5rem); /* Adjusted size */
-    font-weight: 700;
-    margin-bottom: 1.25rem;
-    color: var(--text-color);
-    letter-spacing: -0.02em;
-    transition: color var(--transition-speed) ease;
-}
-
-p.info-text {
-    margin-bottom: 1rem;
-    color: var(--text-color);
-    opacity: 0.85;
-    font-size: 1rem;
-    transition: color var(--transition-speed) ease, opacity var(--transition-speed) ease;
-}
-p.info-text-small {
-    font-size: 0.9rem;
-    opacity: 0.75;
-    margin-top: -0.5rem;
     margin-bottom: 1.5rem;
 }
 
-.notice {
-    background-color: var(--notice-bg-color);
-    border-radius: var(--border-radius-md);
-    padding: 1.5rem 1.75rem; /* Adjust padding */
-    margin-bottom: 2.5rem;
-    border: 1px solid var(--notice-border-color);
-    text-align: left;
-    transition: background-color var(--transition-speed) ease,
-                border-color var(--transition-speed) ease,
-                transform 0.2s var(--transition-bezier),
-                box-shadow var(--transition-speed) ease;
-    box-shadow: var(--shadow-sm);
-}
-/* Subtle lift on notice hover */
-.notice:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-    background-color: var(--notice-hover-bg-color);
-}
-
-
-.notice-title {
-    color: var(--accent-color);
-    font-weight: 600;
-    margin-bottom: 0.85rem;
-    display: flex;
+.logo-symbol {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-image: linear-gradient(45deg, var(--accent-color), var(--accent-secondary-color));
+    color: #fff;
+    display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    font-size: 1.15rem;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 700;
+    box-shadow: 0 0 25px var(--accent-glow-color), 0 0 15px var(--accent-secondary-glow-color);
+    transition: transform 0.4s var(--transition-bezier), box-shadow 0.4s ease;
+    will-change: transform, box-shadow;
+}
+.logo-symbol:hover {
+    transform: scale(1.1) rotate(-5deg);
+    box-shadow: 0 0 35px var(--accent-glow-color), 0 0 20px var(--accent-secondary-glow-color);
+}
+
+h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 10px var(--accent-glow-color), var(--text-shadow);
+    transition: color var(--transition-speed) ease, text-shadow var(--transition-speed) ease;
+}
+
+p.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary-color);
+    max-width: 450px;
+    margin: 0 auto;
+    text-shadow: var(--text-shadow);
+    opacity: 0.9;
+    transition: color var(--transition-speed) ease, opacity var(--transition-speed) ease;
+}
+
+/* General Info Text */
+p.info-text {
+    color: var(--text-secondary-color);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    text-shadow: var(--text-shadow);
     transition: color var(--transition-speed) ease;
 }
-
-.notice-icon {
-    width: 22px;
-    height: 22px;
-    flex-shrink: 0;
+p.info-text-small {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 0.5rem;
+}
+p.info-text strong {
+    color: var(--text-color);
+    font-weight: 600;
 }
 
-.notice .info-text {
-    font-size: 0.95rem;
-    opacity: 0.9;
-    margin-bottom: 0.5rem;
-}
-.notice .info-text:last-child {
-    margin-bottom: 0;
-}
-
-/* URL display and copy button */
-.destination-url {
-    display: flex;
-    align-items: center;
-    background-color: var(--url-bg-color);
-    border-radius: var(--border-radius-sm);
-    padding: 0.75rem 1rem;
-    margin-top: 1.25rem;
+/* Destination Info Section */
+.destination-info {
+    background: rgba(0,0,0, 0.15);
     border: 1px solid var(--border-color);
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-}
-.destination-url:hover {
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    border-radius: var(--border-radius-md);
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    animation: fadeInUp 0.8s var(--transition-bezier) 0.3s forwards;
+    opacity: 0;
 }
 
 .url-label {
     font-weight: 600;
     font-size: 0.9rem;
     color: var(--accent-color);
-    margin-right: 0.35rem;
-    transition: color var(--transition-speed) ease;
-    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 5px var(--accent-glow-color);
+}
+
+.url-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .url-link {
     color: var(--text-color);
     text-decoration: none;
-    font-family: 'Courier New', Courier, monospace; /* Monospace font */
-    font-size: 0.95rem;
-    flex-grow: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: color var(--transition-speed) ease, opacity var(--transition-speed) ease, transform 0.2s var(--transition-bezier);
-    opacity: 0.9;
-    padding-bottom: 2px; /* Align better */
-    display: inline-block; /* Needed for transform */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--border-radius-sm);
+    transition: color var(--transition-speed) ease, background var(--transition-speed) ease, box-shadow 0.2s ease;
+    word-break: break-all; /* Allow breaking long URLs */
 }
-
 .url-link:hover {
-    text-decoration: underline;
-    color: var(--accent-color);
-    opacity: 1;
-    transform: translateY(-1px); /* Subtle lift */
+    color: var(--accent-hover-color);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 8px var(--accent-glow-color);
 }
 
 .copy-btn {
-    background-color: transparent;
-    border: 1px solid transparent; /* For layout consistency */
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid transparent;
+    color: var(--text-secondary-color);
     cursor: pointer;
-    color: var(--text-color);
-    opacity: 0.6;
-    transition: all 0.2s ease;
-    padding: 0.3rem;
+    padding: 0.5rem;
     border-radius: var(--border-radius-sm);
-    display: inline-flex; /* Use inline-flex */
-    align-items: center;
-    justify-content: center;
-    margin-left: 0.5rem; /* Space from link */
-    flex-shrink: 0;
-    position: relative;
-    width: 28px; height: 28px; /* Fixed size */
-}
-.copy-btn svg {
-    width: 16px; height: 16px;
-    position: absolute; /* Allow fade transition */
-    transition: opacity 0.2s ease;
-}
-.copy-btn #copy-icon-success {
-    opacity: 0;
-}
-.copy-btn.copied #copy-icon-default {
-    opacity: 0;
-}
-.copy-btn.copied #copy-icon-success {
-    opacity: 1;
-    color: var(--accent-color); /* Success color */
-}
-
-.copy-btn:hover {
-    opacity: 1;
-    background-color: var(--border-color);
-    border-color: var(--border-color);
-    color: var(--accent-color);
-    transform: scale(1.1); /* Scale feedback */
-}
-.copy-btn:active {
-    transform: scale(0.95); /* Active feedback */
-}
-
-
-/* Enhanced Button Design */
-.button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.8rem;
-    background-image: linear-gradient(45deg, var(--accent-color), var(--accent-hover-color));
-    color: white;
-    padding: 0.9rem 1.8rem; /* Adjusted padding */
-    border-radius: var(--border-radius-md);
-    font-weight: 600;
-    font-size: 1rem;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    box-shadow: var(--shadow-sm), 0 0 0 0 rgba(var(--accent-color), 0.7);
-    transition: all var(--transition-speed) var(--transition-bezier);
+    transition: all 0.2s ease;
     position: relative;
-    overflow: hidden;
-    width: 100%; /* Keep full width for main button */
-    letter-spacing: 0.02em;
-    will-change: transform, box-shadow; /* Performance hint */
+    width: 36px; height: 36px; /* Ensure consistent size */
 }
-
-.button:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md), 0 0 15px 5px rgba(var(--accent-color), 0.3);
-    filter: brightness(1.1);
-}
-
-.button:active {
-    transform: translateY(0);
-    box-shadow: var(--shadow-sm);
-    filter: brightness(0.95);
-}
-
-.button-text {
-    z-index: 1; /* Ensure text is above ripple */
-}
-
-.button-icon {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.3s var(--transition-bezier);
-    z-index: 1;
-}
-
-.button:hover .button-icon {
-    transform: translateX(4px);
-}
-
-/* Highlight for manual button after cancel */
-.button.highlight-manual {
-    animation: highlight-pulse 1.5s ease-out 2;
-}
-@keyframes highlight-pulse {
-    0% { box-shadow: var(--shadow-sm), 0 0 0 0 rgba(var(--accent-color), 0.5); }
-    50% { box-shadow: var(--shadow-md), 0 0 15px 8px rgba(var(--accent-color), 0.2); }
-    100% { box-shadow: var(--shadow-sm), 0 0 0 0 rgba(var(--accent-color), 0.5); }
-}
-
-
-/* Cancel redirect button */
-.cancel-redirect {
-    background: none;
-    border: none;
-    padding: 0.5rem 0;
-    font-size: 0.9rem;
-    color: var(--text-color);
-    opacity: 0.7;
-    cursor: pointer;
-    transition: opacity var(--transition-speed) ease, color var(--transition-speed) ease;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    margin-top: 0.75rem;
-    display: inline-block; /* Allow margin */
-}
-
-.cancel-redirect:hover {
-    opacity: 1;
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
     color: var(--accent-color);
+    transform: scale(1.1);
+    box-shadow: 0 0 10px var(--accent-glow-color);
 }
+.copy-btn:active { transform: scale(0.95); }
 
-/* Circular Countdown Animation */
+.copy-icon {
+    width: 18px; height: 18px;
+    position: absolute;
+    transition: opacity 0.3s ease;
+}
+#copy-icon-success { opacity: 0; color: var(--accent-secondary-color); }
+.copy-btn.copied #copy-icon-default { opacity: 0; }
+.copy-btn.copied #copy-icon-success { opacity: 1; }
+
+
+/* Countdown Section */
 .countdown-wrapper {
-    margin-bottom: 2.5rem;
+    animation: fadeInUp 0.8s var(--transition-bezier) 0.5s forwards;
+    opacity: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
-.countdown-display {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-}
+.countdown-display { display: flex; justify-content: center; }
 
 .countdown-circle {
     position: relative;
-    width: 100px; /* Slightly larger */
-    height: 100px;
+    width: 110px; height: 110px;
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(0 0 5px rgba(var(--accent-color), 0.3)); /* Add subtle glow */
-    transition: filter 0.3s ease;
+    filter: drop-shadow(0 0 12px var(--accent-glow-color));
+    transition: filter 0.5s ease;
 }
 
 .countdown-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform: rotate(-90deg); /* Start from the top */
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    transform: rotate(-90deg);
 }
 
 .countdown-track {
     fill: none;
     stroke: var(--border-color);
+    opacity: 0.4;
     transition: stroke var(--transition-speed) ease;
-    opacity: 0.5;
 }
 
 .countdown-progress {
     fill: none;
     stroke: var(--accent-color);
     stroke-linecap: round;
-    /* Circumference = 2 * π * 54 (radius) = ~339.3 */
-    stroke-dasharray: 339.3;
-    stroke-dashoffset: 0;
-    transition: stroke-dashoffset 1s linear,
-                stroke var(--transition-speed) ease,
-                filter 0.3s ease; /* Transition filter for pulse */
+    stroke-dasharray: 339.3; /* 2 * PI * 54 */
+    stroke-dashoffset: 339.3; /* Start empty */
+    transition: stroke-dashoffset 1s linear, stroke var(--transition-speed) ease, filter 0.3s ease;
 }
 
 .countdown-number {
-    font-size: 2.75rem; /* Larger number */
+    font-family: var(--font-display);
+    font-size: 3.5rem;
     font-weight: 700;
     color: var(--accent-color);
-    transition: color var(--transition-speed) ease, transform 0.3s var(--transition-bezier);
+    text-shadow: 0 0 10px var(--accent-glow-color);
+    transition: color 0.3s ease, transform 0.3s var(--transition-bezier), text-shadow 0.3s ease;
 }
 
 .countdown-text {
     font-size: 1rem;
-    color: var(--text-color);
-    opacity: 0.8;
-    margin-bottom: 0;
+    color: var(--text-secondary-color);
+    text-shadow: var(--text-shadow);
+    min-height: 1.6em; /* Prevent layout shift */
     transition: color var(--transition-speed) ease, opacity var(--transition-speed) ease;
-    min-height: 1.7em; /* Prevent layout shift when text changes */
-    display: block; /* Ensure it takes block space */
+}
+.countdown-text .sr-only { display: none; } /* Hide SR span visually */
+
+/* Countdown Ending State */
+.countdown-ending .countdown-circle { filter: drop-shadow(0 0 20px var(--offline-glow)); }
+.countdown-ending .countdown-progress { stroke: var(--offline-accent-color); }
+.countdown-ending .countdown-number {
+    color: var(--offline-accent-color);
+    text-shadow: 0 0 15px var(--offline-glow);
+    animation: pulse-fast 0.8s ease-in-out infinite;
 }
 
-/* Screen reader only class */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+@keyframes pulse-fast {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
 }
 
-/* Toast notification */
-.toast {
-    position: fixed;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--card-bg-color);
-    color: var(--text-color);
-    padding: 0.85rem 1.75rem;
+.cancel-redirect {
+    background: none; border: none;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary-color);
+    opacity: 0.8;
+    cursor: pointer;
+    transition: opacity var(--transition-speed) ease, color var(--transition-speed) ease;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-shadow: var(--text-shadow);
+}
+.cancel-redirect:hover { opacity: 1; color: var(--accent-hover-color); }
+
+
+/* Buttons */
+.button {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 0.8rem;
+    color: #fff; /* White text for gradient buttons */
+    padding: 0.9rem 2rem;
     border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-lg); /* More prominent shadow */
-    border: 1px solid var(--border-color);
-    z-index: 1001; /* Above error boundary */
-    pointer-events: none;
-    font-weight: 500;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    animation: toast-in-out 3s var(--transition-bezier) forwards;
-    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    font-weight: 600; font-size: 1rem;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all var(--transition-speed) var(--transition-bezier);
+    position: relative; overflow: hidden;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    will-change: transform, box-shadow;
 }
 
+.button-primary {
+    background-image: var(--button-primary-bg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 15px var(--accent-glow-color), 0 0 10px var(--accent-secondary-glow-color);
+    animation: fadeInUp 0.8s var(--transition-bezier) 0.7s forwards;
+    opacity: 0;
+    width: 100%; /* Make primary button full width */
+    max-width: 350px; /* But constrain it */
+}
+.button-primary:hover {
+    transform: translateY(-3px);
+    background-image: var(--button-primary-hover-bg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 20px var(--accent-glow-color), 0 0 15px var(--accent-secondary-glow-color);
+}
+.button-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+/* Highlight for manual button after cancel */
+.button.highlight-manual {
+    animation: highlight-pulse 1.5s ease-out 2;
+}
+@keyframes highlight-pulse {
+    0% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 15px var(--accent-glow-color), 0 0 10px var(--accent-secondary-glow-color); }
+    50% { box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3), 0 0 30px var(--accent-glow-color), 0 0 20px var(--accent-secondary-glow-color); transform: scale(1.02); }
+    100% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 15px var(--accent-glow-color), 0 0 10px var(--accent-secondary-glow-color); }
+}
+
+
+.button-icon {
+    width: 20px; height: 20px;
+    transition: transform 0.3s var(--transition-bezier);
+    z-index: 1;
+}
+.button:hover .button-icon { transform: translateX(4px); }
+
+
+/* Offline Styles */
+.notice-offline {
+    background: var(--offline-bg-color);
+    border: 1px solid var(--offline-border-color);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    animation: scaleIn 0.6s var(--transition-bezier) forwards;
+    opacity: 0;
+    box-shadow: 0 0 20px var(--offline-glow);
+    width: 100%;
+    max-width: 450px;
+}
+.notice-title-offline {
+    color: var(--offline-accent-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    font-size: 1.2rem;
+    text-shadow: 0 0 8px var(--offline-glow);
+}
+.notice-title-offline .notice-icon { stroke: var(--offline-accent-color); width: 24px; height: 24px; }
+
+.button-offline {
+    background-image: var(--offline-button-bg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 15px var(--offline-glow);
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.8rem;
+    width: auto; /* Allow natural width */
+}
+.button-offline:hover {
+    transform: translateY(-3px);
+    background-image: var(--offline-button-hover-bg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 20px var(--offline-glow);
+}
+.button-offline:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Ripple Effect */
+.ripple {
+    position: absolute; border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4); /* Less opaque ripple */
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none; z-index: 0;
+}
+@keyframes ripple-animation { to { transform: scale(4); opacity: 0; } }
+
+/* Toast Notification */
+.toast {
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    background: rgba(30, 35, 45, 0.85); /* Darker toast */
+    color: var(--text-color);
+    padding: 0.9rem 1.8rem;
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-color);
+    z-index: 1001;
+    pointer-events: none; font-weight: 500;
+    backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+    animation: toast-in-out 3s var(--transition-bezier) forwards;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
 @keyframes toast-in-out {
     0%, 100% { opacity: 0; transform: translate(-50%, 30px); }
     10%, 90% { opacity: 1; transform: translate(-50%, 0); }
 }
 
-/* Error boundary styles */
+/* Error Boundary */
 .error-boundary {
     border: 1px solid var(--offline-accent-color);
-    background: var(--offline-notice-bg-color);
+    background: rgba(30, 35, 45, 0.85);
     color: var(--offline-accent-color);
-    padding: 1.5rem;
-    border-radius: var(--border-radius-md);
-    margin-top: 1.5rem;
-    text-align: center; /* Center content */
-    position: fixed;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    width: min(90%, 500px);
-    box-shadow: var(--shadow-md);
-    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    padding: 1.5rem; border-radius: var(--border-radius-md);
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    z-index: 1000; width: min(90%, 500px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4), 0 0 15px var(--offline-glow);
+    backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+    text-align: center;
+    transition: all var(--transition-speed) ease;
 }
-
-.error-boundary p {
-    margin-bottom: 1rem;
-    color: inherit;
-    font-size: 0.95rem;
-}
-
-.error-boundary .button {
-    background-image: linear-gradient(45deg, var(--offline-accent-color), #c0392b); /* Gradient for offline button */
-    color: white;
-    font-size: 0.95rem;
-    padding: 0.8rem 1.6rem;
-    width: auto; /* Allow button to size naturally */
-    margin-top: 0.5rem;
-}
-
-.error-boundary .button:hover {
-    background-image: linear-gradient(45deg, #c0392b, var(--offline-accent-color));
-    filter: brightness(1.1);
-}
+.error-boundary p { margin-bottom: 1rem; color: inherit; font-size: 0.95rem; }
+.error-boundary .button { margin-top: 0.5rem; } /* Use offline button styles */
 
 
 /* Entrance Animations */
-@keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-@keyframes scaleIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-}
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-.card {
-    animation: scaleIn 0.6s var(--transition-bezier) forwards;
-}
-
-.logo { animation: fadeInDown 0.5s var(--transition-bezier) 0.1s forwards; opacity: 0; }
-h1 { animation: fadeInDown 0.5s var(--transition-bezier) 0.2s forwards; opacity: 0; }
-.notice { animation: fadeInUp 0.5s var(--transition-bezier) 0.3s forwards; opacity: 0; }
-.countdown-wrapper { animation: fadeInUp 0.5s var(--transition-bezier) 0.4s forwards; opacity: 0; }
-.button:not(.button-offline) { animation: fadeInUp 0.5s var(--transition-bezier) 0.5s forwards; opacity: 0; }
-#offline-notice { animation: scaleIn 0.5s var(--transition-bezier) 0.1s forwards; opacity: 0; }
-
-
-/* Pulse animation for countdown when nearly finished */
-.countdown-ending .countdown-number {
-    color: var(--offline-accent-color); /* Use error color for urgency */
-    animation: pulse-fast 0.8s ease-in-out infinite;
-}
-.countdown-ending .countdown-circle {
-     filter: drop-shadow(0 0 10px var(--offline-accent-color)); /* Stronger glow for error */
-}
-.countdown-ending .countdown-progress {
-    stroke: var(--offline-accent-color); /* Use error color for urgency */
-}
-@keyframes pulse-fast {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-/* Offline-specific styles integrated */
-.notice-offline {
-    background-color: var(--offline-notice-bg-color);
-    border-color: var(--offline-notice-border-color);
-    text-align: center; /* Center offline notice text */
-}
-/* Offline notice hover */
-.notice-offline:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-    background-color: rgba(231, 76, 60, 0.15); /* Slightly darker red bg */
-}
-
-.notice-title-offline {
-    color: var(--offline-accent-color);
-    justify-content: center; /* Center title elements */
-}
-
-.notice-title-offline .notice-icon {
-    stroke: var(--offline-accent-color); /* Ensure icon uses offline color */
-}
-
-.button-offline {
-    background-image: linear-gradient(45deg, var(--offline-button-bg-color), var(--offline-button-hover-color));
-    color: white;
-    margin-top: 1.5rem; /* Space above button */
-    width: auto; /* Don't force full width */
-    padding: 0.9rem 1.8rem;
-}
-
-.button-offline:hover {
-    background-image: linear-gradient(45deg, var(--offline-button-hover-color), var(--offline-button-bg-color));
-    box-shadow: var(--shadow-md), 0 0 15px 5px rgba(var(--offline-accent-color), 0.3);
-}
-
-.button-offline .button-icon {
-    margin-right: 0.5rem; /* Keep icon space */
-}
-
-/* Ripple Effect Styles */
-.ripple {
-    position: absolute;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.6); /* Slightly stronger ripple */
-    transform: scale(0);
-    animation: ripple-animation 0.6s ease-out;
-    pointer-events: none;
-    z-index: 0; /* Behind button text/icon */
-}
-@keyframes ripple-animation {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
+/* Apply entrance animations selectively */
+/* Header handled above */
+/* Destination info handled above */
+/* Countdown wrapper handled above */
+/* Primary button handled above */
+/* Offline notice handled above */
 
 /* Accessibility Improvements */
 @media (prefers-reduced-motion: reduce) {
@@ -678,54 +542,50 @@ h1 { animation: fadeInDown 0.5s var(--transition-bezier) 0.2s forwards; opacity:
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
-    .card, .logo, h1, .notice, .countdown-wrapper, .button, #offline-notice, .toast {
-        animation: none !important; /* Ensure important overrides */
-        opacity: 1;
+    .header-section, .destination-info, .countdown-wrapper, .button-primary, .notice-offline, .toast, .error-boundary {
+        animation: none !important; opacity: 1; transform: none !important;
     }
-    .card:hover { transform: none; box-shadow: var(--shadow-md); } /* Keep base shadow on hover */
-    .button:hover { transform: none; box-shadow: var(--shadow-sm); filter: brightness(1.05); }
-    .button:active { transform: none; filter: brightness(0.95); }
-    .button:hover .button-icon { transform: none; }
     .logo-symbol:hover { transform: none; }
-    .notice:hover { transform: none; box-shadow: var(--shadow-sm); }
-    .url-link:hover { transform: none; }
-    .copy-btn:hover { transform: none; }
+    .button:hover, .button:active { transform: none; }
+    .button:hover .button-icon { transform: none; }
     .countdown-ending .countdown-number { animation: none; }
     .button.highlight-manual { animation: none; }
-    #bg-canvas { display: none; } /* Hide complex animation */
-    body { background: var(--bg-gradient); } /* Ensure static background */
+    #bg-canvas { opacity: 0.3; /* Keep a dim version or display: none; */ }
+    body { background: var(--bg-gradient); }
 }
 
-/* Better focus styles */
+/* Better Focus Styles */
 :focus-visible {
-    outline: 3px solid var(--accent-color);
-    outline-offset: 3px;
-    box-shadow: 0 0 0 4px rgba(var(--accent-color), 0.3);
-    border-radius: var(--border-radius-sm); /* Apply radius to outline */
+    outline: 3px solid var(--accent-secondary-color); /* Use contrast accent */
+    outline-offset: 4px;
+    box-shadow: 0 0 0 5px var(--accent-secondary-glow-color);
+    border-radius: var(--border-radius-sm);
 }
-/* Hide default outline for non-keyboard focus if needed, but :focus-visible is preferred */
-:focus:not(:focus-visible) {
-    outline: none;
-    box-shadow: none;
-}
+:focus:not(:focus-visible) { outline: none; box-shadow: none; }
 
-/* Responsive adjustments */
+/* Responsive Adjustments */
 @media (max-width: 600px) {
-     .card { width: 95%; }
-     h1 { font-size: 1.8rem; }
-     .card-content { padding: 1.5rem; }
-     .notice { padding: 1.25rem; }
-     .button { padding: 0.8rem 1.5rem; font-size: 0.95rem; }
-     .button-offline { padding: 0.8rem 1.5rem; font-size: 0.95rem;}
-     .destination-url { font-size: 0.9rem; }
-     .url-link { font-size: 0.9rem; }
+    h1 { font-size: 1.8rem; }
+    p.subtitle { font-size: 1rem; }
+    .content-wrapper { gap: 1.5rem; }
+    .button { padding: 0.8rem 1.5rem; font-size: 0.95rem; }
+    .countdown-circle { width: 90px; height: 90px; }
+    .countdown-number { font-size: 2.8rem; }
+    .url-link { font-size: 0.9rem; }
 }
 
 @media (max-width: 480px) {
+    h1 { font-size: 1.6rem; }
+    .content-overlay { padding: 1.5rem 1rem; }
+    .content-wrapper { gap: 1rem; }
+    .logo-symbol { width: 60px; height: 60px; font-size: 30px; }
+    .header-section { margin-bottom: 1rem; }
+    .destination-info { padding: 0.8rem 1rem; }
+    .url-container { flex-direction: column; gap: 0.5rem; }
+    .copy-btn { position: static; } /* Let it flow normally */
     .countdown-circle { width: 80px; height: 80px; }
-    .countdown-number { font-size: 2rem; }
-    .destination-url { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
-    .copy-btn { align-self: flex-end; margin-top: -2.5rem; margin-left: 0;} /* Position copy button better */
+    .countdown-number { font-size: 2.4rem; }
+    .button { width: 100%; max-width: none; } /* Full width buttons on mobile */
     .toast { width: 90%; bottom: 1rem; padding: 0.75rem 1.25rem; }
     .error-boundary { width: 90%; bottom: 1rem; padding: 1rem; }
 }

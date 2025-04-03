@@ -35,6 +35,13 @@
     --shadow-lg: 0 15px 45px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.08);
     --transition-speed: 0.3s;
     --transition-bezier: cubic-bezier(0.4, 0, 0.2, 1); /* Smoother ease */
+
+    /* Enhanced animation variables */
+    --transition-speed-fast: 0.2s;
+    --transition-speed-slow: 0.5s;
+    --transition-bezier-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition-bezier-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+    --pulse-intensity: 1.05;
 }
 
 /* Apply light theme by default */
@@ -129,22 +136,22 @@ body {
 .card {
     background-color: var(--card-bg-color);
     border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-md), 0 0 0 rgba(52, 152, 219, 0.0);
     width: min(100%, 540px); /* Slightly wider */
     overflow: hidden;
     border: 1px solid var(--border-color);
     backdrop-filter: blur(var(--card-backdrop-blur));
     -webkit-backdrop-filter: blur(var(--card-backdrop-blur)); /* Safari */
-    transition: transform 0.4s var(--transition-bezier),
-                box-shadow 0.4s var(--transition-bezier),
+    transition: transform 0.6s var(--transition-bezier-smooth),
+                box-shadow 0.6s var(--transition-bezier-smooth),
                 background-color var(--transition-speed) ease,
                 border-color var(--transition-speed) ease;
     position: relative; /* Needed for pseudo-elements if any */
 }
 
 .card:hover {
-    transform: translateY(-8px) scale(1.01); /* More pronounced hover */
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg), 0 10px 40px rgba(52, 152, 219, 0.15);
 }
 
 .card-content {
@@ -173,9 +180,36 @@ body {
     font-weight: 700;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     transition: background-image var(--transition-speed) ease, transform 0.3s var(--transition-bezier);
+    position: relative;
+    overflow: hidden;
 }
 .logo-symbol:hover {
     transform: scale(1.1) rotate(5deg); /* Add slight rotation on hover */
+}
+
+.logo-symbol:after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.13) 77%,
+        rgba(255,255,255,0.5) 92%,
+        rgba(255,255,255,0) 100%
+    );
+    transform: rotate(-45deg);
+    animation: logo-shine 6s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes logo-shine {
+    0% { left: -50%; top: -50%; }
+    50%, 100% { left: 150%; top: 150%; }
 }
 
 h1 {
@@ -337,7 +371,7 @@ p.info-text-small {
     transform: scale(1.1); /* Scale feedback */
 }
 .copy-btn:active {
-    transform: scale(0.95); /* Active feedback */
+    transform: scale(0.9); /* Active feedback */
 }
 
 
@@ -356,8 +390,15 @@ p.info-text-small {
     text-decoration: none;
     border: none;
     cursor: pointer;
-    box-shadow: var(--shadow-sm), 0 0 0 0 rgba(var(--accent-color), 0.7);
-    transition: all var(--transition-speed) var(--transition-bezier);
+    box-shadow: var(--shadow-sm), 0 0 0 rgba(52, 152, 219, 0.2);
+    transform: translateY(0);
+    transition: transform 0.4s var(--transition-bezier-bounce),
+                box-shadow 0.4s var(--transition-bezier-bounce),
+                background-image 0.3s ease,
+                filter 0.3s ease;
+    background-size: 150% 150%;
+    background-position: 0 0;
+    will-change: transform, box-shadow, background-position;
     position: relative;
     overflow: hidden;
     width: 100%; /* Keep full width for main button */
@@ -366,14 +407,16 @@ p.info-text-small {
 }
 
 .button:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md), 0 0 15px 5px rgba(var(--accent-color), 0.3);
-    filter: brightness(1.1);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md), 0 8px 25px rgba(52, 152, 219, 0.25);
+    background-position: 100% 100%;
+    filter: brightness(1.1) contrast(1.05);
 }
 
 .button:active {
-    transform: translateY(0);
-    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm), 0 3px 10px rgba(52, 152, 219, 0.2);
+    transition: all 0.1s ease;
     filter: brightness(0.95);
 }
 
@@ -442,8 +485,13 @@ p.info-text-small {
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(0 0 5px rgba(var(--accent-color), 0.3)); /* Add subtle glow */
-    transition: filter 0.3s ease;
+    filter: drop-shadow(0 0 5px rgba(var(--accent-color), 0.3));
+    transition: filter 0.5s var(--transition-bezier-smooth), transform 0.3s var(--transition-bezier-bounce);
+}
+
+.countdown-circle:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px rgba(var(--accent-color), 0.4));
 }
 
 .countdown-svg {
@@ -471,18 +519,24 @@ p.info-text-small {
     stroke-dasharray: 339.3; /* Circumference = 2 * π * 54 */
     stroke-dashoffset: 339.3; /* Start empty */
     transform-origin: center;
-    will-change: stroke-dashoffset; /* Performance optimization */
-    animation: pulse-circle 2s ease-in-out infinite;
+    will-change: stroke-dashoffset;
+    transition: stroke-dashoffset 0.8s linear, stroke 0.3s ease, stroke-width 0.3s ease;
+    animation: subtle-pulse 3s ease-in-out infinite;
 }
 
-@keyframes pulse-circle {
-    0%, 100% { stroke-width: 8; }
-    50% { stroke-width: 10; }
+@keyframes subtle-pulse {
+    0%, 100% { stroke-opacity: 0.9; }
+    50% { stroke-opacity: 1; }
 }
 
 .countdown-ending .countdown-progress {
-    animation: none;
+    animation: urgent-pulse 0.8s ease-in-out infinite;
     stroke-width: 10;
+}
+
+@keyframes urgent-pulse {
+    0%, 100% { stroke-opacity: 0.9; stroke-width: 9; }
+    50% { stroke-opacity: 1; stroke-width: 12; }
 }
 
 .countdown-number {
@@ -520,7 +574,7 @@ p.info-text-small {
     position: fixed;
     bottom: 2rem;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 30px);
     background-color: var(--card-bg-color);
     color: var(--text-color);
     padding: 0.85rem 1.75rem;
@@ -532,13 +586,12 @@ p.info-text-small {
     font-weight: 500;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    animation: toast-in-out 3s var(--transition-bezier) forwards;
-    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    transition: transform 0.4s var(--transition-bezier-smooth), opacity 0.4s ease, background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
 }
 
-@keyframes toast-in-out {
-    0%, 100% { opacity: 0; transform: translate(-50%, 30px); }
-    10%, 90% { opacity: 1; transform: translate(-50%, 0); }
+.toast.visible {
+    transform: translate(-50%, 0);
+    opacity: 1;
 }
 
 /* Error boundary styles */
@@ -756,6 +809,11 @@ h1 { animation: fadeInDown 0.5s var(--transition-bezier) 0.2s forwards; opacity:
     .copy-btn {
         width: 36px;
         height: 36px;
+        transform-origin: center;
+    }
+
+    .copy-btn:active {
+        transform: scale(0.9);
     }
 
     .countdown-circle { width: 80px; height: 80px; }

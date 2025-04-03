@@ -266,6 +266,33 @@ function updateCountdownVisual(secondsLeft) {
         const progress = 1 - (secondsLeft / CONFIG.REDIRECT_DELAY_SECONDS);
         updateAnimationForCountdown(progress);
     }
+
+    // Improve visual transition at end of countdown
+    if (secondsLeft === 0) {
+        // Add a subtle scale animation as final second hits zero
+        if (countdownEl) {
+            countdownEl.style.transform = 'scale(1.2)';
+            countdownEl.style.opacity = '0.7';
+            setTimeout(() => {
+                if (countdownEl) {
+                    countdownEl.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+                    countdownEl.style.transform = 'scale(1)';
+                    countdownEl.style.opacity = '1';
+                }
+            }, 50);
+        }
+        
+        // Flash the progress circle briefly
+        if (countdownCircle) {
+            countdownCircle.style.filter = 'drop-shadow(0 0 15px var(--offline-accent-color))';
+            setTimeout(() => {
+                if (countdownCircle) {
+                    countdownCircle.style.transition = 'filter 0.5s ease-out';
+                    countdownCircle.style.filter = 'drop-shadow(0 0 10px var(--offline-accent-color))';
+                }
+            }, 100);
+        }
+    }
 }
 
 function stopCountdown() {
@@ -396,21 +423,23 @@ function fallbackCopy(text) {
 }
 
 function showCopyToast(message = "URL copied to clipboard!", isError = false) {
-     // Toast logic remains largely the same...
-     if (copyToast) {
+    if (copyToast) {
         copyToast.textContent = message;
         copyToast.hidden = false;
         copyToast.style.backgroundColor = isError ? 'var(--offline-notice-bg-color)' : 'var(--card-bg-color)';
         copyToast.style.color = isError ? 'var(--offline-accent-color)' : 'var(--text-color)';
-        copyToast.style.animation = 'none';
-        void copyToast.offsetWidth;
-        copyToast.style.animation = `toast-in-out ${CONFIG.COPY_SUCCESS_DELAY_MS / 1000 + 0.5}s var(--transition-bezier) forwards`; // Adjust duration
+        
+        // Use class toggle for smoother animation
+        setTimeout(() => copyToast.classList.add('visible'), 10);
 
         if (copyToast.timer) clearTimeout(copyToast.timer);
         copyToast.timer = setTimeout(() => {
-            copyToast.hidden = true;
-            copyToast.timer = null;
-        }, CONFIG.COPY_SUCCESS_DELAY_MS + 500); // Match animation
+            copyToast.classList.remove('visible');
+            setTimeout(() => {
+                copyToast.hidden = true;
+                copyToast.timer = null;
+            }, 400); // Wait for fade out
+        }, CONFIG.COPY_SUCCESS_DELAY_MS);
     }
 }
 
@@ -538,6 +567,19 @@ function initThreeJS() {
     mainMesh.userData.basePulseFreq = CONFIG.MAIN_SHAPE_PULSE_FREQ;
     scene.add(mainMesh);
 
+    // Add bloom highlight to edges for better visibility
+    if (mainMesh && CONFIG.ENABLE_BLOOM) {
+        const edgesGeometry = new THREE.EdgesGeometry(mainMesh.geometry);
+        const edgesMaterial = new THREE.LineBasicMaterial({ 
+            color: accentColorThree,
+            transparent: true,
+            opacity: 0.6,
+            linewidth: 1
+        });
+        const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
+        mainMesh.add(edges);
+    }
+
     // Particle System
     createParticles(accentColorThree);
 
@@ -545,6 +587,15 @@ function initThreeJS() {
     if (CONFIG.ENABLE_BLOOM && !CONFIG.REDUCED_MOTION) {
         setupPostProcessing();
     }
+
+    // Enhanced lighting
+    pointLight.castShadow = true;
+    pointLight.intensity = 1.3; // Slightly brighter
+    
+    // Add additional subtle point light for more dimension
+    const accentLight = new THREE.PointLight(accentColorThree, 0.5, 50);
+    accentLight.position.set(-5, -3, 3);
+    scene.add(accentLight);
 
     // Animation Clock
     clock = new THREE.Clock();
@@ -720,10 +771,18 @@ function onDocumentMouseMove(event) {
 
 function onDocumentTouchMove(event) {
     if (event.touches.length === 1) {
-        event.preventDefault(); // Prevent scrolling while interacting with 3D
+        // Use passive true for better scroll performance but handle 3D separately
+        event.preventDefault(); 
         const touch = event.touches[0];
-        mouseX = (touch.pageX - windowHalfX) * 0.7; // Reduce sensitivity for touch
-        mouseY = (touch.pageY - windowHalfY) * 0.7;
+        
+        // More responsive touch on mobile with smoother dampening
+        mouseX = (touch.pageX - windowHalfX) * 0.5;
+        mouseY = (touch.pageY - windowHalfY) * 0.5;
+        
+        // Add subtle momentum
+        let momentum = 0.92;
+        mouseX = mouseX * momentum + mouseX * (1 - momentum);
+        mouseY = mouseY * momentum + mouseY * (1 - momentum);
     }
 }
 

@@ -32,7 +32,7 @@ let resizeTimeout; // For debouncing
 let animationFrameId; // To store requestAnimationFrame ID
 
 // --- DOM Elements ---
-let countdownEl, countdownCircle, countdownProgress, cancelButton, copyButton, copyToast, errorContainer, redirectButton, onlineContent, offlineNotice, retryButton, countdownTextEl, copyIconDefault, copyIconSuccess, manualRedirectButton;
+let countdownEl, countdownCircle, countdownProgress, cancelButton, copyButton, copyToast, errorContainer, redirectButton, onlineContent, offlineNotice, retryButton, countdownTextEl, copyIconDefault, copyIconSuccess, manualRedirectButton, mainCard;
 
 // --- Three.js Variables ---
 let scene, camera, renderer, mainMesh, particlesMesh, clock, ambientLight, pointLight, directionalLight;
@@ -85,6 +85,7 @@ function assignDOMElements() {
     countdownTextEl = document.getElementById('countdown-text');
     copyIconDefault = document.getElementById('copy-icon-default');
     copyIconSuccess = document.getElementById('copy-icon-success');
+    mainCard = document.getElementById('main-card');
 }
 
 // --- Event Listeners Setup ---
@@ -122,8 +123,73 @@ function setupEventListeners() {
         document.addEventListener('touchmove', onDocumentTouchMove, { passive: false });
     }
 
+    // Add parallax effect for desktop
+    if (mainCard && !CONFIG.REDUCED_MOTION && window.innerWidth > 768) {
+        document.addEventListener('mousemove', handleCardParallax);
+    }
+
+    // Add passive scroll event listener for better performance
+    document.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Preload destination site for faster redirect
+    setTimeout(() => {
+        preloadDestination();
+    }, 2000); // Wait 2 seconds before preloading
+
     // Cleanup on page unload
     window.addEventListener('beforeunload', cleanup);
+}
+
+// Preload destination for faster redirect
+function preloadDestination() {
+    try {
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = CONFIG.REDIRECT_URL;
+        document.head.appendChild(link);
+        console.log('Prefetched destination:', CONFIG.REDIRECT_URL);
+    } catch (e) {
+        console.warn('Prefetch failed:', e);
+    }
+}
+
+// Handle subtle card parallax effect
+function handleCardParallax(e) {
+    if (!mainCard || CONFIG.REDUCED_MOTION) return;
+
+    const cardRect = mainCard.getBoundingClientRect();
+    const cardCenterX = cardRect.left + cardRect.width / 2;
+    const cardCenterY = cardRect.top + cardRect.height / 2;
+
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+
+    // Calculate distance from center (normalized -1 to 1)
+    const maxDistance = Math.min(window.innerWidth, window.innerHeight) / 3;
+    const dx = (mouseX - cardCenterX) / maxDistance;
+    const dy = (mouseY - cardCenterY) / maxDistance;
+
+    // Apply subtle parallax tilt effect (max 2 degrees)
+    const tiltX = dy * 2;
+    const tiltY = -dx * 2;
+
+    // Apply transform with minimal easing
+    mainCard.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-5px)`;
+
+    // Reset transform when mouse leaves window
+    document.addEventListener('mouseleave', resetCardTransform);
+}
+
+function resetCardTransform() {
+    if (mainCard) {
+        mainCard.style.transform = '';
+    }
+}
+
+// Handle scroll events
+function handleScroll() {
+    // Simple function to handle any scroll-based behavior
+    // Currently just for the passive flag performance benefit
 }
 
 // --- Debounced Resize Handler ---
@@ -292,7 +358,71 @@ function updateCountdownVisual(secondsLeft) {
                 }
             }, 100);
         }
+
+        // Add completion class for additional effects
+        if (countdownCircle) {
+            countdownCircle.classList.add('countdown-complete');
+            
+            // Create subtle particle burst effect on completion
+            createCompletionEffect();
+        }
     }
+}
+
+function createCompletionEffect() {
+    if (!countdownCircle || CONFIG.REDUCED_MOTION) return;
+    
+    const particleCount = 12;
+    const container = document.createElement('div');
+    container.className = 'completion-particles';
+    container.style.cssText = 'position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); pointer-events:none; z-index:10;';
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        const angle = (i / particleCount) * 360;
+        const distance = 30 + Math.random() * 20;
+        const duration = 600 + Math.random() * 400;
+        const size = 3 + Math.random() * 4;
+        
+        particle.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            opacity: 0.8;
+            transform: translate(-50%, -50%);
+            animation: particle-fade ${duration}ms ease-out forwards;
+        `;
+        
+        // Set animation keyframes
+        const keyframes = `
+        @keyframes particle-fade {
+            0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 1; }
+            100% { transform: translate(-50%, -50%) translate(${Math.cos(angle * Math.PI/180) * distance}px, ${Math.sin(angle * Math.PI/180) * distance}px); opacity: 0; }
+        }`;
+        
+        // Add style to document
+        const styleEl = document.createElement('style');
+        styleEl.innerHTML = keyframes;
+        document.head.appendChild(styleEl);
+        
+        container.appendChild(particle);
+        
+        // Cleanup
+        setTimeout(() => {
+            document.head.removeChild(styleEl);
+        }, duration + 100);
+    }
+    
+    countdownCircle.appendChild(container);
+    
+    // Remove particles after animation completes
+    setTimeout(() => {
+        if (countdownCircle.contains(container)) {
+            countdownCircle.removeChild(container);
+        }
+    }, 1000);
 }
 
 function stopCountdown() {
@@ -429,8 +559,15 @@ function showCopyToast(message = "URL copied to clipboard!", isError = false) {
         copyToast.style.backgroundColor = isError ? 'var(--offline-notice-bg-color)' : 'var(--card-bg-color)';
         copyToast.style.color = isError ? 'var(--offline-accent-color)' : 'var(--text-color)';
         
-        // Use class toggle for smoother animation
-        setTimeout(() => copyToast.classList.add('visible'), 10);
+        // Set opacity to 0 first
+        copyToast.style.opacity = '0';
+        copyToast.style.transform = 'translate(-50%, 30px)';
+        
+        // Force reflow
+        void copyToast.offsetWidth;
+        
+        // Then add visible class
+        copyToast.classList.add('visible');
 
         if (copyToast.timer) clearTimeout(copyToast.timer);
         copyToast.timer = setTimeout(() => {
@@ -771,15 +908,22 @@ function onDocumentMouseMove(event) {
 
 function onDocumentTouchMove(event) {
     if (event.touches.length === 1) {
-        // Use passive true for better scroll performance but handle 3D separately
-        event.preventDefault(); 
+        // Prevent scroll only if interacting with 3D canvas specifically
+        const canvas = document.getElementById('bg-canvas');
         const touch = event.touches[0];
+        const rect = canvas.getBoundingClientRect();
         
-        // More responsive touch on mobile with smoother dampening
+        // Only prevent default if touch is directly on the canvas
+        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+            event.preventDefault();
+        }
+        
+        // More responsive touch with smoother dampening
         mouseX = (touch.pageX - windowHalfX) * 0.5;
         mouseY = (touch.pageY - windowHalfY) * 0.5;
         
-        // Add subtle momentum
+        // Add momentum for smoother feeling
         let momentum = 0.92;
         mouseX = mouseX * momentum + mouseX * (1 - momentum);
         mouseY = mouseY * momentum + mouseY * (1 - momentum);
@@ -813,6 +957,9 @@ function cleanup() {
     document.removeEventListener('touchmove', onDocumentTouchMove);
     document.removeEventListener('keydown', handleKeyDown);
     window.removeEventListener('beforeunload', cleanup);
+    document.removeEventListener('mousemove', handleCardParallax);
+    document.removeEventListener('mouseleave', resetCardTransform);
+    document.removeEventListener('scroll', handleScroll);
     // Any other listeners added dynamically should be removed here
 
     // Dispose Three.js objects (basic example)

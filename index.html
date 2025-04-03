@@ -7,6 +7,11 @@
     <meta name="theme-color" content="#43a0e5" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#2c3e50" media="(prefers-color-scheme: dark)">
 
+    <!-- Resource hints for better performance -->
+    <link rel="preconnect" href="https://tobin-data-portfolio.netlify.app" crossorigin>
+    <link rel="dns-prefetch" href="https://tobin-data-portfolio.netlify.app">
+    <link rel="prefetch" href="https://tobin-data-portfolio.netlify.app">
+
     <meta property="og:title" content="Tobin's Portfolio - New Location">
     <meta property="og:description" content="Tobin's data analysis portfolio has moved to a new platform with improved features, projects, and case studies.">
     <meta property="og:type" content="website">
@@ -23,6 +28,7 @@
 
     <title>Tobin's Portfolio - Redirecting...</title>
 
+    <!-- Preload critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
@@ -53,7 +59,7 @@
     <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
     <main class="container">
-        <div class="card">
+        <div class="card" id="main-card" data-parallax="true">
             <div class="card-content">
                 <div class="logo" aria-hidden="true">
                     <div class="logo-symbol">T</div>

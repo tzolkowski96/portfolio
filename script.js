@@ -6,7 +6,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 // --- Configuration ---
 const CONFIG = {
     REDIRECT_URL: 'https://tobin-data-portfolio.netlify.app/',
-    REDIRECT_DELAY_SECONDS: 7,
+    REDIRECT_DELAY_SECONDS: 10, // Changed from 7 to 10 seconds
     REDUCED_MOTION: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     // 3D Settings
     ENABLE_BLOOM: true, // Set to false to disable bloom effect
@@ -87,7 +87,6 @@ function assignDOMElements() {
     copyIconSuccess = document.getElementById('copy-icon-success');
 }
 
-
 // --- Event Listeners Setup ---
 function setupEventListeners() {
     console.log("Setting up event listeners");
@@ -142,7 +141,6 @@ function handleKeyDown(event) {
     }
 }
 
-
 // --- Network Status Handling ---
 function handleConnectionChange() {
     const isOnline = navigator.onLine;
@@ -174,81 +172,112 @@ function showOfflineContent() {
 
 // --- Countdown Logic ---
 function startCountdown() {
-    if (redirectCancelled || !navigator.onLine || countdownInterval) return;
-
-    console.log("Starting countdown");
-    let secondsLeft = CONFIG.REDIRECT_DELAY_SECONDS;
-    const circumference = countdownProgress ? parseFloat(getComputedStyle(countdownProgress).getPropertyValue('stroke-dasharray')) : 339.3;
-
-    // Reset UI
-    if (countdownEl) countdownEl.textContent = secondsLeft;
-    if (countdownProgress) {
-        countdownProgress.style.strokeDasharray = circumference;
-        countdownProgress.style.strokeDashoffset = circumference; // Start full (will transition)
-        countdownProgress.style.transition = 'stroke-dashoffset 1s linear, stroke 0.3s ease';
+    if (redirectCancelled || !navigator.onLine) {
+        console.log("Cannot start countdown - redirect cancelled or offline");
+        return;
     }
-     if (countdownCircle) countdownCircle.classList.remove('countdown-ending');
-     if (cancelButton) cancelButton.style.display = 'inline-block';
-     updateCountdownText(secondsLeft); // Update text initially
+    
+    // Clean up any existing countdown
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+    }
 
-    stopCountdown(); // Clear existing interval
-
-    // Set initial progress after a tiny delay to allow CSS to catch up
-    setTimeout(() => {
-         if(countdownProgress && !redirectCancelled) { // Check redirect hasn't been cancelled instantly
-              const initialProgress = (CONFIG.REDIRECT_DELAY_SECONDS - secondsLeft) / CONFIG.REDIRECT_DELAY_SECONDS;
-              countdownProgress.style.strokeDashoffset = circumference * (1 - initialProgress);
-         }
-    }, 50); // Small delay
-
-
+    console.log("Starting 10-second countdown");
+    let secondsLeft = CONFIG.REDIRECT_DELAY_SECONDS;
+    
+    // Circle properties - using a fixed value for simplicity and reliability
+    const radius = 54;
+    const circumference = 2 * Math.PI * radius;
+    
+    // Reset and initialize the UI elements
+    if (countdownEl) countdownEl.textContent = secondsLeft;
+    if (countdownCircle) countdownCircle.classList.remove('countdown-ending');
+    if (cancelButton) cancelButton.style.display = 'inline-block';
+    
+    // Set initial visual state of progress circle (empty)
+    if (countdownProgress) {
+        countdownProgress.setAttribute('stroke-dasharray', circumference);
+        countdownProgress.setAttribute('stroke-dashoffset', circumference);
+    }
+    
+    // Set initial text
+    updateCountdownText(secondsLeft);
+    
+    // Initial update for the visuals - start at full time
+    updateCountdownVisual(secondsLeft);
+    
+    // Start the countdown
     countdownInterval = setInterval(() => {
         secondsLeft -= 1;
-
+        console.log(`Countdown: ${secondsLeft}s remaining`);
+        
+        // Exit if cancelled during this interval
         if (redirectCancelled) {
             stopCountdown();
             return;
         }
-
-        // Update UI
-        if (countdownEl) countdownEl.textContent = secondsLeft;
-        if (countdownProgress) {
-            const progressValue = (CONFIG.REDIRECT_DELAY_SECONDS - secondsLeft) / CONFIG.REDIRECT_DELAY_SECONDS;
-            const dashoffset = circumference * (1 - progressValue);
-            countdownProgress.style.strokeDashoffset = dashoffset;
-        }
-        updateCountdownText(secondsLeft);
-
-        // Style near the end
-        if (secondsLeft <= 2 && countdownCircle && !countdownCircle.classList.contains('countdown-ending')) {
-            countdownCircle.classList.add('countdown-ending');
-        }
-
-        // Update 3D animation based on progress
-        if (!CONFIG.REDUCED_MOTION && scene) {
-            const progress = (CONFIG.REDIRECT_DELAY_SECONDS - secondsLeft) / CONFIG.REDIRECT_DELAY_SECONDS;
-            updateAnimationForCountdown(progress);
-        }
-
+        
+        // Update all visual elements for the current time
+        updateCountdownVisual(secondsLeft);
+        
         // Redirect when time's up
         if (secondsLeft < 0) {
             stopCountdown();
             triggerRedirect();
         }
     }, 1000);
-
+    
+    // Store for cleanup
     autoRedirectTimeout = countdownInterval;
+}
+
+// New simplified function to update all countdown visuals
+function updateCountdownVisual(secondsLeft) {
+    // Update the number display
+    if (countdownEl && secondsLeft >= 0) {
+        countdownEl.textContent = secondsLeft;
+    }
+    
+    // Update the text description
+    updateCountdownText(secondsLeft);
+    
+    // Update the circle progress
+    if (countdownProgress && secondsLeft >= 0) {
+        const radius = 54;
+        const circumference = 2 * Math.PI * radius;
+        const progress = secondsLeft / CONFIG.REDIRECT_DELAY_SECONDS;
+        const dashOffset = circumference * (1 - progress);
+        
+        // Direct attribute setting rather than style for better SVG support
+        countdownProgress.setAttribute('stroke-dashoffset', dashOffset);
+    }
+    
+    // Add warning styles for last 3 seconds
+    if (countdownCircle) {
+        if (secondsLeft <= 3 && !countdownCircle.classList.contains('countdown-ending')) {
+            countdownCircle.classList.add('countdown-ending');
+        }
+    }
+    
+    // Update 3D animation if enabled
+    if (!CONFIG.REDUCED_MOTION && scene && secondsLeft >= 0) {
+        // Progress increases as time decreases (0 to 1)
+        const progress = 1 - (secondsLeft / CONFIG.REDIRECT_DELAY_SECONDS);
+        updateAnimationForCountdown(progress);
+    }
 }
 
 function stopCountdown() {
     if (countdownInterval) {
+        console.log("Stopping countdown interval");
         clearInterval(countdownInterval);
         countdownInterval = null;
-        console.log("Countdown interval cleared");
     }
-    // Reset animation speed if stopped prematurely
+    
+    // Reset animation if we stopped early
     if (!CONFIG.REDUCED_MOTION && scene) {
-        updateAnimationForCountdown(0); // Reset to base state
+        updateAnimationForCountdown(0);
     }
 }
 
@@ -273,14 +302,15 @@ function cancelRedirect() {
     if (countdownCircle) {
         countdownCircle.classList.remove('countdown-ending');
         if (countdownProgress) {
+            // Freeze progress visually
+            const currentOffset = getComputedStyle(countdownProgress).strokeDashoffset;
             countdownProgress.style.transition = 'none'; // Stop animation
-            // Keep progress frozen where it was
-            countdownProgress.style.strokeDashoffset = getComputedStyle(countdownProgress).strokeDashoffset;
+            countdownProgress.style.strokeDashoffset = currentOffset;
         }
         if (countdownEl) {
+            // Change to checkmark immediately without scaling animation
             countdownEl.textContent = '✓';
-            countdownEl.style.transform = 'scale(1.1)';
-            setTimeout(()=> {if (countdownEl) countdownEl.style.transform = 'scale(1)';}, 200);
+            countdownEl.style.transform = 'none'; // Remove any scaling
         }
     }
     updateCountdownText(-1); // Update text to show cancelled state
@@ -687,11 +717,13 @@ function onDocumentMouseMove(event) {
     mouseX = (event.clientX - windowHalfX);
     mouseY = (event.clientY - windowHalfY);
 }
+
 function onDocumentTouchMove(event) {
     if (event.touches.length === 1) {
-        // event.preventDefault(); // Consider if needed
-        mouseX = (event.touches[0].pageX - windowHalfX);
-        mouseY = (event.touches[0].pageY - windowHalfY);
+        event.preventDefault(); // Prevent scrolling while interacting with 3D
+        const touch = event.touches[0];
+        mouseX = (touch.pageX - windowHalfX) * 0.7; // Reduce sensitivity for touch
+        mouseY = (touch.pageY - windowHalfY) * 0.7;
     }
 }
 

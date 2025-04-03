@@ -466,12 +466,23 @@ p.info-text-small {
     fill: none;
     stroke: var(--accent-color);
     stroke-linecap: round;
-    /* Circumference = 2 * π * 54 (radius) = ~339.3 */
-    stroke-dasharray: 339.3;
-    stroke-dashoffset: 0;
-    transition: stroke-dashoffset 1s linear,
-                stroke var(--transition-speed) ease,
-                filter 0.3s ease; /* Transition filter for pulse */
+    stroke-width: 8;
+    /* Fixed values for better cross-browser compatibility */
+    stroke-dasharray: 339.3; /* Circumference = 2 * π * 54 */
+    stroke-dashoffset: 339.3; /* Start empty */
+    transform-origin: center;
+    will-change: stroke-dashoffset; /* Performance optimization */
+    animation: pulse-circle 2s ease-in-out infinite;
+}
+
+@keyframes pulse-circle {
+    0%, 100% { stroke-width: 8; }
+    50% { stroke-width: 10; }
+}
+
+.countdown-ending .countdown-progress {
+    animation: none;
+    stroke-width: 10;
 }
 
 .countdown-number {
@@ -722,6 +733,31 @@ h1 { animation: fadeInDown 0.5s var(--transition-bezier) 0.2s forwards; opacity:
 }
 
 @media (max-width: 480px) {
+    .countdown-circle { 
+        width: 90px; /* Slightly larger for better visibility */
+        height: 90px; 
+    }
+    .countdown-number { 
+        font-size: 2.3rem; /* Larger number for readability */ 
+    }
+    
+    /* Improve touch target sizes */
+    .cancel-redirect {
+        padding: 0.75rem 0.5rem;
+        margin: 1rem 0;
+        font-size: 1rem;
+    }
+    
+    .button {
+        padding: 1rem 1.5rem;
+        min-height: 3.4rem;
+    }
+
+    .copy-btn {
+        width: 36px;
+        height: 36px;
+    }
+
     .countdown-circle { width: 80px; height: 80px; }
     .countdown-number { font-size: 2rem; }
     .destination-url { flex-direction: column; align-items: flex-start; gap: 0.25rem; }

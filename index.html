@@ -30,10 +30,12 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <!-- Import THREE.js and Addons -->
     <script type="importmap">
         {
             "imports": {
-                "three": "https://unpkg.com/three@0.163.0/build/three.module.js"
+                "three": "https://unpkg.com/three@0.163.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.163.0/examples/jsm/"
             }
         }
     </script>
@@ -42,12 +44,8 @@
         // Mark script start for performance measurement
         window.performance.mark('script-start');
 
-        // Web Animation API polyfill detection (optional, can be removed if target browsers support it)
-        if (!('animate' in document.createElement('div'))) {
-            const polyfill = document.createElement('script');
-            polyfill.src = 'https://unpkg.com/web-animations-js@2.3.2/web-animations.min.js';
-            document.head.appendChild(polyfill);
-        }
+        // Optional: Web Animations API polyfill (consider removing if support is sufficient)
+        // if (!('animate' in document.createElement('div'))) { ... }
     </script>
 
 </head>
@@ -131,7 +129,7 @@
                         <button id="cancel-redirect" class="cancel-redirect" aria-label="Cancel automatic redirect">Cancel Redirect</button>
                     </div>
 
-                    <a href="https://tobin-data-portfolio.netlify.app/" class="button" rel="noopener noreferrer">
+                    <a href="https://tobin-data-portfolio.netlify.app/" id="manual-redirect-button" class="button" rel="noopener noreferrer">
                         <span class="button-text">Visit New Site Now</span>
                         <svg aria-hidden="true" class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>

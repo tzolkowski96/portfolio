@@ -47,6 +47,7 @@ body {
     --border-color: var(--light-border);
     --notice-bg-color: var(--light-notice-bg);
     --notice-border-color: rgba(52, 152, 219, 0.2);
+    --notice-hover-bg-color: rgba(52, 152, 219, 0.15);
     --url-bg-color: rgba(52, 152, 219, 0.05);
     --offline-accent-color: var(--light-offline-accent);
     --offline-notice-bg-color: var(--light-offline-notice-bg);
@@ -67,6 +68,7 @@ body {
         --border-color: var(--dark-border);
         --notice-bg-color: var(--dark-notice-bg);
         --notice-border-color: rgba(93, 173, 226, 0.25);
+        --notice-hover-bg-color: rgba(93, 173, 226, 0.2);
         --url-bg-color: rgba(93, 173, 226, 0.1);
         --offline-accent-color: var(--dark-offline-accent);
         --offline-notice-bg-color: var(--dark-offline-notice-bg);
@@ -173,7 +175,7 @@ body {
     transition: background-image var(--transition-speed) ease, transform 0.3s var(--transition-bezier);
 }
 .logo-symbol:hover {
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(5deg); /* Add slight rotation on hover */
 }
 
 h1 {
@@ -206,9 +208,19 @@ p.info-text-small {
     margin-bottom: 2.5rem;
     border: 1px solid var(--notice-border-color);
     text-align: left;
-    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    transition: background-color var(--transition-speed) ease,
+                border-color var(--transition-speed) ease,
+                transform 0.2s var(--transition-bezier),
+                box-shadow var(--transition-speed) ease;
     box-shadow: var(--shadow-sm);
 }
+/* Subtle lift on notice hover */
+.notice:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    background-color: var(--notice-hover-bg-color);
+}
+
 
 .notice-title {
     color: var(--accent-color);
@@ -247,7 +259,10 @@ p.info-text-small {
     border: 1px solid var(--border-color);
     flex-wrap: wrap;
     gap: 0.5rem;
-    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+.destination-url:hover {
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
 }
 
 .url-label {
@@ -268,15 +283,17 @@ p.info-text-small {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: color var(--transition-speed) ease;
+    transition: color var(--transition-speed) ease, opacity var(--transition-speed) ease, transform 0.2s var(--transition-bezier);
     opacity: 0.9;
     padding-bottom: 2px; /* Align better */
+    display: inline-block; /* Needed for transform */
 }
 
 .url-link:hover {
     text-decoration: underline;
     color: var(--accent-color);
     opacity: 1;
+    transform: translateY(-1px); /* Subtle lift */
 }
 
 .copy-btn {
@@ -317,9 +334,10 @@ p.info-text-small {
     background-color: var(--border-color);
     border-color: var(--border-color);
     color: var(--accent-color);
+    transform: scale(1.1); /* Scale feedback */
 }
 .copy-btn:active {
-    transform: scale(0.9);
+    transform: scale(0.95); /* Active feedback */
 }
 
 
@@ -374,6 +392,17 @@ p.info-text-small {
     transform: translateX(4px);
 }
 
+/* Highlight for manual button after cancel */
+.button.highlight-manual {
+    animation: highlight-pulse 1.5s ease-out 2;
+}
+@keyframes highlight-pulse {
+    0% { box-shadow: var(--shadow-sm), 0 0 0 0 rgba(var(--accent-color), 0.5); }
+    50% { box-shadow: var(--shadow-md), 0 0 15px 8px rgba(var(--accent-color), 0.2); }
+    100% { box-shadow: var(--shadow-sm), 0 0 0 0 rgba(var(--accent-color), 0.5); }
+}
+
+
 /* Cancel redirect button */
 .cancel-redirect {
     background: none;
@@ -414,6 +443,7 @@ p.info-text-small {
     align-items: center;
     justify-content: center;
     filter: drop-shadow(0 0 5px rgba(var(--accent-color), 0.3)); /* Add subtle glow */
+    transition: filter 0.3s ease;
 }
 
 .countdown-svg {
@@ -457,6 +487,8 @@ p.info-text-small {
     opacity: 0.8;
     margin-bottom: 0;
     transition: color var(--transition-speed) ease, opacity var(--transition-speed) ease;
+    min-height: 1.7em; /* Prevent layout shift when text changes */
+    display: block; /* Ensure it takes block space */
 }
 
 /* Screen reader only class */
@@ -571,9 +603,11 @@ h1 { animation: fadeInDown 0.5s var(--transition-bezier) 0.2s forwards; opacity:
     color: var(--offline-accent-color); /* Use error color for urgency */
     animation: pulse-fast 0.8s ease-in-out infinite;
 }
+.countdown-ending .countdown-circle {
+     filter: drop-shadow(0 0 10px var(--offline-accent-color)); /* Stronger glow for error */
+}
 .countdown-ending .countdown-progress {
     stroke: var(--offline-accent-color); /* Use error color for urgency */
-    filter: drop-shadow(0 0 8px var(--offline-accent-color)); /* Stronger glow */
 }
 @keyframes pulse-fast {
     0%, 100% { transform: scale(1); }
@@ -585,6 +619,12 @@ h1 { animation: fadeInDown 0.5s var(--transition-bezier) 0.2s forwards; opacity:
     background-color: var(--offline-notice-bg-color);
     border-color: var(--offline-notice-border-color);
     text-align: center; /* Center offline notice text */
+}
+/* Offline notice hover */
+.notice-offline:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    background-color: rgba(231, 76, 60, 0.15); /* Slightly darker red bg */
 }
 
 .notice-title-offline {
@@ -639,15 +679,19 @@ h1 { animation: fadeInDown 0.5s var(--transition-bezier) 0.2s forwards; opacity:
         scroll-behavior: auto !important;
     }
     .card, .logo, h1, .notice, .countdown-wrapper, .button, #offline-notice, .toast {
-        animation: none;
+        animation: none !important; /* Ensure important overrides */
         opacity: 1;
     }
-    .card:hover { transform: none; }
+    .card:hover { transform: none; box-shadow: var(--shadow-md); } /* Keep base shadow on hover */
     .button:hover { transform: none; box-shadow: var(--shadow-sm); filter: brightness(1.05); }
     .button:active { transform: none; filter: brightness(0.95); }
     .button:hover .button-icon { transform: none; }
     .logo-symbol:hover { transform: none; }
+    .notice:hover { transform: none; box-shadow: var(--shadow-sm); }
+    .url-link:hover { transform: none; }
+    .copy-btn:hover { transform: none; }
     .countdown-ending .countdown-number { animation: none; }
+    .button.highlight-manual { animation: none; }
     #bg-canvas { display: none; } /* Hide complex animation */
     body { background: var(--bg-gradient); } /* Ensure static background */
 }

@@ -6,7 +6,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 // --- Configuration ---
 const CONFIG = {
     REDIRECT_URL: 'https://tobin-data-portfolio.netlify.app/',
-    REDIRECT_DELAY_SECONDS: 10, // Changed from 7 to 10 seconds
+    REDIRECT_DELAY_SECONDS: 7,
     REDUCED_MOTION: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     // 3D Settings
     ENABLE_BLOOM: true, // Set to false to disable bloom effect
@@ -32,7 +32,7 @@ let resizeTimeout; // For debouncing
 let animationFrameId; // To store requestAnimationFrame ID
 
 // --- DOM Elements ---
-let countdownEl, countdownCircle, countdownProgress, cancelButton, copyButton, copyToast, errorContainer, redirectButton, onlineContent, offlineNotice, retryButton, countdownTextEl, copyIconDefault, copyIconSuccess, manualRedirectButton, mainCard;
+let countdownEl, countdownCircle, countdownProgress, cancelButton, copyButton, copyToast, errorContainer, redirectButton, onlineContent, offlineNotice, retryButton, countdownTextEl, copyIconDefault, copyIconSuccess, manualRedirectButton;
 
 // --- Three.js Variables ---
 let scene, camera, renderer, mainMesh, particlesMesh, clock, ambientLight, pointLight, directionalLight;
@@ -85,8 +85,8 @@ function assignDOMElements() {
     countdownTextEl = document.getElementById('countdown-text');
     copyIconDefault = document.getElementById('copy-icon-default');
     copyIconSuccess = document.getElementById('copy-icon-success');
-    mainCard = document.getElementById('main-card');
 }
+
 
 // --- Event Listeners Setup ---
 function setupEventListeners() {
@@ -123,73 +123,8 @@ function setupEventListeners() {
         document.addEventListener('touchmove', onDocumentTouchMove, { passive: false });
     }
 
-    // Add parallax effect for desktop
-    if (mainCard && !CONFIG.REDUCED_MOTION && window.innerWidth > 768) {
-        document.addEventListener('mousemove', handleCardParallax);
-    }
-
-    // Add passive scroll event listener for better performance
-    document.addEventListener('scroll', handleScroll, { passive: true });
-
-    // Preload destination site for faster redirect
-    setTimeout(() => {
-        preloadDestination();
-    }, 2000); // Wait 2 seconds before preloading
-
     // Cleanup on page unload
     window.addEventListener('beforeunload', cleanup);
-}
-
-// Preload destination for faster redirect
-function preloadDestination() {
-    try {
-        const link = document.createElement('link');
-        link.rel = 'prefetch';
-        link.href = CONFIG.REDIRECT_URL;
-        document.head.appendChild(link);
-        console.log('Prefetched destination:', CONFIG.REDIRECT_URL);
-    } catch (e) {
-        console.warn('Prefetch failed:', e);
-    }
-}
-
-// Handle subtle card parallax effect
-function handleCardParallax(e) {
-    if (!mainCard || CONFIG.REDUCED_MOTION) return;
-
-    const cardRect = mainCard.getBoundingClientRect();
-    const cardCenterX = cardRect.left + cardRect.width / 2;
-    const cardCenterY = cardRect.top + cardRect.height / 2;
-
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-
-    // Calculate distance from center (normalized -1 to 1)
-    const maxDistance = Math.min(window.innerWidth, window.innerHeight) / 3;
-    const dx = (mouseX - cardCenterX) / maxDistance;
-    const dy = (mouseY - cardCenterY) / maxDistance;
-
-    // Apply subtle parallax tilt effect (max 2 degrees)
-    const tiltX = dy * 2;
-    const tiltY = -dx * 2;
-
-    // Apply transform with minimal easing
-    mainCard.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-5px)`;
-
-    // Reset transform when mouse leaves window
-    document.addEventListener('mouseleave', resetCardTransform);
-}
-
-function resetCardTransform() {
-    if (mainCard) {
-        mainCard.style.transform = '';
-    }
-}
-
-// Handle scroll events
-function handleScroll() {
-    // Simple function to handle any scroll-based behavior
-    // Currently just for the passive flag performance benefit
 }
 
 // --- Debounced Resize Handler ---
@@ -206,6 +141,7 @@ function handleKeyDown(event) {
         cancelRedirect();
     }
 }
+
 
 // --- Network Status Handling ---
 function handleConnectionChange() {
@@ -238,203 +174,81 @@ function showOfflineContent() {
 
 // --- Countdown Logic ---
 function startCountdown() {
-    if (redirectCancelled || !navigator.onLine) {
-        console.log("Cannot start countdown - redirect cancelled or offline");
-        return;
-    }
-    
-    // Clean up any existing countdown
-    if (countdownInterval) {
-        clearInterval(countdownInterval);
-        countdownInterval = null;
-    }
+    if (redirectCancelled || !navigator.onLine || countdownInterval) return;
 
-    console.log("Starting 10-second countdown");
+    console.log("Starting countdown");
     let secondsLeft = CONFIG.REDIRECT_DELAY_SECONDS;
-    
-    // Circle properties - using a fixed value for simplicity and reliability
-    const radius = 54;
-    const circumference = 2 * Math.PI * radius;
-    
-    // Reset and initialize the UI elements
+    const circumference = countdownProgress ? parseFloat(getComputedStyle(countdownProgress).getPropertyValue('stroke-dasharray')) : 339.3;
+
+    // Reset UI
     if (countdownEl) countdownEl.textContent = secondsLeft;
-    if (countdownCircle) countdownCircle.classList.remove('countdown-ending');
-    if (cancelButton) cancelButton.style.display = 'inline-block';
-    
-    // Set initial visual state of progress circle (empty)
     if (countdownProgress) {
-        countdownProgress.setAttribute('stroke-dasharray', circumference);
-        countdownProgress.setAttribute('stroke-dashoffset', circumference);
+        countdownProgress.style.strokeDasharray = circumference;
+        countdownProgress.style.strokeDashoffset = circumference; // Start full (will transition)
+        countdownProgress.style.transition = 'stroke-dashoffset 1s linear, stroke 0.3s ease';
     }
-    
-    // Set initial text
-    updateCountdownText(secondsLeft);
-    
-    // Initial update for the visuals - start at full time
-    updateCountdownVisual(secondsLeft);
-    
-    // Start the countdown
+     if (countdownCircle) countdownCircle.classList.remove('countdown-ending');
+     if (cancelButton) cancelButton.style.display = 'inline-block';
+     updateCountdownText(secondsLeft); // Update text initially
+
+    stopCountdown(); // Clear existing interval
+
+    // Set initial progress after a tiny delay to allow CSS to catch up
+    setTimeout(() => {
+         if(countdownProgress && !redirectCancelled) { // Check redirect hasn't been cancelled instantly
+              const initialProgress = (CONFIG.REDIRECT_DELAY_SECONDS - secondsLeft) / CONFIG.REDIRECT_DELAY_SECONDS;
+              countdownProgress.style.strokeDashoffset = circumference * (1 - initialProgress);
+         }
+    }, 50); // Small delay
+
+
     countdownInterval = setInterval(() => {
         secondsLeft -= 1;
-        console.log(`Countdown: ${secondsLeft}s remaining`);
-        
-        // Exit if cancelled during this interval
+
         if (redirectCancelled) {
             stopCountdown();
             return;
         }
-        
-        // Update all visual elements for the current time
-        updateCountdownVisual(secondsLeft);
-        
+
+        // Update UI
+        if (countdownEl) countdownEl.textContent = secondsLeft;
+        if (countdownProgress) {
+            const progressValue = (CONFIG.REDIRECT_DELAY_SECONDS - secondsLeft) / CONFIG.REDIRECT_DELAY_SECONDS;
+            const dashoffset = circumference * (1 - progressValue);
+            countdownProgress.style.strokeDashoffset = dashoffset;
+        }
+        updateCountdownText(secondsLeft);
+
+        // Style near the end
+        if (secondsLeft <= 2 && countdownCircle && !countdownCircle.classList.contains('countdown-ending')) {
+            countdownCircle.classList.add('countdown-ending');
+        }
+
+        // Update 3D animation based on progress
+        if (!CONFIG.REDUCED_MOTION && scene) {
+            const progress = (CONFIG.REDIRECT_DELAY_SECONDS - secondsLeft) / CONFIG.REDIRECT_DELAY_SECONDS;
+            updateAnimationForCountdown(progress);
+        }
+
         // Redirect when time's up
         if (secondsLeft < 0) {
             stopCountdown();
             triggerRedirect();
         }
     }, 1000);
-    
-    // Store for cleanup
+
     autoRedirectTimeout = countdownInterval;
-}
-
-// New simplified function to update all countdown visuals
-function updateCountdownVisual(secondsLeft) {
-    // Update the number display
-    if (countdownEl && secondsLeft >= 0) {
-        countdownEl.textContent = secondsLeft;
-    }
-    
-    // Update the text description
-    updateCountdownText(secondsLeft);
-    
-    // Update the circle progress
-    if (countdownProgress && secondsLeft >= 0) {
-        const radius = 54;
-        const circumference = 2 * Math.PI * radius;
-        const progress = secondsLeft / CONFIG.REDIRECT_DELAY_SECONDS;
-        const dashOffset = circumference * (1 - progress);
-        
-        // Direct attribute setting rather than style for better SVG support
-        countdownProgress.setAttribute('stroke-dashoffset', dashOffset);
-    }
-    
-    // Add warning styles for last 3 seconds
-    if (countdownCircle) {
-        if (secondsLeft <= 3 && !countdownCircle.classList.contains('countdown-ending')) {
-            countdownCircle.classList.add('countdown-ending');
-        }
-    }
-    
-    // Update 3D animation if enabled
-    if (!CONFIG.REDUCED_MOTION && scene && secondsLeft >= 0) {
-        // Progress increases as time decreases (0 to 1)
-        const progress = 1 - (secondsLeft / CONFIG.REDIRECT_DELAY_SECONDS);
-        updateAnimationForCountdown(progress);
-    }
-
-    // Improve visual transition at end of countdown
-    if (secondsLeft === 0) {
-        // Add a subtle scale animation as final second hits zero
-        if (countdownEl) {
-            countdownEl.style.transform = 'scale(1.2)';
-            countdownEl.style.opacity = '0.7';
-            setTimeout(() => {
-                if (countdownEl) {
-                    countdownEl.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
-                    countdownEl.style.transform = 'scale(1)';
-                    countdownEl.style.opacity = '1';
-                }
-            }, 50);
-        }
-        
-        // Flash the progress circle briefly
-        if (countdownCircle) {
-            countdownCircle.style.filter = 'drop-shadow(0 0 15px var(--offline-accent-color))';
-            setTimeout(() => {
-                if (countdownCircle) {
-                    countdownCircle.style.transition = 'filter 0.5s ease-out';
-                    countdownCircle.style.filter = 'drop-shadow(0 0 10px var(--offline-accent-color))';
-                }
-            }, 100);
-        }
-
-        // Add completion class for additional effects
-        if (countdownCircle) {
-            countdownCircle.classList.add('countdown-complete');
-            
-            // Create subtle particle burst effect on completion
-            createCompletionEffect();
-        }
-    }
-}
-
-function createCompletionEffect() {
-    if (!countdownCircle || CONFIG.REDUCED_MOTION) return;
-    
-    const particleCount = 12;
-    const container = document.createElement('div');
-    container.className = 'completion-particles';
-    container.style.cssText = 'position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); pointer-events:none; z-index:10;';
-    
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        const angle = (i / particleCount) * 360;
-        const distance = 30 + Math.random() * 20;
-        const duration = 600 + Math.random() * 400;
-        const size = 3 + Math.random() * 4;
-        
-        particle.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            border-radius: 50%;
-            background-color: var(--accent-color);
-            opacity: 0.8;
-            transform: translate(-50%, -50%);
-            animation: particle-fade ${duration}ms ease-out forwards;
-        `;
-        
-        // Set animation keyframes
-        const keyframes = `
-        @keyframes particle-fade {
-            0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 1; }
-            100% { transform: translate(-50%, -50%) translate(${Math.cos(angle * Math.PI/180) * distance}px, ${Math.sin(angle * Math.PI/180) * distance}px); opacity: 0; }
-        }`;
-        
-        // Add style to document
-        const styleEl = document.createElement('style');
-        styleEl.innerHTML = keyframes;
-        document.head.appendChild(styleEl);
-        
-        container.appendChild(particle);
-        
-        // Cleanup
-        setTimeout(() => {
-            document.head.removeChild(styleEl);
-        }, duration + 100);
-    }
-    
-    countdownCircle.appendChild(container);
-    
-    // Remove particles after animation completes
-    setTimeout(() => {
-        if (countdownCircle.contains(container)) {
-            countdownCircle.removeChild(container);
-        }
-    }, 1000);
 }
 
 function stopCountdown() {
     if (countdownInterval) {
-        console.log("Stopping countdown interval");
         clearInterval(countdownInterval);
         countdownInterval = null;
+        console.log("Countdown interval cleared");
     }
-    
-    // Reset animation if we stopped early
+    // Reset animation speed if stopped prematurely
     if (!CONFIG.REDUCED_MOTION && scene) {
-        updateAnimationForCountdown(0);
+        updateAnimationForCountdown(0); // Reset to base state
     }
 }
 
@@ -459,15 +273,14 @@ function cancelRedirect() {
     if (countdownCircle) {
         countdownCircle.classList.remove('countdown-ending');
         if (countdownProgress) {
-            // Freeze progress visually
-            const currentOffset = getComputedStyle(countdownProgress).strokeDashoffset;
             countdownProgress.style.transition = 'none'; // Stop animation
-            countdownProgress.style.strokeDashoffset = currentOffset;
+            // Keep progress frozen where it was
+            countdownProgress.style.strokeDashoffset = getComputedStyle(countdownProgress).strokeDashoffset;
         }
         if (countdownEl) {
-            // Change to checkmark immediately without scaling animation
             countdownEl.textContent = '✓';
-            countdownEl.style.transform = 'none'; // Remove any scaling
+            countdownEl.style.transform = 'scale(1.1)';
+            setTimeout(()=> {if (countdownEl) countdownEl.style.transform = 'scale(1)';}, 200);
         }
     }
     updateCountdownText(-1); // Update text to show cancelled state
@@ -553,30 +366,21 @@ function fallbackCopy(text) {
 }
 
 function showCopyToast(message = "URL copied to clipboard!", isError = false) {
-    if (copyToast) {
+     // Toast logic remains largely the same...
+     if (copyToast) {
         copyToast.textContent = message;
         copyToast.hidden = false;
         copyToast.style.backgroundColor = isError ? 'var(--offline-notice-bg-color)' : 'var(--card-bg-color)';
         copyToast.style.color = isError ? 'var(--offline-accent-color)' : 'var(--text-color)';
-        
-        // Set opacity to 0 first
-        copyToast.style.opacity = '0';
-        copyToast.style.transform = 'translate(-50%, 30px)';
-        
-        // Force reflow
+        copyToast.style.animation = 'none';
         void copyToast.offsetWidth;
-        
-        // Then add visible class
-        copyToast.classList.add('visible');
+        copyToast.style.animation = `toast-in-out ${CONFIG.COPY_SUCCESS_DELAY_MS / 1000 + 0.5}s var(--transition-bezier) forwards`; // Adjust duration
 
         if (copyToast.timer) clearTimeout(copyToast.timer);
         copyToast.timer = setTimeout(() => {
-            copyToast.classList.remove('visible');
-            setTimeout(() => {
-                copyToast.hidden = true;
-                copyToast.timer = null;
-            }, 400); // Wait for fade out
-        }, CONFIG.COPY_SUCCESS_DELAY_MS);
+            copyToast.hidden = true;
+            copyToast.timer = null;
+        }, CONFIG.COPY_SUCCESS_DELAY_MS + 500); // Match animation
     }
 }
 
@@ -704,19 +508,6 @@ function initThreeJS() {
     mainMesh.userData.basePulseFreq = CONFIG.MAIN_SHAPE_PULSE_FREQ;
     scene.add(mainMesh);
 
-    // Add bloom highlight to edges for better visibility
-    if (mainMesh && CONFIG.ENABLE_BLOOM) {
-        const edgesGeometry = new THREE.EdgesGeometry(mainMesh.geometry);
-        const edgesMaterial = new THREE.LineBasicMaterial({ 
-            color: accentColorThree,
-            transparent: true,
-            opacity: 0.6,
-            linewidth: 1
-        });
-        const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
-        mainMesh.add(edges);
-    }
-
     // Particle System
     createParticles(accentColorThree);
 
@@ -724,15 +515,6 @@ function initThreeJS() {
     if (CONFIG.ENABLE_BLOOM && !CONFIG.REDUCED_MOTION) {
         setupPostProcessing();
     }
-
-    // Enhanced lighting
-    pointLight.castShadow = true;
-    pointLight.intensity = 1.3; // Slightly brighter
-    
-    // Add additional subtle point light for more dimension
-    const accentLight = new THREE.PointLight(accentColorThree, 0.5, 50);
-    accentLight.position.set(-5, -3, 3);
-    scene.add(accentLight);
 
     // Animation Clock
     clock = new THREE.Clock();
@@ -905,28 +687,11 @@ function onDocumentMouseMove(event) {
     mouseX = (event.clientX - windowHalfX);
     mouseY = (event.clientY - windowHalfY);
 }
-
 function onDocumentTouchMove(event) {
     if (event.touches.length === 1) {
-        // Prevent scroll only if interacting with 3D canvas specifically
-        const canvas = document.getElementById('bg-canvas');
-        const touch = event.touches[0];
-        const rect = canvas.getBoundingClientRect();
-        
-        // Only prevent default if touch is directly on the canvas
-        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
-            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
-            event.preventDefault();
-        }
-        
-        // More responsive touch with smoother dampening
-        mouseX = (touch.pageX - windowHalfX) * 0.5;
-        mouseY = (touch.pageY - windowHalfY) * 0.5;
-        
-        // Add momentum for smoother feeling
-        let momentum = 0.92;
-        mouseX = mouseX * momentum + mouseX * (1 - momentum);
-        mouseY = mouseY * momentum + mouseY * (1 - momentum);
+        // event.preventDefault(); // Consider if needed
+        mouseX = (event.touches[0].pageX - windowHalfX);
+        mouseY = (event.touches[0].pageY - windowHalfY);
     }
 }
 
@@ -957,9 +722,6 @@ function cleanup() {
     document.removeEventListener('touchmove', onDocumentTouchMove);
     document.removeEventListener('keydown', handleKeyDown);
     window.removeEventListener('beforeunload', cleanup);
-    document.removeEventListener('mousemove', handleCardParallax);
-    document.removeEventListener('mouseleave', resetCardTransform);
-    document.removeEventListener('scroll', handleScroll);
     // Any other listeners added dynamically should be removed here
 
     // Dispose Three.js objects (basic example)

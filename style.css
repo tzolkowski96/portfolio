@@ -35,13 +35,6 @@
     --shadow-lg: 0 15px 45px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.08);
     --transition-speed: 0.3s;
     --transition-bezier: cubic-bezier(0.4, 0, 0.2, 1); /* Smoother ease */
-
-    /* Enhanced animation variables */
-    --transition-speed-fast: 0.2s;
-    --transition-speed-slow: 0.5s;
-    --transition-bezier-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    --transition-bezier-smooth: cubic-bezier(0.65, 0, 0.35, 1);
-    --pulse-intensity: 1.05;
 }
 
 /* Apply light theme by default */
@@ -136,42 +129,22 @@ body {
 .card {
     background-color: var(--card-bg-color);
     border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-md), 0 0 0 rgba(52, 152, 219, 0.0);
+    box-shadow: var(--shadow-md);
     width: min(100%, 540px); /* Slightly wider */
     overflow: hidden;
     border: 1px solid var(--border-color);
     backdrop-filter: blur(var(--card-backdrop-blur));
     -webkit-backdrop-filter: blur(var(--card-backdrop-blur)); /* Safari */
-    transition: transform 0.6s var(--transition-bezier-smooth),
-                box-shadow 0.6s var(--transition-bezier-smooth),
+    transition: transform 0.4s var(--transition-bezier),
+                box-shadow 0.4s var(--transition-bezier),
                 background-color var(--transition-speed) ease,
                 border-color var(--transition-speed) ease;
     position: relative; /* Needed for pseudo-elements if any */
-    animation: scaleIn 0.7s var(--transition-bezier-bounce) forwards, 
-               cardGlow 2s var(--transition-bezier-smooth) 0.7s forwards;
-    opacity: 0;
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-lg), 0 10px 40px rgba(52, 152, 219, 0.15);
-}
-
-.card[data-parallax="true"] {
-    transition: transform 0.1s var(--transition-bezier-smooth),
-                box-shadow 0.6s var(--transition-bezier-smooth),
-                background-color var(--transition-speed) ease,
-                border-color var(--transition-speed) ease;
-}
-
-.card[data-parallax="true"]:hover {
-    transform: translateY(-10px); /* Standard hover effect */
-}
-
-@keyframes cardGlow {
-    0% { box-shadow: var(--shadow-md), 0 0 0 rgba(52, 152, 219, 0); }
-    50% { box-shadow: var(--shadow-lg), 0 5px 30px rgba(52, 152, 219, 0.3); }
-    100% { box-shadow: var(--shadow-md), 0 0 0 rgba(52, 152, 219, 0); }
+    transform: translateY(-8px) scale(1.01); /* More pronounced hover */
+    box-shadow: var(--shadow-lg);
 }
 
 .card-content {
@@ -200,36 +173,9 @@ body {
     font-weight: 700;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     transition: background-image var(--transition-speed) ease, transform 0.3s var(--transition-bezier);
-    position: relative;
-    overflow: hidden;
 }
 .logo-symbol:hover {
     transform: scale(1.1) rotate(5deg); /* Add slight rotation on hover */
-}
-
-.logo-symbol:after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        to bottom right,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,0.13) 77%,
-        rgba(255,255,255,0.5) 92%,
-        rgba(255,255,255,0) 100%
-    );
-    transform: rotate(-45deg);
-    animation: logo-shine 6s ease-in-out infinite;
-    z-index: 0;
-    pointer-events: none;
-}
-
-@keyframes logo-shine {
-    0% { left: -50%; top: -50%; }
-    50%, 100% { left: 150%; top: 150%; }
 }
 
 h1 {
@@ -391,7 +337,7 @@ p.info-text-small {
     transform: scale(1.1); /* Scale feedback */
 }
 .copy-btn:active {
-    transform: scale(0.9); /* Active feedback */
+    transform: scale(0.95); /* Active feedback */
 }
 
 
@@ -410,15 +356,8 @@ p.info-text-small {
     text-decoration: none;
     border: none;
     cursor: pointer;
-    box-shadow: var(--shadow-sm), 0 0 0 rgba(52, 152, 219, 0.2);
-    transform: translateY(0);
-    transition: transform 0.4s var(--transition-bezier-bounce),
-                box-shadow 0.4s var(--transition-bezier-bounce),
-                background-image 0.3s ease,
-                filter 0.3s ease;
-    background-size: 150% 150%;
-    background-position: 0 0;
-    will-change: transform, box-shadow, background-position;
+    box-shadow: var(--shadow-sm), 0 0 0 0 rgba(var(--accent-color), 0.7);
+    transition: all var(--transition-speed) var(--transition-bezier);
     position: relative;
     overflow: hidden;
     width: 100%; /* Keep full width for main button */
@@ -427,16 +366,14 @@ p.info-text-small {
 }
 
 .button:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md), 0 8px 25px rgba(52, 152, 219, 0.25);
-    background-position: 100% 100%;
-    filter: brightness(1.1) contrast(1.05);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md), 0 0 15px 5px rgba(var(--accent-color), 0.3);
+    filter: brightness(1.1);
 }
 
 .button:active {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm), 0 3px 10px rgba(52, 152, 219, 0.2);
-    transition: all 0.1s ease;
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
     filter: brightness(0.95);
 }
 
@@ -487,13 +424,6 @@ p.info-text-small {
     color: var(--accent-color);
 }
 
-.cancel-redirect {
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 /* Circular Countdown Animation */
 .countdown-wrapper {
     margin-bottom: 2.5rem;
@@ -512,29 +442,8 @@ p.info-text-small {
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(0 0 5px rgba(var(--accent-color), 0.3));
-    transition: filter 0.5s var(--transition-bezier-smooth), transform 0.3s var(--transition-bezier-bounce);
-}
-
-.countdown-circle:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 10px rgba(var(--accent-color), 0.4));
-}
-
-.countdown-circle::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 40%;
-    background: linear-gradient(to bottom, 
-                rgba(255,255,255,0.2) 0%,
-                rgba(255,255,255,0) 100%);
-    border-radius: 50% 50% 0 0;
-    opacity: 0.5;
-    pointer-events: none;
-    z-index: 2;
+    filter: drop-shadow(0 0 5px rgba(var(--accent-color), 0.3)); /* Add subtle glow */
+    transition: filter 0.3s ease;
 }
 
 .countdown-svg {
@@ -557,29 +466,12 @@ p.info-text-small {
     fill: none;
     stroke: var(--accent-color);
     stroke-linecap: round;
-    stroke-width: 8;
-    /* Fixed values for better cross-browser compatibility */
-    stroke-dasharray: 339.3; /* Circumference = 2 * π * 54 */
-    stroke-dashoffset: 339.3; /* Start empty */
-    transform-origin: center;
-    will-change: stroke-dashoffset;
-    transition: stroke-dashoffset 0.8s linear, stroke 0.3s ease, stroke-width 0.3s ease;
-    animation: subtle-pulse 3s ease-in-out infinite;
-}
-
-@keyframes subtle-pulse {
-    0%, 100% { stroke-opacity: 0.9; }
-    50% { stroke-opacity: 1; }
-}
-
-.countdown-ending .countdown-progress {
-    animation: urgent-pulse 0.8s ease-in-out infinite;
-    stroke-width: 10;
-}
-
-@keyframes urgent-pulse {
-    0%, 100% { stroke-opacity: 0.9; stroke-width: 9; }
-    50% { stroke-opacity: 1; stroke-width: 12; }
+    /* Circumference = 2 * π * 54 (radius) = ~339.3 */
+    stroke-dasharray: 339.3;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear,
+                stroke var(--transition-speed) ease,
+                filter 0.3s ease; /* Transition filter for pulse */
 }
 
 .countdown-number {
@@ -587,17 +479,6 @@ p.info-text-small {
     font-weight: 700;
     color: var(--accent-color);
     transition: color var(--transition-speed) ease, transform 0.3s var(--transition-bezier);
-}
-
-.countdown-complete .countdown-number {
-    animation: completion-pulse 1s var(--transition-bezier-bounce) forwards;
-    color: var(--accent-color);
-}
-
-@keyframes completion-pulse {
-    0% { transform: scale(1); filter: brightness(1); }
-    50% { transform: scale(1.1); filter: brightness(1.2); }
-    100% { transform: scale(1); filter: brightness(1); }
 }
 
 .countdown-text {
@@ -628,7 +509,7 @@ p.info-text-small {
     position: fixed;
     bottom: 2rem;
     left: 50%;
-    transform: translate(-50%, 30px);
+    transform: translateX(-50%);
     background-color: var(--card-bg-color);
     color: var(--text-color);
     padding: 0.85rem 1.75rem;
@@ -640,18 +521,13 @@ p.info-text-small {
     font-weight: 500;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    transition: transform 0.4s var(--transition-bezier-smooth), opacity 0.4s ease, background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    animation: toast-in-out 3s var(--transition-bezier) forwards;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
 }
 
-.toast.visible {
-    animation: toast-bounce 0.5s var(--transition-bezier-bounce) forwards;
-}
-
-@keyframes toast-bounce {
-    0% { transform: translate(-50%, 30px); opacity: 0; }
-    50% { transform: translate(-50%, -7px); opacity: 1; }
-    70% { transform: translate(-50%, 3px); opacity: 1; }
-    100% { transform: translate(-50%, 0); opacity: 1; }
+@keyframes toast-in-out {
+    0%, 100% { opacity: 0; transform: translate(-50%, 30px); }
+    10%, 90% { opacity: 1; transform: translate(-50%, 0); }
 }
 
 /* Error boundary styles */
@@ -708,6 +584,10 @@ p.info-text-small {
 @keyframes scaleIn {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
+}
+
+.card {
+    animation: scaleIn 0.6s var(--transition-bezier) forwards;
 }
 
 .logo { animation: fadeInDown 0.5s var(--transition-bezier) 0.1s forwards; opacity: 0; }
@@ -829,11 +709,6 @@ h1 { animation: fadeInDown 0.5s var(--transition-bezier) 0.2s forwards; opacity:
     box-shadow: none;
 }
 
-.js-focus-visible :focus:not(.focus-visible) {
-    outline: none;
-    box-shadow: none;
-}
-
 /* Responsive adjustments */
 @media (max-width: 600px) {
      .card { width: 95%; }
@@ -847,88 +722,10 @@ h1 { animation: fadeInDown 0.5s var(--transition-bezier) 0.2s forwards; opacity:
 }
 
 @media (max-width: 480px) {
-    .countdown-circle { 
-        width: 90px; /* Slightly larger for better visibility */
-        height: 90px; 
-    }
-    .countdown-number { 
-        font-size: 2.3rem; /* Larger number for readability */ 
-    }
-    
-    /* Improve touch target sizes */
-    .cancel-redirect {
-        padding: 0.75rem 0.5rem;
-        margin: 1rem 0;
-        font-size: 1rem;
-    }
-    
-    .button {
-        padding: 1rem 1.5rem;
-        min-height: 3.4rem;
-    }
-
-    .copy-btn {
-        width: 36px;
-        height: 36px;
-        transform-origin: center;
-    }
-
-    .copy-btn:active {
-        transform: scale(0.9);
-    }
-
     .countdown-circle { width: 80px; height: 80px; }
     .countdown-number { font-size: 2rem; }
     .destination-url { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
     .copy-btn { align-self: flex-end; margin-top: -2.5rem; margin-left: 0;} /* Position copy button better */
     .toast { width: 90%; bottom: 1rem; padding: 0.75rem 1.25rem; }
     .error-boundary { width: 90%; bottom: 1rem; padding: 1rem; }
-}
-
-/* Better loading states */
-.loading {
-    position: relative;
-}
-.loading::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(255,255,255,0.1) 50%, 
-                transparent 100%);
-    animation: shimmer 1.5s infinite;
-    transform: skewX(-20deg);
-    z-index: 1;
-}
-@keyframes shimmer {
-    0% { transform: translateX(-100%) skewX(-20deg); }
-    100% { transform: translateX(200%) skewX(-20deg); }
-}
-
-/* Better touch feedback */
-@media (hover: hover) and (pointer: fine) {
-    /* Only apply these effects on devices with hover capability */
-    .button:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-md), 0 8px 25px rgba(52, 152, 219, 0.25);
-        background-position: 100% 100%;
-        filter: brightness(1.1) contrast(1.05);
-    }
-}
-
-@media (hover: none) and (pointer: coarse) {
-    /* Touch-specific optimizations */
-    .button:active {
-        transform: scale(0.97);
-        transition: transform 0.1s ease;
-    }
-    
-    .copy-btn:active {
-        transform: scale(0.9);
-        transition: transform 0.1s ease;
-    }
 }

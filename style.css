@@ -621,6 +621,8 @@ p.info-text-small {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 /* Toast notification */
@@ -883,6 +885,29 @@ h1 { animation: fadeInDown 0.5s var(--transition-bezier) 0.2s forwards; opacity:
     .copy-btn { align-self: flex-end; margin-top: -2.5rem; margin-left: 0;} /* Position copy button better */
     .toast { width: 90%; bottom: 1rem; padding: 0.75rem 1.25rem; }
     .error-boundary { width: 90%; bottom: 1rem; padding: 1rem; }
+    
+    .modal-content {
+        padding: 1.5rem;
+        width: 95%;
+    }
+    
+    .shortcuts-list {
+        gap: 0.75rem;
+    }
+    
+    .shortcut-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .keyboard-info-btn {
+        bottom: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
 }
 
 /* Better loading states */
@@ -931,4 +956,244 @@ h1 { animation: fadeInDown 0.5s var(--transition-bezier) 0.2s forwards; opacity:
         transform: scale(0.9);
         transition: transform 0.1s ease;
     }
+}
+
+/* Loading overlay */
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--card-bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-spinner svg {
+    width: 60px;
+    height: 60px;
+    animation: spin 1.5s linear infinite;
+}
+
+.loading-spinner svg circle {
+    stroke: var(--accent-color);
+    stroke-linecap: round;
+    stroke-dasharray: 150;
+    stroke-dashoffset: 50;
+    transform-origin: center;
+    animation: dash 1.5s ease-in-out infinite;
+}
+
+.loading-text {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.loading-dots {
+    display: inline-block;
+    animation: loadingDots 1.5s infinite;
+    width: 24px;
+    text-align: left;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes dash {
+    0% { stroke-dashoffset: 150; }
+    50% { stroke-dashoffset: 50; }
+    100% { stroke-dashoffset: 150; }
+}
+
+@keyframes loadingDots {
+    0% { content: '.'; }
+    33% { content: '..'; }
+    66% { content: '...'; }
+    90% { content: ''; }
+}
+
+/* Improved focus indicator for all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.3);
+    border-radius: var(--border-radius-sm);
+    position: relative;
+    z-index: 5;
+}
+
+/* Keyboard shortcuts modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: min(90%, 500px);
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 2rem;
+    position: relative;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: modalEnter 0.3s var(--transition-bezier-smooth) forwards;
+}
+
+@keyframes modalEnter {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--text-color);
+    opacity: 0.8;
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.close-modal-btn:hover {
+    opacity: 1;
+    background-color: var(--border-color);
+}
+
+#keyboard-shortcuts-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.shortcuts-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.shortcut-key {
+    background-color: var(--url-bg-color);
+    border-radius: var(--border-radius-sm);
+    padding: 0.25rem 0.75rem;
+    font-family: monospace;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--accent-color);
+    border: 1px solid var(--border-color);
+}
+
+.shortcut-desc {
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+/* Keyboard shortcut info button */
+.keyboard-info-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s ease;
+    z-index: 100;
+    opacity: 0.7;
+}
+
+.keyboard-info-btn:hover {
+    opacity: 1;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+/* Animation optimization with hardware acceleration for smoother performance */
+.card,
+.button,
+.countdown-circle,
+.logo-symbol,
+.copy-btn,
+.modal-content,
+.toast {
+    will-change: transform;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Prevent text selection on interactive elements for better UX */
+.button,
+.button-text,
+.logo-symbol,
+.cancel-redirect,
+.copy-btn,
+.countdown-number {
+    -webkit-user-select: none;
+    user-select: none;
 }

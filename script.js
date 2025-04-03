@@ -6,37 +6,47 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 // --- Configuration ---
 const CONFIG = {
     REDIRECT_URL: 'https://tobin-data-portfolio.netlify.app/',
-    REDIRECT_DELAY_SECONDS: 10, // Changed from 7 to 10 seconds
+    REDIRECT_DELAY_SECONDS: 10,
     REDUCED_MOTION: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     // 3D Settings
-    ENABLE_BLOOM: true, // Set to false to disable bloom effect
-    BLOOM_STRENGTH: 0.4, // Lowered strength for subtlety
+    ENABLE_BLOOM: true,
+    BLOOM_STRENGTH: 0.35, // Slightly reduced for better performance
     BLOOM_RADIUS: 0.3,
-    BLOOM_THRESHOLD: 0.85, // Only blooms brighter areas
+    BLOOM_THRESHOLD: 0.85,
     MAIN_SHAPE_ROTATION_SPEED: 0.1,
     MAIN_SHAPE_PULSE_FREQ: 1.0,
-    PARTICLE_COUNT: 500,
+    PARTICLE_COUNT: window.innerWidth < 768 ? 300 : 500, // Reduce particles on mobile
     PARTICLE_SPEED_MULTIPLIER: 0.02,
     CAMERA_Z: 5,
+    // Loading timeout to prevent indefinite loading
+    LOADING_TIMEOUT_MS: 8000,
     // Performance
     RESIZE_DEBOUNCE_MS: 150,
     COPY_SUCCESS_DELAY_MS: 2000,
     REDIRECT_FADE_MS: 500,
+    // Keyboard shortcuts enable/disable
+    ENABLE_KEYBOARD_SHORTCUTS: true,
 };
 
 // --- Global Variables ---
 let countdownInterval;
 let redirectCancelled = false;
 let autoRedirectTimeout;
-let resizeTimeout; // For debouncing
-let animationFrameId; // To store requestAnimationFrame ID
+let resizeTimeout;
+let animationFrameId;
+let resourcesLoaded = false;
+let loadingTimeout;
+let shortcutsModalVisible = false;
 
 // --- DOM Elements ---
-let countdownEl, countdownCircle, countdownProgress, cancelButton, copyButton, copyToast, errorContainer, redirectButton, onlineContent, offlineNotice, retryButton, countdownTextEl, copyIconDefault, copyIconSuccess, manualRedirectButton, mainCard;
+let countdownEl, countdownCircle, countdownProgress, cancelButton, copyButton, copyToast, 
+    errorContainer, redirectButton, onlineContent, offlineNotice, retryButton, countdownTextEl, 
+    copyIconDefault, copyIconSuccess, manualRedirectButton, mainCard, loadingOverlay,
+    keyboardShortcutsModal, closeModalBtn;
 
 // --- Three.js Variables ---
 let scene, camera, renderer, mainMesh, particlesMesh, clock, ambientLight, pointLight, directionalLight;
-let composer, bloomPass; // For post-processing
+let composer, bloomPass;
 let mouseX = 0, mouseY = 0;
 let targetX = 0, targetY = 0;
 const windowHalfX = window.innerWidth / 2;
@@ -46,22 +56,32 @@ const windowHalfY = window.innerHeight / 2;
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM Loaded. Reduced Motion:", CONFIG.REDUCED_MOTION);
     assignDOMElements();
-    addRippleEffectStyle();
     setupEventListeners();
     handleConnectionChange();
-
-    if (!CONFIG.REDUCED_MOTION) {
-        try {
-            initThreeJS(); // Initialize Three.js Scene
-            startAnimationLoop(); // Start the animation loop
-        } catch (error) {
-            console.error("Failed to initialize 3D background:", error);
-            const canvas = document.getElementById('bg-canvas');
-            if (canvas) canvas.style.display = 'none';
+    
+    // Dynamically add keyboard shortcut button
+    createKeyboardShortcutButton();
+    
+    // Set a loading timeout to prevent indefinite loading
+    loadingTimeout = setTimeout(() => {
+        if (!resourcesLoaded) {
+            hideLoading();
+            console.warn("Loading timeout reached. Proceeding with limited functionality.");
+            // Show a subtle notification about limited visual effects
+            showNotification("Some visual effects may be limited", true);
         }
+    }, CONFIG.LOADING_TIMEOUT_MS);
+    
+    // Initialize Three.js in a non-blocking way
+    if (!CONFIG.REDUCED_MOTION) {
+        setTimeout(() => {
+            initializeThreeJS();
+        }, 100);
     } else {
-        const canvas = document.getElementById('bg-canvas');
-        if (canvas) canvas.style.display = 'none';
+        // Skip 3D initialization for reduced motion
+        if (loadingOverlay) {
+            hideLoading();
+        }
         console.log("Reduced motion preferred. Skipping 3D animation.");
     }
 
@@ -77,7 +97,7 @@ function assignDOMElements() {
     copyButton = document.querySelector('.copy-btn');
     copyToast = document.getElementById('copy-toast');
     errorContainer = document.getElementById('error-container');
-    redirectButton = document.querySelector('.button:not(.button-offline)'); // Main redirect button (now identified also as manualRedirectButton)
+    redirectButton = document.querySelector('.button:not(.button-offline)');
     manualRedirectButton = document.getElementById('manual-redirect-button');
     onlineContent = document.getElementById('online-content');
     offlineNotice = document.getElementById('offline-notice');
@@ -86,6 +106,74 @@ function assignDOMElements() {
     copyIconDefault = document.getElementById('copy-icon-default');
     copyIconSuccess = document.getElementById('copy-icon-success');
     mainCard = document.getElementById('main-card');
+    loadingOverlay = document.getElementById('loading-overlay');
+    keyboardShortcutsModal = document.getElementById('keyboard-shortcuts-modal');
+    closeModalBtn = document.getElementById('close-modal-btn');
+}
+
+// --- Loading Management ---
+function hideLoading() {
+    if (!loadingOverlay) return;
+    
+    loadingOverlay.style.opacity = '0';
+    loadingOverlay.style.visibility = 'hidden';
+    clearTimeout(loadingTimeout);
+    
+    // Start countdown when loading completes
+    if (!redirectCancelled && navigator.onLine) {
+        startCountdown();
+    }
+}
+
+function initializeThreeJS() {
+    try {
+        initThreeJS();
+        startAnimationLoop();
+        resourcesLoaded = true;
+        hideLoading();
+    } catch (error) {
+        console.error("Failed to initialize 3D background:", error);
+        const canvas = document.getElementById('bg-canvas');
+        if (canvas) canvas.style.display = 'none';
+        hideLoading(); // Make sure loading overlay is hidden even on error
+        showNotification("3D background couldn't be loaded", true);
+    }
+}
+
+// --- Create Keyboard Shortcut Button ---
+function createKeyboardShortcutButton() {
+    if (!CONFIG.ENABLE_KEYBOARD_SHORTCUTS) return;
+    
+    const button = document.createElement('button');
+    button.classList.add('keyboard-info-btn');
+    button.setAttribute('aria-label', 'Show keyboard shortcuts');
+    button.textContent = '?';
+    
+    button.addEventListener('click', toggleKeyboardShortcutsModal);
+    
+    document.body.appendChild(button);
+}
+
+// --- Keyboard Shortcuts Modal ---
+function toggleKeyboardShortcutsModal() {
+    if (!keyboardShortcutsModal) return;
+    
+    if (shortcutsModalVisible) {
+        keyboardShortcutsModal.classList.remove('visible');
+        shortcutsModalVisible = false;
+        keyboardShortcutsModal.setAttribute('hidden', '');
+    } else {
+        keyboardShortcutsModal.removeAttribute('hidden');
+        // Force reflow
+        void keyboardShortcutsModal.offsetWidth;
+        keyboardShortcutsModal.classList.add('visible');
+        shortcutsModalVisible = true;
+        
+        // Focus the close button
+        if (closeModalBtn) {
+            setTimeout(() => closeModalBtn.focus(), 100);
+        }
+    }
 }
 
 // --- Event Listeners Setup ---
@@ -108,16 +196,26 @@ function setupEventListeners() {
             setTimeout(() => window.location.reload(), 350);
         });
     }
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', toggleKeyboardShortcutsModal);
+    }
+    if (keyboardShortcutsModal) {
+        keyboardShortcutsModal.addEventListener('click', (e) => {
+            if (e.target === keyboardShortcutsModal) {
+                toggleKeyboardShortcutsModal();
+            }
+        });
+    }
 
     document.addEventListener('keydown', handleKeyDown);
     window.addEventListener('online', handleConnectionChange);
     window.addEventListener('offline', handleConnectionChange);
     window.addEventListener('error', handleGlobalError);
     window.addEventListener('unhandledrejection', (event) => handleGlobalError({ error: event.reason }));
-    window.addEventListener('resize', handleResize); // Debounced resize
+    window.addEventListener('resize', handleResize);
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // Mouse/Touch Move for 3D Interaction (only if not reduced motion)
+    // Mouse/Touch Move for 3D Interaction
     if (!CONFIG.REDUCED_MOTION) {
         document.addEventListener('mousemove', onDocumentMouseMove);
         document.addEventListener('touchmove', onDocumentTouchMove, { passive: false });
@@ -140,521 +238,83 @@ function setupEventListeners() {
     window.addEventListener('beforeunload', cleanup);
 }
 
-// Preload destination for faster redirect
-function preloadDestination() {
-    try {
-        const link = document.createElement('link');
-        link.rel = 'prefetch';
-        link.href = CONFIG.REDIRECT_URL;
-        document.head.appendChild(link);
-        console.log('Prefetched destination:', CONFIG.REDIRECT_URL);
-    } catch (e) {
-        console.warn('Prefetch failed:', e);
-    }
-}
-
-// Handle subtle card parallax effect
-function handleCardParallax(e) {
-    if (!mainCard || CONFIG.REDUCED_MOTION) return;
-
-    const cardRect = mainCard.getBoundingClientRect();
-    const cardCenterX = cardRect.left + cardRect.width / 2;
-    const cardCenterY = cardRect.top + cardRect.height / 2;
-
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-
-    // Calculate distance from center (normalized -1 to 1)
-    const maxDistance = Math.min(window.innerWidth, window.innerHeight) / 3;
-    const dx = (mouseX - cardCenterX) / maxDistance;
-    const dy = (mouseY - cardCenterY) / maxDistance;
-
-    // Apply subtle parallax tilt effect (max 2 degrees)
-    const tiltX = dy * 2;
-    const tiltY = -dx * 2;
-
-    // Apply transform with minimal easing
-    mainCard.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-5px)`;
-
-    // Reset transform when mouse leaves window
-    document.addEventListener('mouseleave', resetCardTransform);
-}
-
-function resetCardTransform() {
-    if (mainCard) {
-        mainCard.style.transform = '';
-    }
-}
-
-// Handle scroll events
-function handleScroll() {
-    // Simple function to handle any scroll-based behavior
-    // Currently just for the passive flag performance benefit
-}
-
-// --- Debounced Resize Handler ---
-function handleResize() {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        onWindowResize();
-    }, CONFIG.RESIZE_DEBOUNCE_MS);
-}
-
 // --- Keyboard Handler ---
 function handleKeyDown(event) {
-    if (event.key === 'Escape' && !redirectCancelled && navigator.onLine && onlineContent && !onlineContent.hidden) {
-        cancelRedirect();
-    }
-}
-
-// --- Network Status Handling ---
-function handleConnectionChange() {
-    const isOnline = navigator.onLine;
-    console.log("Connection status changed:", isOnline ? "Online" : "Offline");
-    if (isOnline) {
-        showOnlineContent();
-        if (!redirectCancelled) startCountdown();
-        if (animationFrameId === undefined && !CONFIG.REDUCED_MOTION) resumeAnimation();
-    } else {
-        showOfflineContent();
-        stopCountdown();
-        pauseAnimation();
-    }
-}
-
-function showOnlineContent() {
-    if (offlineNotice) offlineNotice.hidden = true;
-    if (onlineContent) onlineContent.hidden = false;
-    if (redirectCancelled && cancelButton) cancelButton.style.display = 'none';
-    if (manualRedirectButton) manualRedirectButton.classList.remove('highlight-manual'); // Ensure highlight is off initially
-}
-
-function showOfflineContent() {
-    if (onlineContent) onlineContent.hidden = true;
-    if (offlineNotice) offlineNotice.hidden = false;
-    // Optional: focus the retry button when offline notice appears
-    // if (retryButton) retryButton.focus();
-}
-
-// --- Countdown Logic ---
-function startCountdown() {
-    if (redirectCancelled || !navigator.onLine) {
-        console.log("Cannot start countdown - redirect cancelled or offline");
-        return;
-    }
-    
-    // Clean up any existing countdown
-    if (countdownInterval) {
-        clearInterval(countdownInterval);
-        countdownInterval = null;
-    }
-
-    console.log("Starting 10-second countdown");
-    let secondsLeft = CONFIG.REDIRECT_DELAY_SECONDS;
-    
-    // Circle properties - using a fixed value for simplicity and reliability
-    const radius = 54;
-    const circumference = 2 * Math.PI * radius;
-    
-    // Reset and initialize the UI elements
-    if (countdownEl) countdownEl.textContent = secondsLeft;
-    if (countdownCircle) countdownCircle.classList.remove('countdown-ending');
-    if (cancelButton) cancelButton.style.display = 'inline-block';
-    
-    // Set initial visual state of progress circle (empty)
-    if (countdownProgress) {
-        countdownProgress.setAttribute('stroke-dasharray', circumference);
-        countdownProgress.setAttribute('stroke-dashoffset', circumference);
-    }
-    
-    // Set initial text
-    updateCountdownText(secondsLeft);
-    
-    // Initial update for the visuals - start at full time
-    updateCountdownVisual(secondsLeft);
-    
-    // Start the countdown
-    countdownInterval = setInterval(() => {
-        secondsLeft -= 1;
-        console.log(`Countdown: ${secondsLeft}s remaining`);
-        
-        // Exit if cancelled during this interval
-        if (redirectCancelled) {
-            stopCountdown();
-            return;
-        }
-        
-        // Update all visual elements for the current time
-        updateCountdownVisual(secondsLeft);
-        
-        // Redirect when time's up
-        if (secondsLeft < 0) {
-            stopCountdown();
-            triggerRedirect();
-        }
-    }, 1000);
-    
-    // Store for cleanup
-    autoRedirectTimeout = countdownInterval;
-}
-
-// New simplified function to update all countdown visuals
-function updateCountdownVisual(secondsLeft) {
-    // Update the number display
-    if (countdownEl && secondsLeft >= 0) {
-        countdownEl.textContent = secondsLeft;
-    }
-    
-    // Update the text description
-    updateCountdownText(secondsLeft);
-    
-    // Update the circle progress
-    if (countdownProgress && secondsLeft >= 0) {
-        const radius = 54;
-        const circumference = 2 * Math.PI * radius;
-        const progress = secondsLeft / CONFIG.REDIRECT_DELAY_SECONDS;
-        const dashOffset = circumference * (1 - progress);
-        
-        // Direct attribute setting rather than style for better SVG support
-        countdownProgress.setAttribute('stroke-dashoffset', dashOffset);
-    }
-    
-    // Add warning styles for last 3 seconds
-    if (countdownCircle) {
-        if (secondsLeft <= 3 && !countdownCircle.classList.contains('countdown-ending')) {
-            countdownCircle.classList.add('countdown-ending');
+    // Cancel redirect with Escape key
+    if (event.key === 'Escape') {
+        if (shortcutsModalVisible) {
+            toggleKeyboardShortcutsModal();
+        } else if (!redirectCancelled && navigator.onLine && onlineContent && !onlineContent.hidden) {
+            cancelRedirect();
         }
     }
     
-    // Update 3D animation if enabled
-    if (!CONFIG.REDUCED_MOTION && scene && secondsLeft >= 0) {
-        // Progress increases as time decreases (0 to 1)
-        const progress = 1 - (secondsLeft / CONFIG.REDIRECT_DELAY_SECONDS);
-        updateAnimationForCountdown(progress);
-    }
-
-    // Improve visual transition at end of countdown
-    if (secondsLeft === 0) {
-        // Add a subtle scale animation as final second hits zero
-        if (countdownEl) {
-            countdownEl.style.transform = 'scale(1.2)';
-            countdownEl.style.opacity = '0.7';
-            setTimeout(() => {
-                if (countdownEl) {
-                    countdownEl.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
-                    countdownEl.style.transform = 'scale(1)';
-                    countdownEl.style.opacity = '1';
+    // Only process shortcuts if they're enabled and no modifiers are pressed
+    if (!CONFIG.ENABLE_KEYBOARD_SHORTCUTS || event.ctrlKey || event.altKey || event.metaKey) return;
+    
+    // Handle keyboard shortcuts
+    switch(event.key.toLowerCase()) {
+        case 'enter':
+            // Trigger manual redirect if not in an input
+            if (document.activeElement.tagName !== 'INPUT' && 
+                document.activeElement.tagName !== 'TEXTAREA' && 
+                document.activeElement.tagName !== 'SELECT') {
+                if (manualRedirectButton) {
+                    manualRedirectButton.click();
                 }
-            }, 50);
-        }
-        
-        // Flash the progress circle briefly
-        if (countdownCircle) {
-            countdownCircle.style.filter = 'drop-shadow(0 0 15px var(--offline-accent-color))';
-            setTimeout(() => {
-                if (countdownCircle) {
-                    countdownCircle.style.transition = 'filter 0.5s ease-out';
-                    countdownCircle.style.filter = 'drop-shadow(0 0 10px var(--offline-accent-color))';
-                }
-            }, 100);
-        }
-
-        // Add completion class for additional effects
-        if (countdownCircle) {
-            countdownCircle.classList.add('countdown-complete');
-            
-            // Create subtle particle burst effect on completion
-            createCompletionEffect();
-        }
+            }
+            break;
+        case 'c':
+            // Copy URL with C key
+            if (document.activeElement.tagName !== 'INPUT' && 
+                document.activeElement.tagName !== 'TEXTAREA') {
+                handleCopyUrl();
+            }
+            break;
+        case '?':
+            // Toggle shortcuts modal
+            toggleKeyboardShortcutsModal();
+            break;
     }
 }
 
-function createCompletionEffect() {
-    if (!countdownCircle || CONFIG.REDUCED_MOTION) return;
+// --- Helper Functions ---
+
+// Show notification toast
+function showNotification(message, isWarning = false) {
+    if (!copyToast) return;
     
-    const particleCount = 12;
-    const container = document.createElement('div');
-    container.className = 'completion-particles';
-    container.style.cssText = 'position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); pointer-events:none; z-index:10;';
+    copyToast.textContent = message;
+    copyToast.hidden = false;
+    copyToast.style.backgroundColor = isWarning ? 'var(--offline-notice-bg-color)' : 'var(--card-bg-color)';
+    copyToast.style.color = isWarning ? 'var(--offline-accent-color)' : 'var(--text-color)';
     
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        const angle = (i / particleCount) * 360;
-        const distance = 30 + Math.random() * 20;
-        const duration = 600 + Math.random() * 400;
-        const size = 3 + Math.random() * 4;
-        
-        particle.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            border-radius: 50%;
-            background-color: var(--accent-color);
-            opacity: 0.8;
-            transform: translate(-50%, -50%);
-            animation: particle-fade ${duration}ms ease-out forwards;
-        `;
-        
-        // Set animation keyframes
-        const keyframes = `
-        @keyframes particle-fade {
-            0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 1; }
-            100% { transform: translate(-50%, -50%) translate(${Math.cos(angle * Math.PI/180) * distance}px, ${Math.sin(angle * Math.PI/180) * distance}px); opacity: 0; }
-        }`;
-        
-        // Add style to document
-        const styleEl = document.createElement('style');
-        styleEl.innerHTML = keyframes;
-        document.head.appendChild(styleEl);
-        
-        container.appendChild(particle);
-        
-        // Cleanup
+    // Reset animation
+    copyToast.style.opacity = '0';
+    copyToast.style.transform = 'translate(-50%, 30px)';
+    
+    // Force reflow
+    void copyToast.offsetWidth;
+    
+    // Show the toast
+    copyToast.classList.add('visible');
+
+    if (copyToast.timer) clearTimeout(copyToast.timer);
+    copyToast.timer = setTimeout(() => {
+        copyToast.classList.remove('visible');
         setTimeout(() => {
-            document.head.removeChild(styleEl);
-        }, duration + 100);
-    }
-    
-    countdownCircle.appendChild(container);
-    
-    // Remove particles after animation completes
-    setTimeout(() => {
-        if (countdownCircle.contains(container)) {
-            countdownCircle.removeChild(container);
-        }
-    }, 1000);
+            copyToast.hidden = true;
+            copyToast.timer = null;
+        }, 400); // Wait for fade out
+    }, CONFIG.COPY_SUCCESS_DELAY_MS);
 }
 
-function stopCountdown() {
-    if (countdownInterval) {
-        console.log("Stopping countdown interval");
-        clearInterval(countdownInterval);
-        countdownInterval = null;
-    }
-    
-    // Reset animation if we stopped early
-    if (!CONFIG.REDUCED_MOTION && scene) {
-        updateAnimationForCountdown(0);
-    }
-}
-
-function updateCountdownText(seconds) {
-     if (countdownTextEl) {
-        if (redirectCancelled) {
-            countdownTextEl.textContent = 'Redirect cancelled. Use the button below.';
-        } else if (seconds >= 0) {
-             const srSpan = `<span class="sr-only">${seconds}</span>`;
-             countdownTextEl.innerHTML = `Redirecting you in ${srSpan} ${seconds} seconds...`;
-        }
-    }
-}
-
-function cancelRedirect() {
-    if (redirectCancelled) return;
-    console.log("Redirect cancelled by user");
-    redirectCancelled = true;
-    stopCountdown();
-
-    // Update UI
-    if (countdownCircle) {
-        countdownCircle.classList.remove('countdown-ending');
-        if (countdownProgress) {
-            // Freeze progress visually
-            const currentOffset = getComputedStyle(countdownProgress).strokeDashoffset;
-            countdownProgress.style.transition = 'none'; // Stop animation
-            countdownProgress.style.strokeDashoffset = currentOffset;
-        }
-        if (countdownEl) {
-            // Change to checkmark immediately without scaling animation
-            countdownEl.textContent = '✓';
-            countdownEl.style.transform = 'none'; // Remove any scaling
-        }
-    }
-    updateCountdownText(-1); // Update text to show cancelled state
-    if (cancelButton) cancelButton.style.display = 'none';
-
-    // Highlight the manual redirect button
-    if(manualRedirectButton) {
-        manualRedirectButton.classList.add('highlight-manual');
-        // Remove class after animation finishes (1.5s * 2 iterations = 3s)
-        setTimeout(() => {
-            if(manualRedirectButton) manualRedirectButton.classList.remove('highlight-manual');
-        }, 3000);
-         manualRedirectButton.focus({ preventScroll: true }); // Focus the button
-    }
-}
-
-function triggerRedirect() {
-    if (redirectCancelled || !navigator.onLine) {
-        console.log("Redirect aborted (cancelled or offline).");
-        return;
-    }
-    console.log("Triggering redirect to:", CONFIG.REDIRECT_URL);
-
-    document.body.style.transition = `opacity ${CONFIG.REDIRECT_FADE_MS / 1000}s ease-out`;
-    document.body.style.opacity = '0';
-
-    pauseAnimation(); // Pause animation just before redirecting
-
-    setTimeout(() => {
-        window.location.href = CONFIG.REDIRECT_URL;
-    }, CONFIG.REDIRECT_FADE_MS); // Wait for fade out
-}
-
-// --- UI Helpers ---
-
-function handleCopyUrl() {
-    if (!copyButton) return;
-    const urlToCopy = CONFIG.REDIRECT_URL;
-
-    copyButton.classList.add('copied');
-    if (copyIconDefault) copyIconDefault.style.display = 'none';
-    if (copyIconSuccess) copyIconSuccess.style.display = 'inline-block';
-
-    const resetVisuals = () => {
-         setTimeout(() => {
-            if (copyButton) copyButton.classList.remove('copied');
-            if (copyIconDefault) copyIconDefault.style.display = 'inline-block';
-            if (copyIconSuccess) copyIconSuccess.style.display = 'none';
-        }, CONFIG.COPY_SUCCESS_DELAY_MS);
-    };
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(urlToCopy)
-            .then(() => { showCopyToast(); })
-            .catch(err => {
-                console.error('Clipboard API copy failed: ', err);
-                fallbackCopy(urlToCopy);
-            })
-            .finally(resetVisuals);
-    } else {
-        console.log("Using fallback copy method");
-        fallbackCopy(urlToCopy);
-        resetVisuals(); // Reset visuals even for fallback
-    }
-}
-
-function fallbackCopy(text) {
-    // Fallback logic remains the same...
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    textArea.style.position = 'fixed'; textArea.style.left = '-9999px'; textArea.style.top = '0';
-    document.body.appendChild(textArea);
-    textArea.focus(); textArea.select();
-    try {
-        const successful = document.execCommand('copy');
-        if (successful) showCopyToast();
-        else showCopyToast("Failed to copy", true);
-    } catch (err) {
-        console.error('Fallback copy error', err);
-        showCopyToast("Error copying", true);
-    }
-    document.body.removeChild(textArea);
-}
-
-function showCopyToast(message = "URL copied to clipboard!", isError = false) {
-    if (copyToast) {
-        copyToast.textContent = message;
-        copyToast.hidden = false;
-        copyToast.style.backgroundColor = isError ? 'var(--offline-notice-bg-color)' : 'var(--card-bg-color)';
-        copyToast.style.color = isError ? 'var(--offline-accent-color)' : 'var(--text-color)';
-        
-        // Set opacity to 0 first
-        copyToast.style.opacity = '0';
-        copyToast.style.transform = 'translate(-50%, 30px)';
-        
-        // Force reflow
-        void copyToast.offsetWidth;
-        
-        // Then add visible class
-        copyToast.classList.add('visible');
-
-        if (copyToast.timer) clearTimeout(copyToast.timer);
-        copyToast.timer = setTimeout(() => {
-            copyToast.classList.remove('visible');
-            setTimeout(() => {
-                copyToast.hidden = true;
-                copyToast.timer = null;
-            }, 400); // Wait for fade out
-        }, CONFIG.COPY_SUCCESS_DELAY_MS);
-    }
-}
-
-function addRippleEffectStyle() {
-    console.log("Ripple effect styles assumed loaded from CSS.");
-}
-
-function addRippleEffect(button, event) {
-    // Ripple logic remains the same...
-    if (!button || !event) return;
-    const ripple = document.createElement('span');
-    const rect = button.getBoundingClientRect();
-    const x = event.clientX - rect.left; const y = event.clientY - rect.top;
-    const size = Math.max(rect.width, rect.height);
-    ripple.style.width = ripple.style.height = `${size}px`;
-    ripple.style.left = `${x - size / 2}px`; ripple.style.top = `${y - size / 2}px`;
-    ripple.classList.add('ripple');
-    button.style.position = 'relative'; button.style.overflow = 'hidden';
-    button.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 600);
-}
-
-// --- Error Handling ---
-function handleGlobalError(event) {
-    const error = event.error || event.reason || event;
-    console.error('Unhandled Page Error:', error);
-    stopCountdown();
-    pauseAnimation(); // Stop animation on error too
-
-    if (errorContainer && errorContainer.hidden) { // Show only once
-        errorContainer.hidden = false;
-        errorContainer.innerHTML = `
-            <p>Oops! Something went wrong. The automatic redirect was stopped.</p>
-            <button id="error-manual-redirect" class="button button-offline">
-                Try Visiting Manually
-            </button>
-        `;
-        const errorButton = document.getElementById('error-manual-redirect');
-        if(errorButton){
-            errorButton.onclick = (e) => {
-                addRippleEffect(e.currentTarget, e);
-                setTimeout(()=> window.location.href = CONFIG.REDIRECT_URL, 100);
-            };
-        }
-    }
-}
-
-// --- Performance Monitoring ---
-function setupPerformanceMonitoring() {
-    window.performance.mark('script-end');
-    try {
-        window.performance.measure('script-execution', 'script-start', 'script-end');
-        if ('PerformanceObserver' in window) {
-            const observer = new PerformanceObserver((list) => {
-                list.getEntries().forEach((entry) => {
-                    if (['first-paint', 'first-contentful-paint', 'largest-contentful-paint'].includes(entry.name)) {
-                        console.log(`Performance - ${entry.name}: ${entry.startTime.toFixed(2)}ms`);
-                    }
-                    if(entry.entryType === 'measure' && entry.name === 'script-execution') {
-                        console.log(`Performance - Script Execution Time: ${entry.duration.toFixed(2)}ms`);
-                    }
-                });
-            });
-            observer.observe({ entryTypes: ['paint', 'largest-contentful-paint', 'measure'] });
-        }
-    } catch (e) {
-        console.warn("Performance monitoring setup failed:", e);
-    }
-}
-
-// --- Background Animation (Three.js) ---
-
+// --- Enhanced 3D Background ---
 function getAccentColor() {
     const computedStyle = getComputedStyle(document.body);
-    return computedStyle.getPropertyValue('--accent-color').trim() || '#3498db'; // Fallback
+    return computedStyle.getPropertyValue('--accent-color').trim() || '#3498db';
 }
 
-// Initialize Scene, Camera, Renderer, Lights, Objects
 function initThreeJS() {
     const canvas = document.getElementById('bg-canvas');
     if (!canvas || typeof THREE === 'undefined') throw new Error("Canvas or THREE missing");
@@ -668,19 +328,25 @@ function initThreeJS() {
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.z = CONFIG.CAMERA_Z;
 
+    // Improve performance by setting appropriate pixel ratio based on device
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    const limitedPixelRatio = Math.min(devicePixelRatio, window.innerWidth < 768 ? 1.5 : 2);
+
     // Renderer
     renderer = new THREE.WebGLRenderer({
-        canvas: canvas, alpha: true, antialias: true,
-        powerPreference: 'high-performance', precision: 'mediump'
+        canvas: canvas, 
+        alpha: true, 
+        antialias: window.innerWidth > 768, // Only use antialiasing on larger screens
+        powerPreference: 'high-performance', 
+        precision: 'mediump'
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    // renderer.outputEncoding = THREE.sRGBEncoding; // Needed for accurate color with post-processing
+    renderer.setPixelRatio(limitedPixelRatio);
 
     // Lighting
-    ambientLight = new THREE.AmbientLight(0xffffff, 0.7); // Slightly brighter ambient
+    ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
     scene.add(ambientLight);
-    pointLight = new THREE.PointLight(0xffffff, 1.2, 100); // Brighter point light
+    pointLight = new THREE.PointLight(0xffffff, 1.2, 100);
     pointLight.position.set(5, 8, 5);
     scene.add(pointLight);
     directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
@@ -696,8 +362,6 @@ function initThreeJS() {
     const material = new THREE.MeshPhysicalMaterial({
         color: accentColorThree, metalness: 0.3, roughness: 0.4,
         reflectivity: 0.6, clearcoat: 0.5, clearcoatRoughness: 0.1,
-        // emissive: accentColorThree, // Make it emit light slightly for bloom
-        // emissiveIntensity: 0.1,
     });
     mainMesh = new THREE.Mesh(geometry, material);
     mainMesh.userData.baseRotationSpeed = CONFIG.MAIN_SHAPE_ROTATION_SPEED;
@@ -727,9 +391,8 @@ function initThreeJS() {
 
     // Enhanced lighting
     pointLight.castShadow = true;
-    pointLight.intensity = 1.3; // Slightly brighter
+    pointLight.intensity = 1.3;
     
-    // Add additional subtle point light for more dimension
     const accentLight = new THREE.PointLight(accentColorThree, 0.5, 50);
     accentLight.position.set(-5, -3, 3);
     scene.add(accentLight);
@@ -758,7 +421,7 @@ function createParticles(baseColor) {
     particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
 
     const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.04, // Slightly larger base size
+        size: 0.04,
         vertexColors: true, transparent: true, opacity: 0.7,
         blending: THREE.AdditiveBlending, sizeAttenuation: true, depthWrite: false
     });
@@ -783,51 +446,28 @@ function setupPostProcessing() {
     composer.addPass(bloomPass);
 }
 
-// Update animation based on countdown progress (0 to 1)
-function updateAnimationForCountdown(progress) {
-    if (!scene) return;
-
-    const multiplier = 1 + progress * 1.5; // Scale up effect towards the end
-
-    if (mainMesh) {
-        mainMesh.userData.rotationSpeed = mainMesh.userData.baseRotationSpeed * multiplier;
-        mainMesh.userData.pulseFreq = mainMesh.userData.basePulseFreq * multiplier;
-    }
-    if (particlesMesh) {
-        particlesMesh.userData.speedMultiplier = particlesMesh.userData.baseSpeedMultiplier * multiplier;
-    }
-     // Also slightly pulse the point light intensity
-     if (pointLight) {
-         pointLight.intensity = 1.2 + progress * 0.8; // Increase intensity towards end
-     }
-}
-
-// --- Animation Loop ---
+// --- Add the rest of the original functions here ---
 function startAnimationLoop() {
-    if (animationFrameId || CONFIG.REDUCED_MOTION || !scene) return; // Already running or should not run
+    if (animationFrameId || CONFIG.REDUCED_MOTION || !scene) return;
     console.log("Starting animation loop");
     animate();
 }
 
 function animate() {
-    if (!scene || !clock) return; // Exit if scene/clock not ready
+    if (!scene || !clock) return;
 
     animationFrameId = requestAnimationFrame(animate);
 
     const elapsedTime = clock.getElapsedTime();
 
-    // Update Mouse Interaction Targets
-    targetX = mouseX * 0.00005; // Much more subtle scene rotation based on mouse
+    targetX = mouseX * 0.00005;
     targetY = mouseY * 0.00005;
 
-    // Apply smooth scene rotation
     if(scene) {
         scene.rotation.y += (targetX - scene.rotation.y) * 0.05;
         scene.rotation.x += (targetY - scene.rotation.x) * 0.05;
     }
 
-
-    // Main Mesh Animation
     if (mainMesh) {
         const rotSpeed = mainMesh.userData.rotationSpeed || mainMesh.userData.baseRotationSpeed;
         const pulseFreq = mainMesh.userData.pulseFreq || mainMesh.userData.basePulseFreq;
@@ -835,17 +475,14 @@ function animate() {
         mainMesh.rotation.x = rotSpeed * elapsedTime;
         const pulseScale = 1 + Math.sin(elapsedTime * pulseFreq * Math.PI * 2) * 0.03;
         mainMesh.scale.setScalar(pulseScale);
-         // Make light pulse with mesh scale
-         if (pointLight) pointLight.intensity = 1.2 + (pulseScale - 1) * 10; // Amplify pulse effect on light
+        if (pointLight) pointLight.intensity = 1.2 + (pulseScale - 1) * 10;
     }
 
-    // Particle Animation
     if (particlesMesh) {
         const speedMult = particlesMesh.userData.speedMultiplier || particlesMesh.userData.baseSpeedMultiplier;
-        particlesMesh.rotation.y = -speedMult * elapsedTime * 0.5; // Slower base rotation
-        particlesMesh.rotation.x = speedMult * elapsedTime * 0.2; // Add x rotation drift
+        particlesMesh.rotation.y = -speedMult * elapsedTime * 0.5;
+        particlesMesh.rotation.x = speedMult * elapsedTime * 0.2;
 
-        // Subtle particle wave (keep minimal for performance)
         const positions = particlesMesh.geometry.attributes.position.array;
         for (let i = 1; i < positions.length; i += 3) {
             positions[i] += Math.sin(elapsedTime * 0.4 + positions[i - 1] * 0.1) * 0.0015 * (1 + speedMult / 0.02);
@@ -853,11 +490,10 @@ function animate() {
         particlesMesh.geometry.attributes.position.needsUpdate = true;
     }
 
-    // Render scene
     if (composer && CONFIG.ENABLE_BLOOM && !CONFIG.REDUCED_MOTION) {
-        composer.render(); // Use EffectComposer if enabled
+        composer.render();
     } else if (renderer) {
-        renderer.render(scene, camera); // Otherwise, use standard renderer
+        renderer.render(scene, camera);
     }
 }
 
@@ -873,12 +509,11 @@ function pauseAnimation() {
 function resumeAnimation() {
     if (!animationFrameId && !CONFIG.REDUCED_MOTION && clock && scene) {
         clock.start();
-        startAnimationLoop(); // Restart the loop via the dedicated function
+        startAnimationLoop();
         console.log("3D Animation Resumed");
     }
 }
 
-// --- 3D Specific Handlers ---
 function onWindowResize() {
     if (!camera || !renderer) return;
     console.log("Window resized");
@@ -893,7 +528,7 @@ function onWindowResize() {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    if (composer) { // Resize composer and passes
+    if (composer) {
         composer.setSize(width, height);
         if (bloomPass) {
             bloomPass.setSize(width, height);
@@ -908,22 +543,18 @@ function onDocumentMouseMove(event) {
 
 function onDocumentTouchMove(event) {
     if (event.touches.length === 1) {
-        // Prevent scroll only if interacting with 3D canvas specifically
         const canvas = document.getElementById('bg-canvas');
         const touch = event.touches[0];
         const rect = canvas.getBoundingClientRect();
         
-        // Only prevent default if touch is directly on the canvas
         if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
             touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
             event.preventDefault();
         }
         
-        // More responsive touch with smoother dampening
         mouseX = (touch.pageX - windowHalfX) * 0.5;
         mouseY = (touch.pageY - windowHalfY) * 0.5;
         
-        // Add momentum for smoother feeling
         let momentum = 0.92;
         mouseX = mouseX * momentum + mouseX * (1 - momentum);
         mouseY = mouseY * momentum + mouseY * (1 - momentum);
@@ -931,7 +562,7 @@ function onDocumentTouchMove(event) {
 }
 
 function handleVisibilityChange() {
-    if (!CONFIG.REDUCED_MOTION && scene) { // Only act if animation is running
+    if (!CONFIG.REDUCED_MOTION && scene) {
         if (document.hidden) {
             pauseAnimation();
         } else {
@@ -940,13 +571,10 @@ function handleVisibilityChange() {
     }
 }
 
-// --- Cleanup ---
 function cleanup() {
     console.log("Cleaning up resources...");
-    // Stop animation loop
     pauseAnimation();
 
-    // Remove event listeners
     window.removeEventListener('online', handleConnectionChange);
     window.removeEventListener('offline', handleConnectionChange);
     window.removeEventListener('error', handleGlobalError);
@@ -960,14 +588,11 @@ function cleanup() {
     document.removeEventListener('mousemove', handleCardParallax);
     document.removeEventListener('mouseleave', resetCardTransform);
     document.removeEventListener('scroll', handleScroll);
-    // Any other listeners added dynamically should be removed here
 
-    // Dispose Three.js objects (basic example)
     if (scene) {
         scene.traverse((object) => {
             if (object.geometry) object.geometry.dispose();
             if (object.material) {
-                 // If material is an array, iterate
                 if (Array.isArray(object.material)) {
                     object.material.forEach(material => material.dispose());
                 } else {
@@ -978,20 +603,16 @@ function cleanup() {
     }
     if (renderer) {
         renderer.dispose();
-        renderer.forceContextLoss(); // Aggressively release WebGL context
-        renderer = null; // Help GC
+        renderer.forceContextLoss();
+        renderer = null;
     }
     if (composer) {
-        // Composer doesn't have a direct dispose, rely on renderer disposal
         composer = null;
     }
 
-    // Clear timeouts/intervals
-    stopCountdown(); // Ensure countdown is stopped
+    stopCountdown();
     clearTimeout(autoRedirectTimeout);
     clearTimeout(resizeTimeout);
 
     console.log("Cleanup complete.");
 }
-
-// --- End Script ---

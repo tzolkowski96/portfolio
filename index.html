@@ -19,6 +19,11 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Tobin's Portfolio - New Location">
     <meta name="twitter:description" content="Data analysis portfolio with improved features and content">
+    
+    <!-- Add favicon -->
+    <link rel="icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -56,6 +61,16 @@
 
 </head>
 <body>
+    <!-- Loading overlay -->
+    <div id="loading-overlay" aria-live="polite" role="status">
+        <div class="loading-spinner">
+            <svg viewBox="0 0 50 50" aria-hidden="true">
+                <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+            </svg>
+            <span class="loading-text">Loading<span class="loading-dots">...</span></span>
+        </div>
+    </div>
+
     <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
     <main class="container">
@@ -146,8 +161,37 @@
         </div>
     </main>
 
+    <!-- Improved toast notification with accessibility -->
     <div id="copy-toast" class="toast" role="status" aria-live="polite" hidden>URL copied to clipboard!</div>
+    
+    <!-- Improved error container -->
     <div id="error-container" hidden class="error-boundary" role="alert"></div>
+
+    <!-- Add a keyboard shortcuts modal -->
+    <div id="keyboard-shortcuts-modal" class="modal" role="dialog" aria-labelledby="keyboard-shortcuts-title" aria-modal="true" hidden>
+        <div class="modal-content">
+            <h2 id="keyboard-shortcuts-title">Keyboard Shortcuts</h2>
+            <button id="close-modal-btn" class="close-modal-btn" aria-label="Close keyboard shortcuts dialog">&times;</button>
+            <div class="shortcuts-list">
+                <div class="shortcut-item">
+                    <span class="shortcut-key">Enter</span>
+                    <span class="shortcut-desc">Visit new portfolio site</span>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-key">Esc</span>
+                    <span class="shortcut-desc">Cancel automatic redirect</span>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-key">C</span>
+                    <span class="shortcut-desc">Copy new URL to clipboard</span>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-key">?</span>
+                    <span class="shortcut-desc">Toggle this shortcuts panel</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js" type="module"></script>
 </body>

@@ -1,3 +1,5 @@
+'use strict'; // Enable strict mode
+
 // Simple, lightweight redirect script
 
 // --- Configuration ---
@@ -5,24 +7,28 @@ const CONFIG = {
     REDIRECT_URL: 'https://tobin-data-portfolio.netlify.app/',
     REDIRECT_DELAY_SECONDS: 8,
     COPY_SUCCESS_DELAY_MS: 2000,
-    REDIRECT_FADE_MS: 300
+    REDIRECT_FADE_MS: 300,
+    THEME_STORAGE_KEY: 'themePreference' // Key for localStorage
 };
 
 // --- Global Variables ---
 let countdownInterval;
 let redirectCancelled = false;
+let toastTimer = null; // Single timer for toast
 
 // --- DOM Elements ---
-let countdownEl, countdownCircle, countdownProgress, cancelButton, copyButton, 
-    copyToast, errorContainer, redirectButton, onlineContent, offlineNotice, 
-    retryButton, countdownTextEl, copyIconDefault, copyIconSuccess;
+let countdownEl, countdownCircle, countdownProgress, cancelButton, copyButton,
+    copyToast, errorContainer, redirectButton, onlineContent, offlineNotice,
+    retryButton, countdownTextEl, copyIconDefault, copyIconSuccess,
+    themeToggleButton, themeIconLight, themeIconDark; // Theme elements
 
 // --- Initialize ---
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM Loaded - Simple Redirect");
+    console.log("DOM Loaded - Simple Redirect v2");
     assignDOMElements();
     setupEventListeners();
-    handleConnectionChange();
+    initializeTheme(); // Initialize theme first
+    handleConnectionChange(); // Then handle connection
 });
 
 // --- DOM Element Assignment ---
@@ -41,6 +47,10 @@ function assignDOMElements() {
     countdownTextEl = document.getElementById('countdown-text');
     copyIconDefault = document.getElementById('copy-icon-default');
     copyIconSuccess = document.getElementById('copy-icon-success');
+    // Theme elements
+    themeToggleButton = document.getElementById('theme-toggle');
+    themeIconLight = document.getElementById('theme-icon-light');
+    themeIconDark = document.getElementById('theme-icon-dark');
 }
 
 // --- Event Listeners Setup ---
@@ -49,23 +59,76 @@ function setupEventListeners() {
     if (copyButton) copyButton.addEventListener('click', handleCopyUrl);
     if (retryButton) {
         retryButton.addEventListener('click', () => {
-            setTimeout(() => window.location.reload(), 100);
+            // Add a small delay before reload to allow visual feedback
+            retryButton.setAttribute('disabled', 'true');
+            retryButton.textContent = 'Retrying...';
+            setTimeout(() => window.location.reload(), 300);
         });
     }
+    if (themeToggleButton) themeToggleButton.addEventListener('click', toggleTheme);
 
     document.addEventListener('keydown', handleKeyDown);
     window.addEventListener('online', handleConnectionChange);
     window.addEventListener('offline', handleConnectionChange);
-    window.addEventListener('error', handleGlobalError);
-    window.addEventListener('unhandledrejection', (event) => handleGlobalError({ error: event.reason }));
+    // Use capturing phase for global errors to catch them earlier if needed
+    window.addEventListener('error', handleGlobalError, true);
+    window.addEventListener('unhandledrejection', (event) => handleGlobalError({ error: event.reason }), true);
 
     // Preload destination site for faster redirect
     setTimeout(() => {
-        const link = document.createElement('link');
-        link.rel = 'prefetch';
-        link.href = CONFIG.REDIRECT_URL;
-        document.head.appendChild(link);
+        try {
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = CONFIG.REDIRECT_URL;
+            document.head.appendChild(link);
+        } catch (e) {
+            console.warn("Failed to add prefetch link:", e);
+        }
     }, 2000);
+}
+
+// --- Theme Handling ---
+function initializeTheme() {
+    const savedTheme = localStorage.getItem(CONFIG.THEME_STORAGE_KEY);
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    } else {
+        applyTheme(prefersDark ? 'dark' : 'light');
+    }
+
+    // Update toggle button based on initial theme
+    updateThemeToggleButton(document.body.classList.contains('dark-theme'));
+}
+
+function applyTheme(theme) {
+    document.body.classList.remove('light-theme', 'dark-theme');
+    document.body.classList.add(`${theme}-theme`);
+    localStorage.setItem(CONFIG.THEME_STORAGE_KEY, theme);
+    updateThemeToggleButton(theme === 'dark');
+    console.log(`Theme applied: ${theme}`);
+}
+
+function toggleTheme() {
+    const currentTheme = localStorage.getItem(CONFIG.THEME_STORAGE_KEY) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+}
+
+function updateThemeToggleButton(isDark) {
+    if (!themeToggleButton || !themeIconLight || !themeIconDark) return;
+    if (isDark) {
+        themeIconLight.style.display = 'none';
+        themeIconDark.style.display = 'inline-block';
+        themeToggleButton.setAttribute('aria-label', 'Switch to light mode');
+        themeToggleButton.title = 'Switch to light mode';
+    } else {
+        themeIconLight.style.display = 'inline-block';
+        themeIconDark.style.display = 'none';
+        themeToggleButton.setAttribute('aria-label', 'Switch to dark mode');
+        themeToggleButton.title = 'Switch to dark mode';
+    }
 }
 
 // --- Keyboard Handler ---
@@ -217,7 +280,7 @@ function cancelRedirect() {
     }
     
     // Show notification
-    showToast("Automatic redirect cancelled");
+    showToast("Automatic redirect cancelled", "info"); // Add type
 }
 
 function triggerRedirect() {
@@ -292,36 +355,78 @@ function fallbackCopy(text) {
     document.body.removeChild(textArea);
 }
 
-function showToast(message = "URL copied!") {
+// --- Toast Notification ---
+function showToast(message = "Action completed", type = "success") { // Add type parameter
     if (!copyToast) return;
-    
-    copyToast.textContent = message;
-    copyToast.hidden = false;
-    copyToast.classList.add('visible');
 
-    if (copyToast.timer) clearTimeout(copyToast.timer);
-    copyToast.timer = setTimeout(() => {
+    // Clear any existing timer to prevent overlaps
+    if (toastTimer) {
+        clearTimeout(toastTimer);
+        toastTimer = null;
+    }
+
+    copyToast.textContent = message;
+    copyToast.className = 'toast'; // Reset classes
+    copyToast.classList.add(`toast-${type}`); // Add type class (optional styling)
+    copyToast.hidden = false;
+
+    // Force reflow to restart animation if needed
+    void copyToast.offsetWidth;
+
+    copyToast.classList.add('visible');
+    copyToast.setAttribute('role', type === 'error' ? 'alert' : 'status'); // Adjust role based on type
+
+    toastTimer = setTimeout(() => {
         copyToast.classList.remove('visible');
+        // Wait for fade out transition before hiding
         setTimeout(() => {
             copyToast.hidden = true;
-            copyToast.timer = null;
-        }, 300);
+            toastTimer = null;
+        }, 300); // Match CSS transition duration
     }, CONFIG.COPY_SUCCESS_DELAY_MS);
 }
 
 // --- Error Handling ---
 function handleGlobalError(event) {
-    const error = event.error || event.reason || event;
-    console.error('Unhandled Error:', error);
-    stopCountdown();
+    // Extract error details safely
+    let errorMessage = 'An unexpected error occurred.';
+    let errorStack = '';
+    if (event instanceof ErrorEvent) {
+        errorMessage = event.message || errorMessage;
+        errorStack = event.error?.stack;
+    } else if (event.error) { // For unhandled rejections or custom events
+        errorMessage = event.error.message || String(event.error);
+        errorStack = event.error.stack;
+    } else if (event.reason) { // For unhandled rejections
+        errorMessage = event.reason.message || String(event.reason);
+        errorStack = event.reason.stack;
+    } else if (typeof event === 'string') {
+        errorMessage = event;
+    }
 
-    if (errorContainer && errorContainer.hidden) {
+    console.error('Unhandled Error:', errorMessage, '\nStack:', errorStack || 'N/A', '\nEvent:', event);
+    stopCountdown(); // Ensure countdown stops
+
+    // Prevent multiple error messages
+    if (errorContainer && !errorContainer.hidden) {
+        console.warn("Error container already visible.");
+        return;
+    }
+
+    if (errorContainer) {
         errorContainer.hidden = false;
         errorContainer.innerHTML = `
-            <p>Something went wrong. The automatic redirect was stopped.</p>
-            <a href="${CONFIG.REDIRECT_URL}" class="button button-offline" style="margin-top: 1rem;">
+            <p><strong>Oops!</strong> Something went wrong.</p>
+            <p>The automatic redirect has been stopped. You can still visit the updated portfolio manually.</p>
+            <a href="${CONFIG.REDIRECT_URL}" class="button" rel="noopener noreferrer" style="margin-top: 0.5rem;">
                 Visit Updated Portfolio
             </a>
+            <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">Error: ${errorMessage}</p>
         `;
+        // Focus the container for screen readers
+        errorContainer.focus();
+    } else {
+        // Fallback if error container doesn't exist
+        showToast(`Error: ${errorMessage}. Redirect stopped.`, "error");
     }
 }

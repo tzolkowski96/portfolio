@@ -30,6 +30,7 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --transition: 0.2s ease;
+    --transition-color: background-color var(--transition), color var(--transition), border-color var(--transition);
 }
 
 /* Apply light theme by default */
@@ -46,7 +47,7 @@ body {
 
 /* Apply dark theme when preferred */
 @media (prefers-color-scheme: dark) {
-    body {
+    body:not(.light-theme) {
         --bg-color: var(--dark-bg);
         --card-bg: var(--dark-card);
         --text-color: var(--dark-text);
@@ -56,6 +57,29 @@ body {
         --accent-hover: var(--dark-accent-hover);
         --error-color: var(--dark-error);
     }
+}
+
+/* Apply themes manually via body class */
+body.light-theme {
+    --bg-color: var(--light-bg);
+    --card-bg: var(--light-card);
+    --text-color: var(--light-text);
+    --text-secondary: var(--light-text-secondary);
+    --border-color: var(--light-border);
+    --accent-color: var(--light-accent);
+    --accent-hover: var(--light-accent-hover);
+    --error-color: var(--light-error);
+}
+
+body.dark-theme {
+    --bg-color: var(--dark-bg);
+    --card-bg: var(--dark-card);
+    --text-color: var(--dark-text);
+    --text-secondary: var(--dark-text-secondary);
+    --border-color: var(--dark-border);
+    --accent-color: var(--dark-accent);
+    --accent-hover: var(--dark-accent-hover);
+    --error-color: var(--dark-error);
 }
 
 /* Base styles */
@@ -79,8 +103,21 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: background-color var(--transition), color var(--transition);
+    transition: var(--transition-color);
     padding: 1rem;
+    position: relative;
+}
+
+/* Card fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .container {
@@ -94,8 +131,9 @@ body {
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-md);
     overflow: hidden;
-    transition: background-color var(--transition), box-shadow var(--transition);
+    transition: background-color var(--transition), box-shadow var(--transition), border-color var(--transition);
     border: 1px solid var(--border-color);
+    animation: fadeIn 0.5s ease-out forwards;
 }
 
 .card-content {
@@ -230,7 +268,7 @@ h2 {
 .copy-btn:hover,
 .copy-btn:focus {
     color: var(--accent-color);
-    background-color: rgba(var(--accent-color), 0.05);
+    background-color: rgba(var(--accent-color), 0.1);
 }
 
 .copy-icon {
@@ -302,7 +340,7 @@ h2 {
 
 .cancel-redirect:hover,
 .cancel-redirect:focus {
-    color: var(--text-color);
+    color: var(--accent-color);
 }
 
 /* Button styles */
@@ -318,15 +356,17 @@ h2 {
     padding: 0.75rem 1.5rem;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color var(--transition), transform var(--transition);
+    transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
     text-decoration: none;
     width: 100%;
+    box-shadow: var(--shadow-sm);
 }
 
 .button:hover,
 .button:focus {
     background-color: var(--accent-hover);
     transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .button-icon {
@@ -343,6 +383,42 @@ h2 {
 .button-offline:focus {
     background-color: var(--error-color);
     filter: brightness(1.1);
+}
+
+/* Theme Toggle Button */
+.theme-toggle-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-color), box-shadow var(--transition), transform var(--transition);
+    z-index: 10;
+}
+
+.theme-toggle-button:hover,
+.theme-toggle-button:focus {
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-md);
+    transform: scale(1.1);
+}
+
+.theme-toggle-button svg {
+    color: var(--text-secondary);
+    transition: color var(--transition);
+}
+
+.theme-toggle-button:hover svg,
+.theme-toggle-button:focus svg {
+    color: var(--accent-color);
 }
 
 /* Toast notification */
@@ -371,15 +447,40 @@ h2 {
     bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(var(--error-color), 0.1);
+    background-color: var(--card-bg);
     border: 1px solid var(--error-color);
     color: var(--error-color);
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     border-radius: var(--border-radius-md);
     max-width: 90%;
-    width: 400px;
-    box-shadow: var(--shadow-md);
+    width: 450px;
+    box-shadow: var(--shadow-lg);
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+}
+
+.error-boundary p {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.error-boundary strong {
+    color: var(--error-color);
+}
+
+.error-boundary .button {
+    margin-top: 0.5rem;
+    background-color: var(--error-color);
+    color: white;
+}
+
+.error-boundary .button:hover,
+.error-boundary .button:focus {
+    filter: brightness(1.1);
+    background-color: var(--error-color);
 }
 
 /* Accessibility */
@@ -401,6 +502,12 @@ button:focus,
 input:focus {
     outline: 2px solid var(--accent-color);
     outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(var(--accent-color), 0.2);
+}
+
+/* Specific focus for theme toggle */
+.theme-toggle-button:focus {
+    box-shadow: 0 0 0 4px rgba(var(--accent-color), 0.2);
 }
 
 @media (prefers-reduced-motion: reduce) {

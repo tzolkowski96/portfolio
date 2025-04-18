@@ -389,22 +389,31 @@ function showToast(message = "Action completed", type = "success") { // Add type
 // --- Error Handling ---
 function handleGlobalError(event) {
     // Extract error details safely
-    let errorMessage = 'An unexpected error occurred.';
+    let errorMessage = 'An unexpected error occurred.'; // Default message
     let errorStack = '';
-    if (event instanceof ErrorEvent) {
-        errorMessage = event.message || errorMessage;
-        errorStack = event.error?.stack;
-    } else if (event.error) { // For unhandled rejections or custom events
-        errorMessage = event.error.message || String(event.error);
-        errorStack = event.error.stack;
-    } else if (event.reason) { // For unhandled rejections
-        errorMessage = event.reason.message || String(event.reason);
-        errorStack = event.reason.stack;
-    } else if (typeof event === 'string') {
-        errorMessage = event;
+
+    try { // Add try...catch around extraction
+        if (event instanceof ErrorEvent) {
+            errorMessage = event.message || errorMessage;
+            errorStack = event.error?.stack;
+        } else if (event.error) { // For unhandled rejections or custom events
+            errorMessage = event.error.message || String(event.error) || errorMessage;
+            errorStack = event.error.stack;
+        } else if (event.reason) { // For unhandled rejections
+            errorMessage = event.reason.message || String(event.reason) || errorMessage;
+            errorStack = event.reason.stack;
+        } else if (typeof event === 'string') {
+            errorMessage = event || errorMessage;
+        }
+    } catch (e) {
+        console.error("Error while extracting error message:", e);
+        // Keep the default errorMessage
     }
 
-    console.error('Unhandled Error:', errorMessage, '\nStack:', errorStack || 'N/A', '\nEvent:', event);
+    // Ensure errorMessage is never empty or null before display
+    const finalErrorMessage = errorMessage || 'An unspecified error occurred.';
+
+    console.error('Unhandled Error:', finalErrorMessage, '\nStack:', errorStack || 'N/A', '\nEvent:', event);
     stopCountdown(); // Ensure countdown stops
 
     // Prevent multiple error messages
@@ -415,18 +424,20 @@ function handleGlobalError(event) {
 
     if (errorContainer) {
         errorContainer.hidden = false;
+        // Ensure the error message paragraph always shows the final message
         errorContainer.innerHTML = `
             <p><strong>Oops!</strong> Something went wrong.</p>
             <p>The automatic redirect has been stopped. You can still visit the updated portfolio manually.</p>
             <a href="${CONFIG.REDIRECT_URL}" class="button" rel="noopener noreferrer" style="margin-top: 0.5rem;">
                 Visit Updated Portfolio
             </a>
-            <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">Error: ${errorMessage}</p>
+            <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">Error: ${finalErrorMessage}</p>
         `;
         // Focus the container for screen readers
+        errorContainer.setAttribute('tabindex', '-1'); // Make it focusable
         errorContainer.focus();
     } else {
         // Fallback if error container doesn't exist
-        showToast(`Error: ${errorMessage}. Redirect stopped.`, "error");
+        showToast(`Error: ${finalErrorMessage}. Redirect stopped.`, "error");
     }
 }

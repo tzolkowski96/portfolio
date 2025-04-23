@@ -28,6 +28,20 @@
 
     <link rel="stylesheet" href="style.css">
     <link rel="preload" href="script.js" as="script">
+
+    <!-- Inline script to prevent FOUC for theme -->
+    <script>
+      (function() {
+        const storageKey = 'themePreference';
+        const theme = localStorage.getItem(storageKey);
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (!theme && prefersDark)) {
+          document.documentElement.classList.add('dark-theme'); // Apply to html tag early
+        } else {
+          document.documentElement.classList.add('light-theme'); // Apply light explicitly
+        }
+      })();
+    </script>
 </head>
 <body>
     <!-- Vanta.js Background Container -->

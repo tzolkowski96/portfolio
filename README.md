@@ -2,7 +2,8 @@
 
 A clean, professional redirect page that automatically forwards visitors to my updated portfolio website hosted on Netlify. This project includes offline detection, a visual countdown, theme switching, and accessibility features.
 
-![Portfolio Redirect Preview](https://via.placeholder.com/800x400?text=Portfolio+Redirect+Preview) <!-- Consider replacing with an actual screenshot -->
+<!-- TODO: Replace this placeholder with an actual screenshot of the redirect page -->
+![Portfolio Redirect Preview](https://via.placeholder.com/800x400?text=Portfolio+Redirect+Preview)
 
 ## Features
 
@@ -74,8 +75,9 @@ This redirect site is optimized to work with GitHub Pages:
 
 ### Changing Colors & Theme
 
--   Modify the light/dark theme CSS variables in `style.css` under the `:root` and `@media (prefers-color-scheme: dark)` rules.
--   The theme toggle button allows users to override the system preference.
+-   Modify the light and dark theme CSS variables in `style.css` under the `:root` selector.
+-   The dark theme styles are applied when the `dark-theme` class is present on the `<html>` element (controlled by the inline script in `index.html` and the toggle button in `script.js`).
+-   The theme toggle button allows users to override the system preference, saving the choice to `localStorage`.
 
 ### Adjusting Countdown Time
 

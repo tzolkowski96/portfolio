@@ -2,7 +2,19 @@
 
 /* Refined redirect page styles */
 :root {
-    /* Light Theme - Softer Tones */
+    /* Light Theme - Softer Tones (Default) */
+    --bg-color: var(--light-bg);
+    --card-bg: var(--light-card);
+    --text-color: var(--light-text);
+    --text-secondary: var(--light-text-secondary);
+    --border-color: var(--light-border);
+    --accent-color: var(--light-accent);
+    --accent-hover: var(--light-accent-hover);
+    --error-color: var(--light-error);
+    --logo-bg: var(--light-logo-bg);
+    --logo-text: var(--light-logo-text);
+
+    /* Light Theme Variables */
     --light-bg: #f9fafb; /* Slightly off-white */
     --light-card: #ffffff;
     --light-text: #111827; /* Darker gray */
@@ -14,7 +26,7 @@
     --light-logo-bg: #eff6ff; /* Lighter blue bg */
     --light-logo-text: var(--light-accent);
 
-    /* Dark Theme - Refined Contrast */
+    /* Dark Theme Variables */
     --dark-bg: #111827; /* Darker gray */
     --dark-card: #1f2937; /* Slightly lighter dark gray */
     --dark-text: #f3f4f6; /* Off-white */
@@ -42,51 +54,8 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-/* Apply light theme by default */
-body {
-    --bg-color: var(--light-bg);
-    --card-bg: var(--light-card);
-    --text-color: var(--light-text);
-    --text-secondary: var(--light-text-secondary);
-    --border-color: var(--light-border);
-    --accent-color: var(--light-accent);
-    --accent-hover: var(--light-accent-hover);
-    --error-color: var(--light-error);
-    --logo-bg: var(--light-logo-bg);
-    --logo-text: var(--light-logo-text);
-}
-
-/* Apply dark theme when preferred */
-@media (prefers-color-scheme: dark) {
-    body:not(.light-theme) {
-        --bg-color: var(--dark-bg);
-        --card-bg: var(--dark-card);
-        --text-color: var(--dark-text);
-        --text-secondary: var(--dark-text-secondary);
-        --border-color: var(--dark-border);
-        --accent-color: var(--dark-accent);
-        --accent-hover: var(--dark-accent-hover);
-        --error-color: var(--dark-error);
-        --logo-bg: var(--dark-logo-bg);
-        --logo-text: var(--dark-logo-text);
-    }
-}
-
-/* Apply themes manually via body class */
-body.light-theme {
-    --bg-color: var(--light-bg);
-    --card-bg: var(--light-card);
-    --text-color: var(--light-text);
-    --text-secondary: var(--light-text-secondary);
-    --border-color: var(--light-border);
-    --accent-color: var(--light-accent);
-    --accent-hover: var(--light-accent-hover);
-    --error-color: var(--light-error);
-    --logo-bg: var(--light-logo-bg);
-    --logo-text: var(--light-logo-text);
-}
-
-body.dark-theme {
+/* Apply dark theme variables when .dark-theme class is present on html */
+html.dark-theme {
     --bg-color: var(--dark-bg);
     --card-bg: var(--dark-card);
     --text-color: var(--dark-text);
@@ -111,11 +80,13 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* Apply background color here for full page coverage */
+    background-color: var(--bg-color);
+    transition: background-color var(--transition); /* Smooth background transition */
 }
 
 body {
     font-family: var(--font-sans);
-    background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6; /* Slightly increased line height */
     min-height: 100vh;
@@ -123,7 +94,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: var(--transition-color);
+    transition: var(--transition-color); /* Keep transition for text color */
     padding: 1.5rem; /* Increased padding */
     position: relative;
 }
@@ -189,6 +160,25 @@ body {
     .card-content {
         padding: 1.5rem;
     }
+
+    h1 {
+        font-size: 1.625rem; /* Slightly smaller on very small screens (~26px) */
+    }
+
+    .destination-info {
+        padding: 1rem; /* Reduce padding */
+    }
+
+    .theme-toggle-button {
+        top: 1rem; /* Adjust position slightly */
+        right: 1rem;
+    }
+
+    .toast,
+    .error-boundary {
+        bottom: 1rem; /* Ensure toast/error doesn't overlap nav bars */
+        max-width: calc(100% - 2rem);
+    }
 }
 
 .card-header {
@@ -245,10 +235,6 @@ h2 {
     font-weight: 600;
     display: block; /* Make block for centering */
     /* Remove icon alignment */
-}
-
-.notice-offline {
-     /* No special background needed */
 }
 
 .notice-offline .notice-title {

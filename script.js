@@ -91,32 +91,29 @@ function setupEventListeners() {
 
 // --- Theme Handling ---
 function initializeTheme() {
-    const savedTheme = localStorage.getItem(CONFIG.THEME_STORAGE_KEY);
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme) {
-        applyTheme(savedTheme);
-    } else {
-        applyTheme(prefersDark ? 'dark' : 'light');
-    }
-
-    // Update toggle button based on initial theme
-    updateThemeToggleButton(document.body.classList.contains('dark-theme'));
+    // Theme is now set on <html> by the inline script before this runs
+    const isDark = document.documentElement.classList.contains('dark-theme');
+    console.log(`Initial theme detected: ${isDark ? 'dark' : 'light'}`);
+    // Update toggle button state based on the class already set on <html>
+    updateThemeToggleButton(isDark);
+    // No need to call applyTheme here as the inline script handled it
 }
 
 function applyTheme(theme) {
-    document.body.classList.remove('light-theme', 'dark-theme');
-    document.body.classList.add(`${theme}-theme`);
+    // Apply class to the html element
+    document.documentElement.classList.remove('light-theme', 'dark-theme');
+    document.documentElement.classList.add(`${theme}-theme`);
     localStorage.setItem(CONFIG.THEME_STORAGE_KEY, theme);
     updateThemeToggleButton(theme === 'dark');
     console.log(`Theme applied: ${theme}`);
     // Update Vanta background on theme change
-    initializeVantaBackground();
+    initializeVantaBackground(); // Vanta needs reinitialization with new colors
 }
 
 function toggleTheme() {
-    const currentTheme = localStorage.getItem(CONFIG.THEME_STORAGE_KEY) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    // Check current theme based on html class
+    const isDark = document.documentElement.classList.contains('dark-theme');
+    const newTheme = isDark ? 'light' : 'dark';
     applyTheme(newTheme);
 }
 
@@ -164,7 +161,8 @@ function initializeVantaBackground() {
         return;
     }
 
-    const isDark = document.body.classList.contains('dark-theme');
+    // Determine theme based on html class
+    const isDark = document.documentElement.classList.contains('dark-theme');
     // Adjusted Vanta options for a potentially subtler effect
     const vantaOptions = {
         el: "#vanta-bg",
@@ -180,9 +178,27 @@ function initializeVantaBackground() {
         maxDistance: 18.00,  // Slightly shorter connection distance
         spacing: 18.00,      // Slightly more spacing
         // Updated Theme-specific colors (using hex from CSS variables)
-        color: isDark ? 0x60a5fa : 0x2563eb, // --dark-accent : --light-accent
-        backgroundColor: isDark ? 0x111827 : 0xf9fafb // --dark-bg : --light-bg
+        // We need to get the computed style *after* the theme class is applied
+        color: isDark ? 0x60a5fa : 0x2563eb, // Fallback hex values matching CSS
+        backgroundColor: isDark ? 0x111827 : 0xf9fafb // Fallback hex values matching CSS
     };
+
+    // Attempt to get computed colors (might not be fully reliable depending on timing)
+    try {
+        const computedStyle = getComputedStyle(document.documentElement);
+        const accentColor = computedStyle.getPropertyValue('--accent-color').trim();
+        const bgColor = computedStyle.getPropertyValue('--bg-color').trim();
+        
+        // Basic hex conversion (assumes #RRGGBB format)
+        if (accentColor.startsWith('#')) {
+            vantaOptions.color = parseInt(accentColor.substring(1), 16);
+        }
+        if (bgColor.startsWith('#')) {
+            vantaOptions.backgroundColor = parseInt(bgColor.substring(1), 16);
+        }
+    } catch (e) {
+        console.warn("Could not compute styles for Vanta colors, using fallbacks.", e);
+    }
 
     try {
         console.log("Initializing Vanta.NET with options:", vantaOptions);

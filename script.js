@@ -15,6 +15,7 @@ const CONFIG = {
 let countdownInterval;
 let redirectCancelled = false;
 let toastTimer = null; // Single timer for toast
+let vantaEffect = null; // Variable to hold the Vanta instance
 
 // --- DOM Elements ---
 let countdownEl, countdownCircle, countdownProgress, cancelButton, copyButton,
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     assignDOMElements();
     setupEventListeners();
     initializeTheme(); // Initialize theme first
+    initializeVantaBackground(); // Initialize Vanta background
     handleConnectionChange(); // Then handle connection
 });
 
@@ -108,6 +110,8 @@ function applyTheme(theme) {
     localStorage.setItem(CONFIG.THEME_STORAGE_KEY, theme);
     updateThemeToggleButton(theme === 'dark');
     console.log(`Theme applied: ${theme}`);
+    // Update Vanta background on theme change
+    initializeVantaBackground();
 }
 
 function toggleTheme() {
@@ -128,6 +132,67 @@ function updateThemeToggleButton(isDark) {
         themeIconDark.style.display = 'none';
         themeToggleButton.setAttribute('aria-label', 'Switch to dark mode');
         themeToggleButton.title = 'Switch to dark mode';
+    }
+}
+
+// --- Vanta.js Background Initialization ---
+function initializeVantaBackground() {
+    // Destroy existing instance if it exists
+    if (vantaEffect) {
+        vantaEffect.destroy();
+        vantaEffect = null;
+        console.log("Destroyed existing Vanta instance.");
+    }
+
+    // Check for prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+        console.log("Reduced motion preferred, skipping Vanta animation.");
+        // Optionally hide the container or apply a static background
+        const vantaContainer = document.getElementById('vanta-bg');
+        if (vantaContainer) vantaContainer.style.display = 'none';
+        return;
+    } else {
+        // Ensure container is visible if previously hidden
+        const vantaContainer = document.getElementById('vanta-bg');
+        if (vantaContainer) vantaContainer.style.display = 'block';
+    }
+
+    // Check if Vanta library is loaded
+    if (typeof VANTA === 'undefined' || typeof VANTA.NET === 'undefined') {
+        console.error("Vanta.js or VANTA.NET effect not loaded.");
+        return;
+    }
+
+    const isDark = document.body.classList.contains('dark-theme');
+    // Adjusted Vanta options for a potentially subtler effect
+    const vantaOptions = {
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        // Adjusted parameters
+        points: 12.00,       // Slightly more points
+        maxDistance: 18.00,  // Slightly shorter connection distance
+        spacing: 18.00,      // Slightly more spacing
+        // Updated Theme-specific colors (using hex from CSS variables)
+        color: isDark ? 0x60a5fa : 0x2563eb, // --dark-accent : --light-accent
+        backgroundColor: isDark ? 0x111827 : 0xf9fafb // --dark-bg : --light-bg
+    };
+
+    try {
+        console.log("Initializing Vanta.NET with options:", vantaOptions);
+        vantaEffect = VANTA.NET(vantaOptions);
+        console.log("Vanta.NET initialized successfully.");
+    } catch (error) {
+        console.error("Error initializing Vanta.js:", error);
+        // Optionally hide the container on error
+        const vantaContainer = document.getElementById('vanta-bg');
+        if (vantaContainer) vantaContainer.style.display = 'none';
     }
 }
 

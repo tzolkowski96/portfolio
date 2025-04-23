@@ -1,36 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* Simple, professional redirect page styles */
+/* Refined redirect page styles */
 :root {
-    /* Light Theme */
-    --light-bg: #f8fafc;
+    /* Light Theme - Softer Tones */
+    --light-bg: #f9fafb; /* Slightly off-white */
     --light-card: #ffffff;
-    --light-text: #1a202c;
-    --light-text-secondary: #4a5568;
-    --light-border: #e2e8f0;
-    --light-accent: #3182ce;
-    --light-accent-hover: #2c5282;
-    --light-error: #e53e3e;
+    --light-text: #111827; /* Darker gray */
+    --light-text-secondary: #4b5563; /* Medium gray */
+    --light-border: #e5e7eb; /* Lighter gray border */
+    --light-accent: #2563eb; /* Tailwind Blue 600 */
+    --light-accent-hover: #1d4ed8; /* Tailwind Blue 700 */
+    --light-error: #dc2626; /* Tailwind Red 600 */
+    --light-logo-bg: #eff6ff; /* Lighter blue bg */
+    --light-logo-text: var(--light-accent);
 
-    /* Dark Theme */
-    --dark-bg: #1a202c;
-    --dark-card: #2d3748;
-    --dark-text: #f7fafc;
-    --dark-text-secondary: #cbd5e0;
-    --dark-border: #4a5568;
-    --dark-accent: #63b3ed;
-    --dark-accent-hover: #90cdf4;
-    --dark-error: #fc8181;
+    /* Dark Theme - Refined Contrast */
+    --dark-bg: #111827; /* Darker gray */
+    --dark-card: #1f2937; /* Slightly lighter dark gray */
+    --dark-text: #f3f4f6; /* Off-white */
+    --dark-text-secondary: #9ca3af; /* Lighter gray */
+    --dark-border: #374151; /* Medium dark gray border */
+    --dark-accent: #60a5fa; /* Tailwind Blue 400 */
+    --dark-accent-hover: #93c5fd; /* Tailwind Blue 300 */
+    --dark-error: #f87171; /* Tailwind Red 400 */
+    --dark-logo-bg: #1e3a8a; /* Darker blue bg */
+    --dark-logo-text: var(--dark-accent);
 
     /* Common Variables */
-    --border-radius-sm: 0.25rem;
-    --border-radius-md: 0.5rem;
-    --border-radius-lg: 0.75rem;
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --transition: 0.2s ease;
-    --transition-color: background-color var(--transition), color var(--transition), border-color var(--transition);
+    --border-radius-sm: 0.375rem; /* 6px */
+    --border-radius-md: 0.5rem;   /* 8px */
+    --border-radius-lg: 1rem;    /* 16px - Increased */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    /* Softer shadow */
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+    --transition: 0.2s ease-in-out; /* Slightly different easing */
+    --transition-color: background-color var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
+
+    /* Typography */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 /* Apply light theme by default */
@@ -43,6 +52,8 @@ body {
     --accent-color: var(--light-accent);
     --accent-hover: var(--light-accent-hover);
     --error-color: var(--light-error);
+    --logo-bg: var(--light-logo-bg);
+    --logo-text: var(--light-logo-text);
 }
 
 /* Apply dark theme when preferred */
@@ -56,6 +67,8 @@ body {
         --accent-color: var(--dark-accent);
         --accent-hover: var(--dark-accent-hover);
         --error-color: var(--dark-error);
+        --logo-bg: var(--dark-logo-bg);
+        --logo-text: var(--dark-logo-text);
     }
 }
 
@@ -69,6 +82,8 @@ body.light-theme {
     --accent-color: var(--light-accent);
     --accent-hover: var(--light-accent-hover);
     --error-color: var(--light-error);
+    --logo-bg: var(--light-logo-bg);
+    --logo-text: var(--light-logo-text);
 }
 
 body.dark-theme {
@@ -80,6 +95,8 @@ body.dark-theme {
     --accent-color: var(--dark-accent);
     --accent-hover: var(--dark-accent-hover);
     --error-color: var(--dark-error);
+    --logo-bg: var(--dark-logo-bg);
+    --logo-text: var(--dark-logo-text);
 }
 
 /* Base styles */
@@ -90,54 +107,82 @@ body.dark-theme {
 }
 
 html {
-    font-size: 16px;
+    font-size: 100%; /* Use percentage for better accessibility scaling */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: var(--font-sans);
     background-color: var(--bg-color);
     color: var(--text-color);
-    line-height: 1.5;
+    line-height: 1.6; /* Slightly increased line height */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     transition: var(--transition-color);
-    padding: 1rem;
+    padding: 1.5rem; /* Increased padding */
     position: relative;
+}
+
+/* Vanta.js Background */
+#vanta-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place it behind everything */
+}
+
+/* Ensure card content is readable over the background */
+.card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius-lg); /* Increased radius */
+    box-shadow: var(--shadow-md); /* Softer shadow */
+    overflow: hidden;
+    transition: var(--transition-color), transform 0.3s ease; /* Added transform transition */
+    border: 1px solid var(--border-color);
+    animation: fadeIn 0.6s ease-out forwards; /* Slightly slower fade */
+    position: relative;
+    z-index: 1;
+    /* Optional: Add slight transparency/blur if Vanta is very busy */
+    /* backdrop-filter: blur(5px); */
+    /* background-color: rgba(var(--card-bg-rgb), 0.95); */
 }
 
 /* Card fade-in animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(20px) scale(0.98); /* Added scale */
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
 .container {
     width: 100%;
-    max-width: 500px;
+    max-width: 520px; /* Slightly wider */
     margin: 0 auto;
 }
 
-.card {
-    background-color: var(--card-bg);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-md);
-    overflow: hidden;
-    transition: background-color var(--transition), box-shadow var(--transition), border-color var(--transition);
-    border: 1px solid var(--border-color);
-    animation: fadeIn 0.5s ease-out forwards;
+.card-content {
+    padding: 2.5rem; /* Increased padding */
 }
 
-.card-content {
-    padding: 2rem;
+@media (max-width: 640px) { /* Adjusted breakpoint */
+    body {
+        padding: 1rem;
+    }
+    .card-content {
+        padding: 2rem; /* Adjusted mobile padding */
+    }
 }
 
 @media (max-width: 480px) {
@@ -150,65 +195,70 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem; /* Increased spacing */
     text-align: center;
 }
 
 .logo {
-    width: 60px;
-    height: 60px;
+    width: 64px; /* Slightly larger */
+    height: 64px;
     border-radius: 50%;
-    background-color: var(--accent-color);
-    color: white;
-    font-size: 1.75rem;
+    background-color: var(--logo-bg); /* Use theme variable */
+    color: var(--logo-text); /* Use theme variable */
+    font-size: 2rem; /* Slightly larger */
     font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem; /* Increased spacing */
     box-shadow: var(--shadow-sm);
+    transition: var(--transition-color);
 }
 
 h1 {
-    font-size: 1.75rem;
-    font-weight: 600;
+    font-size: 1.875rem; /* ~30px */
+    font-weight: 700; /* Bolder */
     margin-bottom: 0.5rem;
     color: var(--text-color);
+    letter-spacing: -0.02em; /* Subtle tightening */
 }
 
 h2 {
-    font-size: 1.25rem;
+    font-size: 1.25rem; /* ~20px */
     font-weight: 600;
     color: var(--text-color);
 }
 
 .notice {
-    margin-bottom: 1.5rem;
-    background-color: rgba(var(--accent-color), 0.05);
+    margin-bottom: 2rem; /* Increased spacing */
+    background-color: transparent; /* Remove bg color */
     border-radius: var(--border-radius-md);
-    padding: 1.25rem;
-    border: 1px solid var(--border-color);
+    padding: 0; /* Remove padding */
+    border: none; /* Remove border */
+    text-align: center; /* Center notice text */
 }
 
 .notice-title {
-    margin-bottom: 0.75rem;
-    color: var(--accent-color);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    margin-bottom: 0.5rem; /* Reduced spacing */
+    color: var(--text-color); /* Use primary text color */
+    font-size: 1.125rem; /* ~18px */
+    font-weight: 600;
+    display: block; /* Make block for centering */
+    /* Remove icon alignment */
 }
 
 .notice-offline {
-    background-color: rgba(var(--error-color), 0.05);
+     /* No special background needed */
 }
 
 .notice-offline .notice-title {
-    color: var(--error-color);
+    color: var(--error-color); /* Keep error color for title */
 }
 
 .info-text {
     color: var(--text-secondary);
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem; /* Increased spacing */
+    font-size: 1rem; /* Ensure base size */
 }
 
 .info-text-small {
@@ -217,44 +267,52 @@ h2 {
 }
 
 .destination-info {
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: rgba(var(--accent-color), 0.03);
+    margin-bottom: 2.5rem; /* Increased spacing */
+    padding: 1.25rem; /* Increased padding */
+    background-color: rgba(127, 127, 127, 0.05); /* Subtle gray background */
     border-radius: var(--border-radius-md);
     border: 1px solid var(--border-color);
+    transition: var(--transition-color);
 }
 
 .url-label {
     display: block;
     font-weight: 500;
+    font-size: 0.875rem; /* Smaller label */
     margin-bottom: 0.5rem;
-    color: var(--accent-color);
+    color: var(--text-secondary); /* Subtler color */
+    text-transform: uppercase; /* Uppercase label */
+    letter-spacing: 0.05em;
 }
 
 .url-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.75rem; /* Add gap */
 }
 
 .url-link {
-    color: var(--text-color);
-    font-family: monospace;
+    color: var(--accent-color); /* Make link accent color */
+    font-family: var(--font-mono);
     text-decoration: none;
     font-size: 1rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow-wrap: break-word; /* Better wrapping */
+    word-break: break-all;
+    transition: color var(--transition);
+    flex-grow: 1; /* Allow link to take space */
+    text-align: left; /* Ensure left align */
 }
 
 .url-link:hover,
 .url-link:focus {
-    color: var(--accent-color);
+    color: var(--accent-hover);
     text-decoration: underline;
 }
 
 .copy-btn {
     background: none;
-    border: none;
+    border: 1px solid transparent; /* Add transparent border for layout consistency */
     cursor: pointer;
     color: var(--text-secondary);
     padding: 0.5rem;
@@ -262,33 +320,35 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color var(--transition), background-color var(--transition);
+    transition: color var(--transition), background-color var(--transition), border-color var(--transition);
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
 .copy-btn:hover,
 .copy-btn:focus {
     color: var(--accent-color);
     background-color: rgba(var(--accent-color), 0.1);
+    border-color: rgba(var(--accent-color), 0.2);
 }
 
 .copy-icon {
-    width: 16px;
-    height: 16px;
+    width: 18px; /* Slightly larger */
+    height: 18px;
 }
 
-/* Countdown styles */
+/* Countdown styles - Simplified */
 .countdown-wrapper {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem; /* Increased spacing */
     text-align: center;
 }
 
 .countdown-display {
-    margin-bottom: 0.75rem;
-}
-
-.countdown-circle {
-    width: 80px;
-    height: 80px;
+    margin-bottom: 0.5rem; /* Reduced spacing */
+    /* Hide the circle */
+    /* display: none; */
+    /* OR make it much subtler */
+    width: 72px; /* Smaller */
+    height: 72px;
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -307,6 +367,7 @@ h2 {
 .countdown-track {
     fill: none;
     stroke: var(--border-color);
+    stroke-width: 3; /* Thinner */
 }
 
 .countdown-progress {
@@ -314,135 +375,151 @@ h2 {
     stroke: var(--accent-color);
     stroke-linecap: round;
     transition: stroke-dashoffset 1s linear;
+    stroke-width: 3; /* Thinner */
 }
 
 .countdown-number {
-    font-size: 1.75rem;
-    font-weight: 500;
+    font-size: 1.5rem; /* Smaller */
+    font-weight: 600; /* Bolder */
     color: var(--text-color);
 }
 
 .countdown-text {
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem; /* Increased spacing */
     color: var(--text-secondary);
+    font-size: 0.9rem; /* Slightly smaller */
 }
 
 .cancel-redirect {
     background: none;
     border: none;
     color: var(--text-secondary);
-    text-decoration: underline;
+    text-decoration: none; /* Remove underline */
     cursor: pointer;
     font-size: 0.875rem;
-    padding: 0.25rem 0.5rem;
-    transition: color var(--transition);
+    padding: 0.375rem 0.75rem; /* Adjust padding */
+    border-radius: var(--border-radius-sm);
+    transition: color var(--transition), background-color var(--transition);
 }
 
 .cancel-redirect:hover,
 .cancel-redirect:focus {
     color: var(--accent-color);
+    background-color: rgba(var(--accent-color), 0.1); /* Subtle background on hover */
 }
 
-/* Button styles */
+/* Button styles - Refined */
 .button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.6rem; /* Slightly increased gap */
     background-color: var(--accent-color);
     color: white;
     border: none;
-    border-radius: var(--border-radius-md);
-    padding: 0.75rem 1.5rem;
-    font-weight: 500;
+    border-radius: var(--border-radius-md); /* Consistent radius */
+    padding: 0.8rem 1.75rem; /* Adjusted padding */
+    font-weight: 600; /* Bolder */
     cursor: pointer;
-    transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    transition: background-color var(--transition), transform 0.15s ease-out, box-shadow var(--transition);
     text-decoration: none;
     width: 100%;
     box-shadow: var(--shadow-sm);
+    font-size: 1rem;
 }
 
 .button:hover,
 .button:focus {
     background-color: var(--accent-hover);
-    transform: translateY(-2px);
+    transform: translateY(-1px); /* More subtle lift */
     box-shadow: var(--shadow-md);
 }
 
+.button:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
 .button-icon {
-    width: 16px;
-    height: 16px;
+    width: 18px; /* Slightly larger */
+    height: 18px;
     stroke: currentColor;
+    stroke-width: 2;
 }
 
 .button-offline {
     background-color: var(--error-color);
+    /* Use theme error color */
 }
 
 .button-offline:hover,
 .button-offline:focus {
-    background-color: var(--error-color);
-    filter: brightness(1.1);
+    background-color: var(--error-color); /* Keep base color */
+    filter: brightness(1.15); /* Increase brightness */
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
 }
 
-/* Theme Toggle Button */
+/* Theme Toggle Button - Subtle */
 .theme-toggle-button {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    top: 1.5rem; /* Adjusted position */
+    right: 1.5rem;
+    background-color: transparent; /* Transparent background */
+    border: 1px solid transparent; /* No border initially */
+    border-radius: var(--border-radius-md); /* Match button radius */
+    width: 44px; /* Slightly larger */
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition-color), box-shadow var(--transition), transform var(--transition);
+    box-shadow: none; /* No shadow */
+    transition: var(--transition-color), background-color var(--transition), transform var(--transition);
     z-index: 10;
+    color: var(--text-secondary); /* Use secondary text color */
 }
 
 .theme-toggle-button:hover,
 .theme-toggle-button:focus {
-    border-color: var(--accent-color);
-    box-shadow: var(--shadow-md);
-    transform: scale(1.1);
+    background-color: rgba(127, 127, 127, 0.1); /* Subtle hover background */
+    color: var(--accent-color); /* Accent color on hover */
+    transform: scale(1.05); /* Slight scale */
+    border-color: transparent; /* Keep border transparent */
+    box-shadow: none;
 }
 
 .theme-toggle-button svg {
-    color: var(--text-secondary);
+    color: inherit; /* Inherit color from button */
     transition: color var(--transition);
+    width: 22px; /* Slightly larger icon */
+    height: 22px;
 }
 
-.theme-toggle-button:hover svg,
-.theme-toggle-button:focus svg {
-    color: var(--accent-color);
-}
-
-/* Toast notification */
+/* Toast notification - Refined */
 .toast {
     position: fixed;
     bottom: 1.5rem;
     left: 50%;
-    transform: translateX(-50%) translateY(100%);
+    transform: translateX(-50%) translateY(120%); /* Start further down */
     background-color: var(--card-bg);
     color: var(--text-color);
-    padding: 0.75rem 1.5rem;
+    padding: 0.8rem 1.5rem; /* Adjusted padding */
     border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-lg);
-    transition: transform 0.3s ease;
+    box-shadow: var(--shadow-lg); /* Keep prominent shadow */
+    transition: transform 0.4s cubic-bezier(0.215, 0.610, 0.355, 1); /* Smoother transition */
     z-index: 1000;
     border: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    max-width: calc(100% - 2rem); /* Prevent touching edges */
 }
 
 .toast.visible {
     transform: translateX(-50%) translateY(0);
 }
 
-/* Error container */
-.error-boundary[hidden] { /* Ensure hidden attribute works */
+/* Error container - Refined */
+.error-boundary[hidden] {
     display: none;
 }
 
@@ -454,31 +531,37 @@ h2 {
     background-color: var(--card-bg);
     border: 1px solid var(--error-color);
     color: var(--error-color);
-    padding: 1rem 1.5rem;
+    padding: 1.5rem; /* Increased padding */
     border-radius: var(--border-radius-md);
     max-width: 90%;
-    width: 450px;
+    width: 480px; /* Slightly wider */
     box-shadow: var(--shadow-lg);
     z-index: 1000;
-    display: flex; /* Keep flex for when it IS visible */
+    display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem; /* Increased gap */
     text-align: center;
+    transition: var(--transition-color);
 }
 
 .error-boundary p {
     margin: 0;
     color: var(--text-color);
+    line-height: 1.5;
 }
 
 .error-boundary strong {
     color: var(--error-color);
+    font-weight: 600;
 }
 
 .error-boundary .button {
     margin-top: 0.5rem;
     background-color: var(--error-color);
     color: white;
+    width: auto; /* Allow button to size naturally */
+    align-self: center; /* Center button */
+    padding: 0.7rem 1.5rem; /* Adjust padding */
 }
 
 .error-boundary .button:hover,
@@ -501,22 +584,24 @@ h2 {
 }
 
 /* Improved focus states */
-a:focus,
-button:focus,
-input:focus {
-    outline: 2px solid var(--accent-color);
+a:focus-visible,
+button:focus-visible,
+input:focus-visible { /* Use focus-visible for better accessibility */
+    outline: 3px solid rgba(var(--accent-color), 0.5); /* Thicker, semi-transparent outline */
     outline-offset: 2px;
-    box-shadow: 0 0 0 4px rgba(var(--accent-color), 0.2);
+    box-shadow: none; /* Remove default box-shadow on focus */
 }
 
 /* Specific focus for theme toggle */
-.theme-toggle-button:focus {
-    box-shadow: 0 0 0 4px rgba(var(--accent-color), 0.2);
+.theme-toggle-button:focus-visible {
+    outline: 3px solid rgba(var(--accent-color), 0.5);
+    background-color: rgba(127, 127, 127, 0.1); /* Maintain hover style */
 }
 
 @media (prefers-reduced-motion: reduce) {
     * {
         transition-duration: 0.001ms !important;
         animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important; /* Stop infinite animations */
     }
 }

@@ -30,6 +30,9 @@
     <link rel="preload" href="script.js" as="script">
 </head>
 <body>
+    <!-- Vanta.js Background Container -->
+    <div id="vanta-bg"></div>
+
     <!-- Theme Toggle Button -->
     <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode" title="Toggle dark mode">
         <svg id="theme-icon-light" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -40,7 +43,7 @@
         <div class="card">
             <div class="card-content">
                 <header class="card-header">
-                    <div class="logo">T</div>
+                    <div class="logo" aria-hidden="true">TZ</div> <!-- Use initials TZ -->
                     <h1>Portfolio Update</h1>
                 </header>
                 
@@ -110,6 +113,10 @@
     <!-- Notifications -->
     <div id="copy-toast" class="toast" role="status" aria-live="polite" hidden>URL copied!</div>
     <div id="error-container" hidden class="error-boundary" role="alert"></div>
+
+    <!-- Local Vanta.js Scripts -->
+    <script src="vendor/three.min.js" defer></script>
+    <script src="vendor/vanta.net.min.js" defer></script>
 
     <script src="script.js" defer></script>
 </body>

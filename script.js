@@ -21,7 +21,7 @@ let vantaEffect = null; // Variable to hold the Vanta instance
 let countdownEl, countdownCircle, countdownProgress, cancelButton, copyButton,
     copyToast, errorContainer, redirectButton, onlineContent, offlineNotice,
     retryButton, countdownTextEl, copyIconDefault, copyIconSuccess,
-    themeToggleButton, themeIconLight, themeIconDark; // Theme elements
+    themeToggleButton, themeIconLight, themeIconDark, qrCodeContainer; // Add qrCodeContainer
 
 // --- Initialize ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeTheme(); // Initialize theme first
     initializeVantaBackground(); // Initialize Vanta background
     handleConnectionChange(); // Then handle connection
+    generateQRCode(); // Generate QR Code on load
 });
 
 // --- DOM Element Assignment ---
@@ -53,6 +54,7 @@ function assignDOMElements() {
     themeToggleButton = document.getElementById('theme-toggle');
     themeIconLight = document.getElementById('theme-icon-light');
     themeIconDark = document.getElementById('theme-icon-dark');
+    qrCodeContainer = document.getElementById('qrcode-container'); // Assign QR Code container
 }
 
 // --- Event Listeners Setup ---
@@ -115,6 +117,8 @@ function toggleTheme() {
     const isDark = document.documentElement.classList.contains('dark-theme');
     const newTheme = isDark ? 'light' : 'dark';
     applyTheme(newTheme);
+    // Regenerate QR code with new theme colors
+    generateQRCode();
 }
 
 function updateThemeToggleButton(isDark) {
@@ -209,6 +213,35 @@ function initializeVantaBackground() {
         // Optionally hide the container on error
         const vantaContainer = document.getElementById('vanta-bg');
         if (vantaContainer) vantaContainer.style.display = 'none';
+    }
+}
+
+// --- QR Code Generation ---
+function generateQRCode() {
+    if (!qrCodeContainer || typeof QRCode === 'undefined') {
+        console.warn("QR Code container or library not found.");
+        return;
+    }
+
+    // Clear previous QR code if any
+    qrCodeContainer.innerHTML = '';
+
+    try {
+        new QRCode(qrCodeContainer, {
+            text: CONFIG.REDIRECT_URL,
+            width: 128,
+            height: 128,
+            colorDark : document.documentElement.classList.contains('dark-theme') ? "#ffffff" : "#000000",
+            colorLight : document.documentElement.classList.contains('dark-theme') ? "#1a202c" : "#ffffff", // Use theme background
+            correctLevel : QRCode.CorrectLevel.H // High correction level
+        });
+        console.log("QR Code generated for:", CONFIG.REDIRECT_URL);
+    } catch (error) {
+        console.error("Failed to generate QR Code:", error);
+        if (errorContainer) {
+            errorContainer.textContent = "Failed to generate QR Code.";
+            errorContainer.hidden = false;
+        }
     }
 }
 

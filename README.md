@@ -11,6 +11,7 @@ A clean, professional redirect page that automatically forwards visitors to my u
 - 🔄 Automatic redirection after configurable delay
 - ✋ Option to cancel automatic redirect
 - 📋 One-click URL copying functionality
+- 📱 **QR Code Display:** Shows a QR code for the destination URL for easy scanning on mobile devices.
 - 🔌 Offline detection and handling
 - 🌓 **Manual & Automatic Theme Switching:** Supports system preference (light/dark) and allows users to toggle manually. Preference is saved in `localStorage`.
 - ♿ Fully accessible with keyboard navigation and screen reader support
@@ -23,6 +24,9 @@ A clean, professional redirect page that automatically forwards visitors to my u
 - HTML5
 - CSS3 (with CSS variables for theming)
 - Vanilla JavaScript (ES6+, no dependencies)
+- [qrcode.js](https://github.com/davidshimjs/qrcodejs) (for QR code generation - included in `vendor`)
+- [Vanta.js](https://www.vantajs.com/) (for animated background - included in `vendor`)
+- [Three.js](https://threejs.org/) (dependency for Vanta.js - included in `vendor`)
 
 ## Setup Instructions
 
@@ -60,6 +64,8 @@ A clean, professional redirect page that automatically forwards visitors to my u
     ```
 
 5.  Deploy to your preferred hosting service (GitHub Pages, Netlify, Vercel, etc.).
+
+    *Note: The `vendor` directory contains necessary libraries (qrcode.js, Vanta.js, Three.js). Ensure these are deployed along with your HTML, CSS, and JS files.*
 
 ## GitHub Pages Deployment
 

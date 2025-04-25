@@ -556,6 +556,32 @@ h2 {
     background-color: var(--error-color);
 }
 
+/* QR Code Styles */
+.qrcode-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.5rem 0; /* Add some space around the QR code */
+    padding: 10px; /* Padding inside the container */
+    background-color: var(--card-bg-color); /* Match card background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    max-width: 150px; /* Limit max width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.qrcode-container img {
+    display: block; /* Remove extra space below image */
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px; /* Slightly rounded corners for the QR image itself */
+}
+
+[hidden] .qrcode-container {
+    display: none;
+}
+
 /* Accessibility */
 .sr-only {
     position: absolute;

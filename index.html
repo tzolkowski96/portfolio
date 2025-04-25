@@ -38,10 +38,27 @@
         const storageKey = 'themePreference';
         const theme = localStorage.getItem(storageKey);
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (theme === 'dark' || (!theme && prefersDark)) {
-          document.documentElement.classList.add('dark-theme'); // Apply to html tag early
+        const currentHour = new Date().getHours();
+        // Define dark mode hours (e.g., 7 PM to 6 AM)
+        const isNightTime = currentHour >= 19 || currentHour < 6;
+
+        let useDarkTheme = false;
+
+        if (theme) {
+          // 1. Priority: Use stored preference
+          useDarkTheme = theme === 'dark';
+        } else if (isNightTime) {
+          // 2. Priority: Use time-based setting if no stored preference
+          useDarkTheme = true;
         } else {
-          document.documentElement.classList.add('light-theme'); // Apply light explicitly
+          // 3. Priority: Use system preference if no stored preference and not night time
+          useDarkTheme = prefersDark;
+        }
+
+        if (useDarkTheme) {
+          document.documentElement.classList.add('dark-theme');
+        } else {
+          document.documentElement.classList.add('light-theme');
         }
       })();
     </script>

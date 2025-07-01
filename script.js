@@ -14,24 +14,22 @@ const CONFIG = {
 // --- Global Variables ---
 let countdownInterval;
 let redirectCancelled = false;
-let toastTimer = null; // Single timer for toast
-let vantaEffect = null; // Variable to hold the Vanta instance
+let toastTimer = null;
 
 // --- DOM Elements ---
 let countdownEl, countdownCircle, countdownProgress, cancelButton, copyButton,
     copyToast, errorContainer, redirectButton, onlineContent, offlineNotice,
     retryButton, countdownTextEl, copyIconDefault, copyIconSuccess,
-    themeToggleButton, themeIconLight, themeIconDark, qrCodeContainer; // Add qrCodeContainer
+    themeToggleButton, themeIconLight, themeIconDark, qrCodeContainer;
 
 // --- Initialize ---
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM Loaded - Simple Redirect v2");
+    console.log("DOM Loaded - Vercel-style Redirect");
     assignDOMElements();
     setupEventListeners();
-    initializeTheme(); // Initialize theme first
-    initializeVantaBackground(); // Initialize Vanta background
-    handleConnectionChange(); // Then handle connection
-    generateQRCode(); // Generate QR Code on load
+    initializeTheme();
+    handleConnectionChange();
+    generateQRCode();
 });
 
 // --- DOM Element Assignment ---
@@ -54,7 +52,7 @@ function assignDOMElements() {
     themeToggleButton = document.getElementById('theme-toggle');
     themeIconLight = document.getElementById('theme-icon-light');
     themeIconDark = document.getElementById('theme-icon-dark');
-    qrCodeContainer = document.getElementById('qrcode-container'); // Assign QR Code container
+    qrCodeContainer = document.getElementById('qrcode-container');
 }
 
 // --- Event Listeners Setup ---
@@ -93,32 +91,24 @@ function setupEventListeners() {
 
 // --- Theme Handling ---
 function initializeTheme() {
-    // Theme is now set on <html> by the inline script before this runs
     const isDark = document.documentElement.classList.contains('dark-theme');
     console.log(`Initial theme detected: ${isDark ? 'dark' : 'light'}`);
-    // Update toggle button state based on the class already set on <html>
     updateThemeToggleButton(isDark);
-    // No need to call applyTheme here as the inline script handled it
 }
 
 function applyTheme(theme) {
-    // Apply class to the html element
     document.documentElement.classList.remove('light-theme', 'dark-theme');
     document.documentElement.classList.add(`${theme}-theme`);
     localStorage.setItem(CONFIG.THEME_STORAGE_KEY, theme);
     updateThemeToggleButton(theme === 'dark');
     console.log(`Theme applied: ${theme}`);
-    // Update Vanta background on theme change
-    initializeVantaBackground(); // Vanta needs reinitialization with new colors
 }
 
 function toggleTheme() {
-    // Check current theme based on html class
     const isDark = document.documentElement.classList.contains('dark-theme');
     const newTheme = isDark ? 'light' : 'dark';
     applyTheme(newTheme);
-    // Regenerate QR code with new theme colors
-    generateQRCode();
+    generateQRCode(); // Regenerate QR code with new theme colors
 }
 
 function updateThemeToggleButton(isDark) {
@@ -136,86 +126,7 @@ function updateThemeToggleButton(isDark) {
     }
 }
 
-// --- Vanta.js Background Initialization ---
-function initializeVantaBackground() {
-    // Destroy existing instance if it exists
-    if (vantaEffect) {
-        vantaEffect.destroy();
-        vantaEffect = null;
-        console.log("Destroyed existing Vanta instance.");
-    }
-
-    // Check for prefers-reduced-motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-        console.log("Reduced motion preferred, skipping Vanta animation.");
-        // Optionally hide the container or apply a static background
-        const vantaContainer = document.getElementById('vanta-bg');
-        if (vantaContainer) vantaContainer.style.display = 'none';
-        return;
-    } else {
-        // Ensure container is visible if previously hidden
-        const vantaContainer = document.getElementById('vanta-bg');
-        if (vantaContainer) vantaContainer.style.display = 'block';
-    }
-
-    // Check if Vanta library is loaded
-    if (typeof VANTA === 'undefined' || typeof VANTA.NET === 'undefined') {
-        console.error("Vanta.js or VANTA.NET effect not loaded.");
-        return;
-    }
-
-    // Determine theme based on html class
-    const isDark = document.documentElement.classList.contains('dark-theme');
-    // Adjusted Vanta options for a potentially subtler effect
-    const vantaOptions = {
-        el: "#vanta-bg",
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        scale: 1.00,
-        scaleMobile: 1.00,
-        // Adjusted parameters
-        points: 12.00,       // Slightly more points
-        maxDistance: 18.00,  // Slightly shorter connection distance
-        spacing: 18.00,      // Slightly more spacing
-        // Updated Theme-specific colors (using hex from CSS variables)
-        // We need to get the computed style *after* the theme class is applied
-        color: isDark ? 0x60a5fa : 0x2563eb, // Fallback hex values matching CSS
-        backgroundColor: isDark ? 0x111827 : 0xf9fafb // Fallback hex values matching CSS
-    };
-
-    // Attempt to get computed colors (might not be fully reliable depending on timing)
-    try {
-        const computedStyle = getComputedStyle(document.documentElement);
-        const accentColor = computedStyle.getPropertyValue('--accent-color').trim();
-        const bgColor = computedStyle.getPropertyValue('--bg-color').trim();
-        
-        // Basic hex conversion (assumes #RRGGBB format)
-        if (accentColor.startsWith('#')) {
-            vantaOptions.color = parseInt(accentColor.substring(1), 16);
-        }
-        if (bgColor.startsWith('#')) {
-            vantaOptions.backgroundColor = parseInt(bgColor.substring(1), 16);
-        }
-    } catch (e) {
-        console.warn("Could not compute styles for Vanta colors, using fallbacks.", e);
-    }
-
-    try {
-        console.log("Initializing Vanta.NET with options:", vantaOptions);
-        vantaEffect = VANTA.NET(vantaOptions);
-        console.log("Vanta.NET initialized successfully.");
-    } catch (error) {
-        console.error("Error initializing Vanta.js:", error);
-        // Optionally hide the container on error
-        const vantaContainer = document.getElementById('vanta-bg');
-        if (vantaContainer) vantaContainer.style.display = 'none';
-    }
-}
-
+// --- QR Code Generation ---
 // --- QR Code Generation ---
 function generateQRCode() {
     if (!qrCodeContainer || typeof QRCode === 'undefined') {
@@ -223,17 +134,17 @@ function generateQRCode() {
         return;
     }
 
-    // Clear previous QR code if any
     qrCodeContainer.innerHTML = '';
 
     try {
+        const isDark = document.documentElement.classList.contains('dark-theme');
         new QRCode(qrCodeContainer, {
             text: CONFIG.REDIRECT_URL,
-            width: 128,
-            height: 128,
-            colorDark : document.documentElement.classList.contains('dark-theme') ? "#ffffff" : "#000000",
-            colorLight : document.documentElement.classList.contains('dark-theme') ? "#1a202c" : "#ffffff", // Use theme background
-            correctLevel : QRCode.CorrectLevel.H // High correction level
+            width: 100,
+            height: 100,
+            colorDark: isDark ? "#ffffff" : "#000000",
+            colorLight: isDark ? "#111111" : "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
         });
         console.log("QR Code generated for:", CONFIG.REDIRECT_URL);
     } catch (error) {

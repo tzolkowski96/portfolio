@@ -2,15 +2,15 @@
   <defs>
     <style>
       @media (prefers-color-scheme: dark) {
-        .bg { fill: #1f2937; } /* --dark-card */
-        .text { fill: #60a5fa; } /* --dark-accent */
+        .bg { fill: #111111; }
+        .text { fill: #ffffff; }
       }
       @media (prefers-color-scheme: light) {
-        .bg { fill: #eff6ff; } /* --light-logo-bg */
-        .text { fill: #2563eb; } /* --light-accent */
+        .bg { fill: #ffffff; }
+        .text { fill: #000000; }
       }
     </style>
   </defs>
-  <rect class="bg" width="100" height="100" rx="15"/>
-  <text class="text" x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="50" font-family="Inter, sans-serif" font-weight="600">TZ</text>
+  <rect class="bg" width="100" height="100" rx="12"/>
+  <text class="text" x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="48" font-family="Inter, sans-serif" font-weight="600">TZ</text>
 </svg>

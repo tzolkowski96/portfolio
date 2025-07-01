@@ -1,57 +1,84 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-/* Refined redirect page styles */
+/* Vercel-inspired minimalist redirect page styles */
 :root {
-    /* Light Theme - Softer Tones (Default) */
+    /* Light Theme - Vercel Colors */
     --bg-color: var(--light-bg);
     --card-bg: var(--light-card);
     --text-color: var(--light-text);
     --text-secondary: var(--light-text-secondary);
+    --text-tertiary: var(--light-text-tertiary);
     --border-color: var(--light-border);
     --accent-color: var(--light-accent);
     --accent-hover: var(--light-accent-hover);
     --error-color: var(--light-error);
-    --logo-bg: var(--light-logo-bg);
-    --logo-text: var(--light-logo-text);
+    --success-color: var(--light-success);
 
-    /* Light Theme Variables */
-    --light-bg: #f9fafb; /* Slightly off-white */
+    /* Light Theme Variables - Vercel Style */
+    --light-bg: #fafafa; /* Vercel light gray */
     --light-card: #ffffff;
-    --light-text: #111827; /* Darker gray */
-    --light-text-secondary: #4b5563; /* Medium gray */
-    --light-border: #e5e7eb; /* Lighter gray border */
-    --light-accent: #2563eb; /* Tailwind Blue 600 */
-    --light-accent-hover: #1d4ed8; /* Tailwind Blue 700 */
-    --light-error: #dc2626; /* Tailwind Red 600 */
-    --light-logo-bg: #eff6ff; /* Lighter blue bg */
-    --light-logo-text: var(--light-accent);
+    --light-text: #000000; /* Pure black for strong contrast */
+    --light-text-secondary: #666666; /* Medium gray */
+    --light-text-tertiary: #999999; /* Light gray */
+    --light-border: #eaeaea; /* Very light gray border */
+    --light-accent: #000000; /* Black accent - Vercel style */
+    --light-accent-hover: #333333; /* Dark gray hover */
+    --light-error: #e60026; /* Vercel red */
+    --light-success: #0070f3; /* Vercel blue */
 
-    /* Dark Theme Variables */
-    --dark-bg: #111827; /* Darker gray */
-    --dark-card: #1f2937; /* Slightly lighter dark gray */
-    --dark-text: #f3f4f6; /* Off-white */
-    --dark-text-secondary: #9ca3af; /* Lighter gray */
-    --dark-border: #374151; /* Medium dark gray border */
-    --dark-accent: #60a5fa; /* Tailwind Blue 400 */
-    --dark-accent-hover: #93c5fd; /* Tailwind Blue 300 */
-    --dark-error: #f87171; /* Tailwind Red 400 */
-    --dark-logo-bg: #1e3a8a; /* Darker blue bg */
-    --dark-logo-text: var(--dark-accent);
+    /* Dark Theme Variables - Vercel Style */
+    --dark-bg: #000000; /* Pure black background */
+    --dark-card: #111111; /* Very dark gray card */
+    --dark-text: #ffffff; /* Pure white text */
+    --dark-text-secondary: #888888; /* Medium gray */
+    --dark-text-tertiary: #666666; /* Darker gray */
+    --dark-border: #333333; /* Dark gray border */
+    --dark-accent: #ffffff; /* White accent */
+    --dark-accent-hover: #cccccc; /* Light gray hover */
+    --dark-error: #ff0080; /* Vercel pink error */
+    --dark-success: #50e3c2; /* Vercel teal success */
+
+    /* Spacing Scale - Vercel Style */
+    --space-1: 0.25rem;   /* 4px */
+    --space-2: 0.5rem;    /* 8px */
+    --space-3: 0.75rem;   /* 12px */
+    --space-4: 1rem;      /* 16px */
+    --space-5: 1.25rem;   /* 20px */
+    --space-6: 1.5rem;    /* 24px */
+    --space-8: 2rem;      /* 32px */
+    --space-12: 3rem;     /* 48px */
+    --space-16: 4rem;     /* 64px */
 
     /* Common Variables */
-    --border-radius-sm: 0.375rem; /* 6px */
-    --border-radius-md: 0.5rem;   /* 8px */
-    --border-radius-lg: 1rem;    /* 16px - Increased */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    /* Softer shadow */
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.07);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
-    --transition: 0.2s ease-in-out; /* Slightly different easing */
-    --transition-color: background-color var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
+    --border-radius: 8px;           /* Consistent border radius */
+    --border-radius-sm: 4px;        /* Small radius */
+    --border-radius-lg: 12px;       /* Large radius */
+    
+    /* Shadows - Minimal Vercel Style */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition: 0.2s ease;
+    --transition-slow: 0.3s ease;
 
     /* Typography */
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    --font-size-xs: 0.75rem;   /* 12px */
+    --font-size-sm: 0.875rem;  /* 14px */
+    --font-size-base: 1rem;    /* 16px */
+    --font-size-lg: 1.125rem;  /* 18px */
+    --font-size-xl: 1.25rem;   /* 20px */
+    --font-size-2xl: 1.5rem;   /* 24px */
+    --font-size-3xl: 1.875rem; /* 30px */
+    
+    /* Line heights */
+    --leading-none: 1;
+    --leading-tight: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.625;
 }
 
 /* Apply dark theme variables when .dark-theme class is present on html */
@@ -60,15 +87,15 @@ html.dark-theme {
     --card-bg: var(--dark-card);
     --text-color: var(--dark-text);
     --text-secondary: var(--dark-text-secondary);
+    --text-tertiary: var(--dark-text-tertiary);
     --border-color: var(--dark-border);
     --accent-color: var(--dark-accent);
     --accent-hover: var(--dark-accent-hover);
     --error-color: var(--dark-error);
-    --logo-bg: var(--dark-logo-bg);
-    --logo-text: var(--dark-logo-text);
+    --success-color: var(--dark-success);
 }
 
-/* Base styles */
+/* Base styles - Vercel minimalist approach */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -76,275 +103,273 @@ html.dark-theme {
 }
 
 html {
-    font-size: 100%; /* Use percentage for better accessibility scaling */
+    font-size: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    /* Apply background color here for full page coverage */
     background-color: var(--bg-color);
-    transition: background-color var(--transition); /* Smooth background transition */
+    transition: background-color var(--transition);
 }
 
 body {
-    font-family: var(--font-sans);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: var(--leading-normal);
     color: var(--text-color);
-    line-height: 1.6; /* Slightly increased line height */
+    background-color: var(--bg-color);
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: var(--transition-color); /* Keep transition for text color */
-    padding: 1.5rem; /* Increased padding */
-    position: relative;
+    padding: var(--space-4);
+    transition: color var(--transition), background-color var(--transition);
 }
 
-/* Vanta.js Background */
-#vanta-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Place it behind everything */
-}
-
-/* Ensure card content is readable over the background */
-.card {
-    background-color: var(--card-bg);
-    border-radius: var(--border-radius-lg); /* Increased radius */
-    box-shadow: var(--shadow-md); /* Softer shadow */
-    overflow: hidden;
-    transition: var(--transition-color), transform 0.3s ease; /* Added transform transition */
-    border: 1px solid var(--border-color);
-    animation: fadeIn 0.6s ease-out forwards; /* Slightly slower fade */
-    position: relative;
-    z-index: 1;
-    /* Optional: Add slight transparency/blur if Vanta is very busy */
-    /* backdrop-filter: blur(5px); */
-    /* background-color: rgba(var(--card-bg-rgb), 0.95); */
-}
-
-/* Card fade-in animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.98); /* Added scale */
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
+/* Container - Mobile-first approach */
 .container {
     width: 100%;
-    max-width: 520px; /* Slightly wider */
+    max-width: 420px; /* Slightly wider for better content fit */
     margin: 0 auto;
 }
 
+@media (min-width: 640px) {
+    .container {
+        max-width: 480px;
+    }
+}
+
+/* Card - Clean Vercel-style card */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: border-color var(--transition), background-color var(--transition);
+    animation: fadeInUp 0.4s ease-out;
+    width: 100%;
+    max-width: 100%;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .card-content {
-    padding: 2.5rem; /* Increased padding */
+    padding: var(--space-6);
+    width: 100%;
+    box-sizing: border-box;
 }
 
-@media (max-width: 640px) { /* Adjusted breakpoint */
-    body {
-        padding: 1rem;
-    }
+@media (max-width: 640px) {
     .card-content {
-        padding: 2rem; /* Adjusted mobile padding */
+        padding: var(--space-5);
     }
 }
 
-@media (max-width: 480px) {
-    .card-content {
-        padding: 1.5rem;
-    }
-
-    h1 {
-        font-size: 1.625rem; /* Slightly smaller on very small screens (~26px) */
-    }
-
-    .destination-info {
-        padding: 1rem; /* Reduce padding */
-    }
-
-    .theme-toggle-button {
-        top: 1rem; /* Adjust position slightly */
-        right: 1rem;
-    }
-
-    .toast,
-    .error-boundary {
-        bottom: 1rem; /* Ensure toast/error doesn't overlap nav bars */
-        max-width: calc(100% - 2rem);
-    }
-}
-
+/* Header - Simplified */
 .card-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 2rem; /* Increased spacing */
     text-align: center;
+    margin-bottom: var(--space-6);
 }
 
 .logo {
-    width: 64px; /* Slightly larger */
-    height: 64px;
-    border-radius: 50%;
-    background-color: var(--logo-bg); /* Use theme variable */
-    color: var(--logo-text); /* Use theme variable */
-    font-size: 2rem; /* Slightly larger */
-    font-weight: 600;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto var(--space-3);
+    background-color: var(--accent-color);
+    color: var(--card-bg);
+    border-radius: var(--border-radius);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.25rem; /* Increased spacing */
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition-color);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    transition: background-color var(--transition), color var(--transition);
 }
 
 h1 {
-    font-size: 1.875rem; /* ~30px */
-    font-weight: 700; /* Bolder */
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
-    letter-spacing: -0.02em; /* Subtle tightening */
-}
-
-h2 {
-    font-size: 1.25rem; /* ~20px */
+    font-size: var(--font-size-2xl);
     font-weight: 600;
+    line-height: var(--leading-tight);
     color: var(--text-color);
+    margin: 0;
 }
 
+@media (max-width: 640px) {
+    .logo {
+        width: 44px;
+        height: 44px;
+        font-size: var(--font-size-base);
+    }
+    
+    h1 {
+        font-size: var(--font-size-xl);
+    }
+}
+/* Notice sections - Minimalist */
 .notice {
-    margin-bottom: 2rem; /* Increased spacing */
-    background-color: transparent; /* Remove bg color */
-    border-radius: var(--border-radius-md);
-    padding: 0; /* Remove padding */
-    border: none; /* Remove border */
-    text-align: center; /* Center notice text */
+    margin-bottom: var(--space-5);
+    text-align: center;
 }
 
 .notice-title {
-    margin-bottom: 0.5rem; /* Reduced spacing */
-    color: var(--text-color); /* Use primary text color */
-    font-size: 1.125rem; /* ~18px */
+    font-size: var(--font-size-lg);
     font-weight: 600;
-    display: block; /* Make block for centering */
-    /* Remove icon alignment */
+    color: var(--text-color);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-tight);
 }
 
 .notice-offline .notice-title {
-    color: var(--error-color); /* Keep error color for title */
+    color: var(--error-color);
 }
 
 .info-text {
     color: var(--text-secondary);
-    margin-bottom: 1rem; /* Increased spacing */
-    font-size: 1rem; /* Ensure base size */
+    font-size: var(--font-size-sm);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-3);
+}
+
+.info-text:last-child {
+    margin-bottom: 0;
 }
 
 .info-text-small {
-    font-size: 0.875rem;
-    opacity: 0.9;
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
 }
 
+/* Destination info - Clean and minimal */
 .destination-info {
-    margin-bottom: 2.5rem; /* Increased spacing */
-    padding: 1.25rem; /* Increased padding */
-    background-color: rgba(127, 127, 127, 0.05); /* Subtle gray background */
-    border-radius: var(--border-radius-md);
+    margin-bottom: var(--space-6);
+    padding: var(--space-4);
+    background-color: var(--bg-color);
     border: 1px solid var(--border-color);
-    transition: var(--transition-color);
+    border-radius: var(--border-radius);
+    transition: border-color var(--transition), background-color var(--transition);
 }
 
 .url-label {
     display: block;
+    font-size: var(--font-size-xs);
     font-weight: 500;
-    font-size: 0.875rem; /* Smaller label */
-    margin-bottom: 0.5rem;
-    color: var(--text-secondary); /* Subtler color */
-    text-transform: uppercase; /* Uppercase label */
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-2);
+    text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .url-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem; /* Add gap */
+    gap: var(--space-3);
 }
 
 .url-link {
-    color: var(--accent-color); /* Make link accent color */
-    font-family: var(--font-mono);
+    flex: 1;
+    color: var(--accent-color);
     text-decoration: none;
-    font-size: 1rem;
-    overflow-wrap: break-word; /* Better wrapping */
+    font-size: var(--font-size-sm);
+    font-weight: 500;
     word-break: break-all;
-    transition: color var(--transition);
-    flex-grow: 1; /* Allow link to take space */
-    text-align: left; /* Ensure left align */
+    transition: color var(--transition-fast);
+    min-width: 0; /* Allow text to wrap properly */
 }
 
 .url-link:hover,
 .url-link:focus {
     color: var(--accent-hover);
-    text-decoration: underline;
 }
 
 .copy-btn {
-    background: none;
-    border: 1px solid transparent; /* Add transparent border for layout consistency */
-    cursor: pointer;
+    background: transparent;
+    border: 1px solid var(--border-color);
     color: var(--text-secondary);
-    padding: 0.5rem;
+    padding: var(--space-2);
     border-radius: var(--border-radius-sm);
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color var(--transition), background-color var(--transition), border-color var(--transition);
-    flex-shrink: 0; /* Prevent shrinking */
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
 }
 
 .copy-btn:hover,
 .copy-btn:focus {
-    color: var(--accent-color);
-    background-color: rgba(var(--accent-color), 0.1);
-    border-color: rgba(var(--accent-color), 0.2);
+    color: var(--card-bg);
+    border-color: var(--accent-color);
+    background-color: var(--accent-color);
 }
 
 .copy-icon {
-    width: 18px; /* Slightly larger */
-    height: 18px;
+    width: 14px;
+    height: 14px;
 }
 
-/* Countdown styles - Simplified */
+/* QR Code - Vercel minimal style */
+.qrcode-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: var(--space-5) auto;
+    padding: var(--space-3);
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    transition: border-color var(--transition), background-color var(--transition);
+    width: fit-content;
+    max-width: 100%;
+}
+
+.qrcode-container img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: var(--border-radius-sm);
+}
+
+[hidden] .qrcode-container {
+    display: none;
+}
+
+/* Countdown - Simplified Vercel style */
 .countdown-wrapper {
-    margin-bottom: 2rem; /* Increased spacing */
+    margin-bottom: var(--space-6);
     text-align: center;
 }
 
 .countdown-display {
-    margin-bottom: 0.5rem; /* Reduced spacing */
-    /* Hide the circle */
-    /* display: none; */
-    /* OR make it much subtler */
-    width: 72px; /* Smaller */
-    height: 72px;
-    position: relative;
+    margin-bottom: var(--space-3);
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    position: relative;
+}
+
+.countdown-circle {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .countdown-svg {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     transform: rotate(-90deg);
@@ -353,187 +378,199 @@ h2 {
 .countdown-track {
     fill: none;
     stroke: var(--border-color);
-    stroke-width: 3; /* Thinner */
+    stroke-width: 2;
 }
 
 .countdown-progress {
     fill: none;
     stroke: var(--accent-color);
     stroke-linecap: round;
+    stroke-width: 2;
     transition: stroke-dashoffset 1s linear;
-    stroke-width: 3; /* Thinner */
 }
 
 .countdown-number {
-    font-size: 1.5rem; /* Smaller */
-    font-weight: 600; /* Bolder */
+    font-size: var(--font-size-lg);
+    font-weight: 600;
     color: var(--text-color);
+    position: relative;
+    z-index: 1;
 }
 
 .countdown-text {
-    margin-bottom: 1rem; /* Increased spacing */
     color: var(--text-secondary);
-    font-size: 0.9rem; /* Slightly smaller */
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-normal);
 }
 
 .cancel-redirect {
-    background: none;
-    border: none;
+    background: transparent;
+    border: 1px solid var(--border-color);
     color: var(--text-secondary);
-    text-decoration: none; /* Remove underline */
-    cursor: pointer;
-    font-size: 0.875rem;
-    padding: 0.375rem 0.75rem; /* Adjust padding */
+    padding: var(--space-2) var(--space-3);
     border-radius: var(--border-radius-sm);
-    transition: color var(--transition), background-color var(--transition);
+    cursor: pointer;
+    font-size: var(--font-size-xs);
+    transition: all var(--transition-fast);
 }
 
 .cancel-redirect:hover,
 .cancel-redirect:focus {
     color: var(--accent-color);
-    background-color: rgba(var(--accent-color), 0.1); /* Subtle background on hover */
+    border-color: var(--accent-color);
 }
 
-/* Button styles - Refined */
+/* Buttons - Vercel style */
 .button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem; /* Slightly increased gap */
+    gap: var(--space-2);
     background-color: var(--accent-color);
-    color: white;
+    color: var(--card-bg);
     border: none;
-    border-radius: var(--border-radius-md); /* Consistent radius */
-    padding: 0.8rem 1.75rem; /* Adjusted padding */
-    font-weight: 600; /* Bolder */
+    border-radius: var(--border-radius);
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color var(--transition), transform 0.15s ease-out, box-shadow var(--transition);
     text-decoration: none;
     width: 100%;
-    box-shadow: var(--shadow-sm);
-    font-size: 1rem;
+    transition: all var(--transition-fast);
+    position: relative;
+    overflow: hidden;
 }
 
 .button:hover,
 .button:focus {
     background-color: var(--accent-hover);
-    transform: translateY(-1px); /* More subtle lift */
-    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
 }
 
 .button:active {
     transform: translateY(0);
-    box-shadow: var(--shadow-sm);
 }
 
 .button-icon {
-    width: 18px; /* Slightly larger */
-    height: 18px;
+    width: 16px;
+    height: 16px;
     stroke: currentColor;
     stroke-width: 2;
 }
 
 .button-offline {
     background-color: var(--error-color);
-    /* Use theme error color */
 }
 
 .button-offline:hover,
 .button-offline:focus {
-    background-color: var(--error-color); /* Keep base color */
-    filter: brightness(1.15); /* Increase brightness */
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+    background-color: var(--error-color);
+    filter: brightness(1.1);
 }
 
-/* Theme Toggle Button - Subtle */
+/* Theme Toggle - Minimal */
 .theme-toggle-button {
-    position: absolute;
-    top: 1.5rem; /* Adjusted position */
-    right: 1.5rem;
-    background-color: transparent; /* Transparent background */
-    border: 1px solid transparent; /* No border initially */
-    border-radius: var(--border-radius-md); /* Match button radius */
-    width: 44px; /* Slightly larger */
-    height: 44px;
+    position: fixed;
+    top: var(--space-4);
+    right: var(--space-4);
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: none; /* No shadow */
-    transition: var(--transition-color), background-color var(--transition), transform var(--transition);
-    z-index: 10;
-    color: var(--text-secondary); /* Use secondary text color */
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    z-index: 100;
 }
 
 .theme-toggle-button:hover,
 .theme-toggle-button:focus {
-    background-color: rgba(127, 127, 127, 0.1); /* Subtle hover background */
-    color: var(--accent-color); /* Accent color on hover */
-    transform: scale(1.05); /* Slight scale */
-    border-color: transparent; /* Keep border transparent */
-    box-shadow: none;
+    background-color: var(--accent-color);
+    color: var(--card-bg);
+    border-color: var(--accent-color);
 }
 
 .theme-toggle-button svg {
-    color: inherit; /* Inherit color from button */
-    transition: color var(--transition);
-    width: 22px; /* Slightly larger icon */
-    height: 22px;
+    width: 18px;
+    height: 18px;
+    transition: color var(--transition-fast);
 }
 
-/* Toast notification - Refined */
+@media (max-width: 640px) {
+    .theme-toggle-button {
+        top: var(--space-3);
+        right: var(--space-3);
+        width: 36px;
+        height: 36px;
+    }
+    
+    .theme-toggle-button svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Toast notifications - Vercel style */
 .toast {
     position: fixed;
-    bottom: 1.5rem;
+    bottom: var(--space-4);
     left: 50%;
-    transform: translateX(-50%) translateY(120%); /* Start further down */
+    transform: translateX(-50%) translateY(100%);
     background-color: var(--card-bg);
     color: var(--text-color);
-    padding: 0.8rem 1.5rem; /* Adjusted padding */
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-lg); /* Keep prominent shadow */
-    transition: transform 0.4s cubic-bezier(0.215, 0.610, 0.355, 1); /* Smoother transition */
-    z-index: 1000;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
-    font-size: 0.9rem;
-    max-width: calc(100% - 2rem); /* Prevent touching edges */
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    transition: transform var(--transition-slow);
+    z-index: 1000;
+    max-width: calc(100% - var(--space-8));
+    white-space: nowrap;
 }
 
 .toast.visible {
     transform: translateX(-50%) translateY(0);
 }
 
-/* Error container - Refined */
-.error-boundary[hidden] {
-    display: none;
-}
-
+/* Error boundary - Minimal */
 .error-boundary {
     position: fixed;
-    bottom: 1.5rem;
+    bottom: var(--space-4);
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--card-bg);
     border: 1px solid var(--error-color);
-    color: var(--error-color);
-    padding: 1.5rem; /* Increased padding */
-    border-radius: var(--border-radius-md);
-    max-width: 90%;
-    width: 480px; /* Slightly wider */
+    color: var(--text-color);
+    padding: var(--space-4);
+    border-radius: var(--border-radius);
+    max-width: calc(100% - var(--space-8));
+    width: 100%;
+    max-width: 400px;
     box-shadow: var(--shadow-lg);
     z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem; /* Increased gap */
     text-align: center;
-    transition: var(--transition-color);
+    transition: border-color var(--transition), background-color var(--transition);
+}
+
+.error-boundary[hidden] {
+    display: none;
 }
 
 .error-boundary p {
-    margin: 0;
-    color: var(--text-color);
-    line-height: 1.5;
+    margin: 0 0 var(--space-3) 0;
+    font-size: var(--font-size-sm);
+    line-height: var(--leading-relaxed);
+}
+
+.error-boundary p:last-child {
+    margin-bottom: 0;
 }
 
 .error-boundary strong {
@@ -542,47 +579,30 @@ h2 {
 }
 
 .error-boundary .button {
-    margin-top: 0.5rem;
-    background-color: var(--error-color);
-    color: white;
-    width: auto; /* Allow button to size naturally */
-    align-self: center; /* Center button */
-    padding: 0.7rem 1.5rem; /* Adjust padding */
+    margin-top: var(--space-3);
+    width: auto;
+    padding: var(--space-2) var(--space-4);
 }
 
-.error-boundary .button:hover,
-.error-boundary .button:focus {
-    filter: brightness(1.1);
-    background-color: var(--error-color);
+/* Offline notice - Clean */
+.notice-offline {
+    text-align: center;
 }
 
-/* QR Code Styles */
-.qrcode-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1.5rem 0; /* Add some space around the QR code */
-    padding: 10px; /* Padding inside the container */
-    background-color: var(--card-bg-color); /* Match card background */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-    max-width: 150px; /* Limit max width */
-    margin-left: auto;
-    margin-right: auto;
+.notice-offline .notice-title {
+    color: var(--error-color);
+    margin-bottom: var(--space-4);
 }
 
-.qrcode-container img {
-    display: block; /* Remove extra space below image */
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px; /* Slightly rounded corners for the QR image itself */
+.notice-offline .info-text {
+    margin-bottom: var(--space-3);
 }
 
-[hidden] .qrcode-container {
-    display: none;
+.notice-offline .button {
+    margin-top: var(--space-4);
 }
 
-/* Accessibility */
+/* Accessibility and utilities */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -595,25 +615,130 @@ h2 {
     border-width: 0;
 }
 
-/* Improved focus states */
+/* Focus styles - Vercel inspired */
 a:focus-visible,
 button:focus-visible,
-input:focus-visible { /* Use focus-visible for better accessibility */
-    outline: 3px solid rgba(var(--accent-color), 0.5); /* Thicker, semi-transparent outline */
+input:focus-visible {
+    outline: 2px solid var(--accent-color);
     outline-offset: 2px;
-    box-shadow: none; /* Remove default box-shadow on focus */
 }
 
-/* Specific focus for theme toggle */
 .theme-toggle-button:focus-visible {
-    outline: 3px solid rgba(var(--accent-color), 0.5);
-    background-color: rgba(127, 127, 127, 0.1); /* Maintain hover style */
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
 }
 
+/* Hide sections */
+[hidden] {
+    display: none !important;
+}
+
+/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-    * {
-        transition-duration: 0.001ms !important;
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important; /* Stop infinite animations */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .card {
+        animation: none;
+    }
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+    body {
+        padding: var(--space-3);
+    }
+    
+    .container {
+        max-width: 100%;
+    }
+    
+    .card-content {
+        padding: var(--space-4);
+    }
+    
+    .card-header {
+        margin-bottom: var(--space-5);
+    }
+    
+    .logo {
+        width: 40px;
+        height: 40px;
+        font-size: var(--font-size-base);
+        margin-bottom: var(--space-2);
+    }
+    
+    h1 {
+        font-size: var(--font-size-lg);
+    }
+    
+    .notice {
+        margin-bottom: var(--space-4);
+    }
+    
+    .destination-info {
+        padding: var(--space-3);
+        margin-bottom: var(--space-5);
+    }
+    
+    .url-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-2);
+    }
+    
+    .url-link {
+        text-align: center;
+        word-break: break-word;
+        padding: var(--space-2);
+        background-color: var(--bg-color);
+        border-radius: var(--border-radius-sm);
+    }
+    
+    .copy-btn {
+        align-self: center;
+        width: 36px;
+        height: 36px;
+    }
+    
+    .qrcode-container {
+        margin: var(--space-4) auto;
+        padding: var(--space-2);
+    }
+    
+    .qrcode-container img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .countdown-display {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .countdown-number {
+        font-size: var(--font-size-base);
+    }
+    
+    .countdown-wrapper {
+        margin-bottom: var(--space-5);
+    }
+    
+    .button {
+        padding: var(--space-3) var(--space-4);
+        font-size: var(--font-size-sm);
+    }
+    
+    .toast,
+    .error-boundary {
+        bottom: var(--space-3);
+        max-width: calc(100% - var(--space-6));
+        margin: 0 var(--space-3);
     }
 }

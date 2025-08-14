@@ -2,156 +2,2501 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Tobin's updated Data Analysis Portfolio is now live. Redirecting you to the enhanced platform with new projects and insights.">
-    <!-- Vercel-style Color Theme -->
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-
-    <meta property="og:title" content="Portfolio Update | Tobin's Data Analysis">
-    <meta property="og:description" content="My data analysis portfolio has been updated and moved to a new platform. Explore new projects and visualizations.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tobin Zolkowski - Data Professional specializing in ETL Engineering, Analytics, and Data Infrastructure. Python, SQL, AWS, and Healthcare Data expert.">
+    <meta property="og:title" content="Tobin Zolkowski - Data Professional">
+    <meta property="og:description" content="Building scalable ETL pipelines and automated reporting systems with proven track record of reducing manual processes by 25%.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tobin-data-portfolio.netlify.app/">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Portfolio Update | Tobin's Data Analysis">
-    <meta name="twitter:description" content="Redirecting to the updated data analysis portfolio with enhanced content.">
-
-    <link rel="canonical" href="https://tobin-data-portfolio.netlify.app/">
-    <!-- Use SVG favicon -->
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <!-- Fallback ICO for older browsers (optional but recommended) -->
-    <link rel="alternate icon" href="favicon.ico" type="image/x-icon">
-
-    <title>Portfolio Update | Tobin's Data Analysis</title>
-
-    <!-- Preload critical resources -->
+    <meta property="og:url" content="https://tzolkowski96.github.io/portfolio/">
+    <meta property="og:image" content="https://tzolkowski96.github.io/portfolio/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://tzolkowski96.github.io/portfolio/og-image.jpg">
+    <title>Tobin Zolkowski - Data Professional | ETL Engineering & Analytics</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
-    <link rel="preload" href="script.js" as="script">
-
-    <!-- Inline script to prevent FOUC for theme -->
-    <script>
-      (function() {
-        const storageKey = 'themePreference';
-        const theme = localStorage.getItem(storageKey);
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const currentHour = new Date().getHours();
-        // Define dark mode hours (e.g., 7 PM to 6 AM)
-        const isNightTime = currentHour >= 19 || currentHour < 6;
-
-        let useDarkTheme = false;
-
-        if (theme) {
-          // 1. Priority: Use stored preference
-          useDarkTheme = theme === 'dark';
-        } else if (isNightTime) {
-          // 2. Priority: Use time-based setting if no stored preference
-          useDarkTheme = true;
-        } else {
-          // 3. Priority: Use system preference if no stored preference and not night time
-          useDarkTheme = prefersDark;
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        if (useDarkTheme) {
-          document.documentElement.classList.add('dark-theme');
-        } else {
-          document.documentElement.classList.add('light-theme');
+        
+        :root {
+            --black: #000;
+            --white: #fff;
+            --gray-900: #0a0a0a;
+            --gray-800: #1a1a1a;
+            --gray-700: #2e2e2e;
+            --gray-600: #525252;
+            --gray-500: #737373;
+            --gray-400: #a3a3a3;
+            --gray-300: #d4d4d4;
+            --gray-200: #e5e5e5;
+            --gray-100: #f5f5f5;
+            --gray-50: #fafafa;
+            
+            --focus-ring: 0 0 0 2px var(--white), 0 0 0 4px var(--black);
+            --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-      })();
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--gray-900);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        ::selection {
+            background: var(--gray-900);
+            color: var(--white);
+        }
+        
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        .skip-to-main {
+            position: absolute;
+            left: -9999px;
+            z-index: 999;
+            padding: 1em;
+            background: var(--black);
+            color: var(--white);
+            text-decoration: none;
+        }
+        
+        .skip-to-main:focus {
+            left: 50%;
+            transform: translateX(-50%);
+            top: 1rem;
+        }
+        
+        /* Focus styles */
+        a:focus-visible,
+        button:focus-visible {
+            outline: none;
+            box-shadow: var(--focus-ring);
+            border-radius: 2px;
+        }
+        
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition-base);
+        }
+        
+        nav {
+            padding: 1.5rem 2rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid transparent;
+            transition: var(--transition-base);
+        }
+        
+        nav.scrolled {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom-color: var(--gray-200);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            transition: var(--transition-base);
+            text-decoration: none;
+            color: var(--gray-900);
+        }
+        
+        .logo:hover {
+            transform: translateX(3px);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition-base);
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gray-900);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-links a:hover {
+            color: var(--gray-900);
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a[aria-current="page"]::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            position: relative;
+            width: 32px;
+            height: 32px;
+        }
+        
+        .mobile-menu-button span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--gray-900);
+            margin: 5px 0;
+            transition: var(--transition-base);
+            position: absolute;
+            left: 4px;
+        }
+        
+        .mobile-menu-button span:first-child {
+            top: 8px;
+        }
+        
+        .mobile-menu-button span:nth-child(2) {
+            top: 15px;
+        }
+        
+        .mobile-menu-button span:last-child {
+            top: 22px;
+        }
+        
+        .mobile-menu-button.active span:first-child {
+            transform: rotate(45deg);
+            top: 15px;
+        }
+        
+        .mobile-menu-button.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-button.active span:last-child {
+            transform: rotate(-45deg);
+            top: 15px;
+        }
+        
+        /* Hero Section */
+        main {
+            margin-top: 0;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+            background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
+        }
+        
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .hero-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 7rem);
+            font-weight: 700;
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            will-change: transform, opacity;
+        }
+        
+        .hero-name .last-name {
+            display: block;
+            margin-left: 0;
+            opacity: 0;
+            animation: slideInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+            will-change: transform, opacity;
+        }
+        
+        .hero-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.9rem, 1.5vw, 1.25rem);
+            font-weight: 400;
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+            letter-spacing: 0.05em;
+            will-change: transform, opacity;
+        }
+        
+        .hero-description {
+            font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+            font-weight: 400;
+            max-width: 800px;
+            line-height: 1.7;
+            color: var(--gray-700);
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+            margin-bottom: 3rem;
+            will-change: transform, opacity;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+            will-change: transform, opacity;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition-base);
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: var(--gray-900);
+            color: var(--white);
+            border-color: var(--gray-900);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--gray-900);
+            border-color: var(--gray-300);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--gray-900);
+            background: var(--gray-900);
+            color: var(--white);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards,
+                       float 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 1.4s;
+            will-change: transform, opacity;
+        }
+        
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--gray-500);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+        
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-500);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .section-label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 1px;
+            background: var(--gray-400);
+        }
+        
+        .about-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--gray-700);
+        }
+        
+        .about-text strong {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .metric {
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 6rem 2rem;
+            background: var(--gray-50);
+        }
+        
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .projects-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .project-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            padding: 2.5rem;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gray-900);
+            transform: translateX(-100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .project-card:hover::before {
+            transform: translateX(0);
+        }
+        
+        .project-card:focus {
+            outline: none;
+            box-shadow: var(--focus-ring);
+        }
+        
+        .case-study-toggle {
+            background: none;
+            border: 1px solid var(--gray-300);
+            color: var(--gray-700);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .case-study-toggle:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+            color: var(--gray-900);
+            transform: translateY(-1px);
+        }
+        
+        .case-study-toggle::after {
+            content: '→';
+            transition: transform 0.3s ease;
+            font-size: 0.875rem;
+            margin-left: 0.25rem;
+        }
+        
+        .case-study-toggle:hover::after {
+            transform: translateX(3px);
+        }
+        
+        /* Modal Overlay */
+        .case-study-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .case-study-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .case-study-modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9) translateY(50px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .case-study-modal.active .case-study-modal-content {
+            transform: scale(1) translateY(0);
+        }
+        
+        .case-study-modal-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            background: white;
+            border-radius: 16px 16px 0 0;
+            z-index: 10;
+        }
+        
+        .case-study-modal-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin: 0 3rem 0 0;
+            line-height: 1.3;
+        }
+        
+        .case-study-modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--gray-100);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 1.25rem;
+            color: var(--gray-600);
+        }
+        
+        .case-study-modal-close:hover {
+            background: var(--gray-200);
+            color: var(--gray-900);
+            transform: scale(1.05);
+        }
+        
+        .case-study-modal-body {
+            padding: 1.5rem 2rem 2rem;
+        }
+        
+        .case-study-content {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .case-study-modal {
+                padding: 1rem;
+            }
+            
+            .case-study-modal-content {
+                max-height: 95vh;
+            }
+            
+            .case-study-modal-header {
+                padding: 1.5rem 1.5rem 1rem;
+            }
+            
+            .case-study-modal-title {
+                font-size: 1.5rem;
+                margin-right: 2.5rem;
+            }
+            
+            .case-study-modal-close {
+                width: 36px;
+                height: 36px;
+                top: 1.25rem;
+                right: 1.25rem;
+            }
+            
+            .case-study-modal-body {
+                padding: 1rem 1.5rem 1.5rem;
+            }
+        }
+        
+        .case-study-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .case-study-section h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+        
+        .case-study-section p {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--gray-700);
+            margin-bottom: 0.75rem;
+        }
+        
+        .case-study-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .case-study-section li {
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .case-study-section li::before {
+            content: '•';
+            color: var(--gray-900);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .methodology-steps {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .methodology-step {
+            padding: 1rem;
+            background: var(--gray-50);
+            border-left: 3px solid var(--gray-900);
+        }
+        
+        .methodology-step h5 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+        
+        .methodology-step p {
+            font-size: 0.8rem;
+            color: var(--gray-700);
+            margin: 0;
+        }
+        
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-type {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            letter-spacing: 0.05em;
+        }
+        
+        .project-description {
+            color: var(--gray-700);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+        
+        .project-impact {
+            background: var(--gray-50);
+            padding: 1.25rem;
+            border-left: 3px solid var(--gray-900);
+            margin-bottom: 2rem;
+        }
+        
+        .project-impact-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-impact-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .project-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition-base);
+        }
+        
+        .project-card:hover .project-tag {
+            background: var(--gray-900);
+            color: var(--white);
+            border-color: var(--gray-900);
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-300);
+            background: var(--white);
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: var(--transition-base);
+        }
+        
+        .project-link:hover {
+            border-color: var(--gray-900);
+            color: var(--gray-900);
+            transform: translateY(-2px);
+        }
+        
+        .project-link.primary {
+            background: var(--gray-900);
+            color: var(--white);
+            border-color: var(--gray-900);
+        }
+        
+        .project-link.primary:hover {
+            background: var(--gray-800);
+        }
+        
+        /* Skills Section */
+        .skills {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+        
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .skill-category {
+            position: relative;
+        }
+        
+        .skill-category h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+        
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .skill-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.925rem;
+            padding: 0.625rem 1.25rem;
+            border: 1px solid var(--gray-300);
+            background: var(--white);
+            color: var(--gray-700);
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gray-900);
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
+        }
+        
+        .skill-item span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .skill-item:hover {
+            color: var(--white);
+            border-color: var(--gray-900);
+        }
+        
+        .skill-item:hover::before {
+            left: 0;
+        }
+        
+        /* Experience Section */
+        .experience {
+            padding: 6rem 2rem;
+            background: var(--gray-50);
+        }
+        
+        .experience-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline {
+            margin-top: 3rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--gray-300);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 3rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--white);
+            border: 2px solid var(--gray-900);
+            border-radius: 50%;
+        }
+        
+        .timeline-year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+        
+        .timeline-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+        
+        .timeline-content h4 {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-content p {
+            color: var(--gray-700);
+            line-height: 1.7;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+        
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .contact h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--gray-900);
+        }
+        
+        .contact-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            font-weight: 400;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-item {
+            padding: 2rem;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition-base);
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--gray-900);
+            background: var(--gray-900);
+            color: var(--white);
+        }
+        
+        .contact-item:hover .contact-icon {
+            stroke: var(--white);
+        }
+        
+        .contact-icon {
+            width: 24px;
+            height: 24px;
+            margin: 0 auto 1rem;
+            stroke: var(--gray-700);
+            transition: var(--transition-base);
+        }
+        
+        .contact-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: inherit;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.925rem;
+            color: inherit;
+        }
+        
+        .vrs-note {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-style: italic;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--gray-50);
+            border-left: 3px solid var(--gray-400);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--gray-200);
+            background: var(--gray-50);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: var(--gray-600);
+            text-decoration: none;
+            font-size: 0.925rem;
+            transition: var(--transition-base);
+        }
+        
+        .footer-links a:hover {
+            color: var(--gray-900);
+        }
+        
+        .footer-copyright {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+        
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: var(--transition-smooth);
+        }
+        
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                gap: 2rem;
+                transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .mobile-menu-button {
+                display: block;
+                z-index: 1001;
+            }
+            
+            .hero {
+                padding: 8rem 1.5rem 4rem;
+            }
+            
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .projects-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline {
+                padding-left: 1.5rem;
+            }
+            
+            .timeline-item::before {
+                left: -2rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .metrics {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .project-links {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .project-link {
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .methodology-steps {
+                gap: 0.75rem;
+            }
+            
+            .methodology-step {
+                padding: 0.75rem;
+            }
+            
+            .case-study-section {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .about-container {
+                grid-template-columns: 1fr 1.5fr;
+                gap: 3rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Large screens */
+        @media (min-width: 1400px) {
+            nav {
+                padding: 2rem 4rem;
+            }
+            
+            nav.scrolled {
+                padding: 1.25rem 4rem;
+            }
+            
+            .hero,
+            .about,
+            .projects,
+            .skills,
+            .experience,
+            .contact {
+                padding: 8rem 4rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Loading animation */
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gray-900);
+            z-index: 10000;
+            transition: width 0.3s ease;
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Tobin Zolkowski",
+        "jobTitle": "Data Professional",
+        "description": "ETL Engineering specialist with focus on healthcare data analytics and automated reporting systems",
+        "url": "https://tzolkowski96.github.io/portfolio/",
+        "sameAs": [
+            "https://github.com/tzolkowski96",
+            "https://linkedin.com/in/tobin-zolkowski"
+        ],
+        "worksFor": {
+            "@type": "Organization",
+            "name": "Indiana University School of Medicine",
+            "department": "Department of Medical and Molecular Genetics"
+        },
+        "knowsAbout": [
+            "Python Programming",
+            "SQL Development", 
+            "ETL Engineering",
+            "Data Analytics",
+            "Healthcare Data",
+            "Machine Learning",
+            "Tableau",
+            "AWS"
+        ],
+        "alumniOf": [
+            {
+                "@type": "Organization",
+                "name": "University of Wisconsin-Madison",
+                "degree": "Master's in Information Science"
+            },
+            {
+                "@type": "Organization", 
+                "name": "University of Wisconsin-Madison",
+                "degree": "Bachelor's in International Studies"
+            }
+        ]
+    }
     </script>
 </head>
 <body>
-    <!-- Theme Toggle Button -->
-    <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode" title="Toggle dark mode">
-        <svg id="theme-icon-light" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-        <svg id="theme-icon-dark" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-    </button>
-
-    <main class="container">
-        <div class="card">
-            <div class="card-content">
-                <header class="card-header">
-                    <div class="logo" aria-hidden="true">TZ</div> <!-- Use initials TZ -->
-                    <h1>Portfolio Update</h1>
-                </header>
-                
-                <!-- Offline Notice -->
-                <section id="offline-notice" class="notice notice-offline" hidden aria-labelledby="offline-title">
-                    <h2 id="offline-title" class="notice-title">You're Offline</h2>
-                    <p class="info-text">An internet connection is required to access the updated portfolio. Please check your connection.</p>
-                    <p class="info-text info-text-small">Updated Portfolio URL: <strong>tobin-data-portfolio.netlify.app</strong></p>
-                    <button class="button button-offline" id="retry-button">
-                        <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="1 4 1 10 7 10"></polyline>
-                            <polyline points="23 20 23 14 17 14"></polyline>
-                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
-                        </svg>
-                        Retry Connection
-                    </button>
-                </section>
-
-                <!-- Online Content -->
-                <section id="online-content" aria-labelledby="online-heading">
-                    <div class="notice">
-                        <h2 id="online-heading" class="notice-title">This Site Has Moved</h2>
-                        <p class="info-text">My portfolio has been updated with new projects and improved visualizations.</p>
-                    </div>
-
-                    <div class="destination-info">
-                        <span class="url-label">New Location:</span>
-                        <div class="url-container">
-                            <a href="https://tobin-data-portfolio.netlify.app/" class="url-link" rel="noopener noreferrer" target="_blank" title="Open updated portfolio in new tab">tobin-data-portfolio.netlify.app</a>
-                            <button class="copy-btn" aria-label="Copy URL" title="Copy URL to clipboard">
-                                <svg id="copy-icon-default" class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                </svg>
-                                <svg id="copy-icon-success" class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- QR Code Container -->
-                    <div id="qrcode-container" class="qrcode-container" aria-label="QR Code for new portfolio URL">
-                        <!-- QR Code will be generated here -->
-                    </div>
-
-                    <div class="countdown-wrapper" aria-live="polite">
-                        <div class="countdown-display">
-                            <div class="countdown-circle">
-                                <svg class="countdown-svg" viewBox="0 0 120 120" aria-hidden="true">
-                                    <circle class="countdown-track" cx="60" cy="60" r="54" stroke-width="5"></circle>
-                                    <circle class="countdown-progress" cx="60" cy="60" r="54" stroke-width="5"></circle>
-                                </svg>
-                                <span id="countdown" class="countdown-number">8</span>
-                            </div>
-                        </div>
-                        <p id="countdown-text" class="countdown-text">Redirecting in <span class="sr-only">8</span> seconds</p>
-                        <button id="cancel-redirect" class="cancel-redirect" aria-label="Cancel automatic redirect">Cancel</button>
-                    </div>
-
-                    <a href="https://tobin-data-portfolio.netlify.app/" id="manual-redirect-button" class="button button-primary" rel="noopener noreferrer">
-                        <span class="button-text">Go to Updated Portfolio</span>
-                        <svg aria-hidden="true" class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+    <a href="#main" class="skip-to-main">Skip to main content</a>
+    <div class="loading-bar" aria-hidden="true"></div>
+    
+    <header>
+        <nav role="navigation" aria-label="Main navigation">
+            <div class="nav-container">
+                <a href="#" class="logo" aria-label="Tobin Zolkowski - Home">TZ</a>
+                <button class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="#about" aria-current="false">About</a></li>
+                    <li><a href="#projects" aria-current="false">Projects</a></li>
+                    <li><a href="#skills" aria-current="false">Skills</a></li>
+                    <li><a href="#experience" aria-current="false">Experience</a></li>
+                    <li><a href="#contact" aria-current="false">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <main id="main">
+        <section class="hero" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <h1 id="hero-heading" class="hero-name">
+                    Tobin
+                    <span class="last-name">Zolkowski</span>
+                </h1>
+                <p class="hero-title">DATA PROFESSIONAL • ETL ENGINEERING • ANALYTICS</p>
+                <p class="hero-description">
+                    Data professional with expertise in building scalable ETL pipelines, automated reporting systems, 
+                    and data infrastructure for multi-million dollar research initiatives. Proven track record of reducing 
+                    manual processes by 25% and improving data quality by 30% through innovative Python and SQL solutions.
+                </p>
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">
+                        View Projects
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14m-7-7l7 7-7 7"/>
                         </svg>
                     </a>
-                </section>
+                    <a href="https://github.com/tzolkowski96" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+                        GitHub Profile
+                    </a>
+                </div>
+            </div>
+            <div class="scroll-indicator" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14m0 0l-7-7m7 7l7-7"/>
+                </svg>
+            </div>
+        </section>
+        
+        <section class="about" id="about" aria-labelledby="about-heading">
+            <div class="about-container reveal">
+                <div>
+                    <h2 id="about-heading" class="section-label">About</h2>
+                </div>
+                <div>
+                    <div class="about-text">
+                        <p>
+                            <strong>Data professional</strong> with Master's in Information Science and Bachelor's in 
+                            International Studies from UW-Madison. Currently working at Indiana University School of Medicine, 
+                            orchestrating <strong>ETL pipelines processing terabytes of imaging data</strong> for the 
+                            Michael J. Fox Foundation-funded Parkinson's research initiative.
+                        </p>
+                        <br>
+                        <p>
+                            My journey into tech wasn't traditional - starting with Communication Science at RIT, then 
+                            pivoting to International Studies before discovering my passion for data. I leverage 
+                            <strong>Python, SQL, and cloud technologies</strong> to build automated solutions that have 
+                            reduced manual processes by 25% and improved data quality by 30% across healthcare and 
+                            telecommunications sectors.
+                        </p>
+                    </div>
+                    <div class="metrics">
+                        <div class="metric reveal-scale">
+                            <div class="metric-value">25%</div>
+                            <div class="metric-label">Process Reduction</div>
+                        </div>
+                        <div class="metric reveal-scale">
+                            <div class="metric-value">30%</div>
+                            <div class="metric-label">Data Quality Improvement</div>
+                        </div>
+                        <div class="metric reveal-scale">
+                            <div class="metric-value">7.7M+</div>
+                            <div class="metric-label">Records Analyzed</div>
+                        </div>
+                        <div class="metric reveal-scale">
+                            <div class="metric-value">98%</div>
+                            <div class="metric-label">ML Model Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="projects" id="projects" aria-labelledby="projects-heading">
+            <div class="projects-container">
+                <h2 id="projects-heading" class="section-label reveal">Featured Projects</h2>
+                <div class="projects-grid">
+                    <article class="project-card reveal">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">Employee Churn Prediction</h3>
+                                <p class="project-type">MACHINE LEARNING</p>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Developed ML models to predict employee turnover with 98% accuracy. Identified key 
+                            churn drivers including overtime, project count, and satisfaction levels. Provided 
+                            actionable HR recommendations for retention strategies.
+                        </p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Impact</div>
+                            <div class="project-impact-value">98% accuracy achieved</div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Scikit-Learn</span>
+                            <span class="project-tag">XGBoost</span>
+                            <span class="project-tag">Pandas</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/Employee-Churn-Prediction" class="project-link" target="_blank" rel="noopener">GitHub</a>
+                            <a href="https://tzolkowski96.github.io/Salifort-Motors-Project/" class="project-link primary" target="_blank" rel="noopener">Live Demo</a>
+                        </div>
+                        
+                        <button class="case-study-toggle" aria-expanded="false">
+                            View Detailed Case Study
+                        </button>
+                        
+                        <div class="case-study-content">
+                            <div class="case-study-section">
+                                <h4>→ Business Problem</h4>
+                                <p>Salifort Motors faced high employee turnover rates affecting productivity and increasing recruitment costs. The HR department needed data-driven insights to identify at-risk employees and understand key retention factors.</p>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>▢ Dataset & Approach</h4>
+                                <p>Analyzed comprehensive employee data including:</p>
+                                <ul>
+                                    <li>Work metrics (satisfaction level, projects, hours, tenure)</li>
+                                    <li>Performance indicators (evaluations, promotions, accidents)</li>
+                                    <li>Compensation and department information</li>
+                                    <li>14,999 employee records with target variable (left/stayed)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>× Methodology</h4>
+                                <div class="methodology-steps">
+                                    <div class="methodology-step">
+                                        <h5>1. Data Exploration & Cleaning</h5>
+                                        <p>Performed comprehensive EDA, handled missing values, identified outliers, and validated data quality across all 10 features.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>2. Feature Engineering</h5>
+                                        <p>Created interaction features, normalized numerical variables, and encoded categorical data. Identified key patterns in overtime and project counts.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>3. Model Development</h5>
+                                        <p>Implemented and compared Logistic Regression, Random Forest, and XGBoost models using cross-validation and hyperparameter tuning.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>4. Validation & Interpretation</h5>
+                                        <p>Evaluated models using precision, recall, F1-score, and ROI metrics. Extracted feature importance and business insights.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>↗ Key Findings</h4>
+                                <ul>
+                                    <li><strong>Top Churn Predictors:</strong> Overtime work, number of projects (>6), and low satisfaction scores</li>
+                                    <li><strong>Optimal Performance Zone:</strong> Employees with 3-5 projects showed highest retention</li>
+                                    <li><strong>Satisfaction Threshold:</strong> Employees below 0.4 satisfaction had 90%+ churn probability</li>
+                                    <li><strong>Department Variations:</strong> Sales and Technical departments showed higher churn rates</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>▸ Business Impact</h4>
+                                <p><strong>ROI Calculation:</strong> With average hiring cost of $15,000 per employee and 98% model accuracy, implementing recommendations could save $2.1M annually by reducing turnover from 24% to 12%.</p>
+                                <ul>
+                                    <li>Workload rebalancing strategies for high-project employees</li>
+                                    <li>Targeted retention programs for at-risk departments</li>
+                                    <li>Early intervention system for satisfaction monitoring</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="project-card reveal">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">Traffic Accident Analytics</h3>
+                                <p class="project-type">GEOSPATIAL ANALYSIS</p>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Analyzed 7.7 million US traffic accident records for public safety insights. Built 
+                            Random Forest model for severity prediction with 78% accuracy. Created scalable 
+                            pipeline processing data from 49 states with interactive dashboard.
+                        </p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Impact</div>
+                            <div class="project-impact-value">7.7M records processed</div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Folium</span>
+                            <span class="project-tag">Random Forest</span>
+                            <span class="project-tag">NumPy</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/us_accidents_analysis" class="project-link" target="_blank" rel="noopener">GitHub</a>
+                        </div>
+                        
+                        <button class="case-study-toggle" aria-expanded="false">
+                            View Detailed Case Study
+                        </button>
+                        
+                        <div class="case-study-content">
+                            <div class="case-study-section">
+                                <h4>→ Project Scope</h4>
+                                <p>Comprehensive analysis of 7.7 million traffic accident records across 49 US states to identify patterns, predict severity, and provide public safety insights for policy makers and traffic authorities.</p>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>▢ Data Scale & Complexity</h4>
+                                <ul>
+                                    <li><strong>Volume:</strong> 7.7M records spanning 2016-2023</li>
+                                    <li><strong>Geographic Coverage:</strong> 49 states, 3,000+ cities</li>
+                                    <li><strong>Features:</strong> 46 variables including weather, time, location, road conditions</li>
+                                    <li><strong>Memory Optimization:</strong> Reduced RAM usage by 3.25% through efficient data types</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>× Technical Methodology</h4>
+                                <div class="methodology-steps">
+                                    <div class="methodology-step">
+                                        <h5>1. Data Pipeline Engineering</h5>
+                                        <p>Built scalable ETL pipeline handling massive datasets with memory optimization and chunk processing for efficient analysis.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>2. Statistical Validation</h5>
+                                        <p>Applied chi-square tests and ANOVA to validate relationships between categorical/numerical variables and accident severity.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>3. Geospatial Analysis</h5>
+                                        <p>Implemented coordinate-based clustering and interactive mapping using Folium for geographic pattern identification.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>4. Machine Learning Pipeline</h5>
+                                        <p>Developed Random Forest classifier with hyperparameter tuning achieving 78% accuracy in severity prediction.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>↗ Key Discoveries</h4>
+                                <ul>
+                                    <li><strong>Temporal Patterns:</strong> Peak accident times: 7-9 AM and 4-6 PM (rush hours)</li>
+                                    <li><strong>Weather Impact:</strong> Clear weather conditions account for 70% of accidents (higher traffic volume)</li>
+                                    <li><strong>Geographic Hotspots:</strong> California, Texas, and Florida lead in accident frequency</li>
+                                    <li><strong>Severity Predictors:</strong> Weather conditions, time of day, and road features most predictive</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>△ Public Safety Applications</h4>
+                                <p><strong>Actionable Insights:</strong> Created interactive dashboard enabling traffic authorities to identify high-risk areas and optimize resource allocation.</p>
+                                <ul>
+                                    <li>Rush hour enforcement strategies for high-risk corridors</li>
+                                    <li>Weather-based incident response protocols</li>
+                                    <li>Data-driven infrastructure improvement recommendations</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="project-card reveal">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">World Life Expectancy Analysis</h3>
+                                <p class="project-type">SQL DATA ENGINEERING</p>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Cleaned and analyzed global life expectancy data (2.9k records, 183 countries, 15 years). 
+                            Achieved 93.41% data quality post-cleaning. Identified 12.36-year development gap and 
+                            quantified COVID-19 impact using advanced SQL with CTEs and window functions.
+                        </p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Impact</div>
+                            <div class="project-impact-value">93.41% data quality</div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="project-tag">MySQL</span>
+                            <span class="project-tag">Window Functions</span>
+                            <span class="project-tag">CTEs</span>
+                            <span class="project-tag">Data Cleaning</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/world_life_expectancy" class="project-link" target="_blank" rel="noopener">GitHub</a>
+                        </div>
+                        
+                        <button class="case-study-toggle" aria-expanded="false">
+                            View Detailed Case Study
+                        </button>
+                        
+                        <div class="case-study-content">
+                            <div class="case-study-section">
+                                <h4>→ Data Engineering Challenge</h4>
+                                <p>Transform inconsistent global health data into a clean, reliable dataset for longitudinal analysis of life expectancy trends across developed and developing nations.</p>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>▢ Dataset Characteristics</h4>
+                                <ul>
+                                    <li><strong>Scope:</strong> 2,938 records across 183 countries (2007-2022)</li>
+                                    <li><strong>Quality Issues:</strong> Missing values, duplicates, inconsistent status classifications</li>
+                                    <li><strong>Key Variables:</strong> Life expectancy, GDP, population, health indicators</li>
+                                    <li><strong>Target Quality:</strong> Achieved 93.41% data completeness post-cleaning</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>× Advanced SQL Techniques</h4>
+                                <div class="methodology-steps">
+                                    <div class="methodology-step">
+                                        <h5>1. Intelligent Deduplication</h5>
+                                        <p>Used ROW_NUMBER() with PARTITION BY and custom ranking logic to prioritize records with most complete data.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>2. Contextual Data Imputation</h5>
+                                        <p>Implemented country-specific missing value filling using LAG/LEAD window functions for temporal consistency.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>3. Statistical Analysis</h5>
+                                        <p>Applied CTEs and aggregation functions to quantify development gaps and COVID-19 impact across regions.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>4. Performance Optimization</h5>
+                                        <p>Created indexes and optimized queries for efficient processing of multi-year trend analysis.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>↗ Critical Insights</h4>
+                                <ul>
+                                    <li><strong>Development Gap:</strong> 12.36-year life expectancy difference between developed/developing nations</li>
+                                    <li><strong>COVID-19 Impact:</strong> Global life expectancy dropped 4.75% in 2020, recovered 5.91% by 2021</li>
+                                    <li><strong>Regional Variations:</strong> Sub-Saharan Africa showed most significant improvement over study period</li>
+                                    <li><strong>Economic Correlation:</strong> Strong positive relationship between GDP per capita and longevity</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>◦ Technical Innovation</h4>
+                                <p><strong>Reusable Framework:</strong> Created modular SQL procedures for data quality assessment and cleaning that can be applied to similar health datasets.</p>
+                                <ul>
+                                    <li>Automated quality scoring methodology</li>
+                                    <li>Configurable imputation strategies</li>
+                                    <li>Standardized reporting templates for health trend analysis</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="project-card reveal">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">UFood Customer Analysis</h3>
+                                <p class="project-type">MARKETING ANALYTICS</p>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Optimized marketing for food delivery app through customer segmentation using K-means 
+                            clustering. Conducted A/B testing for campaign effectiveness and created customer 
+                            journey mapping to increase CLV.
+                        </p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Impact</div>
+                            <div class="project-impact-value">Strategic segmentation</div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">K-means</span>
+                            <span class="project-tag">A/B Testing</span>
+                            <span class="project-tag">SciPy</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/ufood_analysis" class="project-link" target="_blank" rel="noopener">GitHub</a>
+                            <a href="https://tzolkowski96.github.io/analyst-builder-food-marketing-project/" class="project-link primary" target="_blank" rel="noopener">Live Demo</a>
+                        </div>
+                        
+                        <button class="case-study-toggle" aria-expanded="false">
+                            View Detailed Case Study
+                        </button>
+                        
+                        <div class="case-study-content">
+                            <div class="case-study-section">
+                                <h4>→ Marketing Challenge</h4>
+                                <p>UFood needed to optimize their marketing strategy by understanding customer segments, campaign effectiveness, and purchasing behaviors to increase Customer Lifetime Value (CLV) and reduce acquisition costs.</p>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>▢ Customer Data Analysis</h4>
+                                <ul>
+                                    <li><strong>Dataset:</strong> 2,240 customer records with demographics, purchasing, and campaign data</li>
+                                    <li><strong>Features:</strong> Income, education, family composition, product preferences, channel usage</li>
+                                    <li><strong>Campaigns:</strong> 6 marketing campaigns with response tracking</li>
+                                    <li><strong>Time Period:</strong> 2-year customer journey analysis</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>× Analytics Methodology</h4>
+                                <div class="methodology-steps">
+                                    <div class="methodology-step">
+                                        <h5>1. Customer Segmentation</h5>
+                                        <p>Applied K-means clustering with feature scaling to identify 4 distinct customer personas based on spending and engagement patterns.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>2. A/B Testing Analysis</h5>
+                                        <p>Used statistical hypothesis testing (t-tests, chi-square) to measure campaign effectiveness across segments.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>3. Customer Journey Mapping</h5>
+                                        <p>Analyzed purchase patterns, channel preferences, and response behaviors to optimize touchpoint strategies.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>4. CLV Prediction</h5>
+                                        <p>Developed predictive models to estimate customer lifetime value and identify high-value prospect characteristics.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>↗ Strategic Insights</h4>
+                                <ul>
+                                    <li><strong>Customer Segments:</strong> Identified "High-Value Loyalists" (23%), "Price-Conscious Families" (31%), "Premium Seekers" (19%), "Occasional Buyers" (27%)</li>
+                                    <li><strong>Channel Performance:</strong> Store purchases 40% higher CLV than web purchases</li>
+                                    <li><strong>Product Preferences:</strong> Wine and meat products drive highest customer value</li>
+                                    <li><strong>Campaign ROI:</strong> Targeted campaigns to optimal segments showed 3x better response rates</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>▸ Business Recommendations</h4>
+                                <p><strong>Revenue Impact:</strong> Implementing segment-specific strategies projected to increase CLV by 15-25% and reduce customer acquisition costs by 30%.</p>
+                                <ul>
+                                    <li>Personalized marketing campaigns for each customer segment</li>
+                                    <li>Channel optimization strategy favoring high-CLV touchpoints</li>
+                                    <li>Product bundling recommendations for cross-selling opportunities</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="project-card reveal">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">Portuguese Students Education Analysis</h3>
+                                <p class="project-type">EDUCATIONAL ANALYTICS</p>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Predicted at-risk students using machine learning with high accuracy. Identified parental 
+                            education as strongest predictor of academic performance. Provided intervention recommendations 
+                            based on optimal study patterns and risk factors.
+                        </p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Impact</div>
+                            <div class="project-impact-value">High-accuracy prediction</div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Scikit-learn</span>
+                            <span class="project-tag">Classification</span>
+                            <span class="project-tag">Educational ML</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/portuguese-students-higher-education-analysis" class="project-link" target="_blank" rel="noopener">GitHub</a>
+                            <a href="https://tzolkowski96.github.io/student-education-analysis/" class="project-link primary" target="_blank" rel="noopener">Live Demo</a>
+                        </div>
+                        
+                        <button class="case-study-toggle" aria-expanded="false">
+                            View Detailed Case Study
+                        </button>
+                        
+                        <div class="case-study-content">
+                            <div class="case-study-section">
+                                <h4>→ Educational Research Goal</h4>
+                                <p>Develop predictive models to identify at-risk students early in their academic journey and provide data-driven recommendations for educational intervention strategies.</p>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>▢ Student Dataset Analysis</h4>
+                                <ul>
+                                    <li><strong>Participants:</strong> 649 Portuguese students across two schools</li>
+                                    <li><strong>Variables:</strong> 33 features including demographics, family, social, and academic factors</li>
+                                    <li><strong>Target:</strong> Final grades (G3) in Mathematics and Portuguese language</li>
+                                    <li><strong>Scope:</strong> Comprehensive socio-economic and academic performance analysis</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>× Predictive Modeling Approach</h4>
+                                <div class="methodology-steps">
+                                    <div class="methodology-step">
+                                        <h5>1. Feature Engineering</h5>
+                                        <p>Created composite variables from family education levels, study time patterns, and social factors to capture complex relationships.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>2. Classification Models</h5>
+                                        <p>Implemented Random Forest, SVM, and Logistic Regression to predict student success/failure with cross-validation.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>3. Feature Importance Analysis</h5>
+                                        <p>Used SHAP values and permutation importance to identify most predictive factors for academic performance.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>4. Intervention Targeting</h5>
+                                        <p>Developed risk scoring system to prioritize students for educational support interventions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>↗ Educational Insights</h4>
+                                <ul>
+                                    <li><strong>Primary Predictor:</strong> Parental education level most strongly correlated with student success</li>
+                                    <li><strong>Study Patterns:</strong> Students with 2-4 hours daily study time showed optimal performance</li>
+                                    <li><strong>Social Factors:</strong> Family relationship quality significantly impacted academic outcomes</li>
+                                    <li><strong>Early Warning:</strong> First period grades (G1) highly predictive of final performance</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>▸ Educational Impact</h4>
+                                <p><strong>Intervention Framework:</strong> Created data-driven system enabling educators to identify and support at-risk students before academic failure occurs.</p>
+                                <ul>
+                                    <li>Early intervention protocols for students from lower-education families</li>
+                                    <li>Optimal study schedule recommendations</li>
+                                    <li>Family engagement strategies for improved support systems</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="project-card reveal">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">Global Population Insights</h3>
+                                <p class="project-type">WEB APPLICATION</p>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Interactive platform for global population trend visualization with comparative analysis tools, 
+                            projections, and policy recommendations. Built with modern web technologies for dynamic 
+                            data exploration and case studies.
+                        </p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Impact</div>
+                            <div class="project-impact-value">Interactive visualization</div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">Plotly.js</span>
+                            <span class="project-tag">HTML/CSS</span>
+                            <span class="project-tag">Data Viz</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/tzolkowski96/global-population-insights" class="project-link" target="_blank" rel="noopener">GitHub</a>
+                            <a href="https://tzolkowski96.github.io/global-population-insights/" class="project-link primary" target="_blank" rel="noopener">Live Demo</a>
+                        </div>
+                        
+                        <button class="case-study-toggle" aria-expanded="false">
+                            View Detailed Case Study
+                        </button>
+                        
+                        <div class="case-study-content">
+                            <div class="case-study-section">
+                                <h4>→ Data Visualization Challenge</h4>
+                                <p>Create an interactive web platform that makes complex global population data accessible to policymakers, researchers, and the public through intuitive visualizations and comparative analysis tools.</p>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>▢ Population Data Integration</h4>
+                                <ul>
+                                    <li><strong>Data Sources:</strong> UN Population Division, World Bank demographic datasets</li>
+                                    <li><strong>Coverage:</strong> 195+ countries, 1950-2100 projections</li>
+                                    <li><strong>Metrics:</strong> Total population, growth rates, age demographics, urbanization</li>
+                                    <li><strong>Real-time Updates:</strong> Automated data refresh from official APIs</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>× Technical Architecture</h4>
+                                <div class="methodology-steps">
+                                    <div class="methodology-step">
+                                        <h5>1. Interactive Frontend</h5>
+                                        <p>Built responsive interface using HTML5, CSS3, and JavaScript with Plotly.js for dynamic chart generation and user interactions.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>2. Data Processing Pipeline</h5>
+                                        <p>Implemented client-side data transformation and aggregation for real-time comparative analysis across countries and regions.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>3. Visualization Engine</h5>
+                                        <p>Created multiple chart types (time series, choropleth maps, scatter plots) with seamless transitions and filtering capabilities.</p>
+                                    </div>
+                                    <div class="methodology-step">
+                                        <h5>4. User Experience Design</h5>
+                                        <p>Designed intuitive navigation with progressive disclosure, allowing users to explore from overview to detailed country analysis.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>↗ Key Features & Insights</h4>
+                                <ul>
+                                    <li><strong>Comparative Analysis:</strong> Side-by-side country comparisons with customizable time ranges</li>
+                                    <li><strong>Trend Projections:</strong> Interactive forecasting models showing population scenarios to 2100</li>
+                                    <li><strong>Regional Patterns:</strong> Aggregated analysis by continent, income level, and development status</li>
+                                    <li><strong>Case Studies:</strong> In-depth analysis of demographic transitions in key countries</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="case-study-section">
+                                <h4>△ Policy Applications</h4>
+                                <p><strong>Decision Support Tool:</strong> Platform enables evidence-based policy development by making complex demographic data accessible and actionable.</p>
+                                <ul>
+                                    <li>Resource planning for aging populations in developed countries</li>
+                                    <li>Infrastructure development strategies for high-growth regions</li>
+                                    <li>Education and healthcare capacity planning based on demographic projections</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        
+        <section class="skills" id="skills" aria-labelledby="skills-heading">
+            <div class="skills-container reveal">
+                <h2 id="skills-heading" class="section-label">Technical Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Programming</h3>
+                        <div class="skill-items">
+                            <div class="skill-item"><span>Python</span></div>
+                            <div class="skill-item"><span>SQL</span></div>
+                            <div class="skill-item"><span>JavaScript</span></div>
+                            <div class="skill-item"><span>HTML/CSS</span></div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Data Engineering</h3>
+                        <div class="skill-items">
+                            <div class="skill-item"><span>ETL Pipelines</span></div>
+                            <div class="skill-item"><span>SSIS</span></div>
+                            <div class="skill-item"><span>API Integration</span></div>
+                            <div class="skill-item"><span>REDCap</span></div>
+                            <div class="skill-item"><span>LONI</span></div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Databases & Cloud</h3>
+                        <div class="skill-items">
+                            <div class="skill-item"><span>PostgreSQL</span></div>
+                            <div class="skill-item"><span>MySQL</span></div>
+                            <div class="skill-item"><span>MS SQL Server</span></div>
+                            <div class="skill-item"><span>AWS Lambda</span></div>
+                            <div class="skill-item"><span>AWS S3</span></div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Analytics & Visualization</h3>
+                        <div class="skill-items">
+                            <div class="skill-item"><span>Tableau</span></div>
+                            <div class="skill-item"><span>Looker</span></div>
+                            <div class="skill-item"><span>SSRS</span></div>
+                            <div class="skill-item"><span>Excel (Advanced)</span></div>
+                            <div class="skill-item"><span>Folium</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="experience" id="experience" aria-labelledby="experience-heading">
+            <div class="experience-container reveal">
+                <h2 id="experience-heading" class="section-label">Experience & Education</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2023 — PRESENT</div>
+                        <div class="timeline-content">
+                            <h3>Data Analyst</h3>
+                            <h4>Indiana University School of Medicine</h4>
+                            <p>
+                                Orchestrating ETL pipelines processing terabytes of imaging data for Michael J. Fox 
+                                Foundation-funded Parkinson's Progression Markers Initiative (PPMI). Reduced manual 
+                                data handling by 25% through secure API integration between REDCap, LONI, and 
+                                OpenSpecimen. Improved data completion rates by 30% via AWS-hosted automated 
+                                communication workflows for 4,000+ participants.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2022</div>
+                        <div class="timeline-content">
+                            <h3>Business Data Analyst Intern</h3>
+                            <h4>Telkomsel — Jakarta, Indonesia</h4>
+                            <p>
+                                Contributed to analysis identifying $340M revenue opportunity through Tableau dashboard 
+                                for HVC subscriber segmentation. Optimized ETL processes improving data processing 
+                                efficiency by 30% for executive reporting. Created automated reporting dashboards 
+                                tracking KPIs and market trends.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-content">
+                            <h3>Data Manager Intern</h3>
+                            <h4>University of Wisconsin-Madison</h4>
+                            <p>
+                                Documented MySQL database with 500+ elements, reducing lookup time by 15% for 1,200+ 
+                                users. Streamlined FERPA-compliant data processes, decreasing data entry errors by 10%.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2022</div>
+                        <div class="timeline-content">
+                            <h3>Master of Science</h3>
+                            <h4>Information Science — UW-Madison</h4>
+                            <p>
+                                GPA: 3.79/4.0. Focused on data science, machine learning, and information visualization. 
+                                Developed expertise in statistical analysis, database systems, and data engineering 
+                                through coursework and hands-on projects.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-content">
+                            <h3>Bachelor of Arts</h3>
+                            <h4>International Studies — UW-Madison</h4>
+                            <p>
+                                GPA: 3.45/4.0. Developed strong analytical and cross-cultural communication skills. 
+                                Built foundation in quantitative analysis and research methodology. Previously studied 
+                                Communication Science at Rochester Institute of Technology for 2 years.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="contact" id="contact" aria-labelledby="contact-heading">
+            <div class="contact-container reveal">
+                <h2 id="contact-heading">Let's Build Something Together</h2>
+                <p class="contact-subtitle">
+                    Available for data analysis, ETL engineering, and visualization projects
+                </p>
+                <div class="contact-grid">
+                    <a href="https://github.com/tzolkowski96" class="contact-item" target="_blank" rel="noopener noreferrer">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                        </svg>
+                        <div class="contact-label">Code</div>
+                        <div class="contact-value">GitHub</div>
+                    </a>
+                    <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200/" class="contact-item" target="_blank" rel="noopener noreferrer">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                        <div class="contact-label">Network</div>
+                        <div class="contact-value">LinkedIn</div>
+                    </a>
+                    <a href="https://medium.com/@grateful_aqua_goat_147" class="contact-item" target="_blank" rel="noopener noreferrer">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                            <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                        </svg>
+                        <div class="contact-label">Writing</div>
+                        <div class="contact-value">Medium</div>
+                    </a>
+                    <a href="https://tobinzolkowski.substack.com/" class="contact-item" target="_blank" rel="noopener noreferrer">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                            <path d="M2 2l7.586 7.586"/>
+                            <circle cx="11" cy="11" r="2"/>
+                        </svg>
+                        <div class="contact-label">Newsletter</div>
+                        <div class="contact-value">Substack</div>
+                    </a>
+                </div>
+                <div class="vrs-note">
+                    <strong>Professional Certifications:</strong><br>
+                    • Google Advanced Data Analytics Certificate (2023)<br>
+                    • Data Analyst in SQL Track - DataCamp (2022-2023)<br>
+                    • Data Analyst in Tableau Track - DataCamp (2022-2023)<br><br>
+                    <strong>Languages:</strong> English (Native) • American Sign Language (Conversational) • French (Basic) • Spanish (Basic) • Italian (Basic)
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Case Study Modal -->
+    <div class="case-study-modal" id="caseStudyModal">
+        <div class="case-study-modal-content">
+            <div class="case-study-modal-header">
+                <h2 class="case-study-modal-title" id="modalTitle">Case Study</h2>
+                <button class="case-study-modal-close" id="modalClose" aria-label="Close case study">
+                    ✕
+                </button>
+            </div>
+            <div class="case-study-modal-body" id="modalBody">
+                <!-- Case study content will be inserted here -->
             </div>
         </div>
-    </main>
-
-    <!-- Notifications -->
-    <div id="copy-toast" class="toast" role="status" aria-live="polite" hidden>URL copied!</div>
-    <div id="error-container" hidden class="error-boundary" role="alert"></div>
-
-    <!-- QR Code Library -->
-    <script src="vendor/qrcode.min.js" defer></script>
-    <script src="script.js" defer></script>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="https://github.com/tzolkowski96" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/tobin-zolkowski-844873200/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://tobinzolkowski.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a></li>
+                <li><a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener noreferrer">Medium</a></li>
+                <li><a href="https://tzolkowski96.github.io/portfolio/" target="_blank" rel="noopener noreferrer">Portfolio</a></li>
+            </ul>
+            <p class="footer-copyright">© 2025 Tobin Zolkowski. Continuously learning and growing as a data professional.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Loading bar animation
+        window.addEventListener('load', () => {
+            const loadingBar = document.querySelector('.loading-bar');
+            loadingBar.style.width = '100%';
+            setTimeout(() => {
+                loadingBar.style.opacity = '0';
+            }, 500);
+        });
+        
+        // Smooth scroll behavior for all browsers
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update aria-current
+                    document.querySelectorAll('.nav-links a').forEach(link => {
+                        link.setAttribute('aria-current', 'false');
+                    });
+                    
+                    const navLink = document.querySelector(`.nav-links a[href="${this.getAttribute('href')}"]`);
+                    if (navLink) {
+                        navLink.setAttribute('aria-current', 'page');
+                    }
+                }
+            });
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            const isOpen = navLinks.classList.contains('active');
+            navLinks.classList.toggle('active');
+            mobileMenuButton.classList.toggle('active');
+            mobileMenuButton.setAttribute('aria-expanded', !isOpen);
+        });
+        
+        // Close mobile menu when link clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuButton.classList.remove('active');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            });
+        });
+        
+        // Scroll reveal with Intersection Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Stagger animation for metrics
+                    if (entry.target.classList.contains('reveal-scale')) {
+                        const siblings = entry.target.parentElement.querySelectorAll('.reveal-scale');
+                        siblings.forEach((sibling, index) => {
+                            setTimeout(() => {
+                                sibling.classList.add('active');
+                            }, index * 100);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all reveal elements
+        document.querySelectorAll('.reveal, .reveal-scale').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Nav scroll effect
+        const nav = document.querySelector('nav');
+        let lastScroll = 0;
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Update active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.setAttribute('aria-current', 'false');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.setAttribute('aria-current', 'page');
+                }
+            });
+        });
+        
+        // Parallax effect for hero
+        if (window.innerWidth > 768) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero-content');
+                
+                if (hero && scrolled < window.innerHeight) {
+                    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                    hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+                }
+            });
+        }
+        
+        // Count up animation for metrics
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                
+                if (element.textContent.includes('%')) {
+                    element.textContent = Math.floor(progress * (end - start) + start) + '%';
+                } else if (element.textContent.includes('+')) {
+                    const value = Math.floor(progress * (end - start) + start);
+                    element.textContent = value >= 1000000 ? 
+                        (value / 1000000).toFixed(0) + 'M+' : 
+                        value + '+';
+                } else {
+                    element.textContent = Math.floor(progress * (end - start) + start) + '+';
+                }
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // Trigger count animation when metrics are visible
+        const metricsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    const value = entry.target.textContent;
+                    entry.target.dataset.animated = 'true';
+                    
+                    if (value.includes('%')) {
+                        animateValue(entry.target, 0, parseInt(value), 1500);
+                    } else if (value.includes('M')) {
+                        animateValue(entry.target, 0, 7700000, 1500);
+                    } else {
+                        animateValue(entry.target, 0, parseInt(value), 1500);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        document.querySelectorAll('.metric-value').forEach(el => {
+            metricsObserver.observe(el);
+        });
+        
+        // Project card expandable details
+        document.querySelectorAll('.project-card').forEach(card => {
+            // Add keyboard navigation
+            card.setAttribute('tabindex', '0');
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const primaryLink = card.querySelector('.project-link.primary');
+                    if (primaryLink) {
+                        primaryLink.click();
+                    } else {
+                        const firstLink = card.querySelector('.project-link');
+                        if (firstLink) firstLink.click();
+                    }
+                }
+            });
+            
+            const description = card.querySelector('.project-description');
+            const originalText = description.textContent;
+            
+            // Truncate text if it's longer than 200 characters
+            if (originalText.length > 200) {
+                const truncatedText = originalText.substring(0, 200) + '...';
+                description.textContent = truncatedText;
+                
+                // Add expand button
+                const expandButton = document.createElement('button');
+                expandButton.className = 'expand-button';
+                expandButton.textContent = 'Read more';
+                expandButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: var(--gray-700);
+                    font-size: 0.875rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    padding: 0.5rem 0;
+                    text-decoration: underline;
+                    margin-top: 0.5rem;
+                    display: block;
+                `;
+                
+                description.parentNode.insertBefore(expandButton, description.nextSibling);
+                
+                let isExpanded = false;
+                expandButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    isExpanded = !isExpanded;
+                    description.textContent = isExpanded ? originalText : truncatedText;
+                    expandButton.textContent = isExpanded ? 'Read less' : 'Read more';
+                });
+            }
+        });
+        
+        // Case study modal functionality
+        const modal = document.getElementById('caseStudyModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const modalClose = document.getElementById('modalClose');
+        
+        // Function to open modal
+        function openCaseStudyModal(title, content) {
+            modalTitle.textContent = title;
+            modalBody.innerHTML = content;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Focus management for accessibility
+            modalClose.focus();
+        }
+        
+        // Function to close modal
+        function closeCaseStudyModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close modal events
+        modalClose.addEventListener('click', closeCaseStudyModal);
+        
+        // Close on backdrop click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeCaseStudyModal();
+            }
+        });
+        
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeCaseStudyModal();
+            }
+        });
+        
+        // Case study toggle functionality
+        document.querySelectorAll('.case-study-toggle').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent card click event
+                
+                const content = button.nextElementSibling;
+                const projectCard = button.closest('.project-card');
+                const projectTitle = projectCard.querySelector('h3').textContent;
+                
+                // Open modal with case study content
+                openCaseStudyModal(projectTitle, content.innerHTML);
+            });
+            
+            // Add keyboard support
+            button.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    button.click();
+                }
+            });
+        });
+        
+        // Preload critical fonts
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'font';
+        link.type = 'font/woff2';
+        link.crossOrigin = 'anonymous';
+        link.href = 'https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2';
+        document.head.appendChild(link);
+    </script>
 </body>
 </html>

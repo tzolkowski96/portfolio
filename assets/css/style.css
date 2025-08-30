@@ -812,7 +812,9 @@ footer {
         right: -100%;
         width: 100%;
         height: 100vh;
-        background: var(--white);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         justify-content: center;
         gap: 2rem;
@@ -824,13 +826,53 @@ footer {
         right: 0;
     }
     
+    .nav-links a {
+        font-size: 1.25rem;
+        padding: 1rem;
+        opacity: 0;
+        animation: fadeInUp 0.4s ease forwards;
+    }
+    
+    .nav-links.active a:nth-child(1) { animation-delay: 0.1s; }
+    .nav-links.active a:nth-child(2) { animation-delay: 0.15s; }
+    .nav-links.active a:nth-child(3) { animation-delay: 0.2s; }
+    .nav-links.active a:nth-child(4) { animation-delay: 0.25s; }
+    
     .mobile-menu-button {
         display: block;
         z-index: 1001;
     }
     
     .hero {
-        padding: 8rem 1.5rem 4rem;
+        padding: 6rem 1.25rem 3rem;
+        min-height: auto;
+    }
+    
+    .hero-name {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+        margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    /* Better touch targets for mobile */
+    .work-item a,
+    .writing-item h3 a,
+    .connect-links a {
+        padding: 0.5rem 0;
+        display: inline-block;
+    }
+    
+    /* Fix section padding on mobile */
+    .about, .work, .writing, .now, .connect {
+        padding: 4rem 1.25rem;
     }
     
     .about-container {
@@ -840,6 +882,11 @@ footer {
     
     .now-content {
         grid-template-columns: 1fr;
+    }
+    
+    /* Stack now categories better on mobile */
+    .now-category {
+        margin-bottom: 2rem;
     }
     
     .connect-links {
@@ -853,6 +900,11 @@ footer {
     
     .footer-content {
         text-align: center;
+    }
+    
+    /* Improve readability */
+    body {
+        font-size: 16px; /* Prevent iOS zoom */
     }
 }
 
@@ -901,4 +953,121 @@ footer {
     .work-item:hover {
         transform: translateX(4px);
     }
+}
+
+/* Entrance Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-name {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-subtitle {
+    animation: fadeInUp 0.8s ease-out 0.1s both;
+}
+
+.hero-tagline {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.hero-current p:last-child {
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+/* Intersection observer animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger list items */
+.now-category li {
+    opacity: 0;
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.now-category:nth-child(1) li:nth-child(1) { animation-delay: 0.1s; }
+.now-category:nth-child(1) li:nth-child(2) { animation-delay: 0.2s; }
+.now-category:nth-child(1) li:nth-child(3) { animation-delay: 0.3s; }
+.now-category:nth-child(2) li:nth-child(1) { animation-delay: 0.2s; }
+.now-category:nth-child(2) li:nth-child(2) { animation-delay: 0.3s; }
+.now-category:nth-child(2) li:nth-child(3) { animation-delay: 0.4s; }
+.now-category:nth-child(3) li:nth-child(1) { animation-delay: 0.3s; }
+.now-category:nth-child(3) li:nth-child(2) { animation-delay: 0.4s; }
+.now-category:nth-child(3) li:nth-child(3) { animation-delay: 0.5s; }
+
+/* Micro-interactions */
+.work-item a,
+.writing-more a {
+    position: relative;
+    text-decoration: none;
+}
+
+.work-item a::after,
+.writing-more a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.3s ease;
+}
+
+.work-item a:hover::after,
+.writing-more a:hover::after {
+    width: 100%;
+}
+
+/* Better hover state for now categories */
+@media (hover: hover) {
+    .now-category {
+        cursor: default;
+    }
+    
+    .now-category:hover {
+        background: var(--gray-50);
+    }
+    
+    .now-category:hover h3 {
+        transform: translateX(4px);
+        transition: transform 0.3s ease;
+    }
+}
+
+/* Hero gradient accent */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--gray-900) 20%, 
+        var(--gray-900) 80%, 
+        transparent);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
 }

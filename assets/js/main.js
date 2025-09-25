@@ -1,8 +1,14 @@
+const navLinkElements = document.querySelectorAll('.nav-links a');
+
 // Smooth scroll behavior for all browsers
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const targetId = this.getAttribute('href');
+        if (!targetId || targetId === '#' || targetId.trim().length <= 1 || targetId[0] !== '#') {
+            return;
+        }
+
+        e.preventDefault();
         const target = document.querySelector(targetId);
         
         if (target) {  // Only scroll if target exists
@@ -16,7 +22,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
             
             // Update aria-current
-            document.querySelectorAll('.nav-links a').forEach(link => {
+            navLinkElements.forEach(link => {
                 link.setAttribute('aria-current', 'false');
             });
             
@@ -32,56 +38,69 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 const mobileMenuButton = document.querySelector('.mobile-menu-button');
 const navLinks = document.querySelector('.nav-links');
 
-mobileMenuButton.addEventListener('click', () => {
-    const isOpen = navLinks.classList.contains('active');
-    navLinks.classList.toggle('active');
-    mobileMenuButton.classList.toggle('active');
-    mobileMenuButton.setAttribute('aria-expanded', !isOpen);
-});
+if (mobileMenuButton && navLinks) {
+    mobileMenuButton.addEventListener('click', () => {
+        const isOpen = navLinks.classList.contains('active');
+        navLinks.classList.toggle('active');
+        mobileMenuButton.classList.toggle('active');
+        mobileMenuButton.setAttribute('aria-expanded', String(!isOpen));
+        document.body.classList.toggle('menu-open', !isOpen);
+    });
+}
 
 // Close mobile menu when link clicked
-document.querySelectorAll('.nav-links a').forEach(link => {
+navLinkElements.forEach(link => {
     link.addEventListener('click', () => {
+        if (!navLinks || !mobileMenuButton) return;
         navLinks.classList.remove('active');
         mobileMenuButton.classList.remove('active');
         mobileMenuButton.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
     });
 });
 
-// Nav scroll effect
+// Nav scroll effect + active link updates
 const nav = document.querySelector('nav');
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-        nav.classList.add('scrolled');
-    } else {
-        nav.classList.remove('scrolled');
-    }
-});
-
-// Update active nav link on scroll
 const sections = document.querySelectorAll('section[id]');
+let scrollTicking = false;
 
-window.addEventListener('scroll', () => {
-    let current = '';
-    
+const updateScrollState = () => {
+    const currentScroll = window.pageYOffset;
+
+    if (nav) {
+        if (currentScroll > 100) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    }
+
+    let currentSection = '';
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        
-        if (window.pageYOffset >= sectionTop - 200) {
-            current = section.getAttribute('id');
+        if (currentScroll >= sectionTop - 200) {
+            currentSection = section.getAttribute('id');
         }
     });
-    
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.setAttribute('aria-current', 'false');
-        if (link.getAttribute('href') === `#${current}`) {
-            link.setAttribute('aria-current', 'page');
-        }
+
+    navLinkElements.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${currentSection}`;
+        link.setAttribute('aria-current', isActive ? 'page' : 'false');
     });
-});
+
+    scrollTicking = false;
+};
+
+const onScroll = () => {
+    if (!scrollTicking) {
+        window.requestAnimationFrame(updateScrollState);
+        scrollTicking = true;
+    }
+};
+
+window.addEventListener('scroll', onScroll, { passive: true });
+updateScrollState();
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
@@ -93,6 +112,7 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);

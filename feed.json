@@ -1,8 +1,8 @@
 {
     "version": "https://jsonfeed.org/version/1",
     "title": "Tobin Zolkowski",
-    "home_page_url": "https://tzolkowski96.github.io/",
-    "feed_url": "https://tzolkowski96.github.io/feed.json",
+    "home_page_url": "https://tzolkowski96.github.io/portfolio/",
+    "feed_url": "https://tzolkowski96.github.io/portfolio/feed.json",
     "description": "Writing about data, multilingual thinking, and the intersection of technology and human experience.",
     "author": {
         "name": "Tobin Zolkowski",

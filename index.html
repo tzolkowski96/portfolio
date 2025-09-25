@@ -39,14 +39,14 @@
     <header>
         <nav role="navigation" aria-label="Main navigation">
             <div class="nav-container">
-                <a href="#" class="logo" aria-label="Tobin Zolkowski - Home">TZ</a>
-                <button class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
+                <a href="#home" class="logo" aria-label="Tobin Zolkowski - Home">TZ</a>
+                <button class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-navigation">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
-                <ul class="nav-links">
-                    <li><a href="#work" aria-current="false">Work</a></li>
+                <ul class="nav-links" id="primary-navigation">
+                    <li><a href="#work" aria-current="page">Work</a></li>
                     <li><a href="#writing" aria-current="false">Writing</a></li>
                     <li><a href="#now" aria-current="false">Now</a></li>
                     <li><a href="#about" aria-current="false">About</a></li>
@@ -56,7 +56,7 @@
     </header>
     
     <main id="main">
-        <section class="hero" aria-labelledby="hero-heading">
+    <section class="hero" id="home" aria-labelledby="hero-heading">
             <div class="hero-content">
                 <h1 id="hero-heading" class="hero-name">Tobin Zolkowski</h1>
                 <p class="hero-subtitle">Data, brains, and the languages between them</p>

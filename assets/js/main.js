@@ -1,4 +1,32 @@
+const root = document.documentElement;
+const nav = document.querySelector('nav');
+const navLinks = document.querySelector('.nav-links');
 const navLinkElements = document.querySelectorAll('.nav-links a');
+const mobileMenuButton = document.querySelector('.mobile-menu-button');
+const sections = document.querySelectorAll('section[id]');
+let cachedHeaderHeight = 72;
+
+const setHeaderHeight = () => {
+    if (!nav) return;
+    const navHeight = nav.getBoundingClientRect().height;
+    cachedHeaderHeight = Math.round(navHeight);
+    root.style.setProperty('--header-height', `${cachedHeaderHeight}px`);
+};
+
+const getHeaderOffset = () => {
+    if (!nav) {
+        return cachedHeaderHeight + 16;
+    }
+    return cachedHeaderHeight + 16;
+};
+
+const closeMobileMenu = () => {
+    if (!navLinks || !mobileMenuButton) return;
+    navLinks.classList.remove('active');
+    mobileMenuButton.classList.remove('active');
+    mobileMenuButton.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+};
 
 // Smooth scroll behavior for all browsers
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -12,14 +40,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const target = document.querySelector(targetId);
         
         if (target) {  // Only scroll if target exists
-            const headerOffset = 80;
-            const elementPosition = target.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            const headerOffset = getHeaderOffset();
+            const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = Math.max(elementPosition - headerOffset, 0);
             
             window.scrollTo({
                 top: offsetPosition,
                 behavior: 'smooth'
             });
+
+            window.requestAnimationFrame(updateScrollState);
             
             // Update aria-current
             navLinkElements.forEach(link => {
@@ -30,14 +60,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             if (navLink) {
                 navLink.setAttribute('aria-current', 'page');
             }
+
+            if (navLinks && navLinks.classList.contains('active')) {
+                closeMobileMenu();
+            }
         }
     });
 });
 
 // Mobile menu toggle
-const mobileMenuButton = document.querySelector('.mobile-menu-button');
-const navLinks = document.querySelector('.nav-links');
-
 if (mobileMenuButton && navLinks) {
     mobileMenuButton.addEventListener('click', () => {
         const isOpen = navLinks.classList.contains('active');
@@ -46,29 +77,31 @@ if (mobileMenuButton && navLinks) {
         mobileMenuButton.setAttribute('aria-expanded', String(!isOpen));
         document.body.classList.toggle('menu-open', !isOpen);
     });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && navLinks.classList.contains('active')) {
+            closeMobileMenu();
+            mobileMenuButton.focus();
+        }
+    });
 }
 
 // Close mobile menu when link clicked
 navLinkElements.forEach(link => {
     link.addEventListener('click', () => {
-        if (!navLinks || !mobileMenuButton) return;
-        navLinks.classList.remove('active');
-        mobileMenuButton.classList.remove('active');
-        mobileMenuButton.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('menu-open');
+        closeMobileMenu();
     });
 });
 
 // Nav scroll effect + active link updates
-const nav = document.querySelector('nav');
-const sections = document.querySelectorAll('section[id]');
 let scrollTicking = false;
 
 const updateScrollState = () => {
     const currentScroll = window.pageYOffset;
+    const headerOffset = getHeaderOffset();
 
     if (nav) {
-        if (currentScroll > 100) {
+        if (currentScroll > headerOffset) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
@@ -78,8 +111,8 @@ const updateScrollState = () => {
     let currentSection = '';
 
     sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (currentScroll >= sectionTop - 200) {
+        const sectionTop = section.offsetTop - (headerOffset + 40);
+        if (currentScroll >= sectionTop) {
             currentSection = section.getAttribute('id');
         }
     });
@@ -100,7 +133,23 @@ const onScroll = () => {
 };
 
 window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', () => {
+    window.requestAnimationFrame(() => {
+        setHeaderHeight();
+        updateScrollState();
+    });
+});
+window.addEventListener('load', setHeaderHeight);
+setHeaderHeight();
 updateScrollState();
+
+if (window.ResizeObserver && nav) {
+    const navResizeObserver = new ResizeObserver(() => {
+        setHeaderHeight();
+        updateScrollState();
+    });
+    navResizeObserver.observe(nav);
+}
 
 // Intersection Observer for fade-in animations
 const observerOptions = {

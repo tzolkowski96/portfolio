@@ -48,6 +48,15 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+[data-scroll-animate] {
+    --scroll-progress: 1;
+    --scroll-offset-y: calc((1 - var(--scroll-progress)) * 24px);
+    opacity: calc(0.6 + var(--scroll-progress) * 0.4);
+    transform: translate3d(0, var(--scroll-offset-y), 0);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+}
+
 body.menu-open {
     overflow: hidden;
 }
@@ -103,6 +112,13 @@ button:focus-visible {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+    }
+
+    [data-scroll-animate] {
+        --scroll-progress: 1 !important;
+        transform: none !important;
+        opacity: 1 !important;
+        transition: none !important;
     }
 }
 
@@ -408,11 +424,13 @@ main {
     box-shadow: 0 12px 35px rgba(15, 23, 42, 0.06);
     display: grid;
     gap: 0.75rem;
+    transform: translate3d(0, var(--scroll-offset-y, 0px), 0);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .work-item:hover {
     box-shadow: 0 18px 45px rgba(15, 23, 42, 0.1);
+    transform: translate3d(0, calc(var(--scroll-offset-y, 0px) - 4px), 0);
 }
 
 .work-item h4 {
@@ -470,10 +488,12 @@ main {
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
     display: grid;
     gap: 0.75rem;
+    transform: translate3d(0, var(--scroll-offset-y, 0px), 0);
 }
 
 .writing-item:hover {
     box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+    transform: translate3d(0, calc(var(--scroll-offset-y, 0px) - 3px), 0);
 }
 
 .writing-item h3 {
@@ -566,10 +586,12 @@ main {
     padding: clamp(1rem, 2vw, 1.5rem);
     border-radius: 12px;
     background: rgba(148, 163, 184, 0.05);
+    transform: translate3d(0, var(--scroll-offset-y, 0px), 0);
 }
 
 .now-category:hover {
     background: rgba(22, 78, 99, 0.08);
+    transform: translate3d(0, calc(var(--scroll-offset-y, 0px) - 2px), 0);
 }
 
 .now-category h3 {
@@ -678,6 +700,40 @@ main {
 
 .connect-links a:hover {
     color: var(--gray-900);
+}
+
+@media (min-width: 900px) {
+    .hero-content {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        align-items: start;
+        column-gap: clamp(2rem, 5vw, 4rem);
+    }
+
+    .hero-name,
+    .hero-subtitle {
+        grid-column: 1;
+    }
+
+    .hero-current {
+        grid-column: 2;
+        grid-row: 1 / span 3;
+        align-self: start;
+        padding: clamp(1.75rem, 3vw, 2.75rem);
+        border-radius: 20px;
+        border: 1px solid rgba(10, 10, 10, 0.08);
+        background: linear-gradient(180deg, rgba(10, 10, 10, 0.03) 0%, rgba(10, 10, 10, 0.08) 100%);
+        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+    }
+
+    .hero-current p {
+        max-width: 42ch;
+    }
+
+    .about-content {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: clamp(2rem, 4vw, 3.5rem);
+        row-gap: clamp(1.5rem, 3vw, 2.5rem);
+    }
 }
 
 /* Footer */
@@ -980,11 +1036,11 @@ footer {
 /* Hover enhancements on pointer devices */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
     .work-item:hover {
-        transform: translateY(-4px);
+        transform: translate3d(0, calc(var(--scroll-offset-y, 0px) - 4px), 0);
     }
 
     .writing-item:hover {
-        transform: translateY(-3px);
+        transform: translate3d(0, calc(var(--scroll-offset-y, 0px) - 3px), 0);
     }
 
     .now-category {
@@ -992,7 +1048,7 @@ footer {
     }
 
     .now-category:hover {
-        transform: translateY(-2px);
+        transform: translate3d(0, calc(var(--scroll-offset-y, 0px) - 2px), 0);
     }
 
     .now-category:hover h3 {

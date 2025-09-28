@@ -5,6 +5,8 @@ const navLinkElements = document.querySelectorAll('.nav-links a');
 const mobileMenuButton = document.querySelector('.mobile-menu-button');
 const sections = document.querySelectorAll('section[id]');
 let cachedHeaderHeight = 72;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let scrollAnimatedElements = [];
 
 const setHeaderHeight = () => {
     if (!nav) return;
@@ -19,6 +21,52 @@ const getHeaderOffset = () => {
     }
     return cachedHeaderHeight + 16;
 };
+
+const updateScrollAnimations = () => {
+    if (!scrollAnimatedElements.length || prefersReducedMotion.matches) {
+        return;
+    }
+
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+    scrollAnimatedElements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const elementHeight = rect.height || element.offsetHeight || 1;
+        const distance = viewportHeight + elementHeight;
+        const rawProgress = (viewportHeight - rect.top) / distance;
+        const progress = Math.min(Math.max(rawProgress, 0), 1);
+
+        element.style.setProperty('--scroll-progress', progress.toFixed(3));
+    });
+};
+
+const registerScrollAnimations = () => {
+    scrollAnimatedElements = Array.from(document.querySelectorAll('[data-scroll-animate]'));
+
+    if (prefersReducedMotion.matches) {
+        scrollAnimatedElements.forEach(element => {
+            element.style.setProperty('--scroll-progress', '1');
+        });
+    } else {
+        updateScrollAnimations();
+    }
+};
+
+const handleReducedMotionChange = event => {
+    if (event.matches) {
+        scrollAnimatedElements.forEach(element => {
+            element.style.setProperty('--scroll-progress', '1');
+        });
+    } else {
+        updateScrollAnimations();
+    }
+};
+
+if (prefersReducedMotion.addEventListener) {
+    prefersReducedMotion.addEventListener('change', handleReducedMotionChange);
+} else if (prefersReducedMotion.addListener) {
+    prefersReducedMotion.addListener(handleReducedMotionChange);
+}
 
 const closeMobileMenu = () => {
     if (!navLinks || !mobileMenuButton) return;
@@ -122,6 +170,8 @@ const updateScrollState = () => {
         link.setAttribute('aria-current', isActive ? 'page' : 'false');
     });
 
+    updateScrollAnimations();
+
     scrollTicking = false;
 };
 
@@ -139,7 +189,10 @@ window.addEventListener('resize', () => {
         updateScrollState();
     });
 });
-window.addEventListener('load', setHeaderHeight);
+window.addEventListener('load', () => {
+    setHeaderHeight();
+    updateScrollAnimations();
+});
 setHeaderHeight();
 updateScrollState();
 
@@ -173,4 +226,14 @@ document.addEventListener('DOMContentLoaded', () => {
         el.classList.add('fade-in');
         observer.observe(el);
     });
+
+    const scrollTargets = document.querySelectorAll(
+        '.hero-current, .hero-subtitle, .about-container, .about-content p, .current-work, .work-item, .writing-item, .writing-archive, .now-category, .connect-container, .footer-content'
+    );
+
+    scrollTargets.forEach(el => {
+        el.setAttribute('data-scroll-animate', '');
+    });
+
+    registerScrollAnimations();
 });

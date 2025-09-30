@@ -540,6 +540,8 @@ main {
     background: linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.02) 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .work-item:hover {
@@ -560,6 +562,8 @@ main {
     font-weight: 600;
     color: var(--black);
     transition: var(--transition-base);
+    position: relative;
+    z-index: 1;
 }
 
 .work-item:hover h4 {
@@ -571,6 +575,8 @@ main {
     line-height: 1.8;
     margin: 0;
     font-size: clamp(1rem, 0.4vw + 0.95rem, 1.15rem);
+    position: relative;
+    z-index: 1;
 }
 
 .work-item a {
@@ -583,6 +589,9 @@ main {
     align-items: center;
     gap: 0.5rem;
     margin-top: 0.5rem;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
 }
 
 .work-item a::after {
@@ -639,6 +648,7 @@ main {
     transform: translate3d(0, var(--scroll-offset-y, 0px), 0);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .writing-item::before {
@@ -648,6 +658,8 @@ main {
     background: linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.02) 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .writing-item:hover {
@@ -664,12 +676,23 @@ main {
     font-size: clamp(1.2rem, 0.7vw + 1.05rem, 1.5rem);
     margin: 0;
     font-weight: 600;
+    position: relative;
+    z-index: 1;
 }
 
 .writing-item h3 a {
     color: var(--black);
     text-decoration: none;
     transition: var(--transition-base);
+    cursor: pointer;
+    display: block;
+}
+
+.writing-item h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
 }
 
 .writing-item h3 a:hover {
@@ -681,6 +704,8 @@ main {
     line-height: 1.7;
     margin: 0;
     font-size: clamp(1rem, 0.4vw + 0.95rem, 1.1rem);
+    position: relative;
+    z-index: 1;
 }
 
 .writing-item time {
@@ -689,6 +714,8 @@ main {
     margin-top: auto;
     font-weight: 500;
     letter-spacing: 0.02em;
+    position: relative;
+    z-index: 1;
 }
 
 .writing-more {
@@ -700,15 +727,16 @@ main {
 .writing-archive {
     margin-top: 3rem;
     padding-top: 2rem;
-    border-top: 1px solid var(--gray-200);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .writing-archive h3 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.125rem;
-    margin-bottom: 1rem;
+    font-size: clamp(1.125rem, 0.4vw + 1.05rem, 1.35rem);
+    margin-bottom: 1.5rem;
     font-weight: 600;
-    color: var(--gray-900);
+    color: var(--black);
+    text-align: center;
 }
 
 .writing-archive ul {
@@ -716,7 +744,7 @@ main {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem 2rem;
+    gap: 1.5rem 2.5rem;
     justify-content: center;
 }
 
@@ -724,11 +752,16 @@ main {
     color: var(--gray-700);
     text-decoration: none;
     font-weight: 500;
+    font-size: 1.05rem;
     transition: var(--transition-base);
+    border-bottom: 2px solid var(--gray-300);
+    padding-bottom: 2px;
+    cursor: pointer;
 }
 
 .writing-archive a:hover {
-    color: var(--gray-900);
+    color: var(--black);
+    border-bottom-color: var(--black);
 }
 
 /* Now Section */

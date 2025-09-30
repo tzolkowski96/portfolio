@@ -35,8 +35,13 @@ const updateScrollAnimations = () => {
         const distance = viewportHeight + elementHeight;
         const rawProgress = (viewportHeight - rect.top) / distance;
         const progress = Math.min(Math.max(rawProgress, 0), 1);
+        
+        // Use easing function for smoother animation
+        const eased = progress < 0.5 
+            ? 2 * progress * progress 
+            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
 
-        element.style.setProperty('--scroll-progress', progress.toFixed(3));
+        element.style.setProperty('--scroll-progress', eased.toFixed(3));
     });
 };
 
@@ -206,29 +211,31 @@ if (window.ResizeObserver && nav) {
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.15,
+    rootMargin: '0px 0px -80px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+            // Don't unobserve so animations can repeat if element leaves and re-enters
+            // Comment out the line below if you want one-time animations
+            // observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
 // Add fade-in class to elements
 document.addEventListener('DOMContentLoaded', () => {
-    const elements = document.querySelectorAll('.work-item, .writing-item, .about-content p');
+    const elements = document.querySelectorAll('.work-item, .writing-item, .about-content p, .current-work, .past-work h3, .writing-archive');
     elements.forEach(el => {
         el.classList.add('fade-in');
         observer.observe(el);
     });
 
     const scrollTargets = document.querySelectorAll(
-        '.hero-current, .hero-subtitle, .about-container, .about-content p, .current-work, .work-item, .writing-item, .writing-archive, .now-category, .connect-container, .footer-content'
+        '.hero-current, .hero-subtitle, .hero-tagline, .about-container, .about-content p, .current-work, .work-item, .writing-item, .writing-archive, .now-category, .connect-container, .footer-content'
     );
 
     scrollTargets.forEach(el => {
@@ -236,4 +243,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     registerScrollAnimations();
+    
+    // Add parallax effect to hero
+    let lastScrollY = window.pageYOffset;
+    const heroSection = document.querySelector('.hero');
+    
+    const updateHeroParallax = () => {
+        if (heroSection && !prefersReducedMotion.matches) {
+            const scrollY = window.pageYOffset;
+            const heroHeight = heroSection.offsetHeight;
+            
+            if (scrollY < heroHeight) {
+                const parallaxSpeed = 0.5;
+                heroSection.style.transform = `translateY(${scrollY * parallaxSpeed}px)`;
+            }
+        }
+    };
+    
+    window.addEventListener('scroll', () => {
+        window.requestAnimationFrame(updateHeroParallax);
+    }, { passive: true });
 });

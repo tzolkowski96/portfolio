@@ -1,30 +1,51 @@
-# tobinzolkowski.com
+# Tobin Zolkowski - Personal Site
 
-Personal site - writing and work.
+A personal portfolio and writing showcase built with a focus on **Swiss Minimalist** design principles and subtle interactivity.
 
-## Overview
+## Design Philosophy
 
-A simple, focused personal site built with vanilla HTML, CSS, and JavaScript. No frameworks, no build process, just clean code and thoughtful content.
+- **Theme:** "Swiss Minimalist" / Editorial
+- **Typography:** High contrast pairing of `Space Grotesk` (Display) and `Inter` (Body), with `JetBrains Mono` for technical details.
+- **Visuals:** Black & white aesthetic with a custom Three.js particle system ("Neural Data Flow") representing the intersection of biological and digital data.
+- **Accessibility:** Built with semantic HTML, ARIA labels, and reduced-motion support.
 
-## Recent Updates
-- December 2024: Redesigned as personal site, removed portfolio elements
-- Added JSON feed for syndication
-- Currently reading: The Visual Display of Quantitative Information
+## Tech Stack
+
+- **Core:** Vanilla HTML5, CSS3 (Custom Properties), JavaScript (ES6+)
+- **Graphics:** [Three.js](https://threejs.org/) for the interactive background
+- **Build:** None. No frameworks, no bundlers. Just raw, performant code.
 
 ## Structure
 
-- `index.html` - Main site (all-in-one approach)
-- `404.html` - Custom error page for GitHub Pages
-- `feed.json` - JSON Feed for syndication
-- `og-image.*` - Social sharing assets
+```
+├── index.html          # Main entry point
+├── assets/
+│   ├── css/
+│   │   └── style.css   # Main stylesheet (Design System)
+│   └── js/
+│       ├── main.js     # UI logic (Scroll spy, mobile menu)
+│       └── three-scene.js # 3D particle background
+├── serve.py            # Simple Python dev server
+└── feed.json           # JSON Feed for syndication
+```
 
-## Content Strategy
+## Local Development
 
-- **Now page**: Updated monthly with current readings and thinking
-- **Writing**: Recent posts with archive links to Medium/Substack
-- **Work**: Current role and approach (not a resume)
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/tzolkowski96/portfolio.git
+   cd portfolio
+   ```
+
+2. **Start the local server:**
+   ```bash
+   python3 serve.py
+   ```
+
+3. **View the site:**
+   Open [http://localhost:8000](http://localhost:8000) in your browser.
 
 ## License
 
-Content © 2025 Tobin Zolkowski  
-Code: MIT License
+Content © 2025 Tobin Zolkowski.
+Code available under the MIT License.

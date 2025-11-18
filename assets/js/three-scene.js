@@ -88,19 +88,6 @@ const initThreeJS = () => {
         // Mouse interaction easing
         particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
         particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
-
-        // Wave effect
-        const positions = particlesGeometry.attributes.position.array;
-        for(let i = 0; i < particlesCount; i++) {
-            const i3 = i * 3;
-            const x = particlesGeometry.attributes.position.array[i3];
-            // Sine wave movement on Y axis based on X position and time
-            // Creates a "breathing" or "flowing" data effect
-            // We modify the rendered position slightly without changing the buffer permanently for performance, 
-            // but here we want a simple wave. 
-            // Actually, let's just rotate the whole mesh for performance, 
-            // but maybe add a slight pulse to the camera or mesh scale.
-        }
         
         // Subtle breathing
         const scale = 1 + Math.sin(elapsedTime * 0.5) * 0.05;

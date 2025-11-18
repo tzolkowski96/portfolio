@@ -4,73 +4,17 @@ const navLinks = document.querySelector('.nav-links');
 const navLinkElements = document.querySelectorAll('.nav-links a');
 const mobileMenuButton = document.querySelector('.mobile-menu-button');
 const sections = document.querySelectorAll('section[id]');
-let cachedHeaderHeight = 72;
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-let scrollAnimatedElements = [];
 
-const setHeaderHeight = () => {
-    if (!nav) return;
-    const navHeight = nav.getBoundingClientRect().height;
-    cachedHeaderHeight = Math.round(navHeight);
-    root.style.setProperty('--header-height', `${cachedHeaderHeight}px`);
-};
-
-const getHeaderOffset = () => {
-    if (!nav) {
-        return cachedHeaderHeight + 16;
-    }
-    return cachedHeaderHeight + 16;
-};
-
-const updateScrollAnimations = () => {
-    if (!scrollAnimatedElements.length || prefersReducedMotion.matches) {
-        return;
-    }
-
-    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-
-    scrollAnimatedElements.forEach(element => {
-        const rect = element.getBoundingClientRect();
-        const elementHeight = rect.height || element.offsetHeight || 1;
-        const distance = viewportHeight + elementHeight;
-        const rawProgress = (viewportHeight - rect.top) / distance;
-        const progress = Math.min(Math.max(rawProgress, 0), 1);
-        
-        // Use easing function for smoother animation
-        const eased = progress < 0.5 
-            ? 2 * progress * progress 
-            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-
-        element.style.setProperty('--scroll-progress', eased.toFixed(3));
+// Mobile Menu
+if (mobileMenuButton && navLinks) {
+    mobileMenuButton.addEventListener('click', () => {
+        const isOpen = navLinks.classList.contains('active');
+        navLinks.classList.toggle('active');
+        mobileMenuButton.classList.toggle('active');
+        mobileMenuButton.setAttribute('aria-expanded', String(!isOpen));
+        document.body.style.overflow = isOpen ? '' : 'hidden';
     });
-};
-
-const registerScrollAnimations = () => {
-    scrollAnimatedElements = Array.from(document.querySelectorAll('[data-scroll-animate]'));
-
-    if (prefersReducedMotion.matches) {
-        scrollAnimatedElements.forEach(element => {
-            element.style.setProperty('--scroll-progress', '1');
-        });
-    } else {
-        updateScrollAnimations();
-    }
-};
-
-const handleReducedMotionChange = event => {
-    if (event.matches) {
-        scrollAnimatedElements.forEach(element => {
-            element.style.setProperty('--scroll-progress', '1');
-        });
-    } else {
-        updateScrollAnimations();
-    }
-};
-
-if (prefersReducedMotion.addEventListener) {
-    prefersReducedMotion.addEventListener('change', handleReducedMotionChange);
-} else if (prefersReducedMotion.addListener) {
-    prefersReducedMotion.addListener(handleReducedMotionChange);
 }
 
 const closeMobileMenu = () => {
@@ -78,93 +22,57 @@ const closeMobileMenu = () => {
     navLinks.classList.remove('active');
     mobileMenuButton.classList.remove('active');
     mobileMenuButton.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('menu-open');
+    document.body.style.overflow = '';
 };
 
-// Smooth scroll behavior for all browsers
+navLinkElements.forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+});
+
+// Smooth Scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         const targetId = this.getAttribute('href');
-        if (!targetId || targetId === '#' || targetId.trim().length <= 1 || targetId[0] !== '#') {
-            return;
-        }
+        if (!targetId || targetId === '#' || targetId.trim().length <= 1) return;
 
         e.preventDefault();
         const target = document.querySelector(targetId);
         
-        if (target) {  // Only scroll if target exists
-            const headerOffset = getHeaderOffset();
+        if (target) {
+            const headerHeight = 80; // Fixed height from CSS
             const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = Math.max(elementPosition - headerOffset, 0);
+            const offsetPosition = elementPosition - headerHeight;
             
             window.scrollTo({
                 top: offsetPosition,
                 behavior: 'smooth'
             });
-
-            window.requestAnimationFrame(updateScrollState);
             
-            // Update aria-current
-            navLinkElements.forEach(link => {
-                link.setAttribute('aria-current', 'false');
-            });
-            
-            const navLink = document.querySelector(`.nav-links a[href="${targetId}"]`);
-            if (navLink) {
-                navLink.setAttribute('aria-current', 'page');
-            }
-
-            if (navLinks && navLinks.classList.contains('active')) {
-                closeMobileMenu();
-            }
+            // Update active state manually
+            navLinkElements.forEach(link => link.setAttribute('aria-current', 'false'));
+            this.setAttribute('aria-current', 'page');
         }
     });
 });
 
-// Mobile menu toggle
-if (mobileMenuButton && navLinks) {
-    mobileMenuButton.addEventListener('click', () => {
-        const isOpen = navLinks.classList.contains('active');
-        navLinks.classList.toggle('active');
-        mobileMenuButton.classList.toggle('active');
-        mobileMenuButton.setAttribute('aria-expanded', String(!isOpen));
-        document.body.classList.toggle('menu-open', !isOpen);
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && navLinks.classList.contains('active')) {
-            closeMobileMenu();
-            mobileMenuButton.focus();
-        }
-    });
-}
-
-// Close mobile menu when link clicked
-navLinkElements.forEach(link => {
-    link.addEventListener('click', () => {
-        closeMobileMenu();
-    });
-});
-
-// Nav scroll effect + active link updates
-let scrollTicking = false;
-
+// Scroll Spy & Header State
 const updateScrollState = () => {
     const currentScroll = window.pageYOffset;
-    const headerOffset = getHeaderOffset();
+    const headerHeight = 80;
 
+    // Header state
     if (nav) {
-        if (currentScroll > headerOffset) {
+        if (currentScroll > 50) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
         }
     }
 
+    // Scroll Spy
     let currentSection = '';
-
     sections.forEach(section => {
-        const sectionTop = section.offsetTop - (headerOffset + 40);
+        const sectionTop = section.offsetTop - (headerHeight + 100);
         if (currentScroll >= sectionTop) {
             currentSection = section.getAttribute('id');
         }
@@ -174,93 +82,34 @@ const updateScrollState = () => {
         const isActive = link.getAttribute('href') === `#${currentSection}`;
         link.setAttribute('aria-current', isActive ? 'page' : 'false');
     });
-
-    updateScrollAnimations();
-
-    scrollTicking = false;
 };
 
-const onScroll = () => {
-    if (!scrollTicking) {
-        window.requestAnimationFrame(updateScrollState);
-        scrollTicking = true;
-    }
-};
+window.addEventListener('scroll', () => {
+    window.requestAnimationFrame(updateScrollState);
+}, { passive: true });
 
-window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', () => {
-    window.requestAnimationFrame(() => {
-        setHeaderHeight();
-        updateScrollState();
-    });
-});
-window.addEventListener('load', () => {
-    setHeaderHeight();
-    updateScrollAnimations();
-});
-setHeaderHeight();
-updateScrollState();
-
-if (window.ResizeObserver && nav) {
-    const navResizeObserver = new ResizeObserver(() => {
-        setHeaderHeight();
-        updateScrollState();
-    });
-    navResizeObserver.observe(nav);
-}
-
-// Intersection Observer for fade-in animations
+// Intersection Observer for Fade In
 const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -80px 0px'
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            // Don't unobserve so animations can repeat if element leaves and re-enters
-            // Comment out the line below if you want one-time animations
-            // observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Add fade-in class to elements
 document.addEventListener('DOMContentLoaded', () => {
-    const elements = document.querySelectorAll('.work-item, .writing-item, .about-content p, .current-work, .past-work h3, .writing-archive');
-    elements.forEach(el => {
+    // Elements to animate
+    const animatedElements = document.querySelectorAll(
+        '.hero-name, .hero-subtitle, .hero-current, .about-content, .work-item, .writing-item, .now-category, .connect h2'
+    );
+    
+    animatedElements.forEach(el => {
         el.classList.add('fade-in');
         observer.observe(el);
     });
-
-    const scrollTargets = document.querySelectorAll(
-        '.hero-current, .hero-subtitle, .hero-tagline, .about-container, .about-content p, .current-work, .work-item, .writing-item, .writing-archive, .now-category, .connect-container, .footer-content'
-    );
-
-    scrollTargets.forEach(el => {
-        el.setAttribute('data-scroll-animate', '');
-    });
-
-    registerScrollAnimations();
-    
-    // Add parallax effect to hero
-    let lastScrollY = window.pageYOffset;
-    const heroSection = document.querySelector('.hero');
-    
-    const updateHeroParallax = () => {
-        if (heroSection && !prefersReducedMotion.matches) {
-            const scrollY = window.pageYOffset;
-            const heroHeight = heroSection.offsetHeight;
-            
-            if (scrollY < heroHeight) {
-                const parallaxSpeed = 0.5;
-                heroSection.style.transform = `translateY(${scrollY * parallaxSpeed}px)`;
-            }
-        }
-    };
-    
-    window.addEventListener('scroll', () => {
-        window.requestAnimationFrame(updateHeroParallax);
-    }, { passive: true });
 });

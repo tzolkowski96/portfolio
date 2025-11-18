@@ -267,6 +267,15 @@ header.hidden {
     margin-bottom: 2rem;
     color: var(--black);
     word-wrap: break-word;
+    position: relative;
+    transition: color 0.1s ease;
+}
+
+/* Chromatic Aberration / Glitch Effect on Hover */
+.hero-name:hover {
+    text-shadow: 
+        3px 0px 0px rgba(255, 0, 0, 0.5),
+        -3px 0px 0px rgba(0, 255, 255, 0.5);
 }
 
 .hero-grid {
@@ -590,12 +599,27 @@ header.hidden {
 }
 
 footer {
-    padding: 2rem var(--layout-gutter);
+    padding: 4rem var(--layout-gutter) 2rem;
     text-align: center;
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--gray-500);
     border-top: 1px solid var(--gray-100);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.signature svg {
+    width: 80px;
+    height: auto;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.signature svg:hover {
+    opacity: 1;
 }
 
 /* Responsive */

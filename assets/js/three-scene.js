@@ -54,12 +54,31 @@ const initThreeJS = () => {
     
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
-    // Material - Nodes
+    // Material - Nodes (Organic/Soft)
+    const getTexture = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 32;
+        canvas.height = 32;
+        const ctx = canvas.getContext('2d');
+        // Soft radial gradient for organic feel
+        const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+        gradient.addColorStop(0, 'rgba(5,5,5,1)');
+        gradient.addColorStop(0.4, 'rgba(5,5,5,0.5)');
+        gradient.addColorStop(1, 'rgba(5,5,5,0)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 32, 32);
+        const texture = new THREE.Texture(canvas);
+        texture.needsUpdate = true;
+        return texture;
+    };
+
     const material = new THREE.PointsMaterial({
-        size: 0.3,
-        color: 0x050505,
+        size: 0.8, // Larger because they are soft
+        map: getTexture(),
         transparent: true,
-        opacity: 0.8,
+        opacity: 0.9,
+        depthWrite: false, // Prevents z-fighting with transparency
+        blending: THREE.MultiplyBlending // Darkens the background for ink-like effect
     });
 
     // Mesh

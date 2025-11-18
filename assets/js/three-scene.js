@@ -31,21 +31,33 @@ const initThreeJS = () => {
 
     // Particles
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = window.innerWidth < 768 ? 800 : 1500; // Fewer particles on mobile
+    const particlesCount = window.innerWidth < 768 ? 60 : 120; // Reduced count for network effect
     
     const posArray = new Float32Array(particlesCount * 3);
-    
-    for(let i = 0; i < particlesCount * 3; i++) {
-        // Spread particles in a wide area
-        posArray[i] = (Math.random() - 0.5) * 120; 
+    const particles = []; // Store particle data for manual line drawing
+
+    for(let i = 0; i < particlesCount; i++) {
+        const x = (Math.random() - 0.5) * 100;
+        const y = (Math.random() - 0.5) * 100;
+        const z = (Math.random() - 0.5) * 50;
+        
+        posArray[i * 3] = x;
+        posArray[i * 3 + 1] = y;
+        posArray[i * 3 + 2] = z;
+
+        particles.push({
+            x: x, y: y, z: z,
+            vx: (Math.random() - 0.5) * 0.05, // Velocity
+            vy: (Math.random() - 0.5) * 0.05
+        });
     }
     
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
-    // Material - Black dots
+    // Material - Nodes
     const material = new THREE.PointsMaterial({
-        size: 0.15,
-        color: 0x050505, // Matches --black
+        size: 0.3,
+        color: 0x050505,
         transparent: true,
         opacity: 0.8,
     });
@@ -53,6 +65,17 @@ const initThreeJS = () => {
     // Mesh
     const particlesMesh = new THREE.Points(particlesGeometry, material);
     scene.add(particlesMesh);
+
+    // Lines
+    const lineMaterial = new THREE.LineBasicMaterial({
+        color: 0x050505,
+        transparent: true,
+        opacity: 0.15
+    });
+
+    const lineGeometry = new THREE.BufferGeometry();
+    const linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+    scene.add(linesMesh);
 
     // Interaction
     let mouseX = 0;
@@ -71,27 +94,63 @@ const initThreeJS = () => {
     document.addEventListener('mousemove', onDocumentMouseMove);
 
     // Animation Loop
-    const clock = new THREE.Clock();
-
     const animate = () => {
         requestAnimationFrame(animate);
-
-        const elapsedTime = clock.getElapsedTime();
 
         targetX = mouseX * 0.001;
         targetY = mouseY * 0.001;
 
-        // Gentle rotation
-        particlesMesh.rotation.y += 0.001;
-        particlesMesh.rotation.x += 0.0005;
-
-        // Mouse interaction easing
-        particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
-        particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
+        // Update particles
+        const positions = particlesMesh.geometry.attributes.position.array;
         
-        // Subtle breathing
-        const scale = 1 + Math.sin(elapsedTime * 0.5) * 0.05;
-        particlesMesh.scale.set(scale, scale, scale);
+        // Line positions array (max possible lines)
+        const linePositions = [];
+
+        for(let i = 0; i < particlesCount; i++) {
+            // Move particles
+            particles[i].x += particles[i].vx;
+            particles[i].y += particles[i].vy;
+
+            // Bounce off boundaries
+            if(particles[i].x > 50 || particles[i].x < -50) particles[i].vx *= -1;
+            if(particles[i].y > 50 || particles[i].y < -50) particles[i].vy *= -1;
+
+            // Update mesh position
+            positions[i * 3] = particles[i].x;
+            positions[i * 3 + 1] = particles[i].y;
+            positions[i * 3 + 2] = particles[i].z;
+
+            // Check connections
+            for(let j = i + 1; j < particlesCount; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dz = particles[i].z - particles[j].z;
+                const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+                if(dist < 15) { // Connection threshold
+                    linePositions.push(
+                        particles[i].x, particles[i].y, particles[i].z,
+                        particles[j].x, particles[j].y, particles[j].z
+                    );
+                }
+            }
+        }
+
+        particlesMesh.geometry.attributes.position.needsUpdate = true;
+        
+        // Update lines
+        linesMesh.geometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+
+        // Gentle rotation of entire system
+        const rotationSpeed = 0.001;
+        particlesMesh.rotation.y += rotationSpeed;
+        linesMesh.rotation.y += rotationSpeed;
+
+        // Mouse interaction
+        particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
+        particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
+        linesMesh.rotation.x += 0.05 * (targetY - linesMesh.rotation.x);
+        linesMesh.rotation.y += 0.05 * (targetX - linesMesh.rotation.y);
 
         renderer.render(scene, camera);
     };

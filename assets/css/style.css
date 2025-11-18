@@ -219,6 +219,20 @@ header.hidden {
     color: var(--black);
 }
 
+.nav-links .nav-cta {
+    background: var(--black);
+    color: var(--white) !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    margin-left: 0.5rem;
+    transition: transform 0.2s var(--ease-out-expo), background-color 0.2s ease;
+}
+
+.nav-links .nav-cta:hover {
+    transform: translateY(-1px);
+    background: var(--gray-800);
+}
+
 .mobile-menu-button {
     display: none;
     background: none;
@@ -336,13 +350,20 @@ header.hidden {
 
 .work-item {
     display: grid;
-    grid-template-columns: 3fr 4fr 1fr;
+    grid-template-columns: 1fr auto;
     gap: 2rem;
     padding: 3rem 0;
     border-top: 1px solid var(--gray-200);
     transition: opacity 0.3s ease;
-    align-items: baseline;
+    align-items: start;
     position: relative;
+}
+
+.work-content {
+    display: grid;
+    grid-template-columns: 3fr 4fr;
+    gap: 2rem;
+    align-items: baseline;
 }
 
 .work-item:last-child {
@@ -372,7 +393,31 @@ header.hidden {
     max-width: 50ch;
 }
 
-.work-item a {
+.work-insight {
+    grid-column: 2 / -1;
+    margin-top: 1.5rem;
+    padding: 1rem 1.5rem;
+    background: var(--gray-50);
+    border-left: 2px solid var(--black);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+}
+
+.insight-label {
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--black);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.work-insight p {
+    font-size: 0.9375rem;
+    color: var(--gray-700);
+    margin: 0;
+}
+
+.work-item > a {
     justify-self: end;
     font-family: var(--font-mono);
     font-size: 0.875rem;
@@ -381,9 +426,10 @@ header.hidden {
     padding: 0.5rem 1rem;
     border-radius: 100px;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
-.work-item a:hover {
+.work-item > a:hover {
     background: var(--black);
     color: var(--white);
     border-color: var(--black);
@@ -580,10 +626,15 @@ footer {
     
     .work-item {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .work-content {
+        grid-template-columns: 1fr;
         gap: 1rem;
     }
     
-    .work-item a {
+    .work-item > a {
         justify-self: start;
     }
     

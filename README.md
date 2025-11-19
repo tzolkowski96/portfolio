@@ -19,17 +19,32 @@ A personal portfolio and writing showcase built with a focus on **Swiss Minimali
 
 ```
 ├── index.html          # Main entry point
+├── serve.py            # Simple Python dev server
 ├── assets/
 │   ├── css/
 │   │   └── style.css   # Main stylesheet (Design System)
-│   └── js/
-│       ├── main.js     # UI logic (Scroll spy, mobile menu)
-│       └── three-scene.js # 3D particle background
-├── serve.py            # Simple Python dev server
+│   ├── js/
+│   │   ├── main.js     # UI logic (Scroll spy, mobile menu)
+│   │   ├── three-scene.js # 3D particle background
+│   │   └── three.min.js   # Vendorized Three.js library
+│   └── images/
+│       └── favicon.svg # Custom SVG favicon
 └── feed.json           # JSON Feed for syndication
 ```
 
+## Features
+
+- **Responsive Design:** Fluid typography and layout that adapts from large desktop screens to mobile devices.
+- **Performance:** Zero build steps, vendorized dependencies, and optimized assets for fast load times.
+- **Interactive Background:** A custom Three.js particle system that responds to mouse movement, optimized for battery life on mobile.
+- **Accessibility:** Semantic HTML, keyboard navigation support, and respect for `prefers-reduced-motion`.
+
 ## Local Development
+
+### Prerequisites
+- Python 3.x (for the local server)
+
+### Steps
 
 1. **Clone the repository:**
    ```bash
@@ -41,9 +56,13 @@ A personal portfolio and writing showcase built with a focus on **Swiss Minimali
    ```bash
    python3 serve.py
    ```
+   This will start a server at `http://localhost:8000` and attempt to open your default browser.
 
-3. **View the site:**
-   Open [http://localhost:8000](http://localhost:8000) in your browser.
+## Deployment
+
+This site is designed to be hosted on **GitHub Pages**.
+- The `main` branch is served directly.
+- No build process is required.
 
 ## License
 

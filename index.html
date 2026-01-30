@@ -3,299 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Working with neurological imaging data at IU School of Medicine. Writing about data science, accessibility, and the intersections between technology and human experience.">
+    <title>Tobin Zolkowski — Data Analyst</title>
+    <meta name="description" content="Tobin Zolkowski. Data analyst with a focus on data engineering and ETL. Deaf, autistic. Finding signal in the noise.">
     <meta property="og:title" content="Tobin Zolkowski">
-    <meta property="og:description" content="Neurological imaging data, writing, and explorations at the intersection of data and human experience.">
+    <meta property="og:description" content="Data analyst. Deaf. Autistic. Building things that make sense of chaos.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tzolkowski96.github.io/portfolio/">
-    <meta property="og:image" content="https://tzolkowski96.github.io/portfolio/og-image.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://tzolkowski96.github.io/portfolio/og-image.jpg">
-    <title>Tobin Zolkowski</title>
+    <meta name="theme-color" content="#0a0a0a">
+    
+    <!-- Inline SVG Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100' rx='12'/><text x='50' y='68' font-family='Georgia,serif' font-size='50' font-style='italic' fill='%23c9a227' text-anchor='middle'>TZ</text></svg>">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
-    <link rel="stylesheet" href="./assets/css/style.css?v=1">
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Tobin Zolkowski",
-        "description": "Working with neurological imaging data and writing about data science",
-        "url": "https://tzolkowski96.github.io/portfolio/",
-        "sameAs": [
-            "https://github.com/tzolkowski96",
-            "https://medium.com/@grateful_aqua_goat_147",
-            "https://tobinzolkowski.substack.com/",
-            "https://www.linkedin.com/in/tobin-zolkowski-844873200/"
-        ]
-    }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <a href="#main" class="skip-to-main">Skip to main content</a>
+    <a href="#main" class="skip-link">Skip to content</a>
     
-    <header>
-        <nav role="navigation" aria-label="Main navigation">
-            <div class="nav-container">
-                <a href="#home" class="logo" aria-label="Tobin Zolkowski - Home">TZ</a>
-                <button class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <ul class="nav-links" id="primary-navigation">
-                    <li><a href="#about" aria-current="page">About</a></li>
-                    <li><a href="#work" aria-current="false">Work</a></li>
-                    <li><a href="#writing" aria-current="false">Writing</a></li>
-                    <li><a href="#now" aria-current="false">Now</a></li>
-                    <li><a href="#connect" class="nav-cta">Say Hello</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <!-- Custom cursor -->
+    <div class="cursor-dot" aria-hidden="true"></div>
     
+    <!-- Particle background -->
+    <div class="canvas-container" aria-hidden="true">
+        <canvas id="particle-canvas"></canvas>
+    </div>
+
+    <!-- Status indicator -->
+    <div class="status" aria-label="Employment status: Currently employed">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Currently employed</span>
+    </div>
+
     <main id="main">
-    <section class="hero" id="home" aria-labelledby="hero-heading">
-            <div class="hero-content">
-                <h1 id="hero-heading" class="hero-name">Tobin Zolkowski</h1>
-                <div class="hero-grid">
-                    <p class="hero-subtitle">Data, brains, and the languages between them</p>
-                    <div class="hero-current">
-                        <p class="hero-tagline">
-                            Currently translating between neurons and databases in Madison. 
-                            Previously made sense of 7.7 million car crashes and why people quit jobs.
-                        </p>
-                        <p>Reading: <em>The Visual Display of Quantitative Information</em> · 
-                           Latest: <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener noreferrer">When Smart Machines Meet Empty Cribs</a></p>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-label">Data Analyst</div>
+                    <h1 class="hero-name">
+                        <span class="first">Tobin</span>
+                        <span class="last">Zolkowski</span>
+                    </h1>
+                    <p class="hero-tagline">
+                        <strong>Deaf. Autistic.</strong> I think in patterns, communicate visually, and build systems that find <strong>signal in noise</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="scroll-prompt" aria-hidden="true">scroll</div>
+        </section>
+
+        <!-- About -->
+        <section class="about" id="about">
+            <div class="container">
+                <header class="section-header reveal">
+                    <span class="section-number">01</span>
+                    <h2 class="section-title">About</h2>
+                    <div class="section-line" aria-hidden="true"></div>
+                </header>
+                
+                <div class="about-grid">
+                    <div class="about-text reveal">
+                        <p>I work at Indiana University School of Medicine as a data analyst. A big chunk of my work is data engineering—building and maintaining ETL pipelines—plus managing Looker dashboards. I've picked up some software dev skills along the way, but analyst is still the core.</p>
+                        <p>ASL is my first language. That shapes everything. I think spatially, process visually, communicate directly. No filler, no hedging. My brain is wired for pattern recognition and systematic thinking. Being autistic isn't a caveat. It's the feature.</p>
+                        <p>Path here: UW-Madison for International Studies, then a master's in Information Science. IT support, data management, a year in Indonesia at Telkomsel building analytics. Now I spend most of my time in Python and SQL, wrangling data pipelines and keeping dashboards running.</p>
                     </div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="about" id="about" aria-labelledby="about-heading">
-            <div class="about-container reveal">
-                <h2 id="about-heading" class="section-label">About</h2>
-                <div class="about-content">
-                    <p>
-                        Started at RIT studying Communication Science, shifted to International Studies at UW-Madison, 
-                        and eventually found my way to Information Science. That non-linear path taught me that the 
-                        most interesting insights come from crossing boundaries.
-                    </p>
-                    <p>
-                        Now I work with neurological imaging data for Parkinson's research at IU School of Medicine. 
-                        The PPMI project involves synchronizing terabytes of data across multiple research sites while 
-                        maintaining strict compliance standards. It's complex work that requires both technical precision 
-                        and human understanding.
-                    </p>
-                    <p>
-                        Being Deaf and multilingual (ASL, English, French, Spanish) shapes how I approach data problems. 
-                        Different languages structure information differently, and that perspective helps me see patterns 
-                        others might miss. I write about these intersections on Medium and Substack.
-                    </p>
-                    <p>
-                        Currently exploring how Tufte's visualization principles apply to modern research dashboards and 
-                        why Excel might actually be a better programming teacher than most tutorials.
-                    </p>
-                </div>
-            </div>
-        </section>
-        
-        <section class="work" id="work">
-    <div class="work-container">
-        <h2 class="section-label">Work</h2>
-        
-        <div class="current-work">
-            <h3>The Day Job</h3>
-            <p>
-                I make sure research data from different systems actually talk to each other. 
-                Think of it as being a diplomatic translator at the UN, except the delegates are 
-                databases and they're arguing about date formats. Currently focused on neurological 
-                research at IU School of Medicine - making complex data pipelines boring (which in 
-                data terms, means they work).
-            </p>
-        </div>
-        
-        <div class="past-work">
-            <h3 class="section-label" style="margin-bottom: 2rem; display: inline-block;">Weird Data I've Wrestled</h3>
-            
-            <div class="work-list">
-                <article class="work-item">
-                    <div class="work-content">
-                        <h4>That Time I Predicted Who'd Quit Their Job</h4>
-                        <p>
-                            Built a model that was 98% accurate at predicting employee turnover. Turns out 
-                            the secret wasn't complex - people who work too much overtime quit. Revolutionary, 
-                            I know. But it made me wonder why companies spend millions on "engagement surveys" 
-                            when they could just... look at timesheets?
-                        </p>
-                        <div class="work-insight">
-                            <span class="insight-label">The Insight:</span>
-                            <p>Overtime hours were 3x more predictive than satisfaction scores.</p>
+                    
+                    <div class="highlight-box reveal">
+                        <h3>Quick Reference</h3>
+                        <div class="highlight-item">
+                            <div class="highlight-label">Location</div>
+                            <div class="highlight-value">Remote (Indiana)</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-label">Current Role</div>
+                            <div class="highlight-value">Data Analyst @ IU School of Medicine</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-label">Education</div>
+                            <div class="highlight-value">MS Information Science<br>UW-Madison, 2022</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-label">Contact</div>
+                            <div class="highlight-value">ASL / Video Relay Service</div>
                         </div>
                     </div>
-                    <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/Employee-Churn-Prediction" target="_blank" rel="noopener noreferrer">See the math →</a>
-                </article>
-                
-                <article class="work-item">
-                    <div class="work-content">
-                        <h4>7.7 Million Ways to Crash a Car</h4>
-                        <p>
-                            Analyzed every reported US traffic accident from 2016-2023. Biggest discovery? 
-                            Most accidents happen in perfect weather. Not because sunshine is dangerous - 
-                            because that's when everyone drives. It's a masterclass in "correlation isn't 
-                            causation" that would make any statistics professor weep with joy.
-                        </p>
-                        <div class="work-insight">
-                            <span class="insight-label">The Insight:</span>
-                            <p>Normalizing by traffic volume flipped the "dangerous conditions" ranking entirely.</p>
-                        </div>
-                    </div>
-                    <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/us_accidents_analysis" target="_blank" rel="noopener noreferrer">The gory details →</a>
-                </article>
-                
-                <article class="work-item">
-                    <div class="work-content">
-                        <h4>The 12-Year Gap Nobody Talks About</h4>
-                        <p>
-                            Used SQL to dig through health data from 183 countries. Found a 12-year life 
-                            expectancy gap between rich and poor nations. Also caught COVID's impact in 
-                            real numbers: -4.75% globally, then +5.91% recovery. Sometimes data tells 
-                            stories we already know, but with receipts.
-                        </p>
-                        <div class="work-insight">
-                            <span class="insight-label">The Insight:</span>
-                            <p>The recovery curve was steeper than the decline, suggesting systemic resilience.</p>
-                        </div>
-                    </div>
-                    <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/world_life_expectancy" target="_blank" rel="noopener noreferrer">The query journal →</a>
-                </article>
-            </div>
-        </div>
-    </div>
-</section>
-        
-        <section class="writing" id="writing" aria-labelledby="writing-heading">
-            <div class="writing-container">
-                <h2 id="writing-heading" class="section-label">Writing</h2>
-                <div class="writing-grid">
-                    <article class="writing-item">
-                        <h3><a href="https://medium.com/@grateful_aqua_goat_147/when-smart-machines-meet-empty-cribs-938257d4d1ae" target="_blank" rel="noopener noreferrer">When Smart Machines Meet Empty Cribs</a></h3>
-                        <p>Will AI Singularity derail human population growth? Exploring the intersection of technological advancement and demographic trends.</p>
-                        <time>Aug 3, 2025</time>
-                    </article>
-                    
-                    <article class="writing-item">
-                        <h3><a href="https://medium.com/@grateful_aqua_goat_147/the-sql-query-that-queries-itself-7fcfa5a8fae8" target="_blank" rel="noopener noreferrer">The SQL Query That Queries Itself</a></h3>
-                        <p>An analyst's guide to schema-agnostic SQL. Sometimes the most elegant solution is letting the database tell you about itself.</p>
-                        <time>Jun 29, 2025</time>
-                    </article>
-                    
-                    <article class="writing-item">
-                        <h3><a href="https://medium.com/@grateful_aqua_goat_147/from-drag-and-drop-to-code-my-tableau-to-lookml-journey-fde0165ada94" target="_blank" rel="noopener noreferrer">When Tableau Met LookML: My Brain's Identity Crisis</a></h3>
-                        <p>Trading drag-and-drop for code taught me to think in two languages (and I survived to tell about it).</p>
-                        <time>Mar 16, 2025</time>
-                    </article>
-                    
-                    <article class="writing-item">
-                        <h3><a href="https://medium.com/@grateful_aqua_goat_147/i-learned-to-analyze-data-more-quickly-because-i-was-speaking-french-57055559e9eb" target="_blank" rel="noopener noreferrer">I Learned to Analyze Data More Quickly Because I Was Speaking French</a></h3>
-                        <p>My midnight eureka moment that made my language barrier a career advantage.</p>
-                        <time>Feb 15, 2025</time>
-                    </article>
-                </div>
-                
-                <div class="writing-archive">
-                    <h3>Archive</h3>
-                    <ul>
-                        <li><a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener noreferrer">All Medium posts</a></li>
-                        <li><a href="https://tobinzolkowski.substack.com/archive" target="_blank" rel="noopener noreferrer">Substack archive</a></li>
-                    </ul>
                 </div>
             </div>
         </section>
-        
-        <section class="now" id="now">
-    <div class="now-container">
-        <h2 class="section-label">Now</h2>
-        <p class="now-intro">November 2025 / Madison, WI</p>
-        <div class="now-content">
-            <div class="now-category">
-                <h3>Obsessing Over</h3>
-                <ul>
-                    <li>Whether Tufte's "data-ink ratio" works for dashboards people actually use</li>
-                    <li>Why my French brain makes better SQL queries than my English brain</li>
-                    <li>If we're measuring the wrong things in "data-driven" decisions</li>
-                </ul>
-            </div>
-            <div class="now-category">
-                <h3>Building</h3>
-                <ul>
-                    <li>Data pipelines that don't wake me up at 3am</li>
-                    <li>Documentation that developers actually read (spoiler: add memes)</li>
-                    <li>Arguments for why Excel is a programming language</li>
-                </ul>
-            </div>
-            <div class="now-category">
-                <h3>Learning</h3>
-                <ul>
-                    <li>How ASL's spatial grammar could improve data visualization</li>
-                    <li>Whether AI will make data analysts extinct (probably not)</li>
-                    <li>The fine art of explaining p-values to executives</li>
-                </ul>
+
+        <!-- Signal Break -->
+        <div class="signal-break reveal" aria-hidden="true">
+            <div class="signal-wrapper">
+                <span class="noise-layer">01001110 01001111 01001001 01010011 01000101</span>
+                <span class="noise-layer">NOISE NOISE NOISE NOISE NOISE NOISE</span>
+                <span class="signal-text">signal</span>
+                <span class="noise-layer">DATA DATA DATA DATA DATA DATA DATA</span>
+                <span class="noise-layer">11010011 10101010 01101001 11001100</span>
             </div>
         </div>
-        <p class="now-footer">
-            Previously: Made telecom dashboards in Jakarta, survived Wisconsin winters, 
-            started three careers before finding data.
-        </p>
-    </div>
-</section>
-        
-        <section class="connect" id="connect" aria-labelledby="connect-heading">
-            <div class="connect-container">
-                <h2 id="connect-heading">Say Hello</h2>
-                <p>
-                    I enjoy conversations about neurological data, how language shapes analysis, 
-                    accessibility in tech, or why Excel might secretly be a great programming teacher. 
-                    Also happy to discuss French data idioms, ASL's spatial grammar, or what Tufte 
-                    got right (and wrong) about visualization.
-                </p>
-                <p class="connect-cta">
-                    Let's connect on <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                </p>
-                <div class="connect-links">
-                    <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                    <span>·</span>
-                    <a href="https://github.com/tzolkowski96" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <span>·</span>
-                    <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener noreferrer">Medium</a>
-                    <span>·</span>
-                    <a href="https://tobinzolkowski.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a>
+
+        <!-- Skills -->
+        <section class="skills" id="skills">
+            <div class="container">
+                <header class="section-header reveal">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title">Stack</h2>
+                    <div class="section-line" aria-hidden="true"></div>
+                </header>
+                
+                <div class="skills-grid reveal-group" role="list">
+                    <div class="skill-card reveal" role="listitem" tabindex="0">
+                        <div class="skill-name">Python</div>
+                        <div class="skill-detail">pandas, data processing, automation</div>
+                    </div>
+                    <div class="skill-card reveal" role="listitem" tabindex="0">
+                        <div class="skill-name">SQL</div>
+                        <div class="skill-detail">MySQL, PostgreSQL, MSSQL</div>
+                    </div>
+                    <div class="skill-card reveal" role="listitem" tabindex="0">
+                        <div class="skill-name">ETL / Data Engineering</div>
+                        <div class="skill-detail">Pipeline development, data architecture</div>
+                    </div>
+                    <div class="skill-card reveal" role="listitem" tabindex="0">
+                        <div class="skill-name">Looker</div>
+                        <div class="skill-detail">Dashboard management, LookML</div>
+                    </div>
+                    <div class="skill-card reveal" role="listitem" tabindex="0">
+                        <div class="skill-name">Tableau</div>
+                        <div class="skill-detail">Visualization, reporting</div>
+                    </div>
+                    <div class="skill-card reveal" role="listitem" tabindex="0">
+                        <div class="skill-name">HTML / CSS / JS</div>
+                        <div class="skill-detail">Custom data visualizations</div>
+                    </div>
+                    <div class="skill-card reveal" role="listitem" tabindex="0">
+                        <div class="skill-name">Excel</div>
+                        <div class="skill-detail">Advanced functions, data modeling</div>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- Languages -->
+        <section class="languages" id="languages">
+            <div class="container">
+                <header class="section-header reveal">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title">Languages</h2>
+                    <div class="section-line" aria-hidden="true"></div>
+                </header>
+                
+                <div class="languages-wrapper reveal-group" role="list">
+                    <div class="lang-row reveal" role="listitem" tabindex="0" style="--fill-width: 100%">
+                        <span class="lang-name">American Sign Language</span>
+                        <div class="lang-bar" aria-hidden="true"><div class="lang-bar-fill"></div></div>
+                        <span class="lang-tag">Native</span>
+                    </div>
+                    <div class="lang-row reveal" role="listitem" tabindex="0" style="--fill-width: 100%">
+                        <span class="lang-name">English</span>
+                        <div class="lang-bar" aria-hidden="true"><div class="lang-bar-fill"></div></div>
+                        <span class="lang-tag">Native</span>
+                    </div>
+                    <div class="lang-row reveal" role="listitem" tabindex="0" style="--fill-width: 70%">
+                        <span class="lang-name">French</span>
+                        <div class="lang-bar" aria-hidden="true"><div class="lang-bar-fill"></div></div>
+                        <span class="lang-level">B2 Upper Intermediate</span>
+                    </div>
+                    <div class="lang-row reveal" role="listitem" tabindex="0" style="--fill-width: 50%">
+                        <span class="lang-name">Spanish</span>
+                        <div class="lang-bar" aria-hidden="true"><div class="lang-bar-fill"></div></div>
+                        <span class="lang-level">B1 Intermediate</span>
+                    </div>
+                    <div class="lang-row reveal" role="listitem" tabindex="0" style="--fill-width: 20%">
+                        <span class="lang-name">Italian</span>
+                        <div class="lang-bar" aria-hidden="true"><div class="lang-bar-fill"></div></div>
+                        <span class="lang-level">A1 Beginner</span>
+                    </div>
+                    <div class="lang-row reveal" role="listitem" tabindex="0" style="--fill-width: 10%">
+                        <span class="lang-name">BSL & Auslan</span>
+                        <div class="lang-bar" aria-hidden="true"><div class="lang-bar-fill"></div></div>
+                        <span class="lang-tag learning">Learning</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Side Projects -->
+        <section class="side-projects" id="side-projects">
+            <div class="container">
+                <header class="section-header reveal">
+                    <span class="section-number">04</span>
+                    <h2 class="section-title">On the Side</h2>
+                    <div class="section-line" aria-hidden="true"></div>
+                </header>
+                
+                <div class="side-grid reveal">
+                    <div class="side-item">
+                        <h3>Data Journalism</h3>
+                        <p>I write data-driven pieces on <a href="https://medium.com/@grateful_aqua_goat_147">Medium</a>—digging into datasets, finding stories in the numbers. My <a href="https://substack.com/@tobinzolkowski">Substack</a> is more personal, less data-heavy.</p>
+                    </div>
+                    <div class="side-item">
+                        <h3>Pro Bono Consulting</h3>
+                        <p>I occasionally help out with data consulting for free. If you've got an interesting problem and limited budget, reach out.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-content reveal">
+                    <div class="footer-cta">
+                        <h2>Say hello</h2>
+                        <p>Best reached via Video Relay Service or LinkedIn DM. Phone calls don't work for obvious reasons.</p>
+                    </div>
+                    <nav class="footer-links" aria-label="Social links">
+                        <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200/">LinkedIn</a>
+                        <a href="https://github.com/tzolkowski96">GitHub</a>
+                        <a href="https://medium.com/@grateful_aqua_goat_147">Medium</a>
+                        <a href="https://substack.com/@tobinzolkowski">Substack</a>
+                    </nav>
+                </div>
+                <div class="footer-bottom">
+                    <span class="footer-logo" aria-hidden="true">TZ</span>
+                    <span class="footer-copy">© 2026 Tobin Zolkowski</span>
+                </div>
+            </div>
+        </footer>
     </main>
-    
-    <footer>
-        <div class="footer-content">
-            <div class="signature" aria-hidden="true">
-                <!-- Abstract "TZ" Signature -->
-                <svg width="100" height="60" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Architectural "TZ" Monogram -->
-                    <path d="M15 22 C 25 20 45 20 55 22 M 35 22 C 36 32 34 45 30 55 M 65 25 L 88 25 L 62 55 L 90 52" 
-                          stroke="#050505" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="round" 
-                          style="opacity: 0.8;" />
-                </svg>
-            </div>
-            <p>© 2025 Tobin Zolkowski • Last updated November 2025</p>
-        </div>
-    </footer>
-    
-    <script src="./assets/js/main.js?v=1" defer></script>
-    <script src="./assets/js/three.min.js" defer></script>
-    <script src="./assets/js/three-scene.js?v=1" defer></script>
+
+    <script src="assets/js/main.js"></script>
 </body>
 </html>

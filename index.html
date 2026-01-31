@@ -13,6 +13,7 @@
     
     <!-- Inline SVG Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100' rx='12'/><text x='50' y='68' font-family='Georgia,serif' font-size='50' font-style='italic' fill='%23c9a227' text-anchor='middle'>TZ</text></svg>">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,14 +33,24 @@
     </div>
 
     <!-- Status indicator -->
-    <div class="status" aria-label="Employment status: Currently employed">
+    <div class="status" aria-label="Open to interesting problems">
         <span class="status-dot" aria-hidden="true"></span>
-        <span>Currently employed</span>
+        <span>Open to interesting problems</span>
     </div>
+
+    <!-- Navigation -->
+    <nav class="nav" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#work" class="nav-link">Work</a>
+            <a href="#viz" class="nav-link">Data</a>
+            <a href="#writing" class="nav-link">Writing</a>
+        </div>
+    </nav>
 
     <main id="main">
         <!-- Hero -->
-        <section class="hero">
+        <section class="hero" id="hero">
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-label">Data Analyst</div>
@@ -48,7 +59,7 @@
                         <span class="last">Zolkowski</span>
                     </h1>
                     <p class="hero-tagline">
-                        <strong>Deaf. Autistic.</strong> I think in patterns, communicate visually, and build systems that find <strong>signal in noise</strong>.
+                        <strong>Deaf. Autistic.</strong> When others just look at spreadsheets, I see lifeline after lifeline. I show the impact of data as a design for human stories.
                     </p>
                 </div>
             </div>
@@ -66,13 +77,17 @@
                 
                 <div class="about-grid">
                     <div class="about-text reveal">
-                        <p>I work at Indiana University School of Medicine as a data analyst. A big chunk of my work is data engineering—building and maintaining ETL pipelines—plus managing Looker dashboards. I've picked up some software dev skills along the way, but analyst is still the core.</p>
+                        <p>I work at Indiana University School of Medicine as a data analyst. Most of my work is data engineering—building ETL pipelines that process genetic datasets, managing Looker dashboards used by research teams. Previous role at Telkomsel in Jakarta had me building geospatial analytics dashboards for subscriber segmentation across millions of users.</p>
                         <p>ASL is my first language. That shapes everything. I think spatially, process visually, communicate directly. No filler, no hedging. My brain is wired for pattern recognition and systematic thinking. Being autistic isn't a caveat. It's the feature.</p>
-                        <p>Path here: UW-Madison for International Studies, then a master's in Information Science. IT support, data management, a year in Indonesia at Telkomsel building analytics. Now I spend most of my time in Python and SQL, wrangling data pipelines and keeping dashboards running.</p>
+                        <p>I also write. Data journalism on Medium where I've published across 13 publications to 380+ followers. The kind of writing where I dig into datasets and find the stories the numbers are trying to tell—grocery prices, work weeks, political shifts. When others just look at spreadsheets, I see lifeline after lifeline.</p>
                     </div>
                     
                     <div class="highlight-box reveal">
                         <h3>Quick Reference</h3>
+                        <div class="highlight-item">
+                            <div class="highlight-label">Status</div>
+                            <div class="highlight-value">He / Him</div>
+                        </div>
                         <div class="highlight-item">
                             <div class="highlight-label">Location</div>
                             <div class="highlight-value">Remote (Indiana)</div>
@@ -86,30 +101,165 @@
                             <div class="highlight-value">MS Information Science<br>UW-Madison, 2022</div>
                         </div>
                         <div class="highlight-item">
-                            <div class="highlight-label">Contact</div>
-                            <div class="highlight-value">ASL / Video Relay Service</div>
+                            <div class="highlight-label">Recognition</div>
+                            <div class="highlight-value">SENIA Student Advocate Award<br><span class="highlight-subtext">Disability advocacy, 2016</span></div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-label">Certification</div>
+                            <div class="highlight-value"><a href="https://www.coursera.org/account/accomplishments/specialization/certificate/A8Z4GGXNDYQY" class="cert-link">Google Advanced Data Analytics</a></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Signal Break -->
-        <div class="signal-break reveal" aria-hidden="true">
-            <div class="signal-wrapper">
-                <span class="noise-layer">01001110 01001111 01001001 01010011 01000101</span>
-                <span class="noise-layer">NOISE NOISE NOISE NOISE NOISE NOISE</span>
-                <span class="signal-text">signal</span>
-                <span class="noise-layer">DATA DATA DATA DATA DATA DATA DATA</span>
-                <span class="noise-layer">11010011 10101010 01101001 11001100</span>
+        <!-- Work -->
+        <section class="work" id="work">
+            <div class="container">
+                <header class="section-header reveal">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title">Work</h2>
+                    <div class="section-line" aria-hidden="true"></div>
+                </header>
+                
+                <div class="work-grid reveal-group">
+                    <article class="work-card reveal">
+                        <div class="work-header">
+                            <h3 class="work-title">Traffic Accident Analytics</h3>
+                            <span class="work-tag">Python / ML / Geospatial</span>
+                        </div>
+                        <p class="work-desc">Analyzed 7.7M US traffic accident records. Built a Random Forest model for severity prediction (78% accuracy). Statistical validation with chi-square and ANOVA. Memory-optimized pipeline across 49 states.</p>
+                        <div class="work-links">
+                            <a href="case-study-traffic.html" class="work-link">Case Study</a>
+                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/us_accidents_analysis" class="work-link">Code</a>
+                        </div>
+                    </article>
+                    
+                    <article class="work-card reveal">
+                        <div class="work-header">
+                            <h3 class="work-title">Employee Churn Prediction</h3>
+                            <span class="work-tag">Python / XGBoost / Classification</span>
+                        </div>
+                        <p class="work-desc">Predicted employee turnover with 98% accuracy using XGBoost. Identified key churn drivers: overtime, project count, satisfaction levels. End-to-end pipeline from cleaning to actionable HR recommendations.</p>
+                        <div class="work-links">
+                            <a href="https://tzolkowski96.github.io/Salifort-Motors-Project/" class="work-link">Live Demo</a>
+                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/Employee-Churn-Prediction" class="work-link">Code</a>
+                        </div>
+                    </article>
+                    
+                    <article class="work-card reveal">
+                        <div class="work-header">
+                            <h3 class="work-title">UFood Customer Analysis</h3>
+                            <span class="work-tag">Python / K-Means / A/B Testing</span>
+                        </div>
+                        <p class="work-desc">Customer segmentation for a food delivery app. K-means clustering, campaign effectiveness via A/B testing, customer journey mapping. Recommendations to increase CLV.</p>
+                        <div class="work-links">
+                            <a href="https://tzolkowski96.github.io/analyst-builder-food-marketing-project/" class="work-link">Live Demo</a>
+                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/ufood_analysis" class="work-link">Code</a>
+                        </div>
+                    </article>
+                    
+                    <article class="work-card reveal">
+                        <div class="work-header">
+                            <h3 class="work-title">World Life Expectancy Analysis</h3>
+                            <span class="work-tag">SQL / Window Functions / Data Quality</span>
+                        </div>
+                        <p class="work-desc">Cleaned and analyzed global life expectancy data (2.9k records, 183 countries, 15 years). Advanced SQL with CTEs and window functions for prioritized deduplication. Quantified COVID-19 impact on life expectancy.</p>
+                        <div class="work-links">
+                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/world_life_expectancy" class="work-link">View Code</a>
+                        </div>
+                    </article>
+                    
+                    <article class="work-card reveal">
+                        <div class="work-header">
+                            <h3 class="work-title">Global Population Insights</h3>
+                            <span class="work-tag">JavaScript / Plotly.js / Interactive Viz</span>
+                        </div>
+                        <p class="work-desc">Interactive platform for global population trend visualization. Comparative analysis tools, projections, policy recommendations. Built with vanilla JS and Plotly.</p>
+                        <div class="work-links">
+                            <a href="https://tzolkowski96.github.io/global-population-insights/" class="work-link">Live Demo</a>
+                            <a href="https://github.com/tzolkowski96/global-population-insights" class="work-link">Code</a>
+                        </div>
+                    </article>
+                    
+                    <article class="work-card reveal">
+                        <div class="work-header">
+                            <h3 class="work-title">Crypto Market Insights</h3>
+                            <span class="work-tag">Python / Selenium / Automation</span>
+                        </div>
+                        <p class="work-desc">Automated real-time crypto market analysis. Web scraping from CoinMarketCap, technical analysis metrics, dynamic visualizations, automated Excel report generation.</p>
+                        <div class="work-links">
+                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/crypto_market_insights" class="work-link">View Code</a>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="work-footer reveal">
+                    <a href="https://github.com/tzolkowski96" class="work-more">More on GitHub →</a>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Live Data Visualizations -->
+        <section class="data-viz" id="viz">
+            <div class="container">
+                <header class="section-header reveal">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title">Live Work</h2>
+                    <div class="section-line" aria-hidden="true"></div>
+                </header>
+                
+                <p class="viz-intro reveal">Interactive visualizations built from real project data. Hover or tap to explore.</p>
+                
+                <div class="viz-grid reveal-group">
+                    <!-- Employee Churn Model Comparison -->
+                    <div class="viz-card reveal">
+                        <h3 class="viz-title">Model Performance Comparison</h3>
+                        <p class="viz-subtitle">Employee Churn Prediction — Which algorithm predicts turnover best?</p>
+                        <div class="viz-container">
+                            <canvas id="model-comparison-chart"></canvas>
+                        </div>
+                        <p class="viz-caption">XGBoost achieved 98% accuracy with 90% recall, outperforming simpler approaches. <a href="https://tzolkowski96.github.io/Salifort-Motors-Project/">View full analysis →</a></p>
+                    </div>
+                    
+                    <!-- Feature Importance -->
+                    <div class="viz-card reveal">
+                        <h3 class="viz-title">What Drives Employee Turnover?</h3>
+                        <p class="viz-subtitle">Feature importance from XGBoost model — 15,000 employees analyzed</p>
+                        <div class="viz-container">
+                            <canvas id="feature-importance-chart"></canvas>
+                        </div>
+                        <p class="viz-caption">Satisfaction level and workload (projects, hours) are the strongest predictors of churn.</p>
+                    </div>
+                    
+                    <!-- Traffic Accident Severity -->
+                    <div class="viz-card reveal">
+                        <h3 class="viz-title">US Traffic Accidents by State</h3>
+                        <p class="viz-subtitle">7.7M records (2016-2023) — Accident density across 49 states</p>
+                        <div class="viz-container">
+                            <canvas id="accident-map-chart"></canvas>
+                        </div>
+                        <p class="viz-caption">California, Florida, and Texas account for the highest accident volumes. <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/us_accidents_analysis">View code →</a></p>
+                    </div>
+                    
+                    <!-- Population Growth -->
+                    <div class="viz-card reveal">
+                        <h3 class="viz-title">Global Population Giants</h3>
+                        <p class="viz-subtitle">60 years of growth — The 10 most populous nations</p>
+                        <div class="viz-container">
+                            <canvas id="population-chart"></canvas>
+                        </div>
+                        <p class="viz-caption">India overtook China in 2023. Nigeria and Pakistan are the fastest-rising. <a href="https://tzolkowski96.github.io/global-population-insights/">Explore interactive version →</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Skills -->
         <section class="skills" id="skills">
             <div class="container">
                 <header class="section-header reveal">
-                    <span class="section-number">02</span>
+                    <span class="section-number">04</span>
                     <h2 class="section-title">Stack</h2>
                     <div class="section-line" aria-hidden="true"></div>
                 </header>
@@ -151,7 +301,7 @@
         <section class="languages" id="languages">
             <div class="container">
                 <header class="section-header reveal">
-                    <span class="section-number">03</span>
+                    <span class="section-number">05</span>
                     <h2 class="section-title">Languages</h2>
                     <div class="section-line" aria-hidden="true"></div>
                 </header>
@@ -191,24 +341,58 @@
             </div>
         </section>
 
-        <!-- Side Projects -->
-        <section class="side-projects" id="side-projects">
+        <!-- Writing -->
+        <section class="writing" id="writing">
             <div class="container">
                 <header class="section-header reveal">
-                    <span class="section-number">04</span>
-                    <h2 class="section-title">On the Side</h2>
+                    <span class="section-number">06</span>
+                    <h2 class="section-title">Writing</h2>
                     <div class="section-line" aria-hidden="true"></div>
                 </header>
                 
-                <div class="side-grid reveal">
-                    <div class="side-item">
-                        <h3>Data Journalism</h3>
-                        <p>I write data-driven pieces on <a href="https://medium.com/@grateful_aqua_goat_147">Medium</a>—digging into datasets, finding stories in the numbers. My <a href="https://substack.com/@tobinzolkowski">Substack</a> is more personal, less data-heavy.</p>
-                    </div>
-                    <div class="side-item">
-                        <h3>Pro Bono Consulting</h3>
-                        <p>I occasionally help out with data consulting for free. If you've got an interesting problem and limited budget, reach out.</p>
-                    </div>
+                <p class="writing-intro reveal">Data journalism on Medium. I dig into datasets and find the stories the numbers are trying to tell.</p>
+                
+                <div class="writing-grid reveal-group">
+                    <article class="writing-card reveal">
+                        <a href="https://medium.com/@grateful_aqua_goat_147/what-young-women-saw-that-young-men-didnt-599166067dbf" class="writing-link">
+                            <span class="writing-date">Dec 2025</span>
+                            <h3 class="writing-title">What Young Women Saw That Young Men Didn't</h3>
+                            <p class="writing-excerpt">I revisited Gallup's tracking data from 1999 because I wanted to see the actual trendlines. It turns out young men aren't really going anywhere—it's young women who have moved, and moved hard.</p>
+                            <span class="writing-stat">5.5K claps</span>
+                        </a>
+                    </article>
+                    
+                    <article class="writing-card reveal">
+                        <a href="https://medium.com/@grateful_aqua_goat_147/you-re-probably-5-bad-days-away-from-becoming-a-monster-96a3bc89a31a" class="writing-link">
+                            <span class="writing-date">Jan 2026</span>
+                            <h3 class="writing-title">5 Bad Days Away From Becoming a Monster</h3>
+                            <p class="writing-excerpt">I spent three weeks reading genocide research. I didn’t sleep well. What I found was a chilling reality about human nature and the thin line between civility and chaos.</p>
+                            <span class="writing-stat">1.8K claps</span>
+                        </a>
+                    </article>
+                    
+                    <article class="writing-card reveal">
+                        <a href="https://medium.com/@grateful_aqua_goat_147/the-man-who-filled-a-ditch-with-babies-sold-engagement-rings-for-30-years-7b5680c2f865" class="writing-link">
+                            <span class="writing-date">Jan 2026</span>
+                            <h3 class="writing-title">The Man Who Sold Engagement Rings for 30 Years</h3>
+                            <p class="writing-excerpt">He died peacefully at 80. The helicopter pilot who stopped him got death threats. That tells you everything about us, our history, and how we choose to remember or forget.</p>
+                            <span class="writing-stat">3.6K claps</span>
+                        </a>
+                    </article>
+                    
+                    <article class="writing-card reveal">
+                        <a href="https://medium.com/@grateful_aqua_goat_147/how-are-americans-actually-affording-and-buying-groceries-right-now-0b18a3fba4c4" class="writing-link">
+                            <span class="writing-date">Nov 2025</span>
+                            <h3 class="writing-title">How Americans Actually Buy Groceries Right Now</h3>
+                            <p class="writing-excerpt">I spend my days analyzing data. The numbers don't lie, and right now they are saying people are getting absolutely destroyed at the grocery store. Here is the evidence.</p>
+                            <span class="writing-stat">1.5K claps</span>
+                        </a>
+                    </article>
+                </div>
+                
+                <div class="writing-footer reveal">
+                    <a href="https://medium.com/@grateful_aqua_goat_147" class="writing-more">More on Medium →</a>
+                    <a href="https://tobinzolkowski.substack.com/" class="writing-more">Substack →</a>
                 </div>
             </div>
         </section>
@@ -220,12 +404,12 @@
                     <div class="footer-cta">
                         <h2>Say hello</h2>
                         <p>Best reached via Video Relay Service or LinkedIn DM. Phone calls don't work for obvious reasons.</p>
+                        <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200/" class="cta-button">Message on LinkedIn</a>
                     </div>
                     <nav class="footer-links" aria-label="Social links">
-                        <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200/">LinkedIn</a>
                         <a href="https://github.com/tzolkowski96">GitHub</a>
                         <a href="https://medium.com/@grateful_aqua_goat_147">Medium</a>
-                        <a href="https://substack.com/@tobinzolkowski">Substack</a>
+                        <a href="https://tobinzolkowski.substack.com/">Substack</a>
                     </nav>
                 </div>
                 <div class="footer-bottom">
@@ -236,6 +420,8 @@
         </footer>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/visualizations.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 </html>

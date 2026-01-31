@@ -164,3 +164,41 @@ document.querySelectorAll('.reveal').forEach(el => {
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
 }
+
+/* Navigation Visibility Logic - Shows nav after user scrolls past hero */
+const nav = document.querySelector('.nav');
+const heroSection = document.getElementById('hero');
+
+if (nav && heroSection) {
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // If hero is NOT intersecting (scrolled past), show nav
+            if (!entry.isIntersecting) {
+                nav.classList.add('visible');
+            } else {
+                nav.classList.remove('visible');
+            }
+        });
+    }, {
+        // Trigger as soon as the hero starts leaving the viewport
+        threshold: 0.1
+    });
+
+    navObserver.observe(heroSection);
+}
+
+/* Smooth internal links for Navigation */
+document.querySelectorAll('.nav-link').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+

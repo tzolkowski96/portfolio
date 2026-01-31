@@ -100,7 +100,7 @@ body {
 }
 
 .cursor-dot.hovering {
-    transform: scale(4);
+    transform: scale(2.5);
 }
 
 @media (pointer: coarse) {
@@ -391,46 +391,121 @@ section {
     font-size: 1rem;
 }
 
-/* Signal from Noise - visual break */
-.signal-break {
-    padding: 8rem 0;
-    text-align: center;
-    position: relative;
+.highlight-subtext {
+    font-size: 0.8rem;
+    color: var(--text-dim);
 }
 
-.signal-wrapper {
-    position: relative;
-    display: inline-block;
+/* Data Visualization Section */
+.data-viz {
+    padding: 6rem 0;
+    background: linear-gradient(180deg, transparent 0%, var(--bg-elevated) 20%, var(--bg-elevated) 80%, transparent 100%);
 }
 
-.signal-text {
+.viz-intro {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+}
+
+.viz-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.viz-card {
+    background: var(--bg);
+    border: 1px solid #222;
+    padding: 1.5rem;
+    transition: border-color 0.3s ease;
+}
+
+.viz-card:hover {
+    border-color: #333;
+}
+
+.viz-title {
     font-family: 'Instrument Serif', serif;
-    font-size: clamp(2rem, 8vw, 6rem);
-    font-style: italic;
-    color: var(--accent);
-    position: relative;
-    z-index: 2;
+    font-size: 1.15rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
 }
 
-.noise-layer {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+.viz-subtitle {
     font-family: 'Space Mono', monospace;
-    font-size: clamp(0.55rem, 0.9vw, 0.75rem);
-    letter-spacing: 0.4em;
-    white-space: nowrap;
-    color: var(--text);
-    opacity: 0.06;
-    user-select: none;
-    pointer-events: none;
-    z-index: 1;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
 }
 
-.noise-layer:nth-child(1) { top: -1.5rem; }
-.noise-layer:nth-child(2) { top: 0.5rem; }
-.noise-layer:nth-child(4) { bottom: 0.5rem; }
-.noise-layer:nth-child(5) { bottom: -1.5rem; }
+.viz-container {
+    width: 100%;
+    height: 280px;
+    position: relative;
+}
+
+.viz-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.viz-caption {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 1rem;
+    line-height: 1.5;
+}
+
+.viz-caption a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.viz-caption a:hover {
+    color: var(--text);
+}
+
+@media (max-width: 900px) {
+    .viz-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .viz-container {
+        height: 240px;
+    }
+}
+
+/* Testimonial */
+.testimonial {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.testimonial-quote {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.testimonial-quote p {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-style: italic;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-quote cite {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    font-style: normal;
+    letter-spacing: 0.1em;
+}
 
 /* Skills */
 .skills-grid {
@@ -744,7 +819,7 @@ footer {
     }
 
     .lang-bar {
-        display: none;
+        max-width: 80px;
     }
 
     .lang-name {
@@ -807,5 +882,364 @@ footer {
     .hero {
         min-height: auto;
         padding: 2rem 0;
+    }
+}
+
+/* Navigation */
+.nav {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #222;
+    padding: 0.5rem 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.nav.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.nav-inner {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+    color: var(--accent);
+}
+
+.nav-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+    .nav {
+        top: auto;
+        bottom: 1rem;
+        padding: 0.75rem 1rem;
+    }
+    
+    .nav-inner {
+        gap: 1rem;
+    }
+    
+    .nav-link {
+        font-size: 0.6rem;
+    }
+}
+
+/* Work Section */
+.work {
+    background: linear-gradient(180deg, transparent 0%, var(--bg-elevated) 30%, var(--bg-elevated) 70%, transparent 100%);
+}
+
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem;
+}
+
+.work-card {
+    background: var(--bg);
+    border: 1px solid #222;
+    padding: 1.75rem;
+    position: relative;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.work-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s ease;
+}
+
+.work-card:hover::before,
+.work-card:focus-within::before {
+    transform: scaleY(1);
+}
+
+.work-card:hover,
+.work-card:focus-within {
+    border-color: #333;
+    background: var(--bg-elevated);
+}
+
+.work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.work-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.work-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+}
+
+.work-desc {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+}
+
+.work-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.work-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.work-link:hover,
+.work-link:focus-visible {
+    color: var(--text);
+}
+
+.work-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.work-footer {
+    margin-top: 2.5rem;
+    text-align: center;
+}
+
+.work-more {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--accent);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.work-more:hover,
+.work-more:focus-visible {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+.work-more:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+    .work-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .work-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+.cta-button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0.875rem 1.75rem;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button:hover,
+.cta-button:focus-visible {
+    background: var(--text);
+    transform: translateY(-2px);
+}
+
+.cta-button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+.cert-link {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    transition: color 0.2s ease;
+}
+
+.cert-link:hover,
+.cert-link:focus-visible {
+    color: var(--accent);
+}
+
+.cert-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Writing Section */
+.writing {
+    background: linear-gradient(180deg, transparent 0%, var(--bg-elevated) 30%, var(--bg-elevated) 70%, transparent 100%);
+}
+
+.writing-intro {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+}
+
+.writing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.writing-card {
+    background: var(--bg);
+    border: 1px solid #222;
+    transition: border-color 0.3s ease;
+}
+
+.writing-card:hover,
+.writing-card:focus-within {
+    border-color: var(--accent);
+}
+
+.writing-link {
+    display: block;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+}
+
+.writing-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+}
+
+.writing-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.writing-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    margin: 0.5rem 0 0.75rem;
+    line-height: 1.3;
+}
+
+.writing-excerpt {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.writing-stat {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #333;
+}
+
+.writing-footer {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.writing-more {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--accent);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.writing-more:hover,
+.writing-more:focus-visible {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+.writing-more:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+    .writing-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .writing-footer {
+        flex-direction: column;
+    }
+    
+    .writing-more {
+        text-align: center;
     }
 }

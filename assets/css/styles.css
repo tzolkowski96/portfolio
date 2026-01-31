@@ -480,33 +480,6 @@ section {
     }
 }
 
-/* Testimonial */
-.testimonial {
-    padding: 4rem 0;
-    text-align: center;
-}
-
-.testimonial-quote {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.testimonial-quote p {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
-    font-style: italic;
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
-}
-
-.testimonial-quote cite {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    font-style: normal;
-    letter-spacing: 0.1em;
-}
-
 /* Skills */
 .skills-grid {
     display: grid;

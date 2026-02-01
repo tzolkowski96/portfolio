@@ -2,29 +2,78 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="3;url=./">
-    <title>Page Not Found — Tobin Zolkowski</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | Tobin Zolkowski</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230d0d0d' width='100' height='100' rx='12'/><text x='50' y='68' font-family='Georgia,serif' font-size='55' font-weight='600' fill='%23e85d04' text-anchor='middle'>T</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        body {
-            background-color: #0a0a0a;
-            color: #e8e4df;
-            font-family: 'Georgia', serif;
+        .error-container {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
+            align-items: center;
             text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
         }
-        h1 { color: #c9a227; font-size: 3rem; margin-bottom: 1rem; }
-        p { font-size: 1.2rem; color: #888; }
-        a { color: #c9a227; text-decoration: none; border-bottom: 1px solid #c9a227; }
+
+        .error-code {
+            font-family: 'Space Mono', monospace;
+            font-size: 8rem;
+            line-height: 1;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .error-message {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            margin-bottom: 2.5rem;
+            max-width: 400px;
+        }
+
+        .back-home {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text);
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border: 1px solid var(--accent);
+            transition: all 0.2s;
+        }
+
+        .back-home:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
     </style>
 </head>
 <body>
-    <h1>404</h1>
-    <p>Finding signal in the noise... this page isn't it.</p>
-    <p>Redirecting you back <a href="./">home</a> in 3 seconds.</p>
+    <canvas id="pipeline-canvas" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <div class="error-message">This path wasn't found in the data pipeline.</div>
+        <a href="index.html" class="back-home">Return to Source</a>
+    </div>
+
+    <script src="js/pipeline.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new PipelineViz('pipeline-canvas');
+        });
+    </script>
 </body>
 </html>

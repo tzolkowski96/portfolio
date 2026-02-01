@@ -3,439 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tobin Zolkowski — Data Analyst</title>
-    <meta name="description" content="Tobin Zolkowski. Data analyst with a focus on data engineering and ETL. Deaf, autistic. Finding signal in the noise.">
-    <link rel="canonical" href="https://tzolkowski96.github.io/portfolio/">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="Tobin Zolkowski — Data Analyst">
-    <meta property="og:description" content="When others look at spreadsheets, I see lifelines. Data analyst. Deaf. Autistic.">
+    <title>Tobin Zolkowski — Data Analyst & Writer</title>
+    <meta name="description" content="Data analyst building Parkinson's research infrastructure at IU School of Medicine. Data journalist. Deaf, multilingual, remote.">
+    <meta name="author" content="Tobin Zolkowski">
+    <meta property="og:title" content="Tobin Zolkowski — Data Analyst & Writer">
+    <meta property="og:description" content="Data analyst building Parkinson's research infrastructure. Data journalist. Deaf, multilingual, remote.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tzolkowski96.github.io/portfolio/">
-    <meta property="og:image" content="https://tzolkowski96.github.io/portfolio/assets/img/og-image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tobin Zolkowski — Data Analyst">
-    <meta name="twitter:description" content="When others look at spreadsheets, I see lifelines.">
-    <meta name="twitter:image" content="https://tzolkowski96.github.io/portfolio/assets/img/og-image.png">
-
-    <!-- RSS -->
-    <link rel="alternate" type="application/rss+xml" title="Tobin Zolkowski — Writing" href="https://tzolkowski96.github.io/portfolio/feed.xml">
-    <meta name="theme-color" content="#0a0a0a">
+    <meta name="twitter:card" content="summary">
     
-    <!-- Inline SVG Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100' rx='12'/><text x='50' y='68' font-family='Georgia,serif' font-size='50' font-style='italic' fill='%23c9a227' text-anchor='middle'>TZ</text></svg>">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230d0d0d' width='100' height='100' rx='12'/><text x='50' y='68' font-family='Georgia,serif' font-size='55' font-weight='600' fill='%23e85d04' text-anchor='middle'>T</text></svg>">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <a href="#main" class="skip-link">Skip to content</a>
+    <a href="#about" class="skip-link">Skip to content</a>
     
-    <!-- Custom cursor -->
-    <div class="cursor-dot" aria-hidden="true"></div>
-    
-    <!-- Particle background -->
-    <div class="canvas-container" aria-hidden="true">
-        <canvas id="particle-canvas"></canvas>
-    </div>
+    <canvas id="pipeline-canvas" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
 
-    <!-- Status indicator -->
-    <div class="status" aria-label="Open to interesting problems">
-        <span class="status-dot" aria-hidden="true"></span>
-        <span>Open to interesting problems</span>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="nav" aria-label="Main navigation">
-        <div class="nav-inner">
-            <a href="#about" class="nav-link">About</a>
-            <a href="#work" class="nav-link">Work</a>
-            <a href="#viz" class="nav-link">Data</a>
-            <a href="#writing" class="nav-link">Writing</a>
+    <nav role="navigation" aria-label="Main navigation">
+        <a href="#" class="nav-logo">TZ</a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#work">Work</a>
+            <a href="#writing">Writing</a>
+            <a href="#connect">Connect</a>
         </div>
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
 
-    <main id="main">
-        <!-- Hero -->
-        <section class="hero" id="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <div class="hero-label">Data Analyst</div>
-                    <h1 class="hero-name">
-                        <span class="first">Tobin</span>
-                        <span class="last">Zolkowski</span>
-                    </h1>
-                    <p class="hero-tagline">
-                        <strong>Deaf. Autistic.</strong> When others just look at spreadsheets, I see lifeline after lifeline. I show the impact of data as a design for human stories.
-                    </p>
-                </div>
-            </div>
-            <div class="scroll-prompt" aria-hidden="true">scroll</div>
-        </section>
+    <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#writing">Writing</a>
+        <a href="#connect">Connect</a>
+    </div>
 
-        <!-- About -->
-        <section class="about" id="about">
-            <div class="container">
-                <header class="section-header reveal">
-                    <span class="section-number">01</span>
-                    <h2 class="section-title">About</h2>
-                    <div class="section-line" aria-hidden="true"></div>
-                </header>
-                
-                <div class="about-grid">
-                    <div class="about-text reveal">
-                        <p>I work at Indiana University School of Medicine as a data analyst. Most of my work is data engineering—building ETL pipelines that process genetic datasets, managing Looker dashboards used by research teams. Previous role at Telkomsel in Jakarta had me building geospatial analytics dashboards for subscriber segmentation across millions of users.</p>
-                        <p>ASL is my first language. That shapes everything. I think spatially, process visually, communicate directly. No filler, no hedging. My brain is wired for pattern recognition and systematic thinking. Being autistic isn't a caveat. It's the feature.</p>
-                        <p>I also write. Data journalism on Medium where I've published across 13 publications to 380+ followers. The kind of writing where I dig into datasets and find the stories the numbers are trying to tell—grocery prices, work weeks, political shifts. When others just look at spreadsheets, I see lifeline after lifeline.</p>
+    <div class="container">
+        <header class="hero">
+            <div class="hero-label">Data Analyst & Writer</div>
+            <h1>Tobin<br><span class="highlight">Zolkowski</span></h1>
+            <p class="hero-intro">
+                I build the data infrastructure that powers <strong>Parkinson's disease research</strong> at Indiana University School of Medicine. ETL pipelines, APIs, automated workflows. The stuff that lets researchers focus on science instead of data wrangling.
+            </p>
+            <div class="identity-tags">
+                <span class="identity-tag primary">Deaf</span>
+                <span class="identity-tag">ASL Native</span>
+                <span class="identity-tag">Remote</span>
+                <span class="identity-tag">Multilingual</span>
+            </div>
+            <div class="scroll-hint" aria-hidden="true">
+                <span>Scroll</span>
+                <div class="line"></div>
+            </div>
+        </header>
+
+        <section id="about">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <span class="section-title">About</span>
+            </div>
+            <div class="about-grid">
+                <div class="about-main">
+                    <p>My job title says data analyst, but the work is mostly engineering. I design ETL pipelines that pull clinical data from a dozen different systems. I build APIs that let researchers query datasets without knowing SQL. I automate the boring stuff so scientists can focus on science.</p>
+                    <p>The path here wasn't obvious. I studied International Studies at UW-Madison, thinking I'd end up in policy or diplomacy. But I kept gravitating toward the data side of every project. Grad school for Information Science made it official. That international lens stuck though. I think about data as translation: taking information from one context and making it useful in another.</p>
+                    <p>Outside work, I write. Data journalism on Medium, where I dig into public datasets and explain what's actually happening. Personal essays on Substack. And occasional pro bono consulting for organizations that need data help but can't afford it.</p>
+                </div>
+                <div class="about-sidebar">
+                    <div class="about-block">
+                        <h3>Languages</h3>
+                        <ul>
+                            <li>ASL <span class="lang-level">— Native</span></li>
+                            <li>English <span class="lang-level">— Native</span></li>
+                            <li>French <span class="lang-level">— B2</span></li>
+                            <li>Spanish <span class="lang-level">— B1</span></li>
+                            <li>Italian <span class="lang-level">— A1</span></li>
+                        </ul>
                     </div>
-                    
-                    <div class="highlight-box reveal">
-                        <h3>Quick Reference</h3>
-                        <div class="highlight-item">
-                            <div class="highlight-label">Status</div>
-                            <div class="highlight-value">He / Him</div>
-                        </div>
-                        <div class="highlight-item">
-                            <div class="highlight-label">Location</div>
-                            <div class="highlight-value">Remote (Indiana)</div>
-                        </div>
-                        <div class="highlight-item">
-                            <div class="highlight-label">Current Role</div>
-                            <div class="highlight-value">Data Analyst @ IU School of Medicine</div>
-                        </div>
-                        <div class="highlight-item">
-                            <div class="highlight-label">Education</div>
-                            <div class="highlight-value">MS Information Science<br>UW-Madison, 2022</div>
-                        </div>
-                        <div class="highlight-item">
-                            <div class="highlight-label">Recognition</div>
-                            <div class="highlight-value">SENIA Student Advocate Award<br><span class="highlight-subtext">Disability advocacy, 2016</span></div>
-                        </div>
-                        <div class="highlight-item">
-                            <div class="highlight-label">Certification</div>
-                            <div class="highlight-value"><a href="https://www.coursera.org/account/accomplishments/specialization/certificate/A8Z4GGXNDYQY" class="cert-link">Google Advanced Data Analytics</a></div>
-                        </div>
+                    <div class="about-block">
+                        <h3>Tools</h3>
+                        <p>Python, R, SQL (MySQL, PostgreSQL, MSSQL), SSIS, Tableau, Looker</p>
+                    </div>
+                    <div class="about-block">
+                        <h3>Education</h3>
+                        <p>MS Information Science<br>UW-Madison, 2022</p>
+                        <p style="margin-top: 0.5rem;">BA International Studies<br>UW-Madison, 2020</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Work -->
-        <section class="work" id="work">
-            <div class="container">
-                <header class="section-header reveal">
-                    <span class="section-number">02</span>
-                    <h2 class="section-title">Work</h2>
-                    <div class="section-line" aria-hidden="true"></div>
-                </header>
-                
-                <div class="work-grid reveal-group">
-                    <article class="work-card reveal">
-                        <div class="work-header">
-                            <h3 class="work-title">Traffic Accident Analytics</h3>
-                            <span class="work-tag">Python / ML / Geospatial</span>
-                        </div>
-                        <p class="work-desc">Analyzed 7.7M US traffic accident records. Built a Random Forest model for severity prediction (78% accuracy). Statistical validation with chi-square and ANOVA. Memory-optimized pipeline across 49 states.</p>
-                        <div class="work-links">
-                            <a href="case-study-traffic.html" class="work-link">Case Study</a>
-                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/us_accidents_analysis" class="work-link">Code</a>
-                        </div>
-                    </article>
-                    
-                    <article class="work-card reveal">
-                        <div class="work-header">
-                            <h3 class="work-title">Employee Churn Prediction</h3>
-                            <span class="work-tag">Python / XGBoost / Classification</span>
-                        </div>
-                        <p class="work-desc">Predicted employee turnover with 98% accuracy using XGBoost. Identified key churn drivers: overtime, project count, satisfaction levels. End-to-end pipeline from cleaning to actionable HR recommendations.</p>
-                        <div class="work-links">
-                            <a href="https://tzolkowski96.github.io/Salifort-Motors-Project/" class="work-link">Live Demo</a>
-                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/Employee-Churn-Prediction" class="work-link">Code</a>
-                        </div>
-                    </article>
-                    
-                    <article class="work-card reveal">
-                        <div class="work-header">
-                            <h3 class="work-title">UFood Customer Analysis</h3>
-                            <span class="work-tag">Python / K-Means / A/B Testing</span>
-                        </div>
-                        <p class="work-desc">Customer segmentation for a food delivery app. K-means clustering, campaign effectiveness via A/B testing, customer journey mapping. Recommendations to increase CLV.</p>
-                        <div class="work-links">
-                            <a href="https://tzolkowski96.github.io/analyst-builder-food-marketing-project/" class="work-link">Live Demo</a>
-                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/ufood_analysis" class="work-link">Code</a>
-                        </div>
-                    </article>
-                    
-                    <article class="work-card reveal">
-                        <div class="work-header">
-                            <h3 class="work-title">World Life Expectancy Analysis</h3>
-                            <span class="work-tag">SQL / Window Functions / Data Quality</span>
-                        </div>
-                        <p class="work-desc">Cleaned and analyzed global life expectancy data (2.9k records, 183 countries, 15 years). Advanced SQL with CTEs and window functions for prioritized deduplication. Quantified COVID-19 impact on life expectancy.</p>
-                        <div class="work-links">
-                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/world_life_expectancy" class="work-link">View Code</a>
-                        </div>
-                    </article>
-                    
-                    <article class="work-card reveal">
-                        <div class="work-header">
-                            <h3 class="work-title">Global Population Insights</h3>
-                            <span class="work-tag">JavaScript / Plotly.js / Interactive Viz</span>
-                        </div>
-                        <p class="work-desc">Interactive platform for global population trend visualization. Comparative analysis tools, projections, policy recommendations. Built with vanilla JS and Plotly.</p>
-                        <div class="work-links">
-                            <a href="https://tzolkowski96.github.io/global-population-insights/" class="work-link">Live Demo</a>
-                            <a href="https://github.com/tzolkowski96/global-population-insights" class="work-link">Code</a>
-                        </div>
-                    </article>
-                    
-                    <article class="work-card reveal">
-                        <div class="work-header">
-                            <h3 class="work-title">Crypto Market Insights</h3>
-                            <span class="work-tag">Python / Selenium / Automation</span>
-                        </div>
-                        <p class="work-desc">Automated real-time crypto market analysis. Web scraping from CoinMarketCap, technical analysis metrics, dynamic visualizations, automated Excel report generation.</p>
-                        <div class="work-links">
-                            <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/crypto_market_insights" class="work-link">View Code</a>
-                        </div>
-                    </article>
-                </div>
-                
-                <div class="work-footer reveal">
-                    <a href="https://github.com/tzolkowski96" class="work-more">More on GitHub →</a>
-                </div>
+        <section id="work">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <span class="section-title">Work</span>
             </div>
-        </section>
 
-        <!-- Live Data Visualizations -->
-        <section class="data-viz" id="viz">
-            <div class="container">
-                <header class="section-header reveal">
-                    <span class="section-number">03</span>
-                    <h2 class="section-title">Live Work</h2>
-                    <div class="section-line" aria-hidden="true"></div>
-                </header>
-                
-                <p class="viz-intro reveal">Interactive visualizations built from real project data. Hover or tap to explore.</p>
-                
-                <div class="viz-grid reveal-group">
-                    <!-- Employee Churn Model Comparison -->
-                    <div class="viz-card reveal">
-                        <h3 class="viz-title">Model Performance Comparison</h3>
-                        <p class="viz-subtitle">Employee Churn Prediction — Which algorithm predicts turnover best?</p>
-                        <div class="viz-container">
-                            <canvas id="model-comparison-chart"></canvas>
-                        </div>
-                        <p class="viz-caption">XGBoost achieved 98% accuracy with 90% recall, outperforming simpler approaches. <a href="https://tzolkowski96.github.io/Salifort-Motors-Project/">View full analysis →</a></p>
+            <div class="work-list">
+                <div class="work-item">
+                    <div class="work-meta">
+                        <span class="org">IU School of Medicine</span>
+                        <span>2023 — Present</span>
                     </div>
-                    
-                    <!-- Feature Importance -->
-                    <div class="viz-card reveal">
-                        <h3 class="viz-title">What Drives Employee Turnover?</h3>
-                        <p class="viz-subtitle">Feature importance from XGBoost model — 15,000 employees analyzed</p>
-                        <div class="viz-container">
-                            <canvas id="feature-importance-chart"></canvas>
-                        </div>
-                        <p class="viz-caption">Satisfaction level and workload (projects, hours) are the strongest predictors of churn.</p>
+                    <div class="work-content">
+                        <h3>Data Analyst, Medical and Molecular Genetics</h3>
+                        <p>Started on the Core team, promoted to Career track in 2026. The research team had data scattered across clinical systems, genetic databases, and legacy spreadsheets. Nothing talked to anything else. I built the connective tissue: ETL pipelines that normalize data from different sources, APIs that let researchers query without writing SQL, automated workflows that flag data quality issues before they become problems.</p>
+                        <p class="work-highlight">The hardest part wasn't technical. It was learning enough neurology to understand what the researchers actually needed.</p>
                     </div>
-                    
-                    <!-- Traffic Accident Severity -->
-                    <div class="viz-card reveal">
-                        <h3 class="viz-title">US Traffic Accidents by State</h3>
-                        <p class="viz-subtitle">7.7M records (2016-2023) — Accident density across 49 states</p>
-                        <div class="viz-container">
-                            <canvas id="accident-map-chart"></canvas>
-                        </div>
-                        <p class="viz-caption">California, Florida, and Texas account for the highest accident volumes. <a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/us_accidents_analysis">View code →</a></p>
+                </div>
+                <div class="work-item">
+                    <div class="work-meta">
+                        <span class="org">Telkomsel</span>
+                        <span>2022</span>
                     </div>
-                    
-                    <!-- Population Growth -->
-                    <div class="viz-card reveal">
-                        <h3 class="viz-title">Global Population Giants</h3>
-                        <p class="viz-subtitle">60 years of growth — Top 5 most populous nations</p>
-                        <div class="viz-container">
-                            <canvas id="population-chart"></canvas>
-                        </div>
-                        <p class="viz-caption">India overtook China in 2023. Nigeria is among the fastest-rising. <a href="https://tzolkowski96.github.io/global-population-insights/">Explore interactive version →</a></p>
+                    <div class="work-content">
+                        <h3>Business Data Analyst Intern</h3>
+                        <p>Indonesia's largest mobile operator. 170 million subscribers. I worked on customer behavior analysis, trying to predict churn before it happened. Built dashboards that product teams actually used, which is rarer than it sounds.</p>
+                        <p class="work-highlight">First time working with data at genuine scale. Changed how I think about query optimization.</p>
+                    </div>
+                </div>
+                <div class="work-item">
+                    <div class="work-meta">
+                        <span class="org">UW-Madison</span>
+                        <span>2019 — 2021</span>
+                    </div>
+                    <div class="work-content">
+                        <h3>IT Support → Data Manager</h3>
+                        <p>Started answering help desk tickets. Ended up managing research datasets for a sociology department that had decades of survey data in formats nobody remembered how to read. Wrote migration scripts, documented everything, learned that institutional data is always messier than you expect.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Skills -->
-        <section class="skills" id="skills">
-            <div class="container">
-                <header class="section-header reveal">
-                    <span class="section-number">04</span>
-                    <h2 class="section-title">Stack</h2>
-                    <div class="section-line" aria-hidden="true"></div>
-                </header>
-                
-                <div class="skills-grid reveal-group" role="list">
-                    <div class="skill-card reveal" role="listitem" tabindex="0">
-                        <div class="skill-name">Python</div>
-                        <div class="skill-detail">pandas, data processing, automation</div>
+        <section id="writing">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <span class="section-title">Writing</span>
+            </div>
+            <p class="writing-intro">
+                I write to figure out what I think. The data journalism is about finding stories in public datasets. The personal writing is everything else.
+            </p>
+            <div class="writing-grid">
+                <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener" class="writing-card">
+                    <div class="writing-platform">Medium</div>
+                    <h3>Data Journalism</h3>
+                    <p>Analysis pieces on public datasets. Traffic patterns, public health trends, whatever has good data and an interesting question underneath.</p>
+                    <div class="writing-footer">
+                        <div class="writing-topics">
+                            <span class="writing-topic">Public Data</span>
+                            <span class="writing-topic">Analysis</span>
+                        </div>
+                        <span class="writing-arrow">→</span>
                     </div>
-                    <div class="skill-card reveal" role="listitem" tabindex="0">
-                        <div class="skill-name">SQL</div>
-                        <div class="skill-detail">MySQL, PostgreSQL, MSSQL</div>
+                </a>
+                <a href="https://substack.com/@tobinzolkowski" target="_blank" rel="noopener" class="writing-card">
+                    <div class="writing-platform">Substack</div>
+                    <h3>Personal Essays</h3>
+                    <p>Being Deaf in tech. Remote work. Language and translation. The stuff I think about that doesn't fit neatly into a data viz.</p>
+                    <div class="writing-footer">
+                        <div class="writing-topics">
+                            <span class="writing-topic">Deaf Experience</span>
+                            <span class="writing-topic">Remote Work</span>
+                        </div>
+                        <span class="writing-arrow">→</span>
                     </div>
-                    <div class="skill-card reveal" role="listitem" tabindex="0">
-                        <div class="skill-name">ETL / Data Engineering</div>
-                        <div class="skill-detail">Pipeline development, data architecture</div>
+                </a>
+            </div>
+        </section>
+
+        <section id="connect">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <span class="section-title">Connect</span>
+            </div>
+            <div class="connect-content">
+                <div class="connect-text">
+                    <p>Not looking for a new role right now, but always open to conversations about research infrastructure, data accessibility, or the intersection of data and disability.</p>
+                    <div class="connect-note">
+                        <strong>How to reach me</strong>
+                        I'm Deaf and communicate via ASL. For initial contact, email or LinkedIn messages work best. For video calls, I use Video Relay Service (VRS) — it's seamless on your end, just call like normal.
                     </div>
-                    <div class="skill-card reveal" role="listitem" tabindex="0">
-                        <div class="skill-name">Looker</div>
-                        <div class="skill-detail">Dashboard management, LookML</div>
-                    </div>
-                    <div class="skill-card reveal" role="listitem" tabindex="0">
-                        <div class="skill-name">Tableau</div>
-                        <div class="skill-detail">Visualization, reporting</div>
-                    </div>
-                    <div class="skill-card reveal" role="listitem" tabindex="0">
-                        <div class="skill-name">HTML / CSS / JS</div>
-                        <div class="skill-detail">Custom data visualizations</div>
-                    </div>
-                    <div class="skill-card reveal" role="listitem" tabindex="0">
-                        <div class="skill-name">Excel</div>
-                        <div class="skill-detail">Advanced functions, data modeling</div>
-                    </div>
+                </div>
+                <div class="connect-links">
+                    <a href="https://github.com/tzolkowski96" target="_blank" rel="noopener" class="connect-link">
+                        <span>GitHub</span>
+                        <span class="arrow">→</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200/" target="_blank" rel="noopener" class="connect-link">
+                        <span>LinkedIn</span>
+                        <span class="arrow">→</span>
+                    </a>
+                    <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener" class="connect-link">
+                        <span>Medium</span>
+                        <span class="arrow">→</span>
+                    </a>
+                    <a href="https://substack.com/@tobinzolkowski" target="_blank" rel="noopener" class="connect-link">
+                        <span>Substack</span>
+                        <span class="arrow">→</span>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Languages -->
-        <section class="languages" id="languages">
-            <div class="container">
-                <header class="section-header reveal">
-                    <span class="section-number">05</span>
-                    <h2 class="section-title">Languages</h2>
-                    <div class="section-line" aria-hidden="true"></div>
-                </header>
-                
-                <div class="languages-wrapper reveal-group" role="list">
-                    <div class="lang-row reveal" role="listitem" tabindex="0" style="--fill-width: 100%">
-                        <span class="lang-name">American Sign Language</span>
-                        <div class="lang-bar" aria-hidden="true"><div class="lang-bar-fill"></div></div>
-                        <span class="lang-tag">Native</span>
-                    </div>
-                    <div class="lang-row reveal" role="listitem" tabindex="0" style="--fill-width: 100%">
-                        <span class="lang-name">English</span>
-                        <div class="lang-bar" aria-hidden="true"><div class="lang-bar-fill"></div></div>
-                        <span class="lang-tag">Native</span>
-                    </div>
-                    <div class="lang-row reveal" role="listitem" tabindex="0" style="--fill-width: 70%">
-                        <span class="lang-name">French</span>
-                        <div class="lang-bar" aria-hidden="true"><div class="lang-bar-fill"></div></div>
-                        <span class="lang-level">B2 Upper Intermediate</span>
-                    </div>
-                    <div class="lang-row reveal" role="listitem" tabindex="0" style="--fill-width: 50%">
-                        <span class="lang-name">Spanish</span>
-                        <div class="lang-bar" aria-hidden="true"><div class="lang-bar-fill"></div></div>
-                        <span class="lang-level">B1 Intermediate</span>
-                    </div>
-                    <div class="lang-row reveal" role="listitem" tabindex="0" style="--fill-width: 20%">
-                        <span class="lang-name">Italian</span>
-                        <div class="lang-bar" aria-hidden="true"><div class="lang-bar-fill"></div></div>
-                        <span class="lang-level">A1 Beginner</span>
-                    </div>
-                    <div class="lang-row reveal" role="listitem" tabindex="0" style="--fill-width: 10%">
-                        <span class="lang-name">BSL & Auslan</span>
-                        <div class="lang-bar" aria-hidden="true"><div class="lang-bar-fill"></div></div>
-                        <span class="lang-tag learning">Learning</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Writing -->
-        <section class="writing" id="writing">
-            <div class="container">
-                <header class="section-header reveal">
-                    <span class="section-number">06</span>
-                    <h2 class="section-title">Writing</h2>
-                    <div class="section-line" aria-hidden="true"></div>
-                </header>
-                
-                <p class="writing-intro reveal">Data journalism on Medium. I dig into datasets and find the stories the numbers are trying to tell.</p>
-                
-                <div class="writing-grid reveal-group">
-                    <article class="writing-card reveal">
-                        <a href="https://medium.com/@grateful_aqua_goat_147/what-young-women-saw-that-young-men-didnt-599166067dbf" class="writing-link">
-                            <span class="writing-date">Dec 2025</span>
-                            <h3 class="writing-title">What Young Women Saw That Young Men Didn't</h3>
-                            <p class="writing-excerpt">I revisited Gallup's tracking data from 1999 because I wanted to see the actual trendlines. It turns out young men aren't really going anywhere—it's young women who have moved, and moved hard.</p>
-                            <span class="writing-stat">5.5K claps</span>
-                        </a>
-                    </article>
-                    
-                    <article class="writing-card reveal">
-                        <a href="https://medium.com/@grateful_aqua_goat_147/youre-probably-5-bad-days-away-from-becoming-a-monster-4f8c997e5bf3" class="writing-link">
-                            <span class="writing-date">Jan 2026</span>
-                            <h3 class="writing-title">5 Bad Days Away From Becoming a Monster</h3>
-                            <p class="writing-excerpt">I spent three weeks reading genocide research. I didn’t sleep well. What I found was a chilling reality about human nature and the thin line between civility and chaos.</p>
-                            <span class="writing-stat">1.8K claps</span>
-                        </a>
-                    </article>
-                    
-                    <article class="writing-card reveal">
-                        <a href="https://medium.com/@grateful_aqua_goat_147/the-man-who-filled-a-ditch-with-babies-sold-engagement-rings-for-30-years-bc38c79556d6" class="writing-link">
-                            <span class="writing-date">Jan 2026</span>
-                            <h3 class="writing-title">The Man Who Sold Engagement Rings for 30 Years</h3>
-                            <p class="writing-excerpt">He died peacefully at 80. The helicopter pilot who stopped him got death threats. That tells you everything about us, our history, and how we choose to remember or forget.</p>
-                            <span class="writing-stat">3.6K claps</span>
-                        </a>
-                    </article>
-                    
-                    <article class="writing-card reveal">
-                        <a href="https://medium.com/@grateful_aqua_goat_147/how-are-americans-actually-affording-and-buying-groceries-right-now-0b18a3fba4c4" class="writing-link">
-                            <span class="writing-date">Nov 2025</span>
-                            <h3 class="writing-title">How Americans Actually Buy Groceries Right Now</h3>
-                            <p class="writing-excerpt">I spend my days analyzing data. The numbers don't lie, and right now they are saying people are getting absolutely destroyed at the grocery store. Here is the evidence.</p>
-                            <span class="writing-stat">1.5K claps</span>
-                        </a>
-                    </article>
-                </div>
-                
-                <div class="writing-footer reveal">
-                    <a href="https://medium.com/@grateful_aqua_goat_147" class="writing-more">More on Medium →</a>
-                    <a href="https://tobinzolkowski.substack.com/" class="writing-more">Substack →</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
         <footer>
-            <div class="container">
-                <div class="footer-content reveal">
-                    <div class="footer-cta">
-                        <h2>Say hello</h2>
-                        <p>Best reached via Video Relay Service or LinkedIn DM. Phone calls don't work for obvious reasons.</p>
-                        <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200/" class="cta-button">Message on LinkedIn</a>
-                    </div>
-                    <nav class="footer-links" aria-label="Social links">
-                        <a href="https://github.com/tzolkowski96">GitHub</a>
-                        <a href="https://medium.com/@grateful_aqua_goat_147">Medium</a>
-                        <a href="https://tobinzolkowski.substack.com/">Substack</a>
-                    </nav>
-                </div>
-                <div class="footer-bottom">
-                    <span class="footer-logo" aria-hidden="true">TZ</span>
-                    <span class="footer-copy">© 2026 Tobin Zolkowski</span>
-                </div>
+            <div class="location">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Indianapolis, IN
             </div>
+            <div>© 2026 Tobin Zolkowski</div>
         </footer>
-    </main>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="assets/js/visualizations.js"></script>
-    <script src="assets/js/main.js"></script>
+    <noscript>
+        <style>
+            #pipeline-canvas { display: none; }
+            .scroll-hint { display: none; }
+        </style>
+    </noscript>
+
+    <script src="js/pipeline.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

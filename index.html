@@ -10,10 +10,10 @@
     <meta property="og:description" content="Data analyst building Parkinson's research infrastructure. Data journalist. Deaf, multilingual, remote.">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230d0d0d' width='100' height='100' rx='12'/><text x='50' y='68' font-family='Georgia,serif' font-size='55' font-weight='600' fill='%23e85d04' text-anchor='middle'>T</text></svg>">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
 </head>
 <body>
     <a href="#about" class="skip-link">Skip to content</a>
-    
+
     <canvas id="pipeline-canvas" aria-hidden="true"></canvas>
     <div class="grain" aria-hidden="true"></div>
 
@@ -29,6 +29,8 @@
         <a href="#" class="nav-logo">TZ</a>
         <div class="nav-links">
             <a href="#about">About</a>
+            <a href="#expertise">Expertise</a>
+            <a href="#projects">Projects</a>
             <a href="#work">Work</a>
             <a href="#writing">Writing</a>
             <a href="#connect">Connect</a>
@@ -42,6 +44,8 @@
 
     <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
         <a href="#about">About</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#projects">Projects</a>
         <a href="#work">Work</a>
         <a href="#writing">Writing</a>
         <a href="#connect">Connect</a>
@@ -60,6 +64,10 @@
                 <span class="identity-tag">Remote</span>
                 <span class="identity-tag">Multilingual</span>
             </div>
+            <div class="hero-cta">
+                <a href="#writing" class="btn-primary">Read my writing</a>
+                <a href="#about" class="btn-ghost">Get to know me <span class="arrow-right">→</span></a>
+            </div>
             <div class="scroll-hint" aria-hidden="true">
                 <span>Scroll</span>
                 <div class="line"></div>
@@ -67,17 +75,17 @@
         </header>
 
         <section id="about">
-            <div class="section-header">
+            <div class="section-header" data-reveal>
                 <span class="section-number">01</span>
                 <span class="section-title">About</span>
             </div>
             <div class="about-grid">
-                <div class="about-main">
+                <div class="about-main" data-reveal>
                     <p>My job title says data analyst, but the work is mostly engineering. I design ETL pipelines that pull clinical data from a dozen different systems. I build APIs that let researchers query datasets without knowing SQL. I automate the boring stuff so scientists can focus on science.</p>
                     <p>The path here wasn't obvious. I studied International Studies at UW-Madison, thinking I'd end up in policy or diplomacy. But I kept gravitating toward the data side of every project. Grad school for Information Science made it official. That international lens stuck though. I think about data as translation: taking information from one context and making it useful in another.</p>
                     <p>Outside work, I write. Data journalism on Medium, where I dig into public datasets and explain what's actually happening. Personal essays on Substack. And occasional pro bono consulting for organizations that need data help but can't afford it.</p>
                 </div>
-                <div class="about-sidebar">
+                <div class="about-sidebar" data-reveal>
                     <div class="about-block">
                         <h3>Languages</h3>
                         <ul>
@@ -95,20 +103,155 @@
                     <div class="about-block">
                         <h3>Education</h3>
                         <p>MS Information Science<br>UW-Madison, 2022</p>
-                        <p style="margin-top: 0.5rem;">BA International Studies<br>UW-Madison, 2020</p>
+                        <p class="edu-second">BA International Studies<br>UW-Madison, 2020</p>
+                    </div>
+                    <div class="about-block">
+                        <h3>Certifications</h3>
+                        <ul>
+                            <li>Google Advanced Data Analytics</li>
+                            <li>DataCamp — Data Analyst in SQL</li>
+                            <li>DataCamp — Data Analyst in Tableau</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <blockquote class="pull-quote" data-reveal>
+                <p>I think about data as translation — taking information from one context and making it useful in another.</p>
+            </blockquote>
+            <div class="credentials-bar" data-reveal>
+                <div class="credential">
+                    <span class="credential-value">Google</span>
+                    <span class="credential-label">Certified — Advanced Data Analytics</span>
+                </div>
+                <div class="credential">
+                    <span class="credential-value">3</span>
+                    <span class="credential-label">Live project demos</span>
+                </div>
+                <div class="credential">
+                    <span class="credential-value">IU School of Medicine</span>
+                    <span class="credential-label">Current — Parkinson's Research</span>
+                </div>
+                <div class="credential">
+                    <span class="credential-value">Medium</span>
+                    <span class="credential-label">Published data journalist</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="expertise">
+            <div class="section-header" data-reveal>
+                <span class="section-number">02</span>
+                <span class="section-title">Expertise</span>
+            </div>
+            <div class="expertise-grid">
+                <div class="expertise-card" data-reveal data-reveal-delay="1">
+                    <span class="card-number">01</span>
+                    <h3>ETL Pipelines</h3>
+                    <p>Designing pipelines that pull clinical data from a dozen different systems, normalize it, and make it research-ready.</p>
+                </div>
+                <div class="expertise-card" data-reveal data-reveal-delay="2">
+                    <span class="card-number">02</span>
+                    <h3>Research APIs</h3>
+                    <p>Building interfaces that let researchers query complex datasets without knowing SQL.</p>
+                </div>
+                <div class="expertise-card" data-reveal data-reveal-delay="3">
+                    <span class="card-number">03</span>
+                    <h3>Data Automation</h3>
+                    <p>Automated workflows that flag data quality issues before they become problems, so scientists can focus on science.</p>
+                </div>
+                <div class="expertise-card" data-reveal data-reveal-delay="4">
+                    <span class="card-number">04</span>
+                    <h3>Data Journalism</h3>
+                    <p>Digging into public datasets on Medium, finding stories in the numbers, and explaining what's actually happening.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="section-header" data-reveal>
+                <span class="section-number">03</span>
+                <span class="section-title">Projects</span>
+            </div>
+            <p class="projects-intro" data-reveal>
+                Open-source analysis and tools. All available on <a href="https://github.com/tzolkowski96" target="_blank" rel="noopener">GitHub</a>.
+            </p>
+            <div class="projects-grid">
+                <div class="project-card has-image" data-reveal data-reveal-delay="1">
+                    <div class="project-image">
+                        <img src="https://raw.githubusercontent.com/tzolkowski96/Salifort-Motors-Project/main/images/image_2.png" alt="Correlation heatmap showing relationships between employee satisfaction, tenure, workload, and churn" loading="lazy">
+                    </div>
+                    <div class="project-card-body">
+                        <h3>Employee Churn Prediction</h3>
+                        <p>ML models achieving 98% accuracy to identify key employee turnover drivers. Google Advanced Data Analytics capstone.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Scikit-Learn</span>
+                            <span class="project-tag">ML</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://tzolkowski96.github.io/Salifort-Motors-Project/" target="_blank" rel="noopener" class="project-link primary">View demo <span>→</span></a>
+                            <a href="https://github.com/tzolkowski96/Salifort-Motors-Project" target="_blank" rel="noopener" class="project-link">Source code <span>→</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-reveal data-reveal-delay="2">
+                    <div class="project-card-body">
+                        <h3>Global Population Insights</h3>
+                        <p>Interactive data visualization platform built with Plotly.js. Explore population trends across countries and decades.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Plotly.js</span>
+                            <span class="project-tag">HTML</span>
+                            <span class="project-tag">Interactive</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://tzolkowski96.github.io/global-population-insights/" target="_blank" rel="noopener" class="project-link primary">View demo <span>→</span></a>
+                            <a href="https://github.com/tzolkowski96/global-population-insights" target="_blank" rel="noopener" class="project-link">Source code <span>→</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card has-image" data-reveal data-reveal-delay="3">
+                    <div class="project-image">
+                        <img src="https://raw.githubusercontent.com/tzolkowski96/analyst-builder-food-marketing-project/main/assets/og-image.svg" alt="UFood Analytics — customer segmentation dashboard showing 2,205 customers, 39 features, 6 campaigns, 3 segments" loading="lazy">
+                    </div>
+                    <div class="project-card-body">
+                        <h3>Customer Behavior Analysis</h3>
+                        <p>K-means customer segmentation and A/B testing for marketing campaigns at a food delivery company.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">K-Means</span>
+                            <span class="project-tag">A/B Testing</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://tzolkowski96.github.io/analyst-builder-food-marketing-project/" target="_blank" rel="noopener" class="project-link primary">View demo <span>→</span></a>
+                            <a href="https://github.com/tzolkowski96/analyst-builder-food-marketing-project" target="_blank" rel="noopener" class="project-link">Source code <span>→</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-reveal data-reveal-delay="4">
+                    <div class="project-card-body">
+                        <h3>REDCap Testing Utilities</h3>
+                        <p>Unit testing utilities for REDCap clinical research data capture projects in Python.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Testing</span>
+                            <span class="project-tag">REDCap</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/tzolkowski96/redcap-test" target="_blank" rel="noopener" class="project-link">Source code <span>→</span></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="work">
-            <div class="section-header">
-                <span class="section-number">02</span>
+            <div class="section-header" data-reveal>
+                <span class="section-number">04</span>
                 <span class="section-title">Work</span>
             </div>
 
             <div class="work-list">
-                <div class="work-item">
+                <div class="work-item" data-reveal>
                     <div class="work-meta">
                         <span class="org">IU School of Medicine</span>
                         <span>2023 — Present</span>
@@ -119,7 +262,7 @@
                         <p class="work-highlight">The hardest part wasn't technical. It was learning enough neurology to understand what the researchers actually needed.</p>
                     </div>
                 </div>
-                <div class="work-item">
+                <div class="work-item" data-reveal>
                     <div class="work-meta">
                         <span class="org">Telkomsel</span>
                         <span>2022</span>
@@ -130,7 +273,7 @@
                         <p class="work-highlight">First time working with data at genuine scale. Changed how I think about query optimization.</p>
                     </div>
                 </div>
-                <div class="work-item">
+                <div class="work-item" data-reveal>
                     <div class="work-meta">
                         <span class="org">UW-Madison</span>
                         <span>2019 — 2021</span>
@@ -144,71 +287,88 @@
         </section>
 
         <section id="writing">
-            <div class="section-header">
-                <span class="section-number">03</span>
+            <div class="section-header" data-reveal>
+                <span class="section-number">05</span>
                 <span class="section-title">Writing</span>
             </div>
-            <p class="writing-intro">
+            <p class="writing-intro" data-reveal>
                 I write to figure out what I think. The data journalism is about finding stories in public datasets. The personal writing is everything else.
             </p>
-            <div class="writing-grid">
-                <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener" class="writing-card">
-                    <div class="writing-platform">Medium</div>
-                    <h3>Data Journalism</h3>
-                    <p>Analysis pieces on public datasets. Traffic patterns, public health trends, whatever has good data and an interesting question underneath.</p>
-                    <div class="writing-footer">
-                        <div class="writing-topics">
-                            <span class="writing-topic">Public Data</span>
-                            <span class="writing-topic">Analysis</span>
-                        </div>
-                        <span class="writing-arrow">→</span>
-                    </div>
+            <div class="articles-grid">
+                <a href="https://medium.com/@grateful_aqua_goat_147/how-are-americans-actually-affording-and-buying-groceries-right-now-0b18a3fba4c4" target="_blank" rel="noopener" class="article-card" data-reveal data-reveal-delay="1">
+                    <span class="article-label">Medium · Public Data</span>
+                    <h3>How Are Americans Actually Affording and Buying Groceries Right Now</h3>
+                    <span class="article-arrow">→</span>
                 </a>
-                <a href="https://substack.com/@tobinzolkowski" target="_blank" rel="noopener" class="writing-card">
-                    <div class="writing-platform">Substack</div>
-                    <h3>Personal Essays</h3>
-                    <p>Being Deaf in tech. Remote work. Language and translation. The stuff I think about that doesn't fit neatly into a data viz.</p>
-                    <div class="writing-footer">
-                        <div class="writing-topics">
-                            <span class="writing-topic">Deaf Experience</span>
-                            <span class="writing-topic">Remote Work</span>
-                        </div>
-                        <span class="writing-arrow">→</span>
-                    </div>
+                <a href="https://medium.com/@grateful_aqua_goat_147/i-learned-to-analyze-data-more-quickly-because-i-was-speaking-french-57055559e9eb" target="_blank" rel="noopener" class="article-card" data-reveal data-reveal-delay="2">
+                    <span class="article-label">Medium · Languages & Data</span>
+                    <h3>I Learned to Analyze Data More Quickly Because I Was Speaking French</h3>
+                    <span class="article-arrow">→</span>
                 </a>
+                <a href="https://medium.com/@grateful_aqua_goat_147/33-years-asleep-0-1-seconds-to-judge-8a616a15ce3a" target="_blank" rel="noopener" class="article-card" data-reveal data-reveal-delay="3">
+                    <span class="article-label">Medium · Personal</span>
+                    <h3>33 Years Asleep. 0.1 Seconds to Judge.</h3>
+                    <span class="article-arrow">→</span>
+                </a>
+                <a href="https://medium.com/@grateful_aqua_goat_147/how-excel-made-me-a-better-programmer-5db6a7b55b1b" target="_blank" rel="noopener" class="article-card" data-reveal data-reveal-delay="4">
+                    <span class="article-label">Medium · Career</span>
+                    <h3>How Excel Made Me a Better Programmer</h3>
+                    <span class="article-arrow">→</span>
+                </a>
+            </div>
+            <div class="writing-platforms" data-reveal>
+                <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener" class="platform-link">All articles on Medium <span>→</span></a>
+                <a href="https://substack.com/@tobinzolkowski" target="_blank" rel="noopener" class="platform-link">Personal essays on Substack <span>→</span></a>
             </div>
         </section>
 
         <section id="connect">
-            <div class="section-header">
-                <span class="section-number">04</span>
+            <div class="section-header" data-reveal>
+                <span class="section-number">06</span>
                 <span class="section-title">Connect</span>
             </div>
             <div class="connect-content">
-                <div class="connect-text">
-                    <p>Not looking for a new role right now, but always open to conversations about research infrastructure, data accessibility, or the intersection of data and disability.</p>
+                <div class="connect-form-side" data-reveal>
+                    <p class="connect-intro">Not looking for a new role right now, but always open to conversations about research infrastructure, data accessibility, or the intersection of data and disability.</p>
+                    <form action="https://formspree.io/f/xaqpnqno" method="POST" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary btn-submit">Send message</button>
+                    </form>
+                </div>
+                <div class="connect-info-side" data-reveal>
                     <div class="connect-note">
                         <strong>How to reach me</strong>
-                        I'm Deaf and communicate via ASL. For initial contact, email or LinkedIn messages work best. For video calls, I use Video Relay Service (VRS) — it's seamless on your end, just call like normal.
+                        I'm Deaf and communicate via ASL. For initial contact, the form or LinkedIn messages work best. For video calls, I use Video Relay Service (VRS) — it's seamless on your end, just call like normal.
                     </div>
-                </div>
-                <div class="connect-links">
-                    <a href="https://github.com/tzolkowski96" target="_blank" rel="noopener" class="connect-link">
-                        <span>GitHub</span>
-                        <span class="arrow">→</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200/" target="_blank" rel="noopener" class="connect-link">
-                        <span>LinkedIn</span>
-                        <span class="arrow">→</span>
-                    </a>
-                    <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener" class="connect-link">
-                        <span>Medium</span>
-                        <span class="arrow">→</span>
-                    </a>
-                    <a href="https://substack.com/@tobinzolkowski" target="_blank" rel="noopener" class="connect-link">
-                        <span>Substack</span>
-                        <span class="arrow">→</span>
-                    </a>
+                    <div class="connect-links">
+                        <a href="https://github.com/tzolkowski96" target="_blank" rel="noopener" class="connect-link">
+                            <span>GitHub</span>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200/" target="_blank" rel="noopener" class="connect-link">
+                            <span>LinkedIn</span>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener" class="connect-link">
+                            <span>Medium</span>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="https://substack.com/@tobinzolkowski" target="_blank" rel="noopener" class="connect-link">
+                            <span>Substack</span>
+                            <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -218,7 +378,7 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 Indianapolis, IN
             </div>
-            <div>© 2026 Tobin Zolkowski</div>
+            <div>&copy; 2026 Tobin Zolkowski</div>
         </footer>
     </div>
 
@@ -226,6 +386,7 @@
         <style>
             #pipeline-canvas { display: none; }
             .scroll-hint { display: none; }
+            [data-reveal] { opacity: 1; transform: none; }
         </style>
     </noscript>
 

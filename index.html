@@ -1,396 +1,865 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tobin Zolkowski — Data Analyst & Writer</title>
-    <meta name="description" content="Data analyst building Parkinson's research infrastructure at IU School of Medicine. Data journalist. Deaf, multilingual, remote.">
-    <meta name="author" content="Tobin Zolkowski">
-    <meta property="og:title" content="Tobin Zolkowski — Data Analyst & Writer">
-    <meta property="og:description" content="Data analyst building Parkinson's research infrastructure. Data journalist. Deaf, multilingual, remote.">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tobin Zolkowski · Data Analyst, Reporting &amp; BI · Madison, WI</title>
+<meta name="description" content="Tobin Zolkowski, data analyst. Reporting, BI, and data journalism. I turn messy, multi-source data into reporting people actually read. Madison, WI, remote. ASL native." />
+<link rel="canonical" href="https://tzolkowski96.github.io/portfolio/" />
+<meta name="author" content="Tobin Zolkowski" />
+<meta name="theme-color" content="#e7e7e3" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23161614'/><text x='16' y='21' font-family='Arial,sans-serif' font-size='14' font-weight='700' fill='%23f3f3ef' text-anchor='middle'>TZ</text><rect x='9' y='25' width='14' height='2.5' fill='%23ff2d16'/></svg>" />
+<meta property="og:type" content="profile" />
+<meta property="og:site_name" content="Tobin Zolkowski" />
+<meta property="og:title" content="Tobin Zolkowski · Data Analyst, Reporting &amp; BI" />
+<meta property="og:description" content="I turn messy, multi-source data into reporting people actually read. Reporting and BI for a Parkinson's research program. ASL native, Madison, WI." />
+<meta property="og:url" content="https://tzolkowski96.github.io/portfolio/" />
+<meta property="og:image" content="https://tzolkowski96.github.io/portfolio/og-image.png" />
+<meta property="og:image:width" content="2400" />
+<meta property="og:image:height" content="1260" />
+<meta property="og:image:alt" content="Tobin Zolkowski, Data Analyst and Engineer, Madison WI" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Tobin Zolkowski · Data Analyst, Reporting &amp; BI" />
+<meta name="twitter:description" content="I turn messy, multi-source data into reporting people actually read. ASL native, Madison, WI." />
+<meta name="twitter:image" content="https://tzolkowski96.github.io/portfolio/og-image.png" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230d0d0d' width='100' height='100' rx='12'/><text x='50' y='68' font-family='Georgia,serif' font-size='55' font-weight='600' fill='%23e85d04' text-anchor='middle'>T</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&family=Spline+Sans+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+<style>
+  :root{
+    --bg:#e7e7e3;
+    --bg-2:#dededa;
+    --panel:#f0f0ec;
+    --ink:#161614;
+    --ink-2:#3b3b37;
+    --mute:#6c6c66;
+    --faint:#a2a29b;
+    --line:#c2c2bb;
+    --line-2:#161614;
+    --sig:#ff2d16;
+    --maxw:1320px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; overflow-x:clip}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none !important; animation:none !important} }
+
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Archivo", system-ui, sans-serif;
+    font-size:17px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:clip;
+  }
+  a{color:inherit; text-decoration:none}
+  ::selection{background:var(--sig); color:#fff}
+  .cap,.tagline,.desc,.post .ttl,.post .dek,.entry li,.about .prose p,.sec-name,.connect .col p{overflow-wrap:break-word}
+  .lnks a,.chan a,.wfoot a,.feedbar .src{overflow-wrap:anywhere}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--sig); outline-offset:2px}
+  .skip{position:fixed; left:8px; top:-60px; z-index:300; background:var(--ink); color:var(--bg); padding:10px 16px; font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; transition:top .15s}
+  .skip:focus{top:8px}
+
+  .mono{font-family:"Spline Sans Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums}
+  .key{font-family:"Spline Sans Mono", monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--mute)}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px}
+
+  /* header bar */
+  .bar{position:sticky; top:0; z-index:100; background:var(--bg); border-bottom:1.5px solid var(--line-2)}
+  .bar .inner{max-width:var(--maxw); margin:0 auto; padding:0 28px; height:54px; display:flex; align-items:center; justify-content:space-between; gap:18px}
+  .mark{font-family:"Spline Sans Mono",monospace; font-weight:700; font-size:13px; letter-spacing:.18em}
+  .mark .x{color:var(--sig)}
+  .bar nav{display:flex; gap:2px}
+  .bar nav a{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); padding:6px 10px; border:1px solid transparent; transition:color .15s, border-color .15s}
+  .bar nav a:hover, .bar nav a.active{color:var(--ink); border-color:var(--line)}
+  .bar nav a.active{border-bottom-color:var(--sig)}
+  .readout{display:flex; gap:16px; align-items:center; font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.1em; color:var(--mute)}
+  .readout .scroll{color:var(--ink)}
+  .menu-btn{display:none; background:none; border:1px solid var(--line); font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; padding:7px 11px; cursor:pointer; color:var(--ink)}
+
+  /* hero / record */
+  .rec{border-bottom:1.5px solid var(--line-2)}
+  .rec .top{display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:11px 28px; border-bottom:1px solid var(--line); max-width:var(--maxw); margin:0 auto; font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--mute)}
+  .rec .stat{display:flex; align-items:center; gap:8px; color:var(--ink)}
+  .dot{width:8px; height:8px; background:var(--sig); border-radius:50%; animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+  .hero{display:grid; grid-template-columns:1fr 380px; max-width:var(--maxw); margin:0 auto}
+  .hero .name{padding:46px 28px 38px; border-right:1px solid var(--line); container-type:inline-size; min-width:0}
+  .hero .name .lbl{margin-bottom:18px}
+  .nameplate{font-family:"Archivo",sans-serif; font-weight:900; font-stretch:125%; line-height:.84; letter-spacing:-.025em; text-transform:uppercase; margin:0; font-size:clamp(34px, 14cqw, 230px); overflow-wrap:break-word}
+  .nameplate .b{display:block}
+  .nameplate .b2{color:var(--ink); position:relative; width:max-content}
+  .nameplate .b2::after{content:""; position:absolute; left:0; bottom:.06em; width:.32em; height:.12em; background:var(--sig)}
+  .tagline{margin:30px 0 0; max-width:52ch; font-size:18px; line-height:1.5; color:var(--ink-2); font-weight:500}
+  .tagline b{color:var(--ink); font-weight:700}
+
+  .schema .row{display:grid; grid-template-columns:88px 1fr; border-bottom:1px solid var(--line); min-height:46px}
+  .schema .row:last-of-type{border-bottom:none}
+  .schema .k{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); padding:12px 12px; border-right:1px solid var(--line); display:flex; align-items:center}
+  .schema .v{font-family:"Spline Sans Mono",monospace; font-size:12.5px; padding:12px 14px; display:flex; align-items:center; color:var(--ink); white-space:normal; overflow-wrap:anywhere}
+  .schema .v.lang span{color:var(--mute)}
+  .actions{display:flex; border-top:1px solid var(--line)}
+  .actions a{flex:1; font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; padding:16px; text-align:center; transition:background .15s, color .15s}
+  .actions a:first-child{border-right:1px solid var(--line); color:var(--sig)}
+  .actions a:hover{background:var(--ink); color:var(--bg)}
+
+  /* section scaffold */
+  section{border-bottom:1.5px solid var(--line-2)}
+  .sec-bar{display:flex; align-items:baseline; gap:20px; padding:20px 0 18px; border-bottom:1px solid var(--line)}
+  .sec-id{font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.1em; color:var(--sig); font-weight:600}
+  .sec-name{font-family:"Archivo",sans-serif; font-weight:800; font-stretch:115%; font-size:clamp(24px,4vw,60px); letter-spacing:-.01em; text-transform:uppercase; line-height:1; margin:0}
+  .sec-meta{margin-left:auto; font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint)}
+  .pad{padding:38px 0 52px}
+
+  /* about */
+  .about{display:grid; grid-template-columns:1.5fr 1fr; gap:0; border:1px solid var(--line); border-top:none}
+  .about .prose{padding:34px; border-right:1px solid var(--line)}
+  .about .prose p{margin:0 0 18px} .about .prose p:last-child{margin-bottom:0}
+  .about .prose .hl{color:var(--ink); font-weight:600}
+  .block{border-bottom:1px solid var(--line)} .block:last-child{border-bottom:none}
+  .block h4{margin:0; font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); padding:14px 16px 4px}
+  .block .body{padding:0 16px 16px; font-family:"Spline Sans Mono",monospace; font-size:12.5px; line-height:1.7; color:var(--ink)}
+  .block .body .m{color:var(--mute)}
+
+  /* metrics */
+  .metrics{display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--line); border-top:none}
+  .metric{padding:22px 18px; border-right:1px solid var(--line)} .metric:last-child{border-right:none}
+  .metric .n{font-family:"Archivo",sans-serif; font-weight:800; font-size:42px; line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+  .metric .n .u{color:var(--sig); font-size:.6em; vertical-align:.1em}
+  .metric .c{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.06em; color:var(--mute); margin-top:10px; line-height:1.45}
+
+  /* dashboard */
+  .dgrid{max-width:var(--maxw); margin:0 auto}
+  .drow{display:grid; border-bottom:1px solid var(--line)}
+  .drow:last-child{border-bottom:none}
+  .r-id{grid-template-columns:1.7fr 1fr}
+  .r-kpi{grid-template-columns:repeat(4,1fr)}
+  .r-2{grid-template-columns:1fr 1fr}
+  .tile{padding:26px 28px; border-right:1px solid var(--line); min-width:0}
+  .tile:last-child{border-right:none}
+  .tile .lab{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); margin:0 0 14px}
+  .tile.id{container-type:inline-size; padding:34px 28px}
+  .tile.id .nameplate{margin:6px 0 0}
+  .tile.id .tag{margin:22px 0 0; max-width:48ch; font-size:18px; line-height:1.45; color:var(--ink-2); font-weight:500}
+  .tile.id .tag b{color:var(--ink); font-weight:700}
+  .tile.id .status{margin-top:20px; display:flex; align-items:center; gap:8px; font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink)}
+  .tile.profile{padding:0}
+  .tile.profile .schema .row{grid-template-columns:84px 1fr}
+  .kpi .n{font-family:"Archivo",sans-serif; font-weight:800; font-size:clamp(28px,3.4vw,40px); line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+  .kpi .n .u{color:var(--sig); font-size:.6em; vertical-align:.12em}
+  .kpi .c{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.06em; color:var(--mute); margin-top:10px; line-height:1.45}
+  .chart-find{font-family:"Archivo",sans-serif; font-weight:700; font-size:18px; line-height:1.15; margin:2px 0 4px}
+  .chart-cap{font-family:"Spline Sans Mono",monospace; font-size:11px; color:var(--mute); margin-bottom:14px}
+  .chart svg{width:100%; height:auto; display:block; max-width:340px}
+  .chart text{font-family:"Spline Sans Mono",monospace}
+  .ntext{font-size:16px; line-height:1.5; color:var(--ink-2)}
+  .stacklist{font-family:"Spline Sans Mono",monospace; font-size:13px; line-height:1.9; color:var(--ink)}
+  .stacklist .m{color:var(--mute)}
+  .mini .row2{display:block; padding:13px 0; border-top:1px solid var(--line)}
+  .mini .row2:first-of-type{border-top:none}
+  .mini .d{font-family:"Spline Sans Mono",monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute)}
+  .mini .t{display:block; font-family:"Archivo",sans-serif; font-weight:700; font-size:16px; line-height:1.2; margin-top:4px; transition:color .15s}
+  .mini .row2:hover .t{color:var(--sig)}
+  .tile .more{display:inline-block; margin-top:14px; font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--mute)}
+  .tile .more:hover{color:var(--sig)}
+  .tile .more::after{content:" \2192"}
+  .qlinks{display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--line)}
+  .qlinks a{font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; padding:13px 14px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; transition:background .15s, color .15s}
+  .qlinks a:nth-child(odd){border-right:1px solid var(--line)}
+  .qlinks a:hover{background:var(--ink); color:var(--bg)}
+  @media (max-width:900px){
+    .r-id, .r-2{grid-template-columns:1fr}
+    .r-kpi{grid-template-columns:repeat(2,1fr)}
+    .drow .tile{border-right:none; border-bottom:1px solid var(--line)}
+    .drow .tile:last-child{border-bottom:none}
+    .r-kpi .tile:nth-child(2){border-right:none}
+  }
+  @media (max-width:520px){ .r-kpi{grid-template-columns:1fr} }
+  .r-1{grid-template-columns:1fr}
+  .pquote{margin:4px 0 24px; padding:2px 0 2px 20px; border-left:3px solid var(--sig)}
+  .pquote p{margin:0; font-family:"Archivo",sans-serif; font-weight:700; font-size:clamp(21px,2.5vw,30px); line-height:1.22; letter-spacing:-.01em; color:var(--ink)}
+  .pquote .src{display:inline-block; margin-top:13px; font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); transition:color .15s}
+  .pquote .src b{font-weight:400; color:var(--ink)}
+  .pquote .src:hover, .pquote .src:hover b{color:var(--sig)}
+  .tile.id .cta{display:inline-block; margin-top:22px; font-family:"Spline Sans Mono",monospace; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--sig); border-bottom:2px solid var(--sig); padding-bottom:3px; transition:opacity .15s}
+  .tile.id .cta:hover{opacity:.7}
+  .wcols{display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); margin-top:6px}
+  .wcols a{display:block; padding:18px 18px 18px 0; border-right:1px solid var(--line); transition:background .15s}
+  .wcols a:first-child{padding-left:0}
+  .wcols a:not(:first-child){padding-left:18px}
+  .wcols a:last-child{border-right:none}
+  .wcols .d{font-family:"Spline Sans Mono",monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute)}
+  .wcols .t{display:block; font-family:"Archivo",sans-serif; font-weight:700; font-size:17px; line-height:1.18; margin-top:6px; transition:color .15s}
+  .wcols a:hover .t{color:var(--sig)}
+  .qlinks.q4{grid-template-columns:repeat(4,1fr)}
+  .qlinks.q4 a{border-right:1px solid var(--line)}
+  .qlinks.q4 a:nth-child(4n){border-right:none}
+  @media (max-width:900px){
+    .wcols{grid-template-columns:1fr}
+    .wcols a, .wcols a:not(:first-child){padding:14px 0; border-right:none; border-bottom:1px solid var(--line)}
+    .wcols a:last-child{border-bottom:none}
+    .qlinks.q4{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:520px){ .qlinks.q4{grid-template-columns:1fr} }
+
+  /* tables */
+  .tbl{width:100%; border-collapse:collapse; border:1px solid var(--line); border-top:none}
+  .tbl thead th{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); text-align:left; padding:12px 16px; border-bottom:1px solid var(--line-2); font-weight:500}
+  .tbl td{padding:18px 16px; border-bottom:1px solid var(--line); vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tbody tr{transition:background .15s}
+  .tbl tbody tr:hover{background:var(--panel)}
+  .idx{font-family:"Spline Sans Mono",monospace; font-size:12px; color:var(--faint); width:42px}
+  .cap{font-family:"Archivo",sans-serif; font-weight:700; font-size:19px; line-height:1.1}
+  .cap a:hover{color:var(--sig)}
+  .desc{color:var(--ink-2); font-size:15px; margin-top:6px; max-width:62ch}
+  .cap-tbl td .desc{margin-top:0}
+  .stack{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.05em; color:var(--mute); line-height:1.8}
+  .lnks{display:flex; flex-direction:column; gap:6px; white-space:nowrap}
+  .lnks a{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); transition:color .15s}
+  .lnks a:hover{color:var(--sig)} .lnks a::before{content:"→ "}
+
+  /* work log */
+  .log{border:1px solid var(--line); border-top:none}
+  .entry{display:grid; grid-template-columns:210px 1fr; border-bottom:1px solid var(--line)} .entry:last-child{border-bottom:none}
+  .entry .when{padding:26px 16px; border-right:1px solid var(--line)}
+  .entry .when .yr{font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.06em; color:var(--sig)}
+  .entry .when .org{font-family:"Archivo",sans-serif; font-weight:800; font-size:20px; line-height:1.05; margin-top:8px}
+  .entry .when .loc{font-family:"Spline Sans Mono",monospace; font-size:11px; color:var(--mute); margin-top:8px}
+  .entry .what{padding:26px 22px}
+  .entry .role{font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); margin-bottom:16px}
+  .entry ul{margin:0; padding:0; list-style:none}
+  .entry li{position:relative; padding-left:20px; margin-bottom:13px; color:var(--ink-2)}
+  .entry li:last-child{margin-bottom:0}
+  .entry li::before{content:""; position:absolute; left:0; top:.62em; width:9px; height:2px; background:var(--sig)}
+  .entry li b{color:var(--ink); font-weight:700; font-variant-numeric:tabular-nums}
+
+  /* writing */
+  .files{border:1px solid var(--line); border-top:none}
+  .file{display:grid; grid-template-columns:64px 1fr auto; align-items:center; border-bottom:1px solid var(--line); transition:background .15s} .file:last-child{border-bottom:none}
+  .file:hover{background:var(--panel)} .file:hover .ttl{color:var(--sig)}
+  .file .ext{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.05em; color:var(--sig); padding:20px 14px; border-right:1px solid var(--line); text-align:center}
+  .file .mid{padding:18px 18px}
+  .file .ttl{font-family:"Archivo",sans-serif; font-weight:700; font-size:18px; line-height:1.15; transition:color .15s}
+  .file .tag{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); margin-top:6px}
+  .file .go{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.1em; color:var(--mute); padding:0 22px}
+  .wfoot{display:flex; border:1px solid var(--line); border-top:none}
+  .wfoot a{flex:1; font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; padding:16px; text-align:center; transition:background .15s, color .15s}
+  .wfoot a:first-child{border-right:1px solid var(--line)}
+  .wfoot a:hover{background:var(--ink); color:var(--bg)}
+
+  /* live feed */
+  .feedbar{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:12px 16px; border:1px solid var(--line); border-bottom:none; font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--mute)}
+  .feedbar .live{display:flex; align-items:center; gap:8px; color:var(--ink)}
+  .feedbar .src{color:var(--mute)}
+  .feed{border:1px solid var(--line); border-top:none}
+  .post{display:grid; grid-template-columns:118px 1fr 92px; border-bottom:1px solid var(--line); transition:background .15s}
+  .post:last-child{border-bottom:none}
+  .post:hover{background:var(--panel)} .post:hover .ttl{color:var(--sig)}
+  .post .date{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); padding:22px 16px; border-right:1px solid var(--line)}
+  .post .body{padding:20px 18px}
+  .post .ttl{font-family:"Archivo",sans-serif; font-weight:700; font-size:19px; line-height:1.15; transition:color .15s}
+  .post .dek{color:var(--ink-2); font-size:15px; margin-top:7px; max-width:64ch}
+  .post .tag{font-family:"Spline Sans Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--sig); margin-top:10px}
+  .post .meta{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--mute); padding:22px 16px; border-left:1px solid var(--line); text-align:right; display:flex; flex-direction:column; gap:8px; align-items:flex-end}
+  .post .meta .open{color:var(--ink)} .post:hover .meta .open{color:var(--sig)}
+  @media (max-width:640px){
+    .post{grid-template-columns:1fr} .post .date{border-right:none; border-bottom:1px solid var(--line); padding:12px 16px}
+    .post .meta{border-left:none; text-align:left; align-items:flex-start; flex-direction:row; gap:14px; padding:0 18px 18px}
+  }
+
+  /* connect */
+  .connect{display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--line); border-top:none}
+  .connect .col{padding:34px} .connect .col:first-child{border-right:1px solid var(--line)}
+  .connect .col p{margin:0 0 16px; color:var(--ink-2)} .connect .col p:last-child{margin-bottom:0}
+  .connect h4{margin:0 0 14px; font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--sig)}
+  .connect .vrs{font-family:"Spline Sans Mono",monospace; font-size:13px; color:var(--ink); margin-top:4px}
+  .cform{margin:6px 0 22px}
+  .cform .field{margin-bottom:16px}
+  .cform label{display:block; font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); margin-bottom:7px}
+  .cform input, .cform textarea{width:100%; background:var(--panel); border:1px solid var(--line-2); border-radius:0; color:var(--ink); font-family:"Archivo",sans-serif; font-size:16px; padding:12px 14px}
+  .cform textarea{resize:vertical; min-height:120px; line-height:1.5}
+  .cform input:focus, .cform textarea:focus{outline:2px solid var(--sig); outline-offset:1px; border-color:var(--sig)}
+  .cform .gotcha{position:absolute; left:-9999px; width:1px; height:1px; opacity:0}
+  .cbtn{font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; padding:14px 24px; border:1.5px solid var(--ink); background:var(--ink); color:var(--bg); cursor:pointer; transition:background .15s, border-color .15s}
+  .cbtn:hover{background:var(--sig); border-color:var(--sig)}
+  .cbtn:disabled{opacity:.5; cursor:default}
+  .cstatus{font-family:"Spline Sans Mono",monospace; font-size:13px; line-height:1.5; margin:0 0 16px}
+  .cstatus:empty{display:none}
+  .cstatus.ok{color:var(--ink)}
+  .cstatus.err{color:var(--sig)}
+  .chan{display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--line); margin-top:24px}
+  .chan a{font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; padding:16px; border-bottom:1px solid var(--line); transition:background .15s, color .15s; display:flex; justify-content:space-between}
+  .chan a:nth-child(odd){border-right:1px solid var(--line)}
+  .chan a:hover{background:var(--ink); color:var(--bg)}
+
+  /* footer */
+  .foot{max-width:var(--maxw); margin:0 auto; padding:22px 28px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--mute)}
+  .foot .x{color:var(--sig)}
+
+  @media (max-width:900px){
+    .bar nav{display:none; position:absolute; top:54px; left:0; right:0; background:var(--bg); border-bottom:1.5px solid var(--line-2); flex-direction:column; gap:0}
+    .bar nav.open{display:flex}
+    .bar nav a{padding:15px 28px; border:none; border-bottom:1px solid var(--line)}
+    .menu-btn{display:block}
+    .readout .scroll{display:none}
+    .hero{grid-template-columns:1fr} .hero .name{border-right:none; border-bottom:1px solid var(--line)}
+    .about{grid-template-columns:1fr} .about .prose{border-right:none; border-bottom:1px solid var(--line)}
+    .metrics{grid-template-columns:repeat(2,1fr)} .metric:nth-child(2){border-right:none}
+    .entry{grid-template-columns:1fr} .entry .when{border-right:none; border-bottom:1px solid var(--line)}
+    .connect{grid-template-columns:1fr} .connect .col:first-child{border-right:none; border-bottom:1px solid var(--line)}
+    .tbl, .tbl thead, .tbl tbody, .tbl tr, .tbl td{display:block; width:100%}
+    .tbl thead{display:none} .tbl td{border:none; padding:4px 16px}
+    .tbl tr{border-bottom:1px solid var(--line); padding:16px 0} .tbl tr:last-child{border:none}
+    .lnks{flex-direction:row; gap:18px; margin-top:10px}
+  }
+  @media (max-width:520px){
+    .wrap, .bar .inner, .rec .top, .foot{padding-left:18px; padding-right:18px}
+    .metrics{grid-template-columns:1fr} .metric{border-right:none}
+    .file{grid-template-columns:48px 1fr} .file .go{display:none}
+    .chan{grid-template-columns:1fr} .chan a:nth-child(odd){border-right:none}
+  }
+  @media (max-width:430px){
+    .nameplate{font-stretch:100%; letter-spacing:-.02em}
+    .hero .name{padding:34px 18px 28px}
+    .rec .top{font-size:10px}
+    .schema .row{grid-template-columns:74px 1fr}
+    .sec-bar{flex-wrap:wrap; gap:8px 14px} .sec-meta{margin-left:0; flex-basis:100%}
+    .metric .n{font-size:36px}
+    .pad{padding:30px 0 40px}
+  }
+  @media (max-width:360px){
+    .wrap, .bar .inner, .rec .top, .foot{padding-left:14px; padding-right:14px}
+    .readout{gap:10px}
+  }
+
+  /* large screens */
+  @media (min-width:1600px){
+    :root{--maxw:1480px}
+    body{font-size:18px}
+    .tagline{font-size:20px}
+    .desc{font-size:16px} .cap{font-size:21px}
+    .post .ttl{font-size:21px} .post .dek{font-size:16px}
+    .schema .v{font-size:13.5px} .block .body{font-size:13.5px}
+    .metric .n{font-size:48px} .entry .when .org{font-size:22px}
+    .pad{padding:48px 0 64px}
+  }
+  @media (min-width:2000px){
+    :root{--maxw:1680px}
+    body{font-size:20px}
+    .tagline{font-size:23px}
+    .desc{font-size:18px} .cap{font-size:24px}
+    .post .ttl{font-size:24px} .post .dek{font-size:18px}
+    .schema .v{font-size:15px} .schema .k{font-size:12.5px}
+    .block .body{font-size:15px} .block h4{font-size:12.5px}
+    .metric .n{font-size:58px} .entry .when .org{font-size:25px}
+    .sec-id,.sec-meta,.bar nav a,.readout,.feedbar,.foot,.key{font-size:13px}
+    .pad{padding:60px 0 84px} .bar .inner{height:64px}
+  }
+  @media (min-width:2800px){
+    :root{--maxw:2200px}
+    body{font-size:25px}
+    .tagline{font-size:30px}
+    .desc{font-size:23px} .cap{font-size:30px}
+    .post .ttl{font-size:30px} .post .dek{font-size:23px}
+    .schema .v{font-size:19px} .schema .k{font-size:16px}
+    .block .body{font-size:19px} .block h4{font-size:15px}
+    .metric .n{font-size:78px} .entry .when .org{font-size:32px}
+    .sec-id,.sec-meta,.bar nav a,.readout,.feedbar,.foot,.key,.stack,.lnks a,.chan a,.entry .role,.post .date,.post .tag,.tbl thead th,.idx{font-size:16px}
+    .mark{font-size:18px}
+    .pad{padding:84px 0 112px} .bar .inner{height:80px}
+    .wrap, .bar .inner, .rec .top, .foot{padding-left:48px; padding-right:48px}
+    .rec .top{font-size:14px}
+  }
+</style>
 </head>
-<body>
-    <a href="#about" class="skip-link">Skip to content</a>
+<body id="top">
+<a class="skip" href="#content">Skip to content</a>
 
-    <canvas id="pipeline-canvas" aria-hidden="true"></canvas>
-    <div class="grain" aria-hidden="true"></div>
-
-    <nav role="navigation" aria-label="Main navigation">
-        <a href="#" class="nav-logo">TZ</a>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#expertise">Expertise</a>
-            <a href="#projects">Projects</a>
-            <a href="#work">Work</a>
-            <a href="#writing">Writing</a>
-            <a href="#connect">Connect</a>
-        </div>
-        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+<header class="bar">
+  <div class="inner">
+    <a href="#top" class="mark">T<span class="x">/</span>Z</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open section menu" aria-expanded="false">Index</button>
+    <nav id="nav" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#projects">Projects</a>
+      <a href="#work">Work</a>
+      <a href="#writing">Writing</a>
+      <a href="#connect">Connect</a>
     </nav>
+    <div class="readout">
+      <span class="scroll" id="scrollPct">000%</span>
+      <span id="clock">--:--:-- CT</span>
+    </div>
+  </div>
+</header>
 
-    <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
-        <a href="#about">About</a>
-        <a href="#expertise">Expertise</a>
-        <a href="#projects">Projects</a>
-        <a href="#work">Work</a>
-        <a href="#writing">Writing</a>
-        <a href="#connect">Connect</a>
+<div class="rec" id="content">
+  <div class="top">
+    <span>Record · Tobin Zolkowski</span>
+    <span class="stat"><span class="dot"></span>Open to conversation · not seeking a role</span>
+    <span>Madison, WI · 43.1°N</span>
+  </div>
+  <div class="dgrid">
+    <div class="drow r-id">
+      <div class="tile id">
+        <p class="lab">Analytics &middot; Reporting &amp; BI &middot; Data Journalism</p>
+        <h1 class="nameplate"><span class="b">Tobin</span> <span class="b b2">Zolkowski</span></h1>
+        <p class="tag">I turn messy, multi-source data into reporting people actually read. <b>Tableau and Looker for the view, Python and SQL underneath, a test suite so it doesn't break.</b></p>
+        <p class="status"><span class="dot"></span>Open to conversation &middot; not seeking a role</p>
+        <a class="cta" href="#writing">Read the writing &rarr;</a>
+      </div>
+      <div class="tile profile">
+        <div class="schema">
+          <div class="row"><div class="k">Role</div><div class="v">Data Analyst, Career track</div></div>
+          <div class="row"><div class="k">Org</div><div class="v">IU School of Medicine</div></div>
+          <div class="row"><div class="k">Field</div><div class="v">Medical &amp; Molecular Genetics</div></div>
+          <div class="row"><div class="k">Program</div><div class="v">Parkinson's &middot; MJFF-funded</div></div>
+          <div class="row"><div class="k">Loc</div><div class="v">Madison, WI &middot; Remote</div></div>
+          <div class="row"><div class="k">Comms</div><div class="v">ASL native &middot; VRS</div></div>
+          <div class="row"><div class="k">Lang[]</div><div class="v lang">EN <span>&middot;</span> ASL <span>&middot;</span> FR <span>&middot;</span> ES <span>&middot;</span> IT</div></div>
+        </div>
+      </div>
     </div>
 
-    <div class="container">
-        <header class="hero">
-            <div class="hero-label">Data Analyst & Writer</div>
-            <h1>Tobin<br><span class="highlight">Zolkowski</span></h1>
-            <p class="hero-intro">
-                I build the data infrastructure that powers <strong>Parkinson's disease research</strong> at Indiana University School of Medicine. ETL pipelines, APIs, automated workflows. The stuff that lets researchers focus on science instead of data wrangling.
-            </p>
-            <div class="identity-tags">
-                <span class="identity-tag primary">Deaf</span>
-                <span class="identity-tag">ASL Native</span>
-                <span class="identity-tag">Remote</span>
-                <span class="identity-tag">Multilingual</span>
-            </div>
-            <div class="hero-cta">
-                <a href="#writing" class="btn-primary">Read my writing</a>
-                <a href="#about" class="btn-ghost">Get to know me <span class="arrow-right">→</span></a>
-            </div>
-            <div class="scroll-hint" aria-hidden="true">
-                <span>Scroll</span>
-                <div class="line"></div>
-            </div>
-        </header>
-
-        <section id="about">
-            <div class="section-header" data-reveal>
-                <span class="section-number">01</span>
-                <span class="section-title">About</span>
-            </div>
-            <div class="about-grid">
-                <div class="about-main" data-reveal>
-                    <p>My job title says data analyst, but the work is mostly engineering. I design ETL pipelines that pull clinical data from a dozen different systems. I build APIs that let researchers query datasets without knowing SQL. I automate the boring stuff so scientists can focus on science.</p>
-                    <p>The path here wasn't obvious. I studied International Studies at UW-Madison, thinking I'd end up in policy or diplomacy. But I kept gravitating toward the data side of every project. Grad school for Information Science made it official. That international lens stuck though. I think about data as translation: taking information from one context and making it useful in another.</p>
-                    <p>Outside work, I write. Data journalism on Medium, where I dig into public datasets and explain what's actually happening. Personal essays on Substack. And occasional pro bono consulting for organizations that need data help but can't afford it.</p>
-                </div>
-                <div class="about-sidebar" data-reveal>
-                    <div class="about-block">
-                        <h3>Languages</h3>
-                        <ul>
-                            <li>ASL <span class="lang-level">— Native</span></li>
-                            <li>English <span class="lang-level">— Native</span></li>
-                            <li>French <span class="lang-level">— B2</span></li>
-                            <li>Spanish <span class="lang-level">— B1</span></li>
-                            <li>Italian <span class="lang-level">— A1</span></li>
-                        </ul>
-                    </div>
-                    <div class="about-block">
-                        <h3>Tools</h3>
-                        <p>Python, R, SQL (MySQL, PostgreSQL, MSSQL), SSIS, Tableau, Looker</p>
-                    </div>
-                    <div class="about-block">
-                        <h3>Education</h3>
-                        <p>MS Information Science<br>UW-Madison, 2022</p>
-                        <p class="edu-second">BA International Studies<br>UW-Madison, 2020</p>
-                    </div>
-                    <div class="about-block">
-                        <h3>Certifications</h3>
-                        <ul>
-                            <li>Google Advanced Data Analytics</li>
-                            <li>DataCamp — Data Analyst in SQL</li>
-                            <li>DataCamp — Data Analyst in Tableau</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <blockquote class="pull-quote" data-reveal>
-                <p>I think about data as translation — taking information from one context and making it useful in another.</p>
-            </blockquote>
-            <div class="credentials-bar" data-reveal>
-                <div class="credential">
-                    <span class="credential-value">Google</span>
-                    <span class="credential-label">Certified — Advanced Data Analytics</span>
-                </div>
-                <div class="credential">
-                    <span class="credential-value">3</span>
-                    <span class="credential-label">Live project demos</span>
-                </div>
-                <div class="credential">
-                    <span class="credential-value">IU School of Medicine</span>
-                    <span class="credential-label">Current — Parkinson's Research</span>
-                </div>
-                <div class="credential">
-                    <span class="credential-value">Medium</span>
-                    <span class="credential-label">Published data journalist</span>
-                </div>
-            </div>
-        </section>
-
-        <section id="expertise">
-            <div class="section-header" data-reveal>
-                <span class="section-number">02</span>
-                <span class="section-title">Expertise</span>
-            </div>
-            <div class="expertise-grid">
-                <div class="expertise-card" data-reveal data-reveal-delay="1">
-                    <span class="card-number">01</span>
-                    <h3>ETL Pipelines</h3>
-                    <p>Designing pipelines that pull clinical data from a dozen different systems, normalize it, and make it research-ready.</p>
-                </div>
-                <div class="expertise-card" data-reveal data-reveal-delay="2">
-                    <span class="card-number">02</span>
-                    <h3>Research APIs</h3>
-                    <p>Building interfaces that let researchers query complex datasets without knowing SQL.</p>
-                </div>
-                <div class="expertise-card" data-reveal data-reveal-delay="3">
-                    <span class="card-number">03</span>
-                    <h3>Data Automation</h3>
-                    <p>Automated workflows that flag data quality issues before they become problems, so scientists can focus on science.</p>
-                </div>
-                <div class="expertise-card" data-reveal data-reveal-delay="4">
-                    <span class="card-number">04</span>
-                    <h3>Data Journalism</h3>
-                    <p>Digging into public datasets on Medium, finding stories in the numbers, and explaining what's actually happening.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects">
-            <div class="section-header" data-reveal>
-                <span class="section-number">03</span>
-                <span class="section-title">Projects</span>
-            </div>
-            <p class="projects-intro" data-reveal>
-                Open-source analysis and tools. All available on <a href="https://github.com/tzolkowski96" target="_blank" rel="noopener">GitHub</a>.
-            </p>
-            <div class="projects-grid">
-                <div class="project-card has-image" data-reveal data-reveal-delay="1">
-                    <div class="project-image">
-                        <img src="https://raw.githubusercontent.com/tzolkowski96/Salifort-Motors-Project/main/images/image_2.png" alt="Correlation heatmap showing relationships between employee satisfaction, tenure, workload, and churn" loading="lazy">
-                    </div>
-                    <div class="project-card-body">
-                        <h3>Employee Churn Prediction</h3>
-                        <p>ML models achieving 98% accuracy to identify key employee turnover drivers. Google Advanced Data Analytics capstone.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Scikit-Learn</span>
-                            <span class="project-tag">ML</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://tzolkowski96.github.io/Salifort-Motors-Project/" target="_blank" rel="noopener" class="project-link primary">View demo <span>→</span></a>
-                            <a href="https://github.com/tzolkowski96/Salifort-Motors-Project" target="_blank" rel="noopener" class="project-link">Source code <span>→</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-reveal data-reveal-delay="2">
-                    <div class="project-card-body">
-                        <h3>Global Population Insights</h3>
-                        <p>Interactive data visualization platform built with Plotly.js. Explore population trends across countries and decades.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Plotly.js</span>
-                            <span class="project-tag">HTML</span>
-                            <span class="project-tag">Interactive</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://tzolkowski96.github.io/global-population-insights/" target="_blank" rel="noopener" class="project-link primary">View demo <span>→</span></a>
-                            <a href="https://github.com/tzolkowski96/global-population-insights" target="_blank" rel="noopener" class="project-link">Source code <span>→</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card has-image" data-reveal data-reveal-delay="3">
-                    <div class="project-image">
-                        <img src="https://raw.githubusercontent.com/tzolkowski96/analyst-builder-food-marketing-project/main/assets/og-image.svg" alt="UFood Analytics — customer segmentation dashboard showing 2,205 customers, 39 features, 6 campaigns, 3 segments" loading="lazy">
-                    </div>
-                    <div class="project-card-body">
-                        <h3>Customer Behavior Analysis</h3>
-                        <p>K-means customer segmentation and A/B testing for marketing campaigns at a food delivery company.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">K-Means</span>
-                            <span class="project-tag">A/B Testing</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://tzolkowski96.github.io/analyst-builder-food-marketing-project/" target="_blank" rel="noopener" class="project-link primary">View demo <span>→</span></a>
-                            <a href="https://github.com/tzolkowski96/analyst-builder-food-marketing-project" target="_blank" rel="noopener" class="project-link">Source code <span>→</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-reveal data-reveal-delay="4">
-                    <div class="project-card-body">
-                        <h3>REDCap Testing Utilities</h3>
-                        <p>Unit testing utilities for REDCap clinical research data capture projects in Python.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Testing</span>
-                            <span class="project-tag">REDCap</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/tzolkowski96/redcap-test" target="_blank" rel="noopener" class="project-link">Source code <span>→</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="work">
-            <div class="section-header" data-reveal>
-                <span class="section-number">04</span>
-                <span class="section-title">Work</span>
-            </div>
-
-            <div class="work-list">
-                <div class="work-item" data-reveal>
-                    <div class="work-meta">
-                        <span class="org">IU School of Medicine</span>
-                        <span>2023 — Present</span>
-                    </div>
-                    <div class="work-content">
-                        <h3>Data Analyst, Medical and Molecular Genetics</h3>
-                        <p>Started on the Core team, promoted to Career track in 2026. The research team had data scattered across clinical systems, genetic databases, and legacy spreadsheets. Nothing talked to anything else. I built the connective tissue: ETL pipelines that normalize data from different sources, APIs that let researchers query without writing SQL, automated workflows that flag data quality issues before they become problems.</p>
-                        <p class="work-highlight">The hardest part wasn't technical. It was learning enough neurology to understand what the researchers actually needed.</p>
-                    </div>
-                </div>
-                <div class="work-item" data-reveal>
-                    <div class="work-meta">
-                        <span class="org">Telkomsel</span>
-                        <span>2022</span>
-                    </div>
-                    <div class="work-content">
-                        <h3>Business Data Analyst Intern</h3>
-                        <p>Indonesia's largest mobile operator. 170 million subscribers. I worked on customer behavior analysis, trying to predict churn before it happened. Built dashboards that product teams actually used, which is rarer than it sounds.</p>
-                        <p class="work-highlight">First time working with data at genuine scale. Changed how I think about query optimization.</p>
-                    </div>
-                </div>
-                <div class="work-item" data-reveal>
-                    <div class="work-meta">
-                        <span class="org">UW-Madison</span>
-                        <span>2019 — 2021</span>
-                    </div>
-                    <div class="work-content">
-                        <h3>IT Support → Data Manager</h3>
-                        <p>Started answering help desk tickets. Ended up managing research datasets for a sociology department that had decades of survey data in formats nobody remembered how to read. Wrote migration scripts, documented everything, learned that institutional data is always messier than you expect.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="writing">
-            <div class="section-header" data-reveal>
-                <span class="section-number">05</span>
-                <span class="section-title">Writing</span>
-            </div>
-            <p class="writing-intro" data-reveal>
-                I write to figure out what I think. The data journalism is about finding stories in public datasets. The personal writing is everything else.
-            </p>
-            <div class="articles-grid">
-                <a href="https://medium.com/@grateful_aqua_goat_147/how-are-americans-actually-affording-and-buying-groceries-right-now-0b18a3fba4c4" target="_blank" rel="noopener" class="article-card" data-reveal data-reveal-delay="1">
-                    <span class="article-label">Medium · Public Data</span>
-                    <h3>How Are Americans Actually Affording and Buying Groceries Right Now</h3>
-                    <span class="article-arrow">→</span>
-                </a>
-                <a href="https://medium.com/@grateful_aqua_goat_147/i-learned-to-analyze-data-more-quickly-because-i-was-speaking-french-57055559e9eb" target="_blank" rel="noopener" class="article-card" data-reveal data-reveal-delay="2">
-                    <span class="article-label">Medium · Languages & Data</span>
-                    <h3>I Learned to Analyze Data More Quickly Because I Was Speaking French</h3>
-                    <span class="article-arrow">→</span>
-                </a>
-                <a href="https://medium.com/@grateful_aqua_goat_147/33-years-asleep-0-1-seconds-to-judge-8a616a15ce3a" target="_blank" rel="noopener" class="article-card" data-reveal data-reveal-delay="3">
-                    <span class="article-label">Medium · Personal</span>
-                    <h3>33 Years Asleep. 0.1 Seconds to Judge.</h3>
-                    <span class="article-arrow">→</span>
-                </a>
-                <a href="https://medium.com/@grateful_aqua_goat_147/how-excel-made-me-a-better-programmer-5db6a7b55b1b" target="_blank" rel="noopener" class="article-card" data-reveal data-reveal-delay="4">
-                    <span class="article-label">Medium · Career</span>
-                    <h3>How Excel Made Me a Better Programmer</h3>
-                    <span class="article-arrow">→</span>
-                </a>
-            </div>
-            <div class="writing-platforms" data-reveal>
-                <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener" class="platform-link">All articles on Medium <span>→</span></a>
-                <a href="https://substack.com/@tobinzolkowski" target="_blank" rel="noopener" class="platform-link">Personal essays on Substack <span>→</span></a>
-            </div>
-        </section>
-
-        <section id="connect">
-            <div class="section-header" data-reveal>
-                <span class="section-number">06</span>
-                <span class="section-title">Connect</span>
-            </div>
-            <div class="connect-content">
-                <div class="connect-form-side" data-reveal>
-                    <p class="connect-intro">Not looking for a new role right now, but always open to conversations about research infrastructure, data accessibility, or the intersection of data and disability.</p>
-                    <form action="https://formspree.io/f/xaqpnqno" method="POST" class="contact-form">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="4" required></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary btn-submit">Send message</button>
-                    </form>
-                </div>
-                <div class="connect-info-side" data-reveal>
-                    <div class="connect-note">
-                        <strong>How to reach me</strong>
-                        I'm Deaf and communicate via ASL. For initial contact, the form or LinkedIn messages work best. For video calls, I use Video Relay Service (VRS) — it's seamless on your end, just call like normal.
-                    </div>
-                    <div class="connect-links">
-                        <a href="https://github.com/tzolkowski96" target="_blank" rel="noopener" class="connect-link">
-                            <span>GitHub</span>
-                            <span class="arrow">→</span>
-                        </a>
-                        <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200/" target="_blank" rel="noopener" class="connect-link">
-                            <span>LinkedIn</span>
-                            <span class="arrow">→</span>
-                        </a>
-                        <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener" class="connect-link">
-                            <span>Medium</span>
-                            <span class="arrow">→</span>
-                        </a>
-                        <a href="https://substack.com/@tobinzolkowski" target="_blank" rel="noopener" class="connect-link">
-                            <span>Substack</span>
-                            <span class="arrow">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <div class="location">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Indianapolis, IN
-            </div>
-            <div>&copy; 2026 Tobin Zolkowski</div>
-        </footer>
+    <div class="drow r-kpi">
+      <div class="tile kpi"><div class="n">6.4<span class="u">M+</span></div><div class="c">Records moved nightly,<br>across 13 tables</div></div>
+      <div class="tile kpi"><div class="n">1,300<span class="u">+</span></div><div class="c">Institutions pull from<br>the central archive</div></div>
+      <div class="tile kpi"><div class="n">10<span class="u">min</span></div><div class="c">Core report runtime,<br>down from 2 hours</div></div>
+      <div class="tile kpi"><div class="n">243</div><div class="c">Tests behind the<br>travel-mapping tool</div></div>
     </div>
 
-    <noscript>
-        <style>
-            #pipeline-canvas { display: none; }
-            .scroll-hint { display: none; }
-            [data-reveal] { opacity: 1; transform: none; }
-        </style>
-    </noscript>
+    <div class="drow r-2">
+      <div class="tile chart">
+        <p class="lab">Reporting impact</p>
+        <p class="chart-find">Visits started landing on time</p>
+        <p class="chart-cap">On-time clinic-visit rate, after a scheduling pipeline</p>
+        <svg viewBox="0 0 300 160" role="img" aria-label="On-time visit rate rose from 87 percent before to 95 percent after a scheduling pipeline, a gain of eight points.">
+          <text x="150" y="13" text-anchor="middle" font-size="11" font-weight="700" fill="var(--sig)">+8 pts</text>
+          <line x1="30" y1="130" x2="270" y2="130" stroke="var(--line-2)" stroke-width="1.5"/>
+          <rect x="60" y="33" width="70" height="97" fill="var(--faint)"/>
+          <rect x="170" y="24" width="70" height="106" fill="var(--sig)"/>
+          <text x="95" y="27" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">87%</text>
+          <text x="205" y="18" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">95%+</text>
+          <text x="95" y="148" text-anchor="middle" font-size="11" fill="var(--mute)">Before</text>
+          <text x="205" y="148" text-anchor="middle" font-size="11" fill="var(--mute)">After</text>
+        </svg>
+      </div>
+      <div class="tile now">
+        <p class="lab">Now</p>
+        <p class="ntext">Running the data behind a Michael J. Fox Foundation Parkinson's program at IU School of Medicine. Publishing data journalism on Medium and essays on Substack.</p>
+      </div>
+    </div>
 
-    <script src="js/pipeline.js"></script>
-    <script src="js/main.js"></script>
+    <div class="drow r-1">
+      <div class="tile">
+        <p class="lab">Latest writing</p>
+        <blockquote class="pquote">
+          <p>The real split was never 1996. It's the 119-to-1 wealth gap inside my own generation.</p>
+          <a class="src" href="https://medium.com/@grateful_aqua_goat_147/pew-said-im-the-last-millennial-then-they-stopped-counting-f7308d37197b" target="_blank" rel="noopener"><b>Pew Said I'm the Last Millennial. Then They Stopped Counting.</b> &rarr;</a>
+        </blockquote>
+        <div class="wcols">
+          <a href="https://medium.com/@grateful_aqua_goat_147/pew-said-im-the-last-millennial-then-they-stopped-counting-f7308d37197b" target="_blank" rel="noopener"><span class="d">May 2026 &middot; Data Journalism</span><span class="t">Pew Said I'm the Last Millennial. Then They Stopped Counting.</span></a>
+          <a href="https://medium.com/@grateful_aqua_goat_147/the-traits-that-win-power-are-the-traits-that-destroy-it-2b94802c3896" target="_blank" rel="noopener"><span class="d">Apr 2026 &middot; Psychology</span><span class="t">The Traits That Win Power Are the Traits That Destroy It</span></a>
+          <a href="https://medium.com/@grateful_aqua_goat_147/38-000-to-1-75442ec443ab" target="_blank" rel="noopener"><span class="d">Mar 2026 &middot; Tech Criticism</span><span class="t">38,000 to 1</span></a>
+        </div>
+        <a class="more" href="#writing">All writing</a>
+      </div>
+    </div>
+
+    <div class="drow r-2">
+      <div class="tile mini">
+        <p class="lab">Featured work</p>
+        <a class="row2" href="https://tzolkowski96.github.io/Salifort-Motors-Project/" target="_blank" rel="noopener"><span class="d">Python &middot; ML &middot; 98% accuracy</span><span class="t">Employee Churn Prediction</span></a>
+        <a class="row2" href="https://github.com/tzolkowski96/tzolkowski96/tree/main/us-household-income-analysis" target="_blank" rel="noopener"><span class="d">MySQL &middot; Window functions</span><span class="t">US Household Income Analysis</span></a>
+        <a class="more" href="#projects">All projects</a>
+      </div>
+      <div class="tile">
+        <p class="lab">Stack</p>
+        <div class="stacklist">Tableau &middot; Looker &middot; SSRS<br>Python <span class="m">pandas, scikit-learn</span><br>SQL <span class="m">PostgreSQL, MySQL, MS SQL</span><br><span class="m">Under the hood: SSIS, REST APIs, AWS</span></div>
+      </div>
+    </div>
+
+    <div class="drow r-1">
+      <div class="tile">
+        <p class="lab">Connect</p>
+        <div class="qlinks q4">
+          <a href="#connect"><span>Message</span><span>&rarr;</span></a>
+          <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200" target="_blank" rel="noopener"><span>LinkedIn</span><span>&rarr;</span></a>
+          <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener"><span>Medium</span><span>&rarr;</span></a>
+          <a href="https://github.com/tzolkowski96" target="_blank" rel="noopener"><span>GitHub</span><span>&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <!-- ABOUT -->
+  <section id="about"><div class="wrap">
+    <div class="sec-bar"><span class="sec-id">§01</span><h2 class="sec-name">About</h2><span class="sec-meta">The path, compressed</span></div>
+    <div class="pad">
+      <div class="about">
+        <div class="prose">
+          <p>My title says data analyst. The work is mostly engineering. For three years I've run the infrastructure behind a Michael J. Fox Foundation–funded Parkinson's research program at IU School of Medicine. I pull clinical data out of a dozen systems that were never meant to talk to each other, normalize it, and hand it back research-ready. Looker dashboards the team reads straight off. REST APIs that move records between systems. Automation so the dull, breakable parts don't make the science wait.</p>
+          <p>The path here wasn't a straight line. I studied International Studies at UW-Madison thinking I'd land in policy or diplomacy, and kept drifting to the data side of every project instead. Grad school in Information Science made it official. <span class="hl">The international lens never left though, and it shapes how I work: data is translation. Take information out of one context, make it land in another.</span></p>
+          <p>Same job in any sector: pull the mess together, automate the flow, make it readable. Outside work I write. Data journalism on Medium, where I crack open public datasets and explain what's going on under the headline. Personal essays on Substack. And the occasional pro bono build for groups that need data help and can't pay for it.</p>
+        </div>
+        <div>
+          <div class="block">
+            <h4>Languages</h4>
+            <div class="body">ASL <span class="m">native</span><br>English <span class="m">bilingual</span><br>French <span class="m">B2</span><br>Spanish <span class="m">B1</span><br>Italian <span class="m">A1</span><br>BSL · Auslan <span class="m">learning</span></div>
+          </div>
+          <div class="block">
+            <h4>Build &amp; Query</h4>
+            <div class="body">Python: <span class="m">pandas, NumPy, scikit-learn</span><br>SQL: <span class="m">PostgreSQL, MySQL, MS SQL, T-SQL, PL/pgSQL</span><br>R: <span class="m">working</span></div>
+          </div>
+          <div class="block">
+            <h4>ETL &amp; Engineering</h4>
+            <div class="body">SSIS · SQL Server Agent · REST API<br>Data modeling · REDCap · LONI<br>AWS: <span class="m">S3, SES</span> · Git · pytest</div>
+          </div>
+          <div class="block">
+            <h4>BI &amp; Viz</h4>
+            <div class="body">Tableau · Looker · SSRS<br>Excel: <span class="m">advanced</span><br>Matplotlib · Seaborn · Folium</div>
+          </div>
+          <div class="block">
+            <h4>Education + Certs</h4>
+            <div class="body">MS Information Science, <span class="m">UW-Madison '22, 3.79</span><br>BA International Studies, <span class="m">UW-Madison '20, 3.45</span><br>Google Advanced Data Analytics <span class="m">'23</span><br>DataCamp: <span class="m">Tableau '23, SQL '22</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- EXPERTISE -->
+  <section id="expertise"><div class="wrap">
+    <div class="sec-bar"><span class="sec-id">§02</span><h2 class="sec-name">Expertise</h2><span class="sec-meta">What runs all day</span></div>
+    <div class="pad">
+      <table class="tbl cap-tbl">
+        <thead><tr><th>ID</th><th>Capability</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="idx">01</td><td><div class="cap">ETL &amp; Pipelines</div></td><td><div class="desc">A nightly pipeline moving 6.4M+ records across 13 tables into an archive 1,300+ institutions pull from. Validates as it runs, reports its own errors.</div></td></tr>
+          <tr><td class="idx">02</td><td><div class="cap">Reporting &amp; BI</div></td><td><div class="desc">Looker and Tableau dashboards the team reads straight off: genetics, screening drop-off, a recruitment funnel from 5.4M+ landing hits to ~10,700 enrollments.</div></td></tr>
+          <tr><td class="idx">03</td><td><div class="cap">Data Automation</div></td><td><div class="desc">Scheduling that flags whoever's running late, plus bilingual participant emails that fire on study status. On-time visits up from 87% to 95%+.</div></td></tr>
+          <tr><td class="idx">04</td><td><div class="cap">Data Journalism</div></td><td><div class="desc">Digging into public datasets, finding the story in the numbers, and saying plainly what's going on.</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div></section>
+
+  <!-- PROJECTS -->
+  <section id="projects"><div class="wrap">
+    <div class="sec-bar"><span class="sec-id">§03</span><h2 class="sec-name">Projects</h2><span class="sec-meta">Open source · github.com/tzolkowski96</span></div>
+    <div class="pad">
+      <table class="tbl">
+        <thead><tr><th>#</th><th>Project</th><th>Stack</th><th>Links</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="idx">01</td>
+            <td><div class="cap"><a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/us_accidents_analysis" target="_blank" rel="noopener">Traffic Accident Analytics Engine</a></div><div class="desc">7.7M US accident records across 49 states. Random Forest hitting 78% on severity prediction, chi-square and ANOVA validation, a pipeline built to scale, and an interactive Folium map.</div></td>
+            <td><div class="stack">Python<br>Scikit-Learn<br>Folium</div></td>
+            <td><div class="lnks"><a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/us_accidents_analysis" target="_blank" rel="noopener">Source</a></div></td>
+          </tr>
+          <tr>
+            <td class="idx">02</td>
+            <td><div class="cap"><a href="https://tzolkowski96.github.io/Salifort-Motors-Project/" target="_blank" rel="noopener">Employee Churn Prediction</a></div><div class="desc">ML models hitting 98% accuracy to surface the real drivers of turnover: overtime, project load, satisfaction. Google Advanced Data Analytics capstone.</div></td>
+            <td><div class="stack">Python<br>Scikit-Learn<br>XGBoost</div></td>
+            <td><div class="lnks"><a href="https://tzolkowski96.github.io/Salifort-Motors-Project/" target="_blank" rel="noopener">Demo</a><a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/Employee-Churn-Prediction" target="_blank" rel="noopener">Source</a></div></td>
+          </tr>
+          <tr>
+            <td class="idx">03</td>
+            <td><div class="cap"><a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/crypto_market_insights" target="_blank" rel="noopener">Crypto Market Insights</a></div><div class="desc">A full pipeline that scrapes CoinMarketCap with Selenium, runs technical-analysis metrics, and generates its own Excel reports on a schedule.</div></td>
+            <td><div class="stack">Python<br>Selenium<br>Pandas</div></td>
+            <td><div class="lnks"><a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/crypto_market_insights" target="_blank" rel="noopener">Source</a></div></td>
+          </tr>
+          <tr>
+            <td class="idx">04</td>
+            <td><div class="cap"><a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/us-household-income-analysis" target="_blank" rel="noopener">US Household Income Analysis</a></div><div class="desc">32k+ records across 50 states in MySQL. Window functions and stored procedures, a weighted data-quality framework scoring 9.62/10, a 30% income gap between regions. Query time down from 68.5s to 21.9s.</div></td>
+            <td><div class="stack">MySQL<br>CTEs<br>Window Funcs</div></td>
+            <td><div class="lnks"><a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/us-household-income-analysis" target="_blank" rel="noopener">Source</a></div></td>
+          </tr>
+          <tr>
+            <td class="idx">05</td>
+            <td><div class="cap"><a href="https://tzolkowski96.github.io/global-population-insights/" target="_blank" rel="noopener">Global Population Insights</a></div><div class="desc">Interactive visualization platform on Plotly.js. Population trends across countries and decades, with comparative tools and projections.</div></td>
+            <td><div class="stack">JavaScript<br>Plotly.js<br>HTML</div></td>
+            <td><div class="lnks"><a href="https://tzolkowski96.github.io/global-population-insights/" target="_blank" rel="noopener">Demo</a><a href="https://github.com/tzolkowski96/global-population-insights" target="_blank" rel="noopener">Source</a></div></td>
+          </tr>
+          <tr>
+            <td class="idx">06</td>
+            <td><div class="cap"><a href="https://tzolkowski96.github.io/analyst-builder-food-marketing-project/" target="_blank" rel="noopener">UFood Customer Analysis</a></div><div class="desc">K-means customer segmentation and A/B testing on marketing campaigns for a food-delivery app, mapped back to customer lifetime value.</div></td>
+            <td><div class="stack">Python<br>K-Means<br>SciPy</div></td>
+            <td><div class="lnks"><a href="https://tzolkowski96.github.io/analyst-builder-food-marketing-project/" target="_blank" rel="noopener">Demo</a><a href="https://github.com/tzolkowski96/tzolkowski96/tree/main/ufood_analysis" target="_blank" rel="noopener">Source</a></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div></section>
+
+  <!-- WORK -->
+  <section id="work"><div class="wrap">
+    <div class="sec-bar"><span class="sec-id">§04</span><h2 class="sec-name">Work</h2><span class="sec-meta">Log, reverse chronological</span></div>
+    <div class="pad">
+      <div class="log">
+        <div class="entry">
+          <div class="when"><div class="yr">2026 – PRESENT</div><div class="org">IU School of Medicine</div><div class="loc">Indianapolis · Remote</div></div>
+          <div class="what">
+            <div class="role">Data Analyst, Career track · Medical &amp; Molecular Genetics</div>
+            <ul>
+              <li>Own the nightly pipeline that moves <b>6.4M+ records</b> across <b>13 tables</b> into the central archive <b>1,300+ institutions</b> pull from. Validates as it runs, reports its own errors.</li>
+              <li>Dropped visit-coordination from <b>25+ hours a week to 5</b> and pushed the on-time rate from <b>87% to 95%+</b>, off a scheduling pipeline that sets target dates and flags whoever's late.</li>
+              <li>Showed site and budget planners how far <b>12,000+ participants</b> actually travel, through a Python mapping tool with <b>243 tests</b> behind it.</li>
+              <li>Replaced manual table-digging with Looker dashboards spanning genetics, screening drop-off, and a recruitment funnel from <b>5.4M+ landing hits</b> to <b>~10,700 enrollments</b>.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when"><div class="yr">2023 – 2026</div><div class="org">IU School of Medicine</div><div class="loc">Indianapolis · Remote</div></div>
+          <div class="what">
+            <div class="role">Data Analyst, Core team</div>
+            <ul>
+              <li>Kept <b>4,600+ participants'</b> records in sync across our systems and a partner research organization over secure, HIPAA-compliant API transfers that cut manual handling by <b>~25%</b>. Referrals fired automatically; mismatched site records got caught before they spread.</li>
+              <li>Cut a core report from <b>~2 hours to ~10 minutes</b>: rewrote the query, rebuilt the database views under it.</li>
+              <li>Automated bilingual participant emails (English and Spanish) on study status. <b>42%</b> of participants reminded about the smell-test kit then finished it.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when"><div class="yr">2022</div><div class="org">Telkomsel</div><div class="loc">Jakarta, Indonesia · Remote</div></div>
+          <div class="what">
+            <div class="role">Business Data Analyst Intern</div>
+            <ul>
+              <li>Built a Tableau heatmap mapping <b>43.88M high-value subscribers</b> by city and tracking the segment's <b>~$340M monthly revenue</b> at <b>9.99% MoM</b> growth, to steer which accounts to keep or cut.</li>
+              <li>Wrote the calculated fields and Tableau Prep pipeline under them: several sources merged into one <b>1,812-row, 27-field</b> dataset, refreshed on a schedule.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when"><div class="yr">2019 – 2021</div><div class="org">UW-Madison</div><div class="loc">Madison, WI</div></div>
+          <div class="what">
+            <div class="role">IT Support → Data Manager</div>
+            <ul>
+              <li>Started answering help-desk tickets. Ended up managing research datasets for a sociology department sitting on decades of survey data in formats nobody remembered how to read.</li>
+              <li>Wrote migration scripts, documented everything, and learned that institutional data is always messier than you expect.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- WRITING -->
+  <section id="writing"><div class="wrap">
+    <div class="sec-bar"><span class="sec-id">§05</span><h2 class="sec-name">Writing</h2><span class="sec-meta">I write to figure out what I think</span></div>
+    <div class="pad">
+      <div class="feedbar">
+        <span class="live"><span class="dot"></span>Live feed · Medium</span>
+        <span class="src" id="feedSync">@grateful_aqua_goat_147</span>
+      </div>
+      <div class="feed" id="feed">
+        <a class="post" href="https://medium.com/@grateful_aqua_goat_147/pew-said-im-the-last-millennial-then-they-stopped-counting-f7308d37197b" target="_blank" rel="noopener">
+          <div class="date">May 2026</div>
+          <div class="body">
+            <div class="ttl">Pew Said I'm the Last Millennial. Then They Stopped Counting.</div>
+            <div class="dek">The real split was never 1996. It's the 119-to-1 wealth gap inside my own generation.</div>
+            <div class="tag">Data Journalism</div>
+          </div>
+          <div class="meta"><span class="open">Open →</span></div>
+        </a>
+        <a class="post" href="https://medium.com/@grateful_aqua_goat_147/the-traits-that-win-power-are-the-traits-that-destroy-it-2b94802c3896" target="_blank" rel="noopener">
+          <div class="date">Apr 2026</div>
+          <div class="body">
+            <div class="ttl">The Traits That Win Power Are the Traits That Destroy It</div>
+            <div class="dek">92 studies. One finding the self-help industry won't touch.</div>
+            <div class="tag">Psychology</div>
+          </div>
+          <div class="meta"><span class="open">Open →</span></div>
+        </a>
+        <a class="post" href="https://medium.com/@grateful_aqua_goat_147/38-000-to-1-75442ec443ab" target="_blank" rel="noopener">
+          <div class="date">Mar 2026</div>
+          <div class="body">
+            <div class="ttl">38,000 to 1</div>
+            <div class="dek">Medium says letting AI train on your writing protects your reach. For every reader the crawlers send back, they scrape thousands of your pages first.</div>
+            <div class="tag">Tech Criticism</div>
+          </div>
+          <div class="meta"><span>4 min</span><span class="open">Open →</span></div>
+        </a>
+        <a class="post" href="https://medium.com/@grateful_aqua_goat_147/youre-probably-5-bad-days-away-from-becoming-a-monster-4f8c997e5bf3" target="_blank" rel="noopener">
+          <div class="date">Jan 2026</div>
+          <div class="body">
+            <div class="ttl">You're Probably 5 Bad Days Away From Becoming a Monster</div>
+            <div class="dek">65% of people would do it. The research says you're not in the other 35%.</div>
+            <div class="tag">Psychology</div>
+          </div>
+          <div class="meta"><span class="open">Open →</span></div>
+        </a>
+        <a class="post" href="https://medium.com/@grateful_aqua_goat_147/33-years-asleep-0-1-seconds-to-judge-8a616a15ce3a" target="_blank" rel="noopener">
+          <div class="date">Dec 2025</div>
+          <div class="body">
+            <div class="ttl">33 Years Asleep. 0.1 Seconds to Judge.</div>
+            <div class="dek">What I found when I stopped guessing at humans and started counting.</div>
+            <div class="tag">Personal · Data</div>
+          </div>
+          <div class="meta"><span class="open">Open →</span></div>
+        </a>
+      </div>
+      <div class="wfoot">
+        <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener">All stories · Medium →</a>
+        <a href="https://substack.com/@tobinzolkowski" target="_blank" rel="noopener">Personal essays · Substack →</a>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- CONNECT -->
+  <section id="connect"><div class="wrap">
+    <div class="sec-bar"><span class="sec-id">§06</span><h2 class="sec-name">Connect</h2><span class="sec-meta">How to reach me, and what for</span></div>
+    <div class="pad">
+      <div class="connect">
+        <div class="col">
+          <p>Not looking for a new role right now, but always open to conversations about research infrastructure, data accessibility, or the place where data and disability meet.</p>
+          <form id="contactForm" class="cform" action="https://formspree.io/f/xaqpnqno" method="POST">
+            <p class="cstatus" id="cstatus" role="status" aria-live="polite"></p>
+            <div class="field">
+              <label for="cf-name">Name</label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" required autocomplete="email" />
+            </div>
+            <div class="field">
+              <label for="cf-msg">Message</label>
+              <textarea id="cf-msg" name="message" rows="5" required></textarea>
+            </div>
+            <input type="hidden" name="_subject" value="New message from your portfolio" />
+            <input type="text" name="_gotcha" class="gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <button type="submit" class="cbtn">Send message</button>
+          </form>
+          <div class="chan">
+            <a href="https://www.linkedin.com/in/tobin-zolkowski-844873200" target="_blank" rel="noopener"><span>LinkedIn</span><span>→</span></a>
+            <a href="https://github.com/tzolkowski96" target="_blank" rel="noopener"><span>GitHub</span><span>→</span></a>
+            <a href="https://medium.com/@grateful_aqua_goat_147" target="_blank" rel="noopener"><span>Medium</span><span>→</span></a>
+          </div>
+        </div>
+        <div class="col">
+          <h4>How to reach me</h4>
+          <p>I'm Deaf and communicate via ASL. For first contact, the form here or a LinkedIn message work best.</p>
+          <p>For video calls I use Video Relay Service. It's invisible on your end, just call like normal and an interpreter bridges the rest.</p>
+          <p class="vrs">VRS number available on request</p>
+        </div>
+      </div>
+    </div>
+  </div></section>
+</main>
+
+<footer>
+  <div class="foot">
+    <span>© 2026 Tobin Zolkowski</span>
+    <span class="x">Madison, WI · static site · no trackers</span>
+    <span>Build 2026.06</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var nav = document.getElementById("nav"), btn = document.getElementById("menuBtn");
+  btn.addEventListener("click", function(){ var open = nav.classList.toggle("open"); btn.setAttribute("aria-expanded", open ? "true" : "false"); });
+  nav.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", function(){ nav.classList.remove("open"); btn.setAttribute("aria-expanded","false"); }); });
+
+  var pct = document.getElementById("scrollPct");
+  function pad3(n){ return ("00"+n).slice(-3); }
+  function onScroll(){
+    var h = document.documentElement;
+    var p = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+    pct.textContent = pad3(Math.round(p*100)) + "%";
+  }
+  document.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  var clock = document.getElementById("clock");
+  function tick(){
+    try{
+      var t = new Date().toLocaleTimeString("en-GB", {timeZone:"America/Chicago", hour12:false});
+      clock.textContent = t + " CT";
+    }catch(e){ clock.textContent = new Date().toLocaleTimeString("en-GB",{hour12:false}) + " LOCAL"; }
+  }
+  tick(); setInterval(tick, 1000);
+
+  // writing feed: stamp a sync time so it reads live, and refresh from
+  // a same-origin feed.json if one is present (e.g. committed by a cron Action)
+  var feedSync = document.getElementById("feedSync");
+  function stampSync(){
+    var t = new Date().toLocaleTimeString("en-GB", {hour:"2-digit", minute:"2-digit"});
+    if(feedSync) feedSync.textContent = "@grateful_aqua_goat_147 · synced " + t;
+  }
+  stampSync();
+
+  function renderFeed(items){
+    var feed = document.getElementById("feed");
+    if(!feed || !items || !items.length) return;
+    feed.innerHTML = items.slice(0,6).map(function(p){
+      var meta = (p.read ? "<span>"+p.read+"</span>" : "") + "<span class='open'>Open →</span>";
+      return "<a class='post' href='"+p.url+"' target='_blank' rel='noopener'>"
+        + "<div class='date'>"+p.date+"</div>"
+        + "<div class='body'><div class='ttl'>"+p.title+"</div>"
+        + (p.dek ? "<div class='dek'>"+p.dek+"</div>" : "")
+        + (p.tag ? "<div class='tag'>"+p.tag+"</div>" : "")+"</div>"
+        + "<div class='meta'>"+meta+"</div></a>";
+    }).join("");
+  }
+  fetch("feed.json", {cache:"no-store"})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(items){ if(items){ renderFeed(items); stampSync(); } })
+    .catch(function(){ /* no feed.json yet, keep the embedded posts */ });
+
+
+  var sections = document.querySelectorAll("section[id]");
+  var links = nav.querySelectorAll("a");
+  if("IntersectionObserver" in window){
+    var spy = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          var id = e.target.id;
+          links.forEach(function(l){ var on = l.getAttribute("href") === "#"+id; l.classList.toggle("active", on); if(on){ l.setAttribute("aria-current","true"); } else { l.removeAttribute("aria-current"); } });
+        }
+      });
+    }, {rootMargin:"-45% 0px -50% 0px"});
+    sections.forEach(function(s){ spy.observe(s); });
+  }
+
+  // contact form: submit to Formspree over AJAX so the page never navigates away.
+  // If JS fails, the form's action/method still POST natively as a fallback.
+  var cf = document.getElementById("contactForm");
+  if(cf){
+    var cs = document.getElementById("cstatus");
+    cf.addEventListener("submit", function(e){
+      e.preventDefault();
+      var btn = cf.querySelector("button[type=submit]");
+      cs.className = "cstatus"; cs.textContent = "Sending\u2026";
+      btn.disabled = true;
+      fetch(cf.action, { method:"POST", body:new FormData(cf), headers:{ "Accept":"application/json" } })
+        .then(function(r){
+          if(r.ok){
+            cf.reset();
+            cs.className = "cstatus ok";
+            cs.textContent = "Thanks. Your message is on its way.";
+          } else {
+            return r.json().then(function(d){
+              var m = (d && d.errors && d.errors.map(function(x){ return x.message; }).join(", "))
+                      || "Something went wrong. Try again, or reach me on LinkedIn.";
+              cs.className = "cstatus err"; cs.textContent = m;
+            });
+          }
+        })
+        .catch(function(){
+          cs.className = "cstatus err";
+          cs.textContent = "Network error. Try again, or reach me on LinkedIn.";
+        })
+        .finally(function(){ btn.disabled = false; });
+    });
+  }
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* sticky header (56px) + breathing room, so anchored sections aren't hidden */
+    scroll-padding-top: 72px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-cream text-ink font-display text-body antialiased;
+  }
+
+  /* A single, consistent, high-contrast focus ring on every interactive element.
+     Deliberately blue (#1d4ed8, 5.41:1) so keyboard focus is never confused with
+     the red accent / active-nav marker. */
+  :focus-visible {
+    outline: 3px solid theme('colors.focus');
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+
+  ::selection {
+    background: theme('colors.signal'); /* #c41f00 + white = 5.93:1 */
+    color: #ffffff;
+  }
+}
+
+/* Honor reduced-motion: kill the dot pulse, smooth scroll, hovers, transitions. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

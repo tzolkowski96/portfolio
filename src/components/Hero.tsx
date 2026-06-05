@@ -6,10 +6,13 @@ import { Dot } from './primitives/Dot'
  *  availability, one primary CTA. The single <h1> on the page. */
 export function Hero() {
   return (
-    <div className="flex flex-col justify-center">
+    // container-type makes the nameplate size to THIS column (cqw), not the
+    // viewport — so a long single word ("Zolkowski") can never outgrow its
+    // column and collide with the profile schema beside it.
+    <div className="flex flex-col justify-center [container-type:inline-size]">
       <p className="font-mono text-mono-label uppercase tracking-kicker text-label">{identity.eyebrow}</p>
 
-      <h1 className="mt-4 font-display text-display-xl font-black uppercase leading-[0.86] tracking-[-0.025em] text-ink">
+      <h1 className="mt-4 font-display text-[clamp(2.5rem,14cqw,7.5rem)] font-black uppercase leading-[0.86] tracking-[-0.025em] text-ink">
         <span className="block">Tobin</span>
         <span className="relative inline-block">
           Zolkowski

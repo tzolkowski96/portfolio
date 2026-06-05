@@ -1,5 +1,6 @@
 import { projects } from '../data/projects'
 import { ExternalLinkIcon } from './primitives/ExternalLinkIcon'
+import { emphasizeFigures } from '../lib/text'
 
 /** Six project cards: title link, description, stack chips, Source/Demo actions. */
 export function ProjectList() {
@@ -17,14 +18,14 @@ export function ProjectList() {
                 href={p.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block py-1 hover:text-signal hover:underline focus-visible:text-signal focus-visible:underline"
+                className="inline-flex min-h-tap items-center py-1 hover:text-signal hover:underline focus-visible:text-signal focus-visible:underline"
               >
                 {p.title}
               </a>
             </h3>
           </div>
 
-          <p className="mt-2 text-body-sm text-ink-2">{p.description}</p>
+          <p className="mt-2 text-body-sm text-ink-2">{emphasizeFigures(p.description)}</p>
 
           <ul className="mt-4 flex flex-wrap gap-2" aria-label="Tech stack">
             {p.stack.map((s) => (

@@ -7,7 +7,7 @@ import { now } from '../data/metrics'
 /** The "record" lede: identity + profile, then a 4-stat strip, then chart + now. */
 export function Record() {
   return (
-    <div className="border-b border-hairline">
+    <section aria-label="Overview" className="border-b border-hairline">
       <div className="mx-auto w-full max-w-container px-4 py-12 sm:px-6 md:py-16 lg:px-8 lg:py-20 xl:px-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:gap-12">
           <Hero />
@@ -31,6 +31,6 @@ export function Record() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

@@ -27,6 +27,13 @@
     background: theme('colors.signal'); /* #c41f00 + white = 5.93:1 */
     color: #ffffff;
   }
+
+  /* Instant pressed-state feedback on every link/button — fires on tap too,
+     where :hover does not. Disabled controls don't match :active. */
+  a:active,
+  button:active {
+    opacity: 0.7;
+  }
 }
 
 /* Honor reduced-motion: kill the dot pulse, smooth scroll, hovers, transitions. */

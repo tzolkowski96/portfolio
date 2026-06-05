@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
+  // Only emit hover styles on devices that actually support hover, so they
+  // don't "stick" after a tap on touch screens.
+  future: { hoverOnlyWhenSupported: true },
   theme: {
     extend: {
       colors: {

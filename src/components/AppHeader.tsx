@@ -10,6 +10,7 @@ interface AppHeaderProps {
 export function AppHeader({ sections, activeId }: AppHeaderProps) {
   const [open, setOpen] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
+  const headerRef = useRef<HTMLElement>(null)
 
   // When the menu opens: move focus to the first link (it's a disclosure, not a
   // modal, so no focus trap). Escape closes it and returns focus to the toggle.
@@ -22,12 +23,19 @@ export function AppHeader({ sections, activeId }: AppHeaderProps) {
         toggleRef.current?.focus()
       }
     }
+    function onPointerDown(e: PointerEvent) {
+      if (!headerRef.current?.contains(e.target as Node)) setOpen(false)
+    }
     document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.removeEventListener('pointerdown', onPointerDown)
+    }
   }, [open])
 
   return (
-    <header id="top" className="sticky top-0 z-40 border-b border-rule-strong bg-cream">
+    <header id="top" ref={headerRef} className="sticky top-0 z-40 border-b border-rule-strong bg-cream">
       <div className="mx-auto flex h-14 max-w-container items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 xl:px-12">
         <a
           href="#top"

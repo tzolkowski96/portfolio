@@ -1,4 +1,5 @@
 import { capabilities } from '../data/expertise'
+import { emphasizeFigures } from '../lib/text'
 
 /** Four capabilities as <dl> cards that linearize on mobile (never a table). */
 export function ExpertiseList() {
@@ -8,7 +9,7 @@ export function ExpertiseList() {
         <div key={cap.id} className="flex flex-col bg-panel p-6">
           <span className="font-mono text-mono-label text-index">{cap.id}</span>
           <dt className="mt-2 font-display text-title font-bold text-ink">{cap.title}</dt>
-          <dd className="mt-2 text-body-sm text-ink-2">{cap.detail}</dd>
+          <dd className="mt-2 text-body-sm text-ink-2">{emphasizeFigures(cap.detail)}</dd>
         </div>
       ))}
     </dl>

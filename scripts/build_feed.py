@@ -4,15 +4,19 @@ Build feed.json from the Medium RSS feed.
 
 Pulls the latest posts, grabs a clean subtitle (og:description) for each,
 drops anything on the SKIP list, and writes the six newest survivors to
-feed.json at the repo root. The site reads that file on load.
+public/feed.json (Vite copies it to dist/feed.json, served at
+/portfolio/feed.json). The site fetches that file on load.
 
-No manual editing of the post list ever again: a scheduled Action runs this
-and commits the result.
+No manual editing of the post list ever again: the deploy workflow regenerates
+it on every build and scheduled run and deploys the artifact directly — it is
+not committed (public/feed.json is gitignored). If the Medium fetch fails, the
+build continues and the site falls back to the posts baked into the bundle.
 """
 
 import datetime
 import html
 import json
+import os
 import re
 import urllib.request
 from xml.etree import ElementTree as ET
@@ -62,7 +66,15 @@ def fmt_date(pub: str) -> str:
 
 
 def main() -> None:
-    root = ET.fromstring(get(FEED_URL))
+    try:
+        root = ET.fromstring(get(FEED_URL))
+    except Exception as exc:
+        # A transient Medium outage must not fail the deploy. Skip writing the
+        # feed; the site falls back to the posts baked into the bundle.
+        print(f"warning: could not fetch/parse the Medium feed ({exc}); "
+              f"skipping feed.json — the site will use its baked-in fallback posts")
+        return
+
     posts = []
     for item in root.findall(".//item"):
         link = (item.findtext("link") or "").split("?")[0]
@@ -85,9 +97,14 @@ def main() -> None:
         if len(posts) >= MAX_POSTS:
             break
 
-    with open("feed.json", "w", encoding="utf-8") as f:
+    # Write into public/ so Vite copies it into the build output (dist/feed.json),
+    # served at /portfolio/feed.json. Path is resolved relative to the repo root
+    # so the script works regardless of the current working directory.
+    out_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "public", "feed.json")
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(posts, f, ensure_ascii=False, indent=2)
-    print(f"wrote feed.json with {len(posts)} posts")
+    print(f"wrote {out_path} with {len(posts)} posts")
 
 
 if __name__ == "__main__":

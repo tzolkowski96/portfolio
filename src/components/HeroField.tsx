@@ -17,7 +17,6 @@ export function HeroField() {
     const ctx = canvas?.getContext('2d')
     if (!canvas || !parent || !ctx) return
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
     const SPACING = 34
     const RADIUS = 120
     let width = 0
@@ -28,6 +27,7 @@ export function HeroField() {
     let onScreen = true
 
     function build() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2) // re-read for DPI/zoom changes
       const rect = parent!.getBoundingClientRect()
       width = rect.width
       height = rect.height
@@ -120,6 +120,15 @@ export function HeroField() {
       io.observe(parent)
     }
 
+    let ro: ResizeObserver | null = null
+    if ('ResizeObserver' in window) {
+      ro = new ResizeObserver(() => {
+        build()
+        if (reduced) draw(0)
+      })
+      ro.observe(parent)
+    }
+
     return () => {
       stop()
       window.removeEventListener('pointermove', onPointer)
@@ -128,6 +137,7 @@ export function HeroField() {
       window.removeEventListener('resize', onResize)
       document.removeEventListener('visibilitychange', onVisibility)
       io?.disconnect()
+      ro?.disconnect()
     }
   }, [reduced])
 

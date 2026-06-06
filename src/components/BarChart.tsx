@@ -21,9 +21,9 @@ export function BarChart() {
     transformOrigin: '150px 130px',
     transition: reduced ? undefined : 'transform 900ms cubic-bezier(0.22,1,0.36,1)',
   }
+  // Values stay readable at all times (only the bars animate in).
   const labelStyle = (on: boolean) => ({
-    opacity: grown ? 1 : 0,
-    transition: reduced ? undefined : 'opacity 400ms ease 350ms, font-size 150ms ease',
+    transition: reduced ? undefined : 'font-size 150ms ease',
     fontSize: on ? 16 : 14,
   })
 

@@ -18,7 +18,9 @@ function CountUp({ raw, active, animate }: { raw: string; active: boolean; anima
   const decimals = raw.includes('.') ? raw.split('.')[1].length : 0
   const grouped = raw.includes(',')
   const v = useCountUp(target, active && animate)
-  if (!animate || Number.isNaN(target)) return <>{raw}</>
+  // Show the real figure until it animates in, so off-screen / no-scroll / print
+  // tiles never read "0".
+  if (!active || !animate || Number.isNaN(target)) return <>{raw}</>
   return <>{formatNum(v, decimals, grouped)}</>
 }
 

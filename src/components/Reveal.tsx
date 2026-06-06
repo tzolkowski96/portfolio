@@ -14,15 +14,19 @@ export function Reveal({ children, className = '', delay = 0 }: RevealProps) {
   const reduced = usePrefersReducedMotion()
   const [ref, inView] = useInView<HTMLDivElement>()
 
-  if (reduced) return <div className={className}>{children}</div>
+  // Always attach the ref (so the observer exists even if reduced-motion is on at
+  // mount and later turned off). When reduced, emit no animation classes at all.
+  const anim = reduced
+    ? ''
+    : `transition-all duration-700 ease-out will-change-[opacity,transform] ${
+        inView ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+      }`
 
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={`transition-all duration-700 ease-out will-change-[opacity,transform] ${
-        inView ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-      } ${className}`}
+      style={reduced ? undefined : { transitionDelay: `${delay}ms` }}
+      className={`${anim} ${className}`.trim()}
     >
       {children}
     </div>

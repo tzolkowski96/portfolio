@@ -15,5 +15,13 @@ export const onTimeChart = {
   after: { label: 'After', value: 95, display: '95%+' },
 }
 
+export const runtime = {
+  label: 'Core report runtime',
+  caption: 'After a query + database-view rewrite',
+  before: { minutes: 120, display: '2 h' },
+  after: { minutes: 10, display: '10 min' },
+  delta: '−92%',
+}
+
 export const now =
   "Running the data behind a Michael J. Fox Foundation Parkinson's program at IU School of Medicine. Publishing data journalism on Medium and essays on Substack."

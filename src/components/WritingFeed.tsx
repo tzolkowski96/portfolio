@@ -2,14 +2,36 @@ import { useFeed } from '../hooks/useFeed'
 import { contact } from '../data/profile'
 import { Dot } from './primitives/Dot'
 import { ExternalLinkIcon } from './primitives/ExternalLinkIcon'
+import { Reveal } from './Reveal'
 
 /** Live Medium feed (hydrated from feed.json, baked fallback). Each row is one
  *  large link; "live" is a dot + words; only the volatile timestamp is aria-live. */
 export function WritingFeed() {
   const { posts, syncedAt, live } = useFeed()
 
+  const featured = posts[0]
+
   return (
     <div>
+      {featured && (
+        <Reveal className="mb-10 max-w-reading">
+          <a
+            href={featured.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block border-l-2 border-signal pl-5"
+          >
+            <p className="font-serif text-[clamp(1.5rem,3vw,2.25rem)] font-medium italic leading-snug text-ink group-hover:text-signal">
+              “{featured.dek || featured.title}”
+            </p>
+            <p className="mt-3 inline-flex items-center gap-1 font-mono text-mono-label uppercase text-label group-hover:text-signal">
+              {featured.title}
+              <ExternalLinkIcon />
+            </p>
+          </a>
+        </Reveal>
+      )}
+
       <div className="flex flex-wrap items-center justify-between gap-2 border border-b-0 border-hairline bg-panel px-4 py-3 font-mono text-mono-label uppercase text-label">
         <span className="inline-flex items-center gap-2 text-ink">
           <Dot />
@@ -22,7 +44,7 @@ export function WritingFeed() {
       </div>
 
       <ul className="border border-hairline bg-hairline">
-        {posts.map((post, i) => (
+        {posts.slice(1).map((post, i) => (
           <li key={post.url} className={i > 0 ? 'border-t border-hairline' : ''}>
             <a
               href={post.url}

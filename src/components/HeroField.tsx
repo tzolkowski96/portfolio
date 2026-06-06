@@ -42,7 +42,9 @@ export function HeroField() {
     }
 
     function draw(t: number) {
+      if (!width || !height) return
       ctx!.clearRect(0, 0, width, height)
+      const flow = reduced ? 0 : window.scrollY * 0.06 // scroll-linked vertical drift
       for (const d of dots) {
         let ox = 0
         let oy = 0
@@ -59,10 +61,12 @@ export function HeroField() {
           }
         }
         const drift = reduced ? 0 : Math.sin(t / 1600 + d.x * 0.05 + d.y * 0.03) * 1.1
+        let yy = d.y + oy + drift + flow
+        yy = ((yy % height) + height) % height // wrap within the canvas (no overflow)
         const r = 1.1 + near * 1.8
         const alpha = 0.09 + near * 0.5
         ctx!.beginPath()
-        ctx!.arc(d.x + ox, d.y + oy + drift, r, 0, Math.PI * 2)
+        ctx!.arc(d.x + ox, yy, r, 0, Math.PI * 2)
         ctx!.fillStyle = near > 0.55 ? `rgba(196,31,0,${alpha})` : `rgba(22,22,20,${alpha})`
         ctx!.fill()
       }

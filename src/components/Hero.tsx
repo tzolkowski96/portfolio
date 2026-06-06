@@ -1,38 +1,51 @@
 import { identity } from '../data/profile'
 import { Button } from './primitives/Button'
 import { Dot } from './primitives/Dot'
+import { HeroField } from './HeroField'
+import { Reveal } from './Reveal'
 
-/** Calmer identity block: kicker, nameplate (with the graphic red tick), tagline,
- *  availability, one primary CTA. The single <h1> on the page. */
+/** Identity block: data-field backdrop, editorial serif nameplate (sized to its
+ *  column via cqw), tagline, availability, one primary CTA. The page's only <h1>. */
 export function Hero() {
   return (
-    // container-type makes the nameplate size to THIS column (cqw), not the
-    // viewport — so a long single word ("Zolkowski") can never outgrow its
-    // column and collide with the profile schema beside it.
-    <div className="flex flex-col justify-center [container-type:inline-size]">
-      <p className="font-mono text-mono-label uppercase tracking-kicker text-label">{identity.eyebrow}</p>
+    <div className="relative flex flex-col justify-center [container-type:inline-size]">
+      <HeroField />
 
-      <h1 className="mt-4 font-display text-[clamp(2.5rem,14cqw,7.5rem)] font-black uppercase leading-[0.86] tracking-[-0.025em] text-ink">
-        <span className="block">Tobin</span>
-        <span className="relative inline-block">
-          Zolkowski
-          <span aria-hidden="true" className="absolute -bottom-1 left-0 h-1 w-[0.4em] bg-signal-graphic" />
-        </span>
-      </h1>
+      <div className="relative z-10">
+        <Reveal delay={0}>
+          <p className="font-mono text-mono-label uppercase tracking-kicker text-label">{identity.eyebrow}</p>
+        </Reveal>
 
-      <p className="mt-6 max-w-reading text-body-lg font-medium text-ink-2">
-        {identity.taglineLead} <span className="font-bold text-ink">{identity.taglineEmphasis}</span>
-      </p>
+        <Reveal delay={90}>
+          <h1 className="mt-4 font-serif text-[clamp(2.5rem,14cqw,7rem)] font-[900] uppercase leading-[0.92] tracking-[-0.015em] text-ink">
+            <span className="block">Tobin</span>
+            <span className="relative inline-block">
+              Zolkowski
+              <span aria-hidden="true" className="absolute -bottom-1 left-0 h-1 w-[0.4em] bg-signal-graphic" />
+            </span>
+          </h1>
+        </Reveal>
 
-      <p className="mt-5 inline-flex items-center gap-2 font-mono text-mono-label uppercase text-ink">
-        <Dot />
-        {identity.status}
-      </p>
+        <Reveal delay={170}>
+          <p className="mt-6 max-w-reading text-body-lg font-medium text-ink-2">
+            {identity.taglineLead} <span className="font-bold text-ink">{identity.taglineEmphasis}</span>
+          </p>
+        </Reveal>
 
-      <div className="mt-6">
-        <Button as="a" href="#writing" variant="ghost">
-          Read the writing →
-        </Button>
+        <Reveal delay={230}>
+          <p className="mt-5 inline-flex items-center gap-2 font-mono text-mono-label uppercase text-ink">
+            <Dot />
+            {identity.status}
+          </p>
+        </Reveal>
+
+        <Reveal delay={290}>
+          <div className="mt-6">
+            <Button as="a" href="#writing" variant="ghost">
+              Read the writing →
+            </Button>
+          </div>
+        </Reveal>
       </div>
     </div>
   )

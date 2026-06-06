@@ -2,6 +2,7 @@ import { Hero } from './Hero'
 import { ProfileSchema } from './ProfileSchema'
 import { KpiStrip } from './KpiStrip'
 import { BarChart } from './BarChart'
+import { RuntimeBar } from './RuntimeBar'
 import { now } from '../data/metrics'
 
 /** The "record" lede: identity + profile, then a 4-stat strip, then chart + now. */
@@ -23,7 +24,11 @@ export function Record() {
 
         <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:mt-12">
           <div className="border border-hairline bg-panel p-6">
+            <p className="mb-4 font-mono text-mono-label uppercase text-label">Reporting impact</p>
             <BarChart />
+            <div className="mt-8 border-t border-hairline pt-8">
+              <RuntimeBar />
+            </div>
           </div>
           <div className="border border-hairline bg-panel p-6">
             <p className="mb-3 font-mono text-mono-label uppercase text-label">Now</p>

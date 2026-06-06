@@ -30,6 +30,7 @@ export default {
       },
       fontFamily: {
         display: ['Archivo', 'system-ui', 'sans-serif'],
+        serif: ['Fraunces', 'Georgia', 'Times New Roman', 'serif'],
         mono: ['"Spline Sans Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       fontSize: {

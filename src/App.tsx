@@ -1,7 +1,9 @@
 import { SkipLink } from './components/SkipLink'
+import { ScrollProgress } from './components/ScrollProgress'
 import { AppHeader } from './components/AppHeader'
 import { StatusStrip } from './components/StatusStrip'
 import { Record } from './components/Record'
+import { TechBand } from './components/TechBand'
 import { Section } from './components/Section'
 import { About } from './components/About'
 import { ExpertiseList } from './components/ExpertiseList'
@@ -22,11 +24,14 @@ export default function App() {
   return (
     <>
       <SkipLink />
+      <ScrollProgress />
       <AppHeader sections={navItems} activeId={activeId} />
       <StatusStrip />
 
       <main id="content">
         <Record />
+
+        <TechBand />
 
         <Section id="about" num="01" name="About" meta="The path, compressed">
           <About />

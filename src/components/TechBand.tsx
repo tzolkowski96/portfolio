@@ -24,7 +24,7 @@ export function TechBand() {
 
   return (
     <div aria-hidden="true" className="overflow-hidden border-y border-hairline bg-panel">
-      <div ref={rowRef} className="flex w-max items-center py-4 will-change-transform">
+      <div ref={rowRef} className="flex w-max items-center py-4">
         {items.map((tool, i) => (
           <span key={i} className="flex items-center font-mono text-mono-label uppercase text-label">
             {tool}

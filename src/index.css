@@ -2,11 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Lenis smooth scroll (only active when the .lenis class is on <html>) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* sticky header (56px) + breathing room, so anchored sections aren't hidden */
-    scroll-padding-top: 72px;
+    /* matches the JS anchor offset (sticky header height) */
+    scroll-padding-top: 56px;
     -webkit-text-size-adjust: 100%;
   }
 

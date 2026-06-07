@@ -14,12 +14,14 @@ import { Connect } from './components/Connect'
 import { SiteFooter } from './components/SiteFooter'
 import { navItems } from './data/profile'
 import { useScrollSpy } from './hooks/useScrollSpy'
+import { useScrollExperience } from './scroll/useScrollExperience'
 
 // Stable id list for the scroll-spy observer.
 const SECTION_IDS = navItems.map((n) => n.id)
 
 export default function App() {
   const activeId = useScrollSpy(SECTION_IDS)
+  useScrollExperience()
 
   return (
     <>

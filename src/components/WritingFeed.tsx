@@ -19,6 +19,7 @@ export function WritingFeed() {
             href={featured.url}
             target="_blank"
             rel="noopener noreferrer"
+            data-parallax="-22"
             className="group block border-l-2 border-signal pl-5"
           >
             <p className="font-serif text-[clamp(1.5rem,3vw,2.25rem)] font-medium italic leading-snug text-ink group-hover:text-signal">

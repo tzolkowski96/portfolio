@@ -17,7 +17,10 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={90}>
-          <h1 className="mt-4 font-serif text-[clamp(2.5rem,14cqw,7rem)] font-[900] uppercase leading-[0.92] tracking-[-0.015em] text-ink">
+          <h1
+            data-nameplate
+            className="mt-4 font-serif text-[clamp(2.5rem,14cqw,7rem)] font-[900] uppercase leading-[0.92] tracking-[-0.015em] text-ink"
+          >
             <span className="block">Tobin</span>
             <span className="relative inline-block">
               Zolkowski

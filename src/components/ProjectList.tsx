@@ -5,7 +5,8 @@ import { emphasizeFigures } from '../lib/text'
 /** Six project cards: title link, description, stack chips, Source/Demo actions. */
 export function ProjectList() {
   return (
-    <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <div>
+      <ul data-projects-track className="grid grid-cols-1 gap-4 md:grid-cols-2">
       {projects.map((p) => (
         <li
           key={p.id}
@@ -51,6 +52,7 @@ export function ProjectList() {
           </div>
         </li>
       ))}
-    </ul>
+      </ul>
+    </div>
   )
 }

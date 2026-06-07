@@ -20,8 +20,8 @@ html.lenis body {
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* sticky header (56px) + breathing room, so anchored sections aren't hidden */
-    scroll-padding-top: 72px;
+    /* matches the JS anchor offset (sticky header height) */
+    scroll-padding-top: 56px;
     -webkit-text-size-adjust: 100%;
   }
 

@@ -66,7 +66,7 @@ export function AppHeader({ sections, activeId }: AppHeaderProps) {
                       className={`relative pb-1 after:absolute after:inset-x-0 after:bottom-0 after:h-[2px] after:origin-left after:transition-transform after:duration-brand after:ease-brand ${
                         active
                           ? 'after:scale-x-100 after:bg-signal'
-                          : 'after:scale-x-0 after:bg-hairline group-hover:after:scale-x-100'
+                          : 'after:scale-x-0 after:bg-rule-strong group-hover:after:scale-x-100'
                       }`}
                     >
                       {s.label}

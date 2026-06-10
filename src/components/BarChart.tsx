@@ -34,7 +34,7 @@ export function BarChart() {
       <p className="font-display text-display-m font-bold text-ink">{c.finding}</p>
       <figcaption className="mt-1 font-mono text-mono-label uppercase text-label">{c.caption}</figcaption>
       <svg viewBox="0 0 300 160" role="img" aria-label={label} className="mt-4 block w-full max-w-[340px]">
-        <text x="150" y="13" textAnchor="middle" fontSize="11" fontWeight="700" fill="#c41f00" fontFamily={MONO}>
+        <text x="150" y="13" textAnchor="middle" fontSize="11" fontWeight="700" className="fill-signal" fontFamily={MONO}>
           {c.delta}
         </text>
         <line
@@ -42,7 +42,7 @@ export function BarChart() {
           y1="130"
           x2="270"
           y2="130"
-          stroke="#565650"
+          className="stroke-rule-strong"
           strokeWidth="1.5"
           strokeDasharray={240}
           style={{
@@ -54,8 +54,8 @@ export function BarChart() {
         <g style={barsStyle}>
           <rect
             x="60" y="33" width="70" height="97"
-            fill={hover === 'before' ? 'rgba(86,86,80,0.14)' : 'none'}
-            stroke="#161614" strokeWidth="1.5"
+            fill={hover === 'before' ? 'rgba(243,243,239,0.12)' : 'none' /* ink @ 12% — SVG attr can't read tokens */}
+            className="stroke-ink" strokeWidth="1.5"
             onPointerEnter={() => setHover('before')}
             onPointerLeave={() => setHover(null)}
           />
@@ -67,16 +67,16 @@ export function BarChart() {
           />
         </g>
 
-        <text x="95" y="27" textAnchor="middle" fontWeight="700" fill="#161614" fontFamily={MONO} style={labelStyle(hover === 'before')}>
+        <text x="95" y="27" textAnchor="middle" fontWeight="700" className="fill-ink" fontFamily={MONO} style={labelStyle(hover === 'before')}>
           {c.before.display}
         </text>
-        <text x="205" y="18" textAnchor="middle" fontWeight="700" fill="#161614" fontFamily={MONO} style={labelStyle(hover === 'after')}>
+        <text x="205" y="18" textAnchor="middle" fontWeight="700" className="fill-ink" fontFamily={MONO} style={labelStyle(hover === 'after')}>
           {c.after.display}
         </text>
-        <text x="95" y="148" textAnchor="middle" fontSize="11" fill="#565650" fontFamily={MONO}>
+        <text x="95" y="148" textAnchor="middle" fontSize="11" className="fill-label" fontFamily={MONO}>
           {c.before.label}
         </text>
-        <text x="205" y="148" textAnchor="middle" fontSize="11" fill="#565650" fontFamily={MONO}>
+        <text x="205" y="148" textAnchor="middle" fontSize="11" className="fill-label" fontFamily={MONO}>
           {c.after.label}
         </text>
       </svg>

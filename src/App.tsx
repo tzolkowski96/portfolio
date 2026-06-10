@@ -12,19 +12,31 @@ import { WorkLog } from './components/WorkLog'
 import { WritingFeed } from './components/WritingFeed'
 import { Connect } from './components/Connect'
 import { SiteFooter } from './components/SiteFooter'
+import { useState } from 'react'
+import { Loader, shouldShowLoader } from './components/Loader'
 import { navItems } from './data/profile'
 import { useScrollSpy } from './hooks/useScrollSpy'
 import { useScrollExperience } from './scroll/useScrollExperience'
+import { UiReadyContext } from './lib/uiReady'
 
 // Stable id list for the scroll-spy observer.
 const SECTION_IDS = navItems.map((n) => n.id)
 
 export default function App() {
   const activeId = useScrollSpy(SECTION_IDS)
+  const [loading, setLoading] = useState(shouldShowLoader)
   useScrollExperience()
 
   return (
-    <>
+    <UiReadyContext.Provider value={!loading}>
+      {loading && <Loader onDone={() => setLoading(false)} />}
+      {/* While the loader covers the page, the app behind it is inert — out of the
+          tab order and the accessibility tree. (React 18 lacks the inert prop.) */}
+      <div
+        ref={(el) => {
+          if (el) el.inert = loading
+        }}
+      >
       <SkipLink />
       <ScrollProgress />
       <AppHeader sections={navItems} activeId={activeId} />
@@ -61,6 +73,7 @@ export default function App() {
       </main>
 
       <SiteFooter />
-    </>
+      </div>
+    </UiReadyContext.Provider>
   )
 }

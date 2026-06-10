@@ -7,26 +7,28 @@ export default {
   theme: {
     extend: {
       colors: {
+        // INVERTED BRAND — the original cream/ink palette flipped to dark.
+        // Token names are semantic roles, so every existing pairing survives.
         // Surfaces (dominant ~60%)
-        cream: '#e7e7e3', //  page canvas        — ink on it = 14.61:1
-        panel: '#f0f0ec', //  raised surface     — ink on it = 15.86:1
-        sunk: '#dededa', //   sunk strip
+        cream: '#121211', //  page canvas (near-black)
+        panel: '#1a1a19', //  raised surface
+        sunk: '#0c0c0b', //   sunk strip
         // Text / structure (secondary ~30%)
-        ink: '#161614', //    primary text + inverted ground
-        'ink-2': '#2f2f2b', // secondary body     — on cream = 10.84:1
-        label: '#565650', //  mono micro-labels   — on cream = 5.96:1  (fixes --mute)
-        index: '#5b5b54', //  index numerals/meta — on cream = 5.52:1  (fixes --faint)
-        cream2: '#f3f3ef', //  light text on ink  — = 16.29:1
-        // Accent (~10%)
-        signal: '#c41f00', //         red AS TEXT/UI — on cream = 4.78:1 (fixes --sig text)
-        'signal-graphic': '#ff2d16', // red GRAPHIC-ONLY (>=24px) — = 3.00:1, never text
+        ink: '#f3f3ef', //    primary text + inverted ground — on canvas = 16.1:1
+        'ink-2': '#cfcfc8', // secondary body                — on canvas ≈ 12:1
+        label: '#a3a39c', //  mono micro-labels              — on canvas ≈ 6.9:1
+        index: '#97978f', //  index numerals/meta            — on canvas ≈ 6.1:1
+        cream2: '#161614', // dark text on the now-light inverted blocks (footer, buttons)
+        // Accent (~10%) — on dark, the bright brand red is AA as normal text (≈4.9:1)
+        signal: '#ff2d16', //          red AS TEXT/UI
+        'signal-graphic': '#ff2d16', // red as graphic (same on dark)
         // Structure strokes
-        hairline: '#c2c2bb', //     decorative 1px divider (1.44:1, never sole signal)
-        'rule-strong': '#565650', // meaningful UI stroke   (5.96:1)
-        // States
-        focus: '#1d4ed8', //   focus-visible ring (5.41:1) — blue, not the accent
-        error: '#b21f12', //   form error         (5.47:1)
-        success: '#15724a', // form success       (4.79:1)
+        hairline: '#2e2e2b', //     decorative 1px divider (never the sole signal)
+        'rule-strong': '#8a8a82', // meaningful UI stroke (≈5.2:1)
+        // States (lightened for the dark canvas)
+        focus: '#60a5fa', //   focus-visible ring (≈7.3:1) — blue, not the accent
+        error: '#ff8073', //   form error
+        success: '#4fc98a', // form success
       },
       fontFamily: {
         display: ['Archivo', 'system-ui', 'sans-serif'],

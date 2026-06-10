@@ -1,7 +1,6 @@
 import { identity } from '../data/profile'
 import { Button } from './primitives/Button'
 import { Dot } from './primitives/Dot'
-import { HeroField } from './HeroField'
 import { Reveal } from './Reveal'
 
 /** Identity block: data-field backdrop, editorial serif nameplate (sized to its
@@ -14,8 +13,6 @@ export function Hero() {
     // viewport — so a long single word ("Zolkowski") can never outgrow its
     // column and collide with the profile schema beside it.
     <div className="relative flex flex-col justify-center [container-type:inline-size]">
-      <HeroField />
-
       <div className="relative z-10">
         <Reveal delay={0}>
           <p className="font-mono text-mono-label uppercase tracking-kicker text-label">{identity.eyebrow}</p>

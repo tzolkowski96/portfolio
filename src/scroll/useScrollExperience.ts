@@ -1,6 +1,7 @@
 import { useLayoutEffect } from 'react'
 import Lenis from 'lenis'
 import { gsap, ScrollTrigger } from '../lib/gsap'
+import { LOADER_DONE_EVENT } from '../components/Loader'
 
 const HEADER = 56 // sticky header height — scroll offset for anchors + pins
 
@@ -147,12 +148,35 @@ export function useScrollExperience(): void {
       })
     })
 
+    // Deep links (/#projects): the native fragment jump happens before pins add
+    // their spacers and without the header offset — re-resolve once layout is
+    // final (after refresh), and again after the loader curtain lifts.
+    const resolveHash = () => {
+      if (!location.hash || location.hash.length < 2) return
+      let target: HTMLElement | null = null
+      try {
+        target = document.querySelector<HTMLElement>(location.hash)
+      } catch {
+        return // malformed fragment — nothing to resolve
+      }
+      if (!target) return
+      if (lenis) lenis.scrollTo(target, { offset: -HEADER, immediate: true })
+      else window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - HEADER })
+    }
+    const onLoaderDone = () => resolveHash()
+    window.addEventListener(LOADER_DONE_EVENT, onLoaderDone)
+
     if (document.fonts?.ready) document.fonts.ready.then(() => alive && ScrollTrigger.refresh())
-    requestAnimationFrame(() => alive && ScrollTrigger.refresh())
+    requestAnimationFrame(() => {
+      if (!alive) return
+      ScrollTrigger.refresh()
+      resolveHash()
+    })
 
     return () => {
       alive = false
       document.removeEventListener('click', onClick)
+      window.removeEventListener(LOADER_DONE_EVENT, onLoaderDone)
       reduceMq.removeEventListener('change', onReduceChange)
       ctx.revert()
       stopLenis()

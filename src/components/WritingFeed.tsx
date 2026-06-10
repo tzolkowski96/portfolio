@@ -77,9 +77,9 @@ export function WritingFeed() {
               href={post.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group grid grid-cols-1 gap-1 bg-panel p-5 transition-colors duration-brand ease-brand hover:bg-cream sm:grid-cols-[120px_minmax(0,1fr)_auto] sm:gap-0 sm:p-0"
+              className="group grid grid-cols-1 gap-1 bg-panel p-5 transition-colors duration-brand ease-brand hover:bg-cream sm:grid-cols-[136px_minmax(0,1fr)_auto] sm:gap-0 sm:p-0"
             >
-              <span className="font-mono text-mono-label uppercase text-label sm:flex sm:min-h-tap sm:items-center sm:border-r sm:border-hairline sm:px-4 sm:py-5">
+              <span className="whitespace-nowrap font-mono text-mono-label uppercase text-label sm:flex sm:min-h-tap sm:items-center sm:border-r sm:border-hairline sm:px-4 sm:py-5">
                 {post.date}
               </span>
               <span className="min-w-0 sm:py-5 sm:pl-6 sm:pr-4">

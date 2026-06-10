@@ -19,6 +19,8 @@ html.lenis body {
 
 @layer base {
   :root {
+    /* dark UA chrome (scrollbars, form controls, autofill) to match the canvas */
+    color-scheme: dark;
     /* one interaction voice — every hover/press shares this duration + curve */
     --dur: 200ms;
     --ease: cubic-bezier(0.33, 0, 0.2, 1);
@@ -36,8 +38,8 @@ html.lenis body {
   }
 
   /* A single, consistent, high-contrast focus ring on every interactive element.
-     Deliberately blue (#1d4ed8, 5.41:1) so keyboard focus is never confused with
-     the red accent / active-nav marker. */
+     Deliberately blue (#60a5fa, ≈7.3:1 on the dark canvas) so keyboard focus is
+     never confused with the red accent / active-nav marker. */
   :focus-visible {
     outline: 3px solid theme('colors.focus');
     outline-offset: 2px;
@@ -46,7 +48,15 @@ html.lenis body {
 
   ::selection {
     background: theme('colors.signal'); /* bright red + near-black ≈ 5:1 */
-    color: #121211;
+    color: theme('colors.cream');
+  }
+
+  /* Autofill: override the UA's blue tint with the brand panel. */
+  input:-webkit-autofill,
+  textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px theme('colors.panel') inset;
+    -webkit-text-fill-color: theme('colors.ink');
+    caret-color: theme('colors.ink');
   }
 
   /* Instant pressed-state feedback on every link/button — fires on tap too,
@@ -117,6 +127,32 @@ html.lenis body {
     .group:focus-within .u-draw {
       text-decoration: underline;
     }
+  }
+}
+
+/* Windows High Contrast: the desktop nav's active marker is a background
+   (stripped under forced colors) — give it a real underline there. */
+@media (forced-colors: active) {
+  a[aria-current='page'] span {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+/* Print: the dark canvas would print as near-blank — flip to plain ink-on-paper
+   and drop the decorative fixed/canvas layers. */
+@media print {
+  body {
+    background: #fff !important;
+  }
+  * {
+    color: #000 !important;
+    background: transparent !important;
+    border-color: #777 !important;
+  }
+  .fixed,
+  canvas {
+    display: none !important;
   }
 }
 

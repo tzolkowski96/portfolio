@@ -1,6 +1,7 @@
-import type { ReactNode } from 'react'
+import { useContext, type ReactNode } from 'react'
 import { useInView } from '../hooks/useInView'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
+import { UiReadyContext } from '../lib/uiReady'
 
 interface RevealProps {
   children: ReactNode
@@ -16,7 +17,11 @@ interface RevealProps {
  *  under reduced-motion everything renders complete from first paint. */
 export function Reveal({ children, className = '', delay = 0, mode = 'rise' }: RevealProps) {
   const reduced = usePrefersReducedMotion()
-  const [ref, inView] = useInView<HTMLDivElement>()
+  const [ref, rawInView] = useInView<HTMLDivElement>()
+  // Hold entrances while the opening loader covers the page, so the signature
+  // hero choreography plays where it can be SEEN — after the curtain lifts.
+  const uiReady = useContext(UiReadyContext)
+  const inView = rawInView && uiReady
 
   // Always attach the ref (so the observer exists even if reduced-motion is on at
   // mount and later turned off). When reduced, emit no animation classes at all.

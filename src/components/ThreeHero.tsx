@@ -7,9 +7,15 @@ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
  * The WebGL hero: a field of brand-colored points (cream, with sparse signal-red)
  * drifting on a noise flow, repelled by the pointer, and carried by scroll.
  * Decorative (aria-hidden, pointer-events:none). Renders one static frame under
- * reduced motion; pauses offscreen and when the tab hides; fully disposed on
- * unmount. If WebGL is unavailable it mounts nothing — the dark canvas stands.
+ * reduced motion; pauses offscreen and when the tab hides; throttled to 30fps on
+ * small devices; fully disposed (incl. forced context loss) on unmount. If WebGL
+ * is unavailable it mounts nothing — the dark canvas stands.
  */
+
+// Brand values, intentionally frozen copies of the tailwind tokens (a canvas
+// can't read the config); keep in sync with tailwind.config.js.
+const CREAM = '#f3f3ef'
+const RED = '#ff2d16'
 
 const VERT = /* glsl */ `
   uniform float uTime;
@@ -40,7 +46,8 @@ const VERT = /* glsl */ `
 
     vec4 mv = modelViewMatrix * vec4(pos, 1.0);
     gl_Position = projectionMatrix * mv;
-    gl_PointSize = uPix * aSize * (26.0 / -mv.z);
+    // 60.0 cap stays under the smallest real-world ALIASED_POINT_SIZE_RANGE
+    gl_PointSize = min(uPix * aSize * (26.0 / -mv.z), 60.0);
 
     // fade points near the nameplate anchor so type stays calm and readable
     float anchor = length(position.xy - vec2(-2.6, 0.6));
@@ -75,10 +82,13 @@ export function ThreeHero() {
       return // no WebGL — the dark canvas stands on its own
     }
 
-    const isNarrow = window.innerWidth < 768
-    const COUNT = isNarrow ? 3000 : 8000
-    const dpr = Math.min(window.devicePixelRatio || 1, isNarrow ? 1.5 : 1.75)
-    renderer.setPixelRatio(dpr)
+    // Tier by device class, not instantaneous width (a landscape phone is still a phone).
+    const isSmall = Math.min(window.innerWidth, window.innerHeight) < 768 || matchMedia('(pointer: coarse)').matches
+    const COUNT = isSmall ? 2200 : 8000
+    const FRAME_INTERVAL = isSmall ? 1 / 30 : 1 / 60 // throttle inside OUR tick — never the shared ticker
+
+    const currentDpr = () => Math.min(window.devicePixelRatio || 1, isSmall ? 1.5 : 1.75)
+    renderer.setPixelRatio(currentDpr())
     renderer.domElement.setAttribute('aria-hidden', 'true')
     renderer.domElement.className = 'pointer-events-none absolute inset-0 h-full w-full'
     host.appendChild(renderer.domElement)
@@ -88,8 +98,8 @@ export function ThreeHero() {
     camera.position.z = 8
 
     // brand-colored points: cream majority, sparse signal red
-    const cream = new THREE.Color('#f3f3ef')
-    const red = new THREE.Color('#ff2d16')
+    const cream = new THREE.Color(CREAM)
+    const red = new THREE.Color(RED)
     const positions = new Float32Array(COUNT * 3)
     const colors = new Float32Array(COUNT * 3)
     const seeds = new Float32Array(COUNT)
@@ -121,7 +131,7 @@ export function ThreeHero() {
         uTime: { value: 0 },
         uScroll: { value: 0 },
         uMouse: { value: new THREE.Vector2(99, 99) },
-        uPix: { value: dpr },
+        uPix: { value: currentDpr() },
       },
     })
     scene.add(new THREE.Points(geo, mat))
@@ -129,6 +139,11 @@ export function ThreeHero() {
     const mouse = { x: 99, y: 99, tx: 99, ty: 99 }
 
     function size() {
+      const d = currentDpr() // re-read: monitor moves / zoom change DPR
+      if (d !== renderer.getPixelRatio()) {
+        renderer.setPixelRatio(d)
+        mat.uniforms.uPix.value = d
+      }
       const r = host!.getBoundingClientRect()
       const w = Math.max(1, r.width)
       const h = Math.max(1, r.height)
@@ -148,7 +163,12 @@ export function ThreeHero() {
 
     let onScreen = true
     let ticking = false
-    const tick = (time: number) => render(time)
+    let last = 0
+    const tick = (time: number) => {
+      if (time - last < FRAME_INTERVAL) return
+      last = time
+      render(time)
+    }
     function start() {
       if (reduced || ticking || !onScreen || document.hidden) return
       gsap.ticker.add(tick)
@@ -161,9 +181,9 @@ export function ThreeHero() {
     }
 
     const onPointer = (e: PointerEvent) => {
+      if (e.pointerType === 'touch') return // touch would park a permanent dent
       const r = host!.getBoundingClientRect()
       if (r.bottom < 0 || r.top > window.innerHeight) return
-      // map viewport pointer into the field's world box (approximate, it's an effect)
       const nx = ((e.clientX - r.left) / Math.max(1, r.width)) * 2 - 1
       const ny = -(((e.clientY - r.top) / Math.max(1, r.height)) * 2 - 1)
       mouse.tx = nx * 7
@@ -174,6 +194,10 @@ export function ThreeHero() {
       mouse.ty = 99
     }
     const onVisibility = () => (document.hidden ? stop() : start())
+    const onRestore = () => {
+      size()
+      if (reduced) render(3.2) // static-frame users need an explicit repaint
+    }
 
     size()
     if (reduced) {
@@ -182,8 +206,10 @@ export function ThreeHero() {
       start()
       window.addEventListener('pointermove', onPointer, { passive: true })
       window.addEventListener('blur', onLeave)
+      document.documentElement.addEventListener('mouseleave', onLeave)
     }
     document.addEventListener('visibilitychange', onVisibility)
+    renderer.domElement.addEventListener('webglcontextrestored', onRestore)
 
     const ro = new ResizeObserver(() => {
       size()
@@ -195,7 +221,8 @@ export function ThreeHero() {
     if ('IntersectionObserver' in window) {
       io = new IntersectionObserver(
         (entries) => {
-          onScreen = entries[0]?.isIntersecting ?? true
+          const lastEntry = entries[entries.length - 1] // batches arrive oldest-first
+          onScreen = lastEntry?.isIntersecting ?? true
           if (onScreen) start()
           else stop()
         },
@@ -208,12 +235,15 @@ export function ThreeHero() {
       stop()
       window.removeEventListener('pointermove', onPointer)
       window.removeEventListener('blur', onLeave)
+      document.documentElement.removeEventListener('mouseleave', onLeave)
       document.removeEventListener('visibilitychange', onVisibility)
+      renderer.domElement.removeEventListener('webglcontextrestored', onRestore)
       ro.disconnect()
       io?.disconnect()
       geo.dispose()
       mat.dispose()
       renderer.dispose()
+      renderer.forceContextLoss() // don't wait for GC to free the GL context
       renderer.domElement.remove()
     }
   }, [reduced])

@@ -25,8 +25,12 @@ export function WritingFeed() {
             <p className="max-w-[26ch] indent-[-0.45em] text-balance font-serif text-[clamp(1.5rem,3vw,2.25rem)] font-medium italic leading-snug text-ink transition-colors duration-brand ease-brand group-hover:text-signal">
               “{featured.dek || featured.title}”
             </p>
+            {/* When there's no dek the quote IS the title — show meta instead of
+                repeating the same line twice. */}
             <p className="mt-3 inline-flex items-center gap-1 font-mono text-mono-label uppercase text-label transition-colors duration-brand ease-brand group-hover:text-signal">
-              {featured.title}
+              {featured.dek
+                ? featured.title
+                : `Latest${featured.tag ? ` · ${featured.tag}` : ''} · ${featured.date}`}
               <ExternalLinkIcon />
             </p>
           </a>

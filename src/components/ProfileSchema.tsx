@@ -1,19 +1,15 @@
-import { Fragment } from 'react'
 import { profileRows } from '../data/profile'
 
-/** Identity facts as a semantic <dl>. Hairlines come from the gap-px + bg trick. */
+/** Identity facts as a horizontal spec-sheet strip — a semantic <dl> in a
+ *  hairline grid. (Last cell spans the remainder so the lattice stays full.) */
 export function ProfileSchema() {
   return (
-    <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-px border border-hairline bg-hairline">
+    <dl className="grid grid-cols-2 gap-px border border-hairline bg-hairline md:grid-cols-4 xl:grid-cols-7">
       {profileRows.map((row) => (
-        <Fragment key={row.key}>
-          <dt className="flex min-h-tap items-center bg-panel px-3 py-2 font-mono text-mono-label uppercase text-label">
-            {row.key}
-          </dt>
-          <dd className="flex min-h-tap min-w-0 items-center bg-panel px-3 py-2 font-mono text-mono-data text-ink">
-            {row.value}
-          </dd>
-        </Fragment>
+        <div key={row.key} className="min-w-0 bg-panel p-4 last:col-span-2 xl:last:col-span-1">
+          <dt className="font-mono text-mono-label uppercase text-label">{row.key}</dt>
+          <dd className="mt-2 font-mono text-mono-data text-ink">{row.value}</dd>
+        </div>
       ))}
     </dl>
   )

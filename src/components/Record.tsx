@@ -45,15 +45,12 @@ export function Record() {
           </Suspense>
         </div>
       )}
-      <div className="relative z-10 mx-auto w-full max-w-container px-4 py-12 sm:px-6 md:py-16 lg:px-8 lg:py-20 xl:px-12">
-        <div
-          data-hero-pin
-          className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:gap-12"
-        >
-          <Hero />
-          <div className="flex flex-col justify-center">
-            <ProfileSchema />
-          </div>
+      <div className="relative z-10 mx-auto w-full max-w-container px-4 pb-12 pt-2 sm:px-6 md:pb-16 lg:px-8 lg:pb-20 xl:px-12">
+        <Hero />
+
+        <div className="mt-12 md:mt-16">
+          <p className="mb-3 font-mono text-mono-label uppercase text-label">Record</p>
+          <ProfileSchema />
         </div>
 
         <div className="mt-10 lg:mt-12">

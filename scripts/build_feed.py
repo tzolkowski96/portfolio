@@ -86,7 +86,8 @@ def rss_dek(item: ET.Element, title: str) -> str:
 def fmt_date(pub: str) -> str:
     try:
         dt = datetime.datetime.strptime(pub[:25].strip(), "%a, %d %b %Y %H:%M:%S")
-        return dt.strftime("%b %Y")
+        # full date, no zero-padding ("Jun 4, 2026") — portable across platforms
+        return f"{dt.strftime('%b')} {dt.day}, {dt.year}"
     except Exception:
         return pub[:11].strip()
 

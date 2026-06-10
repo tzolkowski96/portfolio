@@ -12,6 +12,8 @@ import { WorkLog } from './components/WorkLog'
 import { WritingFeed } from './components/WritingFeed'
 import { Connect } from './components/Connect'
 import { SiteFooter } from './components/SiteFooter'
+import { useState } from 'react'
+import { Loader, shouldShowLoader } from './components/Loader'
 import { navItems } from './data/profile'
 import { useScrollSpy } from './hooks/useScrollSpy'
 import { useScrollExperience } from './scroll/useScrollExperience'
@@ -21,10 +23,12 @@ const SECTION_IDS = navItems.map((n) => n.id)
 
 export default function App() {
   const activeId = useScrollSpy(SECTION_IDS)
+  const [loading, setLoading] = useState(shouldShowLoader)
   useScrollExperience()
 
   return (
     <>
+      {loading && <Loader onDone={() => setLoading(false)} />}
       <SkipLink />
       <ScrollProgress />
       <AppHeader sections={navItems} activeId={activeId} />

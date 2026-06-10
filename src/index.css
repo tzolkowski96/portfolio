@@ -45,8 +45,8 @@ html.lenis body {
   }
 
   ::selection {
-    background: theme('colors.signal'); /* #c41f00 + white = 5.93:1 */
-    color: #ffffff;
+    background: theme('colors.signal'); /* bright red + near-black ≈ 5:1 */
+    color: #121211;
   }
 
   /* Instant pressed-state feedback on every link/button — fires on tap too,

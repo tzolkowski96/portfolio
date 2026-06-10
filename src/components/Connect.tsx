@@ -7,7 +7,7 @@ export function Connect() {
   return (
     <div className="grid grid-cols-1 gap-px border border-hairline bg-hairline md:grid-cols-2">
       <div className="bg-panel p-6 lg:p-8">
-        <p className="max-w-reading text-body text-ink-2">{contact.intro}</p>
+        <p className="max-w-reading text-pretty text-body text-ink-2">{contact.intro}</p>
         <div className="mt-6">
           <ContactForm />
         </div>

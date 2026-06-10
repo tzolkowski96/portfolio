@@ -15,11 +15,13 @@ export function BarChart() {
   const grown = reduced || inView
   const label = `On-time clinic-visit rate rose from ${c.before.display} before to ${c.after.display} after a scheduling pipeline, a gain of ${c.delta}.`
 
+  // Two-beat build, the way an analyst draws it: axis first, then the bars.
   const barsStyle = {
     transform: grown ? 'none' : 'scaleY(0)',
     transformBox: 'view-box' as const,
     transformOrigin: '150px 130px',
     transition: reduced ? undefined : 'transform 900ms cubic-bezier(0.22,1,0.36,1)',
+    transitionDelay: reduced ? undefined : '200ms',
   }
   // Values stay readable at all times (only the bars animate in).
   const labelStyle = (on: boolean) => ({
@@ -35,7 +37,19 @@ export function BarChart() {
         <text x="150" y="13" textAnchor="middle" fontSize="11" fontWeight="700" fill="#c41f00" fontFamily={MONO}>
           {c.delta}
         </text>
-        <line x1="30" y1="130" x2="270" y2="130" stroke="#565650" strokeWidth="1.5" />
+        <line
+          x1="30"
+          y1="130"
+          x2="270"
+          y2="130"
+          stroke="#565650"
+          strokeWidth="1.5"
+          strokeDasharray={240}
+          style={{
+            strokeDashoffset: grown ? 0 : 240,
+            transition: reduced ? undefined : 'stroke-dashoffset 0.5s cubic-bezier(0.22,1,0.36,1)',
+          }}
+        />
 
         <g style={barsStyle}>
           <rect

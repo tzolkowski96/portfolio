@@ -35,7 +35,15 @@ export function KpiStrip() {
       className="grid grid-cols-1 gap-px border border-hairline bg-hairline sm:grid-cols-2 lg:grid-cols-4"
     >
       {kpis.map((kpi, i) => (
-        <div key={i} className="bg-panel p-6">
+        <div
+          key={i}
+          className={`bg-panel p-6 ${
+            reduced
+              ? ''
+              : `transition-all duration-700 ease-out ${inView ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'}`
+          }`}
+          style={reduced ? undefined : { transitionDelay: `${i * 70}ms` }}
+        >
           <p className="font-display text-metric font-extrabold tabular-nums text-ink">
             <CountUp raw={kpi.value} active={inView} animate={!reduced} />
             {kpi.unit && <span className="align-top text-[0.6em] text-signal">{kpi.unit}</span>}

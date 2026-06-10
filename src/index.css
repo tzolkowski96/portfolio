@@ -18,6 +18,12 @@ html.lenis body {
 }
 
 @layer base {
+  :root {
+    /* one interaction voice — every hover/press shares this duration + curve */
+    --dur: 200ms;
+    --ease: cubic-bezier(0.33, 0, 0.2, 1);
+  }
+
   html {
     scroll-behavior: smooth;
     /* matches the JS anchor offset (sticky header height) */
@@ -47,7 +53,70 @@ html.lenis body {
      where :hover does not. Disabled controls don't match :active. */
   a:active,
   button:active {
-    opacity: 0.7;
+    opacity: 0.85;
+  }
+}
+
+@layer components {
+  /* Buttons: colors + a 1px press dip, all on the brand voice. */
+  .btn-press {
+    transition:
+      background-color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease),
+      color var(--dur) var(--ease),
+      transform var(--dur) var(--ease);
+  }
+  .btn-press:active {
+    transform: translateY(1px);
+    transition-duration: 40ms;
+  }
+
+  /* Entrance signatures, keyed off the Reveal observer via [data-revealed].
+     Final state is the default, so reduced-motion / no-JS render complete. */
+  .mask-line {
+    display: block;
+    transform: translateY(0);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-revealed='false'] .mask-line {
+    transform: translateY(110%);
+  }
+  .rule-draw {
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-revealed='false'] .rule-draw {
+    transform: scaleX(0);
+  }
+
+  /* Drawn underline: grows left-to-right on hover/focus instead of snapping. */
+  .u-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 calc(100% - 0.08em);
+    background-size: 0% 1px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition: background-size var(--dur) var(--ease);
+  }
+  @media (hover: hover) {
+    a:hover .u-draw,
+    .group:hover .u-draw {
+      background-size: 100% 1px;
+    }
+  }
+  a:focus-visible .u-draw,
+  .group:focus-within .u-draw {
+    background-size: 100% 1px;
+  }
+  @media (forced-colors: active) {
+    a:hover .u-draw,
+    a:focus-visible .u-draw,
+    .group:hover .u-draw,
+    .group:focus-within .u-draw {
+      text-decoration: underline;
+    }
   }
 }
 

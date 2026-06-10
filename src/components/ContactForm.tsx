@@ -126,7 +126,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={!canSubmit || status === 'sending'}
-        className="inline-flex min-h-tap items-center justify-center border border-ink bg-ink px-6 font-mono text-nav uppercase text-cream2 transition-colors hover:bg-signal hover:border-signal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-ink disabled:hover:bg-ink"
+        className="btn-press inline-flex min-h-tap items-center justify-center border border-ink bg-ink px-6 font-mono text-nav uppercase text-cream2 hover:bg-signal hover:border-signal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-ink disabled:hover:bg-ink"
       >
         {status === 'sending' ? 'Sending…' : 'Send message'}
       </button>

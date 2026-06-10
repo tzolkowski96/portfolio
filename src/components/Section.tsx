@@ -11,22 +11,36 @@ interface SectionProps {
 
 /**
  * One numbered §-section: shared container width, gutters, vertical rhythm, and
- * the masthead (§id + Archivo name + right-aligned meta). Centralizing it keeps
- * spacing consistent across the page (DRY).
+ * the masthead (§id + Archivo name + right-aligned mono meta). On entrance the
+ * masthead text rises out of overflow masks and the rule draws itself — all keyed
+ * off the single Reveal observer; the body simply fades. Centralizing it keeps
+ * spacing and choreography consistent across the page (DRY).
  */
 export function Section({ id, num, name, meta, children }: SectionProps) {
   const headingId = `${id}-heading`
   return (
     <section id={id} aria-labelledby={headingId} className="border-t border-hairline">
-      <Reveal className="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-8 xl:px-12">
-        <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2 border-b border-rule-strong py-6">
-          <span className="font-mono text-nav font-semibold text-signal">§{num}</span>
-          <h2 className="font-display text-display-l font-extrabold uppercase tracking-tight text-ink" id={headingId}>
-            {name}
+      <Reveal mode="fade" className="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2 pb-6 pt-10 md:pt-14 lg:pt-16">
+          <span className="overflow-hidden font-mono text-nav font-semibold text-signal">
+            <span className="mask-line">§{num}</span>
+          </span>
+          <h2
+            id={headingId}
+            className="-mb-[0.05em] overflow-hidden pb-[0.05em] font-display text-display-l font-extrabold uppercase tracking-tight text-ink"
+          >
+            <span className="mask-line" style={{ transitionDelay: '60ms' }}>
+              {name}
+            </span>
           </h2>
-          <span className="ml-auto font-mono text-mono-label uppercase text-index">{meta}</span>
+          <span className="ml-auto overflow-hidden font-mono text-mono-label uppercase text-index">
+            <span className="mask-line" style={{ transitionDelay: '140ms' }}>
+              {meta}
+            </span>
+          </span>
         </div>
-        <div className="pb-12 pt-8 md:pb-16 md:pt-12 lg:pb-20 lg:pt-16">{children}</div>
+        <span aria-hidden="true" className="rule-draw block h-px w-full bg-rule-strong" />
+        <div className="pb-14 pt-8 md:pb-20 md:pt-10 lg:pb-28 lg:pt-12">{children}</div>
       </Reveal>
     </section>
   )

@@ -1,6 +1,5 @@
 import { identity } from '../data/profile'
 import { Button } from './primitives/Button'
-import { Dot } from './primitives/Dot'
 import { Reveal } from './Reveal'
 
 /** The hero as a full-viewport typographic statement: kicker + availability on
@@ -15,14 +14,9 @@ export function Hero() {
       data-hero-pin
       className="relative flex min-h-[76svh] flex-col justify-between pt-6 md:min-h-[82svh] md:pt-8 [container-type:inline-size]"
     >
+      {/* Availability lives in the StatusStrip directly above — not repeated here. */}
       <Reveal delay={0}>
-        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
-          <p className="font-mono text-mono-label uppercase tracking-kicker text-label">{identity.eyebrow}</p>
-          <p className="inline-flex items-center gap-2 font-mono text-mono-label uppercase text-ink">
-            <Dot />
-            {identity.status}
-          </p>
-        </div>
+        <p className="font-mono text-mono-label uppercase tracking-kicker text-label">{identity.eyebrow}</p>
       </Reveal>
 
       <div>

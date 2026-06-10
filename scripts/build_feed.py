@@ -57,6 +57,32 @@ def og_description(url: str) -> str:
     return ""
 
 
+CONTENT_NS = {"content": "http://purl.org/rss/1.0/modules/content/"}
+
+
+def rss_dek(item: ET.Element, title: str) -> str:
+    """Fallback dek from the RSS item itself (no extra HTTP — can't be blocked).
+    Medium puts the subtitle in <description> as <p class="medium-feed-snippet">;
+    failing that, sweep subtitle-ish tags in description/content:encoded."""
+    desc = item.findtext("description") or ""
+    encoded = item.findtext("content:encoded", default="", namespaces=CONTENT_NS) or ""
+
+    m = re.search(r'<p[^>]*class=["\'][^"\']*medium-feed-snippet[^"\']*["\'][^>]*>(.*?)</p>', desc, re.S | re.I)
+    candidates = [m.group(1)] if m else []
+    for tag in ("h4", "h3", "strong", "em", "p"):
+        candidates += re.findall(rf"<{tag}[^>]*>(.*?)</{tag}>", encoded or desc, re.S | re.I)
+
+    for raw in candidates:
+        text = html.unescape(re.sub(r"<[^>]+>", "", raw)).strip()
+        # skip empties, image captions, and anything that just repeats the title
+        if len(text) < 20 or text.lower() == title.lower():
+            continue
+        if len(text) > 180:
+            text = text[:177].rsplit(" ", 1)[0] + "…"
+        return text.rstrip(" .…")
+    return ""
+
+
 def fmt_date(pub: str) -> str:
     try:
         dt = datetime.datetime.strptime(pub[:25].strip(), "%a, %d %b %Y %H:%M:%S")
@@ -90,7 +116,7 @@ def main() -> None:
         posts.append({
             "date": fmt_date(item.findtext("pubDate") or ""),
             "title": title,
-            "dek": og_description(link),
+            "dek": og_description(link) or rss_dek(item, title),
             "tag": tag,
             "url": link,
         })

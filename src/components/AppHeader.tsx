@@ -58,11 +58,19 @@ export function AppHeader({ sections, activeId }: AppHeaderProps) {
                   <a
                     href={`#${s.id}`}
                     aria-current={active ? 'page' : undefined}
-                    className={`inline-flex min-h-tap items-center px-3 font-mono text-nav uppercase transition-colors duration-150 ${
+                    className={`group inline-flex min-h-tap items-center px-3 font-mono text-nav uppercase transition-colors duration-brand ease-brand ${
                       active ? 'text-ink' : 'text-label hover:text-ink'
                     }`}
                   >
-                    <span className={active ? 'border-b-2 border-signal pb-1' : 'pb-1'}>{s.label}</span>
+                    <span
+                      className={`relative pb-1 after:absolute after:inset-x-0 after:bottom-0 after:h-[2px] after:origin-left after:transition-transform after:duration-brand after:ease-brand ${
+                        active
+                          ? 'after:scale-x-100 after:bg-signal'
+                          : 'after:scale-x-0 after:bg-hairline group-hover:after:scale-x-100'
+                      }`}
+                    >
+                      {s.label}
+                    </span>
                   </a>
                 </li>
               )

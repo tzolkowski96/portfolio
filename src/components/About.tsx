@@ -1,4 +1,5 @@
 import { aboutProse, skillBlocks } from '../data/about'
+import { serifAccent } from '../lib/text'
 
 /** Reading-measure prose (66ch) + the skill reference blocks as <dl>s. */
 export function About() {
@@ -6,8 +7,8 @@ export function About() {
     <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-12">
       <div className="max-w-reading space-y-6">
         {aboutProse.map((para, i) => (
-          <p key={i} className="text-body text-ink-2">
-            {para}
+          <p key={i} className="text-pretty text-body text-ink-2">
+            {i === 1 ? serifAccent(para, 'data is translation') : para}
           </p>
         ))}
       </div>

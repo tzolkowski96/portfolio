@@ -44,8 +44,14 @@ export default {
         title: ['1.1875rem', { lineHeight: '1.15' }], // 19
         'display-m': ['clamp(1.375rem, 3.5vw, 1.875rem)', { lineHeight: '1.22', letterSpacing: '-0.01em' }],
         metric: ['clamp(1.75rem, 3.4vw, 2.625rem)', { lineHeight: '1', letterSpacing: '-0.02em' }],
-        'display-l': ['clamp(1.5rem, 6vw, 3.5rem)', { lineHeight: '1', letterSpacing: '-0.01em' }],
-        'display-xl': ['clamp(2.5rem, 12vw, 7.5rem)', { lineHeight: '0.86', letterSpacing: '-0.025em' }],
+        'display-l': ['clamp(1.75rem, 5.5vw, 4rem)', { lineHeight: '0.95', letterSpacing: '-0.015em' }],
+        'display-xl': ['clamp(2.25rem, 8vw, 5.25rem)', { lineHeight: '1.04', letterSpacing: '-0.015em' }],
+      },
+      transitionDuration: {
+        brand: '200ms',
+      },
+      transitionTimingFunction: {
+        brand: 'cubic-bezier(0.33, 0, 0.2, 1)',
       },
       letterSpacing: {
         kicker: '0.14em',

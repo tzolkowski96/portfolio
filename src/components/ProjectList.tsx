@@ -10,7 +10,7 @@ export function ProjectList() {
       {projects.map((p) => (
         <li
           key={p.id}
-          className="group flex flex-col border border-hairline bg-panel p-6 transition-colors duration-150 hover:border-rule-strong focus-within:border-rule-strong"
+          className="group flex flex-col border border-hairline bg-panel p-6 transition-colors duration-brand ease-brand hover:border-rule-strong focus-within:border-rule-strong"
         >
           <div className="flex items-baseline gap-3">
             <span className="font-mono text-mono-label text-index">{p.id}</span>
@@ -19,9 +19,11 @@ export function ProjectList() {
                 href={p.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-tap items-center py-1 hover:text-signal hover:underline focus-visible:text-signal focus-visible:underline"
+                className="inline-flex min-h-tap items-center py-1 transition-colors duration-brand ease-brand hover:text-signal focus-visible:text-signal"
               >
-                {p.title}
+                <span className="min-w-0">
+                  <span className="u-draw">{p.title}</span>
+                </span>
               </a>
             </h3>
           </div>
@@ -43,9 +45,9 @@ export function ProjectList() {
                 href={l.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-tap items-center gap-1 font-mono text-nav uppercase text-signal hover:underline"
+                className="inline-flex min-h-tap items-center gap-1 font-mono text-nav uppercase text-signal"
               >
-                {l.label}
+                <span className="u-draw">{l.label}</span>
                 <ExternalLinkIcon />
               </a>
             ))}

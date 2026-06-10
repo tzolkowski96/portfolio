@@ -13,7 +13,7 @@ interface ButtonProps {
 }
 
 const BASE =
-  'inline-flex min-h-tap items-center justify-center gap-2 px-4 font-mono text-nav uppercase transition-colors duration-150'
+  'inline-flex min-h-tap items-center justify-center gap-2 px-4 font-mono text-nav uppercase btn-press'
 
 const VARIANTS = {
   primary: 'border border-ink bg-ink text-cream2 hover:bg-signal hover:border-signal',

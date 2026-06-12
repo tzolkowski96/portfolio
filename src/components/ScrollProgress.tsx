@@ -10,7 +10,7 @@ export function ScrollProgress() {
   })
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-x-0 top-0 z-50 h-0.5">
-      <div ref={barRef} className="h-full origin-left bg-signal" style={{ transform: 'scaleX(0)' }} />
+      <div ref={barRef} className="h-full origin-left bg-ink" style={{ transform: 'scaleX(0)' }} />
     </div>
   )
 }

@@ -8,7 +8,7 @@ export function WorkLog() {
       {workEntries.map((entry, i) => (
         <li key={i} className="grid grid-cols-1 gap-px bg-hairline md:grid-cols-[210px_minmax(0,1fr)]">
           <div className="bg-panel p-6">
-            <p className="font-mono text-mono-label uppercase text-signal">{entry.period}</p>
+            <p className="font-mono text-mono-label uppercase text-ink">{entry.period}</p>
             <p className="mt-2 font-display text-title font-extrabold text-ink">{entry.org}</p>
             <p className="mt-2 font-mono text-mono-label uppercase text-label">{entry.location}</p>
           </div>
@@ -17,7 +17,7 @@ export function WorkLog() {
             <ul className="mt-4 space-y-3">
               {entry.bullets.map((bullet, j) => (
                 <li key={j} className="relative pl-5 text-body-sm text-ink-2">
-                  <span aria-hidden="true" className="absolute left-0 top-[0.6em] h-0.5 w-2.5 bg-signal-graphic" />
+                  <span aria-hidden="true" className="absolute left-0 top-[0.6em] h-0.5 w-2.5 bg-ink" />
                   {emphasizeFigures(bullet)}
                 </li>
               ))}

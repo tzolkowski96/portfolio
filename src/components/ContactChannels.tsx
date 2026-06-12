@@ -5,7 +5,7 @@ import { ExternalLinkIcon } from './primitives/ExternalLinkIcon'
 export function ContactChannels() {
   return (
     <div className="flex h-full flex-col">
-      <h3 className="font-mono text-mono-label uppercase text-signal">How to reach me</h3>
+      <h3 className="font-mono text-mono-label uppercase text-label">How to reach me</h3>
 
       <div className="mt-4 space-y-4 text-body-sm text-ink-2">
         {contact.howToReach.map((para, i) => (
@@ -22,7 +22,7 @@ export function ContactChannels() {
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-tap items-center justify-between gap-2 bg-panel px-4 font-mono text-nav uppercase text-ink transition-colors duration-brand ease-brand hover:bg-pulse-deep hover:text-ink"
+              className="flex min-h-tap items-center justify-between gap-2 bg-panel px-4 font-mono text-nav uppercase text-ink transition-colors duration-brand ease-brand hover:bg-ink hover:text-cream2"
             >
               {s.label}
               <ExternalLinkIcon />

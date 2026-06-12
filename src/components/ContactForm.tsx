@@ -66,7 +66,7 @@ export function ContactForm() {
         role="status"
         aria-live="polite"
         className={`font-mono text-mono-data ${
-          status === 'ok' ? 'text-success' : status === 'error' ? 'text-error' : 'sr-only'
+          status === 'ok' ? 'text-ink' : status === 'error' ? 'text-error' : 'sr-only'
         }`}
       >
         {status === 'ok' && '✓ '}
@@ -83,7 +83,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="cf-email" className={FIELD_LABEL}>
-          Email <span className="text-signal">(required)</span>
+          Email <span className="text-label">(required)</span>
         </label>
         <input
           id="cf-email"
@@ -99,7 +99,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="cf-msg" className={FIELD_LABEL}>
-          Message <span className="text-signal">(required)</span>
+          Message <span className="text-label">(required)</span>
         </label>
         <textarea
           id="cf-msg"
@@ -126,7 +126,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={!canSubmit || status === 'sending'}
-        className="btn-press inline-flex min-h-tap items-center justify-center border border-ink bg-ink px-6 font-mono text-nav uppercase text-cream2 hover:bg-signal hover:border-signal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-ink disabled:hover:bg-ink"
+        className="btn-press inline-flex min-h-tap items-center justify-center border border-ink bg-ink px-6 font-mono text-nav uppercase text-cream2 hover:bg-transparent hover:text-ink disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-ink disabled:hover:bg-ink disabled:hover:text-cream2"
       >
         {status === 'sending' ? 'Sending…' : 'Send message'}
       </button>

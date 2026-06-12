@@ -44,21 +44,24 @@ html.lenis body {
     @apply bg-cream text-ink font-display text-body antialiased;
   }
 
-  /* A single, consistent, high-contrast focus ring on every interactive element.
-     Deliberately blue (#5BA8FF, ≈7.6:1 on the dark canvas) so keyboard focus is
-     never confused with the red accent / active-nav marker. */
+  /* White ring on dark grounds: hue no longer separates focus from hover —
+     geometry does (hovers invert INSIDE the element; focus strokes OUTSIDE it,
+     the 2px gap shows the canvas). Footer flips to ink. */
   :focus-visible {
     outline: 3px solid theme('colors.focus');
     outline-offset: 2px;
     border-radius: 1px;
   }
+  footer :focus-visible {
+    outline-color: theme('colors.cream2');
+  }
 
   ::selection {
-    /* collision pink: selection IS user × content — cream2 on #FF91EF = 9.10:1 */
-    background: theme('colors.collide');
+    /* reader × text, the live wire — cream2 on #ff2d16 ≈ 4.9:1 AA */
+    background: theme('colors.accent');
     color: theme('colors.cream2');
   }
-  /* on light grounds collisions multiply toward ink (collide is banned there) */
+  /* on the light footer the selection flips to ink-on-light */
   footer ::selection {
     background: theme('colors.cream2');
     color: theme('colors.ink');
@@ -126,36 +129,40 @@ html.lenis body {
     transform: translateX(7px);
   }
 
-  /* Featured-quote duotone knockout on the light invert; cream2 fallback where
-     background-clip:text is unsupported. All stops AA on #f3f3ef. The gradient
-     RESTS under the opaque ink fill (background-image isn't in transition-colors,
-     so toggling it on hover would snap/flash); hover is gated like .u-draw so a
-     tap can't stick the on-light voice on the dark panel. */
+  /* Featured-quote knockout on the light hover invert — the hero nameplate's
+     gesture at card scale (1.5px cream2 stroke). Hover gated so a tap can't
+     park the on-light voice on the dark panel; solid cream2 where unsupported. */
   @media (hover: hover) {
-    .group:hover .quote-duotone {
+    .group:hover .quote-knockout {
       color: theme('colors.cream2');
     }
   }
-  .group:focus-within .quote-duotone {
+  .group:focus-within .quote-knockout {
     color: theme('colors.cream2');
   }
-  @supports (-webkit-background-clip: text) {
-    .quote-duotone {
-      background-image: linear-gradient(95deg, #c81f0b 0%, #0e5fbe 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-    }
+  @supports (-webkit-text-stroke: 1px #fff) {
     @media (hover: hover) {
-      .group:hover .quote-duotone {
+      .group:hover .quote-knockout {
         color: transparent;
+        -webkit-text-stroke: 1.5px theme('colors.cream2');
       }
     }
-    .group:focus-within .quote-duotone {
+    .group:focus-within .quote-knockout {
       color: transparent;
+      -webkit-text-stroke: 1.5px theme('colors.cream2');
     }
   }
 
-  /* The analyst circles the figure that matters — red-pen ellipse drawn on the
+  /* Alternating title-card treatment (02/04/06): the hero knockout's end-state
+     recipe — 12% fill + 1.5px ink stroke — readable at display scale. */
+  @supports (-webkit-text-stroke: 1px #fff) {
+    .title-outline {
+      color: rgb(243 243 239 / 0.12);
+      -webkit-text-stroke: 1.5px theme('colors.ink');
+    }
+  }
+
+  /* The analyst circles the figure that matters — ink-pen ellipse drawn on the
      footer's Reveal; final state default (reduced-motion/no-JS = complete). */
   .annotate-draw {
     stroke-dashoffset: 0;
@@ -202,10 +209,13 @@ html.lenis body {
     text-decoration: underline;
     text-underline-offset: 4px;
   }
-  /* the knockout stroke isn't a forced property — without this, a ghost cream
-     outline paints around the forced glyphs of the page's only h1 mid-scrub */
-  [data-nameplate] {
+  /* text-stroke isn't a forced property — without these, ghost outlines paint
+     around forced glyphs (the h1 mid-scrub, outlined title cards, the quote) */
+  [data-nameplate],
+  .title-outline,
+  .quote-knockout {
     -webkit-text-stroke-width: 0 !important;
+    color: CanvasText !important;
   }
 }
 
@@ -223,6 +233,13 @@ html.lenis body {
   .fixed,
   canvas {
     display: none !important;
+  }
+  /* print forces color but not text-stroke — outlined glyphs would print as
+     black type eroded by a white halo */
+  [data-nameplate],
+  .title-outline,
+  .quote-knockout {
+    -webkit-text-stroke-width: 0 !important;
   }
 }
 

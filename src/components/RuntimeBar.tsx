@@ -23,19 +23,19 @@ export function RuntimeBar() {
             <span className="text-ink">{r.before.display}</span>
           </div>
           <div className="h-3 w-full border border-hairline">
-            <div className="h-full bg-ink" style={{ width: grown ? '100%' : '0%', transition: trans }} />
+            <div className="h-full bg-label" style={{ width: grown ? '100%' : '0%', transition: trans }} />
           </div>
         </div>
 
         <div>
           <div className="mb-1 flex items-center justify-between font-mono text-mono-label uppercase">
             <span className="text-label">After</span>
-            <span className="text-ink">
-              {r.after.display} <span className="text-signal">{r.delta}</span>
+            <span className="text-ink-2">
+              {r.after.display} <span className="font-bold text-ink">{r.delta}</span>
             </span>
           </div>
           <div className="h-3 w-full border border-hairline">
-            <div className="h-full bg-signal-graphic" style={{ width: grown ? `${afterPct}%` : '0%', transition: trans }} />
+            <div className="h-full bg-ink" style={{ width: grown ? `${afterPct}%` : '0%', transition: trans }} />
           </div>
         </div>
       </div>

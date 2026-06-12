@@ -12,7 +12,7 @@ type WindowWithHero = Window & { __heroProgress?: number }
  * The whole scroll experience, set up once after mount:
  *  - Lenis inertia smooth-scroll synced to GSAP's ticker + ScrollTrigger
  *  - header-aware smooth anchor navigation
- *  - gsap.matchMedia choreography: parallax everywhere, and (desktop, tall enough,
+ *  - gsap.matchMedia choreography: (desktop, tall enough,
  *    motion-OK) a pinned/scrubbed hero + horizontal-scroll Projects with keyboard
  *    focus-into-view
  * Reduced-motion is honored live (Lenis is started/stopped when the preference
@@ -34,6 +34,9 @@ export function useScrollExperience(): void {
       ticker = (time: number) => lenis!.raf(time * 1000)
       gsap.ticker.add(ticker)
       gsap.ticker.lagSmoothing(0)
+      // a modal scroll-lock may be active (menu/loader) — a freshly created
+      // Lenis must respect it, not start running underneath the lock
+      if (document.documentElement.style.overflow === 'hidden') lenis.stop()
     }
     const stopLenis = () => {
       if (ticker) {
@@ -59,8 +62,13 @@ export function useScrollExperience(): void {
     }
     reduceMq.addEventListener('change', onReduceChange)
 
-    // Header-aware in-page anchor navigation (same offset on both paths).
+    // In-page anchor navigation. Header offset: on the Lenis path it comes from
+    // CSS scroll-padding-top (56px), which Lenis subtracts itself for element
+    // targets — adding -HEADER on top would double it. The native fallback
+    // doesn't read scroll-padding here, so it keeps the explicit math.
     const onClick = (e: MouseEvent) => {
+      // let modified clicks (new tab etc.) and prior handlers do their thing
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
       const a = (e.target as HTMLElement | null)?.closest?.('a[href^="#"]') as HTMLAnchorElement | null
       if (!a) return
       const hash = a.getAttribute('href') || ''
@@ -68,30 +76,20 @@ export function useScrollExperience(): void {
       const target = document.querySelector(hash) as HTMLElement | null
       if (!target) return
       e.preventDefault()
-      if (lenis) lenis.scrollTo(target, { offset: -HEADER })
-      else window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - HEADER })
+      if (lenis) {
+        // if a modal just closed in this same flush, make sure we're running
+        // BEFORE scrollTo, so the cleanup's start() can't reset an in-flight scroll
+        if (lenis.isStopped) lenis.start()
+        // force: runs the scroll even if a stop() races us
+        lenis.scrollTo(target, { force: true })
+      } else {
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - HEADER })
+      }
     }
     document.addEventListener('click', onClick)
 
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia()
-
-      // Parallax — any motion-OK viewport.
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((el) => {
-          const amt = parseFloat(el.dataset.parallax || '0')
-          gsap.to(el, {
-            yPercent: amt,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: (el.closest('section, [data-hero-pin]') as HTMLElement) || el,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
-            },
-          })
-        })
-      })
 
       // Desktop + tall enough + motion-OK: pinned hero + horizontal Projects.
       // The min-height floor keeps short/landscape screens on the readable grid so a
@@ -131,10 +129,12 @@ export function useScrollExperience(): void {
             )
         }
 
-        const section = document.querySelector<HTMLElement>('#projects')
+        // Pin the section BODY, not the whole section: the title card scrolls
+        // away first, then the track pins with the full viewport to itself.
         const track = document.querySelector<HTMLElement>('[data-projects-track]')
         const wrap = track?.parentElement
-        if (!section || !track || !wrap) return clearHero
+        const stage = track?.closest<HTMLElement>('[data-section-body]')
+        if (!stage || !track || !wrap) return clearHero
 
         gsap.set(wrap, { overflow: 'hidden' })
         gsap.set(track, { display: 'flex', flexWrap: 'nowrap', gap: '24px' })
@@ -144,7 +144,7 @@ export function useScrollExperience(): void {
           x: () => -dist(),
           ease: 'none',
           scrollTrigger: {
-            trigger: section,
+            trigger: stage,
             start: `top top+=${HEADER}`,
             end: () => `+=${dist()}`,
             pin: true,
@@ -188,13 +188,19 @@ export function useScrollExperience(): void {
         return // malformed fragment — nothing to resolve
       }
       if (!target) return
-      if (lenis) lenis.scrollTo(target, { offset: -HEADER, immediate: true })
+      // Lenis subtracts scroll-padding-top itself; the fallback needs it explicit
+      if (lenis) lenis.scrollTo(target, { immediate: true })
       else window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - HEADER })
     }
     const onLoaderDone = () => resolveHash()
     window.addEventListener(LOADER_DONE_EVENT, onLoaderDone)
 
-    if (document.fonts?.ready) document.fonts.ready.then(() => alive && ScrollTrigger.refresh())
+    if (document.fonts?.ready)
+      document.fonts.ready.then(() => {
+        if (!alive) return
+        ScrollTrigger.refresh()
+        resolveHash() // font reflow shifts section tops — re-land the fragment
+      })
     requestAnimationFrame(() => {
       if (!alive) return
       ScrollTrigger.refresh()

@@ -4,21 +4,21 @@ import { gsap } from '../lib/gsap'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
 /**
- * The WebGL hero, duotone edition: a contour surface of brand-cream lines that
- * sink into reference-blue with depth, swept by a red scanline (data) and a
- * perpendicular blue scanline (interaction) whose precessing crossing flares
- * additively toward collision pink. Above it, red/blue plurality rings ride the
- * surface and gather into a seven-circle cluster as the hero scrub progresses;
- * the camera dollies into the field on the same scrub channel (__heroProgress).
+ * The WebGL hero, grayscale edition: a contour surface whose near rows glow
+ * white and far rows sink into dark warm gray, swept by a primary scanline and
+ * a slower perpendicular sweep (incommensurate rates — the bright crossing
+ * precesses across the field). White/gray plurality rings ride the surface and
+ * gather into a seven-circle cluster as the hero scrub progresses; the camera
+ * dollies into the field on the same scrub channel (__heroProgress).
  * Decorative (aria-hidden, pointer-events:none). One static frame under reduced
  * motion; pauses offscreen/hidden; 30fps on small devices; full dispose +
  * forced context loss on unmount. No WebGL → the dark canvas stands.
  */
 
 // Frozen copies of the brand tokens (shaders can't read the tailwind config).
-const CREAM = new THREE.Color('#f3f3ef')
-const RED = new THREE.Color('#ff2d16')
-const BLUE = new THREE.Color('#177AEE')
+const HI = new THREE.Color('#f3f3ef') // = ink: near rows + scan glow
+const MID = new THREE.Color('#a3a39c') // = label: ring alternate
+const LO = new THREE.Color('#55554f') // far-row sink — atmosphere on #121211
 
 // At t=8.8 the red scanline sits ≈ z -4.25 and the blue ≈ x +3.3 — both visibly
 // mid-field, so the reduced-motion frozen frame tells the whole duotone story.
@@ -68,12 +68,12 @@ const LINE_VERT = /* glsl */ `
     float edge = 1.0 - smoothstep(6.5, 8.8, abs(position.x));
     vAlpha = mix(0.05, 0.34, depth) * edge;
 
-    // red scanline (data) sweeping the rows
+    // primary scanline sweeping the rows
     float scanZ = mix(-6.5, 0.8, fract(t * 0.035));
     vScan = smoothstep(0.30, 0.0, abs(position.z - scanZ));
 
-    // perpendicular blue sweep (interaction) — 0.021 vs 0.035 is incommensurate,
-    // so the red×blue crossing precesses across the field instead of repeating
+    // secondary perpendicular sweep — 0.021 vs 0.035 is incommensurate, so the
+    // bright crossing precesses across the field instead of repeating in place
     float scanX = mix(-9.0, 9.0, fract(t * 0.021 + 0.5));
     vScanB = smoothstep(0.45, 0.0, abs(position.x - scanX));
   }
@@ -81,28 +81,27 @@ const LINE_VERT = /* glsl */ `
 
 const LINE_FRAG = /* glsl */ `
   precision mediump float;
-  uniform vec3 uCream;
-  uniform vec3 uRed;
-  uniform vec3 uBlue;
+  uniform vec3 uHi;
+  uniform vec3 uLo;
   varying float vAlpha;
   varying float vScan;
   varying float vScanB;
   varying float vDepth;
   varying float vSwell;
   void main() {
-    // far rows sink into blue — atmospheric depth, not just alpha
-    vec3 base = mix(uBlue, uCream, smoothstep(0.0, 0.75, vDepth));
-    base = mix(base, uBlue, vSwell * 0.6); // the pointer swell glows the interaction hue
-    vec3 color = mix(base, uRed, vScan);
-    color = mix(color, uBlue, vScanB * (1.0 - vScan * 0.6));
+    // far rows sink into dark gray — atmospheric depth, not just alpha
+    vec3 base = mix(uLo, uHi, smoothstep(0.0, 0.75, vDepth));
+    base = mix(base, uHi, vSwell * 0.45); // the pointer swell brightens the surface
+    vec3 color = mix(base, uHi, vScan);
+    color = mix(color, uHi, vScanB * 0.65 * (1.0 - vScan * 0.6));
     float crossing = vScan * vScanB;
-    // flare pre-clamped AT collide pink: additive accumulation is per-PIXEL, so
-    // without the clamp overlapping far rows would sum past pink to white
-    color = min(color + mix(uRed, uBlue, 0.5) * crossing * 1.4, vec3(1.0, 0.62, 0.94));
+    // CLAMP LAW (monochrome): sit BELOW 1.0 so per-pixel additive stacking of
+    // interleaved far rows can never flat-white into the knockout counters
+    color = min(color + uHi * crossing * 0.8, vec3(0.96));
     // depth-attenuate the boost — the per-fragment alpha cap can't bound the
     // stacked far rows that interleave per pixel near the horizon
-    float boost = (vScan * 1.6 + vScanB * 1.3 + crossing * 2.2) * mix(0.30, 1.0, vDepth);
-    float a = min(vAlpha * (1.0 + boost), 0.85); // caps one stroke, not the accumulated backdrop
+    float boost = (vScan * 1.5 + vScanB * 1.0 + crossing * 1.6) * mix(0.30, 1.0, vDepth);
+    float a = min(vAlpha * (1.0 + boost), 0.80); // caps one stroke, not the accumulated backdrop
     gl_FragColor = vec4(color, a);
   }
 `
@@ -133,15 +132,16 @@ const POINT_VERT = /* glsl */ `
 
 const POINT_FRAG = /* glsl */ `
   precision mediump float;
-  uniform vec3 uRed;
-  uniform vec3 uBlue;
+  uniform vec3 uHi;
+  uniform vec3 uMid;
   varying float vHue;
   varying float vFade;
   void main() {
     float d = length(gl_PointCoord - 0.5);
     float ring = smoothstep(0.5, 0.43, d) * smoothstep(0.30, 0.37, d);
     if (ring < 0.01) discard;
-    gl_FragColor = vec4(mix(uRed, uBlue, vHue), ring * 0.8 * vFade);
+    // 0.7: gathered white-on-white rings sum hotter than the old screened hues
+    gl_FragColor = vec4(mix(uHi, uMid, vHue), ring * 0.7 * vFade);
   }
 `
 
@@ -209,9 +209,8 @@ export function ThreeHero() {
         uTime: { value: 0 },
         uScroll: { value: 0 },
         uMouse: { value: new THREE.Vector2(99, 99) },
-        uCream: { value: CREAM },
-        uRed: { value: RED },
-        uBlue: { value: BLUE },
+        uHi: { value: HI },
+        uLo: { value: LO },
       },
     })
     scene.add(new THREE.LineSegments(geo, mat))
@@ -245,8 +244,8 @@ export function ThreeHero() {
         uTime: mat.uniforms.uTime,
         uScroll: mat.uniforms.uScroll,
         uMouse: mat.uniforms.uMouse,
-        uRed: { value: RED },
-        uBlue: { value: BLUE },
+        uHi: { value: HI },
+        uMid: { value: MID },
         uGather: { value: 0 },
         uDpr: { value: currentDpr() },
       },

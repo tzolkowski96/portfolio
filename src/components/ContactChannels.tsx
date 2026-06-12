@@ -22,7 +22,7 @@ export function ContactChannels() {
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-tap items-center justify-between gap-2 bg-panel px-4 font-mono text-nav uppercase text-ink transition-colors duration-brand ease-brand hover:bg-ink hover:text-cream2"
+              className="flex min-h-tap items-center justify-between gap-2 bg-panel px-4 font-mono text-nav uppercase text-ink transition-colors duration-brand ease-brand hover:bg-pulse-deep hover:text-ink"
             >
               {s.label}
               <ExternalLinkIcon />

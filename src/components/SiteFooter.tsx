@@ -1,17 +1,52 @@
 import { Reveal } from './Reveal'
 
 /** Inverted footer: the page closes on an oversized serif sign-off — his own
- *  words from the About credo — then the record line. Cream on ink = 16.29:1. */
+ *  words from the About credo. On this light ground the blend law flips:
+ *  collisions multiply toward ink (multiply(red, blue) ≈ the brand ink), so the
+ *  period is red and blue data overprinted into the text color, and the analyst
+ *  circles the word that matters in red pen as the page signs off. */
 export function SiteFooter() {
   return (
     <footer className="bg-ink">
       <div className="mx-auto max-w-container px-4 pb-14 pt-16 sm:px-6 md:pb-16 md:pt-24 lg:px-8 xl:px-12">
         <Reveal>
-          <p className="font-mono text-mono-label uppercase tracking-kicker text-cream2">§07 · Sign-off</p>
+          <p className="font-mono text-mono-label uppercase tracking-kicker text-cream2">
+            <span className="text-pulse-deep">§07</span> · Sign-off
+          </p>
           <p className="mt-6 max-w-[14ch] text-balance font-serif text-display-xl font-medium italic text-cream2">
-            Data is translation
-            <span className="sr-only">.</span>
-            <span aria-hidden="true" className="ml-[0.12em] inline-block h-[0.13em] w-[0.13em] bg-signal-graphic" />
+            Data is{' '}
+            <span className="relative inline-block">
+              translation
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 200 70"
+                preserveAspectRatio="none"
+                className="pointer-events-none absolute -left-[0.18em] -top-[0.1em] h-[calc(100%+0.2em)] w-[calc(100%+0.36em)] -rotate-2"
+              >
+                {/* two-arc <path>, not <ellipse>: pathLength on basic shapes is
+                    ignored by older Safari/Chromium, which would leave the pen
+                    stroke permanently dashed instead of drawn */}
+                <path
+                  d="M 4 35 A 96 30 0 1 1 196 35 A 96 30 0 1 1 4 35"
+                  fill="none"
+                  stroke="#C81F0B"
+                  strokeWidth="2.5"
+                  vectorEffect="non-scaling-stroke"
+                  pathLength={100}
+                  strokeDasharray={100}
+                  strokeLinecap="round"
+                  className="annotate-draw"
+                />
+              </svg>
+            </span>
+            {/* the visual period is the dot cluster; in print/forced-colors the
+                backgrounds vanish, so the real glyph steps in and the cluster hides */}
+            <span className="sr-only forced-colors:not-sr-only print:not-sr-only">.</span>
+            <span aria-hidden="true" className="isolate ml-[0.14em] inline-flex align-baseline print:hidden forced-colors:hidden">
+              <span className="h-[0.14em] w-[0.14em] rounded-full bg-signal-graphic" />
+              <span className="-ml-[0.05em] h-[0.14em] w-[0.14em] rounded-full bg-pulse-graphic mix-blend-multiply" />
+              <span className="-ml-[0.05em] mt-[0.05em] h-[0.14em] w-[0.14em] rounded-full bg-signal-graphic mix-blend-multiply" />
+            </span>
           </p>
         </Reveal>
       </div>

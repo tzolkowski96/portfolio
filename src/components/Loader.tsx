@@ -76,12 +76,22 @@ export function Loader({ onDone }: { onDone: () => void }) {
       style={{ transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)', transitionDuration: `${EXIT_MS}ms` }}
     >
       <span className="font-mono text-sm font-bold tracking-[0.18em] text-ink">
-        T<span className="text-signal">/</span>Z
+        {/* the slash flips to collide pink at 100 — red and blue completed their pass */}
+        T<span className={count === 100 ? 'text-collide' : 'text-signal'}>/</span>Z
       </span>
       <div>
         <span className="block font-display text-metric font-extrabold tabular-nums text-ink">{count}%</span>
+        {/* bars are rAF-driven — no CSS transition, or they'd lag the count and
+            still be moving when the curtain starts */}
         <span className="mt-4 block h-px w-full bg-rule-strong/50">
-          <span className="block h-full origin-left bg-signal transition-transform" style={{ transform: `scaleX(${count / 100})` }} />
+          <span className="block h-full origin-left bg-signal" style={{ transform: `scaleX(${count / 100})` }} />
+        </span>
+        {/* blue drains right-to-left as red fills left-to-right — they pass mid-count */}
+        <span className="mt-[3px] block h-px w-full">
+          <span
+            className="block h-full origin-right bg-pulse-graphic"
+            style={{ transform: `scaleX(${(100 - count) / 100})` }}
+          />
         </span>
       </div>
     </div>

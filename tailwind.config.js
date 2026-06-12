@@ -20,13 +20,19 @@ export default {
         index: '#97978f', //  index numerals/meta            — on canvas ≈ 6.1:1
         cream2: '#161614', // dark text on the now-light inverted blocks (footer, buttons)
         // Accent (~10%) — on dark, the bright brand red is AA as normal text (≈4.9:1)
+        // BLUE = INTERACTION & MOTION; RED = DATA & STATE; PINK = COLLISION ONLY (screen product, never painted)
         signal: '#ff2d16', //          red AS TEXT/UI
         'signal-graphic': '#ff2d16', // red as graphic (same on dark)
+        'signal-deep': '#C81F0B', //   red-voiced text on LIGHT grounds — 5.16 vs #f3f3ef
+        pulse: '#4D9FFF', //           blue AS TEXT on dark — 6.89/6.40/7.19 vs canvas/panel/sunk
+        'pulse-graphic': '#177AEE', // C2 reference hex, graphic-only (4.51 canvas, 4.19 panel — never small text)
+        'pulse-deep': '#0E5FBE', //    blue on LIGHT grounds — 5.55 vs #f3f3ef both directions
+        collide: '#FF91EF', //         = screen(signal, pulse-graphic) — ::selection + physical overlaps ONLY; banned on light grounds
         // Structure strokes
         hairline: '#2e2e2b', //     decorative 1px divider (never the sole signal)
         'rule-strong': '#8a8a82', // meaningful UI stroke (≈5.2:1)
         // States (lightened for the dark canvas)
-        focus: '#60a5fa', //   focus-visible ring (≈7.3:1) — blue, not the accent
+        focus: '#5BA8FF', //   focus-visible ring (≈7.6:1) — in-family with pulse, distinct from red
         error: '#ff8073', //   form error
         success: '#4fc98a', // form success
       },

@@ -35,14 +35,17 @@ export function Record() {
   const fx = useFxReady()
   return (
     <section aria-label="Overview" className="relative border-b border-hairline">
-      {/* Field capped to one viewport (100svh): bounds GPU fill cost, keeps the
-          camera frustum matched to the visible area, and lets the offscreen pause
-          actually fire while scrolling the rest of the lede. */}
+      {/* Field in a sticky 100svh frame inside a 180svh rail: the canvas stays
+          under the pinned hero for the whole knockout scrub (the pin adds ~70vh
+          the old absolute anchor scrolled past), still bounded to one viewport
+          of GPU fill, still pausable offscreen once the rail parks. */}
       {fx && (
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[100svh] overflow-hidden" aria-hidden="true">
-          <Suspense fallback={null}>
-            <ThreeHero />
-          </Suspense>
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[180svh]" aria-hidden="true">
+          <div className="sticky top-0 h-[100svh] overflow-hidden">
+            <Suspense fallback={null}>
+              <ThreeHero />
+            </Suspense>
+          </div>
         </div>
       )}
       <div className="relative z-10 mx-auto w-full max-w-container px-4 pb-12 pt-2 sm:px-6 md:pb-16 lg:px-8 lg:pb-20 xl:px-12">

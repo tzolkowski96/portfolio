@@ -22,6 +22,13 @@ export function Section({ id, num, name, meta, children }: SectionProps) {
     <section id={id} aria-labelledby={headingId} className="border-t border-hairline">
       <Reveal mode="fade" className="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2 pb-6 pt-10 md:pt-14 lg:pt-16">
+          {/* plurality glyph: red + blue circles converge on reveal; the overlap
+              screens to collide pink. isolate is mandatory or the blend would
+              composite against the page (and the terrain near §01). */}
+          <span aria-hidden="true" className="isolate inline-flex translate-y-px items-center">
+            <span className="plural-l h-2.5 w-2.5 rounded-full bg-signal-graphic mix-blend-screen" />
+            <span className="plural-r -ml-[5px] h-2.5 w-2.5 rounded-full bg-pulse-graphic mix-blend-screen" />
+          </span>
           <span className="overflow-hidden font-mono text-nav font-semibold text-signal">
             <span className="mask-line">§{num}</span>
           </span>

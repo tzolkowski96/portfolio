@@ -6,6 +6,7 @@ import { LOADER_DONE_EVENT } from '../components/Loader'
 const HEADER = 56 // sticky header height — scroll offset for anchors + pins
 
 type WindowWithLenis = Window & { __lenis?: Lenis }
+type WindowWithHero = Window & { __heroProgress?: number }
 
 /**
  * The whole scroll experience, set up once after mount:
@@ -96,20 +97,44 @@ export function useScrollExperience(): void {
       // The min-height floor keeps short/landscape screens on the readable grid so a
       // pinned section can never push content off-screen.
       mm.add('(min-width: 1024px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)', () => {
+        // Two-phase hero scrub: A) swell toward the viewer while the camera
+        // dollies into the terrain, B) the nameplate knocks out to a stroked
+        // outline as the field pours through the counters. Progress is published
+        // on window.__heroProgress for the WebGL camera/gather (same channel).
+        const heroWin = window as WindowWithHero
+        const clearHero = () => {
+          heroWin.__heroProgress = 0
+        }
         const heroPin = document.querySelector<HTMLElement>('[data-hero-pin]')
         const nameplate = document.querySelector<HTMLElement>('[data-nameplate]')
         if (heroPin && nameplate) {
+          heroWin.__heroProgress = 0
           gsap
             .timeline({
-              scrollTrigger: { trigger: heroPin, start: `top top+=${HEADER}`, end: '+=55%', pin: true, pinSpacing: true, scrub: true },
+              scrollTrigger: {
+                trigger: heroPin,
+                start: `top top+=${HEADER}`,
+                end: '+=70%',
+                pin: true,
+                pinSpacing: true,
+                scrub: true,
+                onUpdate: (self) => {
+                  heroWin.__heroProgress = self.progress
+                },
+              },
             })
-            .to(nameplate, { scale: 0.9, opacity: 0.5, transformOrigin: 'left center', ease: 'none' }, 0)
+            .to(nameplate, { scale: 1.04, transformOrigin: 'left center', ease: 'none', duration: 0.45 }, 0)
+            .to(
+              nameplate,
+              { scale: 0.92, yPercent: -3, '--np-fill': 0.15, '--np-stroke': 0.85, ease: 'none', duration: 0.55 },
+              0.45,
+            )
         }
 
         const section = document.querySelector<HTMLElement>('#projects')
         const track = document.querySelector<HTMLElement>('[data-projects-track]')
         const wrap = track?.parentElement
-        if (!section || !track || !wrap) return
+        if (!section || !track || !wrap) return clearHero
 
         gsap.set(wrap, { overflow: 'hidden' })
         gsap.set(track, { display: 'flex', flexWrap: 'nowrap', gap: '24px' })
@@ -144,7 +169,10 @@ export function useScrollExperience(): void {
           else window.scrollTo({ top: y })
         }
         document.addEventListener('focusin', onFocusIn)
-        return () => document.removeEventListener('focusin', onFocusIn)
+        return () => {
+          clearHero() // leaving the breakpoint resets the camera/gather channel
+          document.removeEventListener('focusin', onFocusIn)
+        }
       })
     })
 

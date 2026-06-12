@@ -33,6 +33,13 @@ html.lenis body {
     -webkit-text-size-adjust: 100%;
   }
 
+  /* Nameplate knockout channel: GSAP scrubs these on the hero pin (desktop).
+     Defaults reproduce the solid render for mobile / reduced-motion / no-JS. */
+  [data-nameplate] {
+    --np-fill: 1;
+    --np-stroke: 0;
+  }
+
   body {
     @apply bg-cream text-ink font-display text-body antialiased;
   }
@@ -47,8 +54,9 @@ html.lenis body {
   }
 
   ::selection {
-    background: theme('colors.signal'); /* bright red + near-black ≈ 5:1 */
-    color: theme('colors.cream');
+    /* collision pink: selection IS user × content — cream2 on #FF91EF = 9.10:1 */
+    background: theme('colors.collide');
+    color: theme('colors.cream2');
   }
 
   /* Autofill: override the UA's blue tint with the brand panel. */
@@ -98,6 +106,45 @@ html.lenis body {
   }
   [data-revealed='false'] .rule-draw {
     transform: scaleX(0);
+  }
+
+  /* Masthead plurality circles: fly in from opposite sides and merge as the
+     mask-lines rise — same Reveal observer, final state is the default. */
+  .plural-l,
+  .plural-r {
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.14s;
+  }
+  [data-revealed='false'] .plural-l {
+    transform: translateX(-7px);
+  }
+  [data-revealed='false'] .plural-r {
+    transform: translateX(7px);
+  }
+
+  /* Featured-quote duotone knockout on the light invert; cream2 fallback where
+     background-clip:text is unsupported. All stops AA on #f3f3ef. */
+  .group:hover .quote-duotone,
+  .group:focus-within .quote-duotone {
+    color: theme('colors.cream2');
+  }
+  @supports (-webkit-background-clip: text) {
+    .group:hover .quote-duotone,
+    .group:focus-within .quote-duotone {
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      background-image: linear-gradient(95deg, #c81f0b 0%, #0e5fbe 100%);
+    }
+  }
+
+  /* The analyst circles the figure that matters — red-pen ellipse drawn on the
+     footer's Reveal; final state default (reduced-motion/no-JS = complete). */
+  .annotate-draw {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s cubic-bezier(0.22, 1, 0.36, 1) 0.55s;
+  }
+  [data-revealed='false'] .annotate-draw {
+    stroke-dashoffset: 100;
   }
 
   /* Drawn underline: grows left-to-right on hover/focus instead of snapping. */

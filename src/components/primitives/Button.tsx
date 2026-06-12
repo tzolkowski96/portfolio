@@ -17,7 +17,7 @@ const BASE =
 
 const VARIANTS = {
   primary: 'border border-ink bg-ink text-cream2 hover:bg-signal hover:border-signal',
-  ghost: 'border border-rule-strong text-ink hover:bg-ink hover:text-cream2',
+  ghost: 'border border-rule-strong text-ink hover:border-pulse-deep hover:bg-pulse-deep hover:text-ink',
 } as const
 
 /** Shared 48px-min action. Renders as <a> or <button>; distinct hover + focus. */

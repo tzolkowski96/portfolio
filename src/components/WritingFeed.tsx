@@ -29,7 +29,7 @@ export function WritingFeed() {
         >
           <span className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-mono-label uppercase">
             <span aria-hidden="true" className="h-2.5 w-2.5 bg-signal-graphic" />
-            <span className="font-semibold text-signal transition-colors duration-brand ease-brand group-hover:text-cream2">
+            <span className="inline-block -rotate-2 border border-signal px-2 py-1 font-semibold text-signal transition-colors duration-brand ease-brand group-hover:border-signal-deep group-hover:text-signal-deep group-focus-within:border-signal-deep group-focus-within:text-signal-deep">
               Featured essay
             </span>
             <span className="text-label transition-colors duration-brand ease-brand group-hover:text-cream2/70">
@@ -38,7 +38,7 @@ export function WritingFeed() {
             </span>
           </span>
 
-          <span className="mt-6 block max-w-[24ch] text-balance font-serif text-[clamp(1.75rem,3.8vw,3.5rem)] font-medium italic leading-[1.12] text-ink transition-colors duration-brand ease-brand group-hover:text-cream2">
+          <span className="quote-duotone mt-6 block max-w-[24ch] text-balance font-serif text-[clamp(1.75rem,3.8vw,3.5rem)] font-medium italic leading-[1.12] text-ink transition-colors duration-brand ease-brand">
             “{featured.dek || featured.title}”
           </span>
 
@@ -50,7 +50,7 @@ export function WritingFeed() {
                 ? featured.title
                 : `Latest${featured.tag ? ` · ${featured.tag}` : ''} · ${featured.date}`}
             </span>
-            <span className="inline-flex items-center gap-1 font-mono text-mono-label uppercase text-ink transition-colors duration-brand ease-brand group-hover:text-cream2 group-focus-within:text-signal">
+            <span className="inline-flex items-center gap-1 font-mono text-mono-label uppercase text-ink transition-colors duration-brand ease-brand group-hover:text-pulse-deep group-focus-within:text-pulse">
               <span className="u-draw">Read the story</span>
               <ExternalLinkIcon />
             </span>
@@ -106,7 +106,7 @@ export function WritingFeed() {
           href={contact.medium}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex min-h-tap flex-1 items-center justify-center border-b border-hairline bg-panel px-4 py-4 font-mono text-nav uppercase text-ink transition-colors duration-brand ease-brand hover:bg-ink hover:text-cream2 sm:border-b-0 sm:border-r"
+          className="flex min-h-tap flex-1 items-center justify-center border-b border-hairline bg-panel px-4 py-4 font-mono text-nav uppercase text-ink transition-colors duration-brand ease-brand hover:bg-pulse-deep hover:text-ink sm:border-b-0 sm:border-r"
         >
           All stories · Medium →
         </a>
@@ -114,7 +114,7 @@ export function WritingFeed() {
           href={contact.substack}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex min-h-tap flex-1 items-center justify-center bg-panel px-4 py-4 font-mono text-nav uppercase text-ink transition-colors duration-brand ease-brand hover:bg-ink hover:text-cream2"
+          className="flex min-h-tap flex-1 items-center justify-center bg-panel px-4 py-4 font-mono text-nav uppercase text-ink transition-colors duration-brand ease-brand hover:bg-pulse-deep hover:text-ink"
         >
           Personal essays · Substack →
         </a>

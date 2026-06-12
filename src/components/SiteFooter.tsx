@@ -3,7 +3,7 @@ import { Reveal } from './Reveal'
 /** Inverted footer: the page closes on an oversized serif sign-off — his own
  *  words from the About credo, answering the opening nameplate at comparable
  *  scale. Ink on paper: the analyst circles the word that matters in the same
- *  ink the sentence is set in, and the period is a hand-pressed ink blot. */
+ *  ink the sentence is set in. */
 export function SiteFooter() {
   return (
     <footer className="bg-ink">
@@ -36,14 +36,7 @@ export function SiteFooter() {
                 />
               </svg>
             </span>
-            {/* the visual period is the dot cluster; in print/forced-colors the
-                backgrounds vanish, so the real glyph steps in and the cluster hides */}
-            <span className="sr-only forced-colors:not-sr-only print:not-sr-only">.</span>
-            <span aria-hidden="true" className="ml-[0.14em] inline-flex align-baseline print:hidden forced-colors:hidden">
-              <span className="h-[0.14em] w-[0.14em] rounded-full bg-cream2" />
-              <span className="-ml-[0.05em] h-[0.14em] w-[0.14em] rounded-full bg-cream2" />
-              <span className="-ml-[0.05em] mt-[0.05em] h-[0.14em] w-[0.14em] rounded-full bg-cream2" />
-            </span>
+            {/* an honest period — works in every mode, no decoration */}.
           </p>
         </Reveal>
       </div>

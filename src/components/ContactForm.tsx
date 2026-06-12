@@ -66,7 +66,7 @@ export function ContactForm() {
         role="status"
         aria-live="polite"
         className={`font-mono text-mono-data ${
-          status === 'ok' ? 'text-ink' : status === 'error' ? 'text-error' : 'sr-only'
+          status === 'ok' ? 'text-ink' : status === 'error' ? 'font-bold text-ink' : 'sr-only'
         }`}
       >
         {status === 'ok' && '✓ '}

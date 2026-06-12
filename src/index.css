@@ -57,8 +57,8 @@ html.lenis body {
   }
 
   ::selection {
-    /* reader × text, the live wire — cream2 on #ff2d16 ≈ 4.9:1 AA */
-    background: theme('colors.accent');
+    /* B&W inversion: white ground, near-black text (≈16:1) — every surface */
+    background: theme('colors.ink');
     color: theme('colors.cream2');
   }
   /* on the light footer the selection flips to ink-on-light */

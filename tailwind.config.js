@@ -19,14 +19,12 @@ export default {
         label: '#a3a39c', //  mono micro-labels              — on canvas ≈ 6.9:1
         index: '#97978f', //  index numerals/meta            — on canvas ≈ 6.1:1
         cream2: '#161614', // dark text on the now-light inverted blocks (footer, buttons)
-        // B&W: hierarchy is value + weight + scale. Red = accent law only.
-        accent: '#ff2d16', // THE ONLY BRAND CHROMA — T/Z slash, live dot, ::selection bg. Nothing else. ≈4.9:1 vs cream2 (AA).
+        // B&W: hierarchy is value + weight + scale. Zero chroma anywhere.
         // Structure strokes
         hairline: '#2e2e2b', //     decorative 1px divider (never the sole signal)
         'rule-strong': '#8a8a82', // meaningful UI stroke (≈5.2:1)
         // States
         focus: '#f3f3ef', //   white focus ring, outside-stroke channel; footer overrides to cream2
-        error: '#ff8073', //   the single argued red exception — failed-send status only, ≈7.7:1
       },
       fontFamily: {
         display: ['Archivo', 'system-ui', 'sans-serif'],

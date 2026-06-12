@@ -47,7 +47,7 @@ export function AppHeader({ sections, activeId }: AppHeaderProps) {
           aria-expanded={open}
           aria-controls="site-menu"
           onClick={() => setOpen(true)}
-          className="inline-flex min-h-tap min-w-tap items-center justify-center justify-self-end border border-rule-strong px-4 font-mono text-nav uppercase text-ink"
+          className="inline-flex min-h-tap min-w-tap items-center justify-center justify-self-end border border-rule-strong px-4 font-mono text-nav uppercase text-ink transition-colors duration-brand ease-brand hover:border-ink hover:bg-ink hover:text-cream2"
         >
           Menu
         </button>

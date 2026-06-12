@@ -24,18 +24,22 @@ export function MenuOverlay({ sections, activeId, onClose }: MenuOverlayProps) {
   const closeRef = useRef<HTMLButtonElement>(null)
 
   // Scroll lock (Lenis ignores overflow:hidden — stop it too) + initial focus.
+  // Read __lenis live in cleanup: a reduced-motion toggle while open can swap
+  // the instance, and the captured one would be destroyed.
   useEffect(() => {
-    const lenis = (window as WindowWithLenis).__lenis
-    lenis?.stop()
+    ;(window as WindowWithLenis).__lenis?.stop()
     document.documentElement.style.overflow = 'hidden'
     closeRef.current?.focus()
     return () => {
       document.documentElement.style.overflow = ''
-      lenis?.start()
+      ;(window as WindowWithLenis).__lenis?.start()
     }
   }, [])
 
-  // Escape closes; Tab wraps within the overlay (it IS modal, unlike the old disclosure).
+  // Escape closes; Tab wraps within the overlay (it IS modal). The listener
+  // lives on DOCUMENT: if focus falls to <body> (dead-space click), events never
+  // pass through the portal — an overlay-attached trap would go deaf and Tab
+  // would walk the hidden page behind the modal.
   useEffect(() => {
     const overlay = overlayRef.current
     if (!overlay) return
@@ -50,6 +54,11 @@ export function MenuOverlay({ sections, activeId, onClose }: MenuOverlayProps) {
       if (focusables.length === 0) return
       const first = focusables[0]
       const last = focusables[focusables.length - 1]
+      if (!overlay!.contains(document.activeElement)) {
+        e.preventDefault()
+        ;(first ?? closeRef.current)?.focus() // recapture strayed focus
+        return
+      }
       if (e.shiftKey && document.activeElement === first) {
         e.preventDefault()
         last.focus()
@@ -58,8 +67,8 @@ export function MenuOverlay({ sections, activeId, onClose }: MenuOverlayProps) {
         first.focus()
       }
     }
-    overlay.addEventListener('keydown', onKey)
-    return () => overlay.removeEventListener('keydown', onKey)
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
   }, [onClose])
 
   // The falling entrance — GSAP doesn't obey the CSS reduced-motion kill, so gate it.
@@ -82,7 +91,9 @@ export function MenuOverlay({ sections, activeId, onClose }: MenuOverlayProps) {
       aria-label="Site menu"
       ref={overlayRef}
       onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose()
+        // the root is fully tiled by the top bar + nav, so target===currentTarget
+        // can never fire — dead-space = anything that isn't a link or button
+        if (!(e.target as Element).closest('a, button')) onClose()
       }}
       className="fixed inset-0 z-[55] flex flex-col bg-cream"
     >
@@ -94,7 +105,7 @@ export function MenuOverlay({ sections, activeId, onClose }: MenuOverlayProps) {
           ref={closeRef}
           type="button"
           onClick={onClose}
-          className="inline-flex min-h-tap min-w-tap items-center justify-center border border-rule-strong px-4 font-mono text-nav uppercase text-ink"
+          className="inline-flex min-h-tap min-w-tap items-center justify-center border border-rule-strong px-4 font-mono text-nav uppercase text-ink transition-colors duration-brand ease-brand hover:border-ink hover:bg-ink hover:text-cream2"
         >
           Close
         </button>
@@ -103,16 +114,23 @@ export function MenuOverlay({ sections, activeId, onClose }: MenuOverlayProps) {
       <nav
         aria-label="Sections"
         data-lenis-prevent
-        className="flex min-h-0 flex-1 flex-col justify-center overflow-y-auto px-4 sm:px-6 lg:px-8 xl:px-12"
+        className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-4 sm:px-6 lg:px-8 xl:px-12"
       >
-        <ul>
+        {/* my-auto, not justify-center: centered when there's room, scrollable
+            from the FIRST row when there isn't (justify-center pushes overflow
+            above the scroll origin where scrollTop can't reach it) */}
+        <ul className="my-auto w-full">
           {sections.map((s, i) => {
             const active = s.id === activeId
             return (
               <li key={s.id} className="overflow-hidden border-b border-hairline last:border-b-0">
                 <a
                   href={`#${s.id}`}
-                  onClick={onClose}
+                  onClick={(e) => {
+                    // modified clicks open a new tab — keep the menu up for those
+                    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+                    onClose()
+                  }}
                   aria-current={active ? 'page' : undefined}
                   className="group flex min-h-[max(48px,11svh)] items-center py-1"
                 >

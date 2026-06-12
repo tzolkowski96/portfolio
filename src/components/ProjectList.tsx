@@ -10,7 +10,7 @@ export function ProjectList() {
       {projects.map((p) => (
         <li
           key={p.id}
-          className="group flex flex-col border border-hairline bg-panel p-6 transition-colors duration-brand ease-brand hover:border-rule-strong focus-within:border-rule-strong"
+          className="flex flex-col border border-hairline bg-panel p-6 transition-colors duration-brand ease-brand hover:border-rule-strong focus-within:border-rule-strong"
         >
           <div className="flex items-baseline gap-3">
             <span className="font-mono text-mono-label text-index">{p.id}</span>

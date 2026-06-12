@@ -58,7 +58,7 @@ export function TechBand() {
       <div ref={rowRef} className="flex w-max items-center gap-8 md:gap-12">
         {items.map((tool, i) => (
           <span key={i} className="flex items-center gap-8 md:gap-12">
-            <span className="whitespace-nowrap font-display text-[clamp(2.75rem,6.5vw,5.5rem)] font-extrabold uppercase leading-none tracking-tight text-transparent [-webkit-text-stroke:1px_#f3f3ef] forced-colors:[-webkit-text-stroke-width:0]">
+            <span className="whitespace-nowrap font-display text-[clamp(2.75rem,6.5vw,5.5rem)] font-extrabold uppercase leading-none tracking-tight text-label supports-[-webkit-text-stroke:1px_#fff]:[color:rgb(243_243_239/0.10)] supports-[-webkit-text-stroke:1px_#fff]:[-webkit-text-stroke:1.5px_#f3f3ef] forced-colors:[-webkit-text-stroke-width:0]">
               {tool}
             </span>
             <span className="h-2.5 w-2.5 shrink-0 bg-ink md:h-3 md:w-3" />

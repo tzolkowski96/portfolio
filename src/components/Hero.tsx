@@ -12,7 +12,7 @@ export function Hero() {
     // line ("Zolkowski") fills the measure at every width without overflowing.
     <div
       data-hero-pin
-      className="relative flex min-h-[calc(100svh-90px)] flex-col justify-between pt-6 md:pt-8 [container-type:inline-size]"
+      className="relative flex flex-col justify-between pt-6 sm:min-h-[calc(100svh-90px)] md:pt-8 [container-type:inline-size]"
     >
       {/* Availability lives in the StatusStrip directly above — not repeated here. */}
       <Reveal delay={0}>
@@ -23,7 +23,7 @@ export function Hero() {
         <Reveal mode="fade" delay={90}>
           <h1
             data-nameplate
-            className="font-serif text-[clamp(2.75rem,16.2cqw,13rem)] font-[900] uppercase leading-[0.86] tracking-[-0.02em] [font-variation-settings:'opsz'_144] [color:rgb(243_243_239/var(--np-fill,1))] [-webkit-text-stroke:1.5px_rgb(243_243_239/var(--np-stroke,0))]"
+            className="font-serif text-[clamp(2.5rem,16.2cqw,13rem)] font-[900] uppercase leading-[0.86] tracking-[-0.02em] [font-variation-settings:'opsz'_144] [color:rgb(243_243_239/var(--np-fill,1))] [-webkit-text-stroke:1.5px_rgb(243_243_239/var(--np-stroke,0))]"
           >
             {/* pt/-mt pairs guard Fraunces' ascender overshoot at tight leading */}
             <span className="-mt-[0.06em] block overflow-hidden pt-[0.06em]">

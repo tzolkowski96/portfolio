@@ -46,7 +46,7 @@ export default {
         metric: ['clamp(1.75rem, 3.4vw, 2.625rem)', { lineHeight: '1', letterSpacing: '-0.02em' }],
         'display-l': ['clamp(1.75rem, 5.5vw, 4rem)', { lineHeight: '0.95', letterSpacing: '-0.015em' }],
         'display-xl': ['clamp(2.25rem, 8vw, 5.25rem)', { lineHeight: '1.04', letterSpacing: '-0.015em' }],
-        'display-card': ['clamp(3rem, 16cqw, 15rem)', { lineHeight: '0.84', letterSpacing: '-0.03em' }],
+        'display-card': ['clamp(2.5rem, 16cqw, 15rem)', { lineHeight: '0.84', letterSpacing: '-0.03em' }],
       },
       transitionDuration: {
         brand: '200ms',

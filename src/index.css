@@ -162,7 +162,7 @@ html.lenis body {
     }
   }
 
-  /* The analyst circles the figure that matters — red-pen ellipse drawn on the
+  /* The analyst circles the figure that matters — ink-pen ellipse drawn on the
      footer's Reveal; final state default (reduced-motion/no-JS = complete). */
   .annotate-draw {
     stroke-dashoffset: 0;
@@ -233,6 +233,13 @@ html.lenis body {
   .fixed,
   canvas {
     display: none !important;
+  }
+  /* print forces color but not text-stroke — outlined glyphs would print as
+     black type eroded by a white halo */
+  [data-nameplate],
+  .title-outline,
+  .quote-knockout {
+    -webkit-text-stroke-width: 0 !important;
   }
 }
 

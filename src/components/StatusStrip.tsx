@@ -12,7 +12,8 @@ export function StatusStrip() {
           {identity.status}
         </span>
         <span>
-          {identity.location} · {identity.coords}
+          {identity.location}
+          <span className="hidden sm:inline"> · {identity.coords}</span>
         </span>
       </div>
     </div>

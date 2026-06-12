@@ -68,7 +68,9 @@ export function useScrollExperience(): void {
       const target = document.querySelector(hash) as HTMLElement | null
       if (!target) return
       e.preventDefault()
-      if (lenis) lenis.scrollTo(target, { offset: -HEADER })
+      // force: belt-and-braces — the menu overlay restarts Lenis in the same
+      // event flush as this scroll, and force runs the scroll even if stopped
+      if (lenis) lenis.scrollTo(target, { offset: -HEADER, force: true })
       else window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - HEADER })
     }
     document.addEventListener('click', onClick)
@@ -131,10 +133,12 @@ export function useScrollExperience(): void {
             )
         }
 
-        const section = document.querySelector<HTMLElement>('#projects')
+        // Pin the section BODY, not the whole section: the title card scrolls
+        // away first, then the track pins with the full viewport to itself.
         const track = document.querySelector<HTMLElement>('[data-projects-track]')
         const wrap = track?.parentElement
-        if (!section || !track || !wrap) return clearHero
+        const stage = track?.closest<HTMLElement>('[data-section-body]')
+        if (!stage || !track || !wrap) return clearHero
 
         gsap.set(wrap, { overflow: 'hidden' })
         gsap.set(track, { display: 'flex', flexWrap: 'nowrap', gap: '24px' })
@@ -144,7 +148,7 @@ export function useScrollExperience(): void {
           x: () => -dist(),
           ease: 'none',
           scrollTrigger: {
-            trigger: section,
+            trigger: stage,
             start: `top top+=${HEADER}`,
             end: () => `+=${dist()}`,
             pin: true,

@@ -48,20 +48,22 @@ export function Record() {
           </div>
         </div>
       )}
-      <div className="relative z-10 mx-auto w-full max-w-container px-4 pb-12 pt-2 sm:px-6 md:pb-16 lg:px-8 lg:pb-20 xl:px-12">
+      <div className="relative z-10 mx-auto w-full max-w-container px-4 pt-2 sm:px-6 lg:px-8 xl:px-12">
         <Hero />
 
         <div className="mt-12 md:mt-16">
           <p className="mb-3 font-mono text-mono-label uppercase text-label">Record</p>
           <ProfileSchema />
         </div>
+      </div>
 
-        <div className="mt-10 lg:mt-12">
-          <p className="mb-3 font-mono text-mono-label uppercase text-label">Signals</p>
-          <KpiStrip />
-        </div>
+      {/* full-bleed by structure, not vw margins — scrollbar width can't overflow */}
+      <div className="relative z-10 mt-14 md:mt-20">
+        <KpiStrip />
+      </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:mt-12">
+      <div className="relative z-10 mx-auto w-full max-w-container px-4 pb-12 pt-10 sm:px-6 md:pb-16 lg:px-8 lg:pb-20 lg:pt-12 xl:px-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div className="border border-hairline bg-panel p-6">
             <p className="mb-4 font-mono text-mono-label uppercase text-label">Reporting impact</p>
             <BarChart />

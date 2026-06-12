@@ -34,7 +34,7 @@ export function BarChart() {
       <p className="font-display text-display-m font-bold text-ink">{c.finding}</p>
       <figcaption className="mt-1 font-mono text-mono-label uppercase text-label">{c.caption}</figcaption>
       <svg viewBox="0 0 300 160" role="img" aria-label={label} className="mt-4 block w-full max-w-[340px]">
-        <text x="150" y="13" textAnchor="middle" fontSize="11" fontWeight="700" className="fill-signal" fontFamily={MONO}>
+        <text x="150" y="13" textAnchor="middle" fontSize="11" fontWeight="700" className="fill-ink" fontFamily={MONO}>
           {c.delta}
         </text>
         <line
@@ -61,7 +61,7 @@ export function BarChart() {
           />
           <rect
             x="170" y="24" width="70" height="106"
-            fill="#ff2d16" opacity={hover === 'after' ? 0.85 : 1}
+            fill="#f3f3ef" opacity={hover === 'after' ? 0.85 : 1}
             onPointerEnter={() => setHover('after')}
             onPointerLeave={() => setHover(null)}
           />

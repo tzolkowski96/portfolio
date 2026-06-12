@@ -16,8 +16,9 @@ const BASE =
   'inline-flex min-h-tap items-center justify-center gap-2 px-4 font-mono text-nav uppercase btn-press'
 
 const VARIANTS = {
-  primary: 'border border-ink bg-ink text-cream2 hover:bg-signal hover:border-signal',
-  ghost: 'border border-rule-strong text-ink hover:border-pulse-deep hover:bg-pulse-deep hover:text-ink',
+  // filled↔outlined inversions: border stays so the footprint never shifts
+  primary: 'border border-ink bg-ink text-cream2 hover:bg-transparent hover:text-ink',
+  ghost: 'border border-rule-strong text-ink hover:border-ink hover:bg-ink hover:text-cream2',
 } as const
 
 /** Shared 48px-min action. Renders as <a> or <button>; distinct hover + focus. */

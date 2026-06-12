@@ -96,9 +96,13 @@ const LINE_FRAG = /* glsl */ `
     vec3 color = mix(base, uRed, vScan);
     color = mix(color, uBlue, vScanB * (1.0 - vScan * 0.6));
     float crossing = vScan * vScanB;
-    color += mix(uRed, uBlue, 0.5) * crossing * 1.4; // additive flare toward pink
-    float a = vAlpha * (1.0 + vScan * 1.6 + vScanB * 1.3 + crossing * 2.2);
-    a = min(a, 0.85); // cap keeps the backdrop near-black under the nameplate
+    // flare pre-clamped AT collide pink: additive accumulation is per-PIXEL, so
+    // without the clamp overlapping far rows would sum past pink to white
+    color = min(color + mix(uRed, uBlue, 0.5) * crossing * 1.4, vec3(1.0, 0.62, 0.94));
+    // depth-attenuate the boost — the per-fragment alpha cap can't bound the
+    // stacked far rows that interleave per pixel near the horizon
+    float boost = (vScan * 1.6 + vScanB * 1.3 + crossing * 2.2) * mix(0.30, 1.0, vDepth);
+    float a = min(vAlpha * (1.0 + boost), 0.85); // caps one stroke, not the accumulated backdrop
     gl_FragColor = vec4(color, a);
   }
 `
@@ -108,6 +112,7 @@ const POINT_VERT = /* glsl */ `
   uniform float uScroll;
   uniform float uGather;
   uniform float uDpr;
+  uniform vec2 uMouse;
   attribute float aHue;
   attribute vec2 aTarget;
   varying float vHue;
@@ -117,7 +122,8 @@ const POINT_VERT = /* glsl */ `
   void main() {
     float t = uTime + uScroll * 2.0;
     vec2 xz = mix(vec2(position.x, position.z), aTarget, uGather);
-    float y = surface(xz, t) + 0.06;
+    // same pointer swell as the lines — otherwise rings sink into the raised contour
+    float y = surface(xz, t) + 0.06 + 0.55 * smoothstep(2.2, 0.0, distance(xz, uMouse));
     gl_Position = projectionMatrix * modelViewMatrix * vec4(xz.x, y, xz.y, 1.0);
     gl_PointSize = (3.0 + 5.0 * smoothstep(-0.6, 0.9, y)) * uDpr;
     vHue = aHue;
@@ -238,6 +244,7 @@ export function ThreeHero() {
         // SHARED objects with the line material — one write updates both draws.
         uTime: mat.uniforms.uTime,
         uScroll: mat.uniforms.uScroll,
+        uMouse: mat.uniforms.uMouse,
         uRed: { value: RED },
         uBlue: { value: BLUE },
         uGather: { value: 0 },
@@ -274,8 +281,8 @@ export function ThreeHero() {
         camera.fov = 42 + 10 * p
         camera.updateProjectionMatrix()
         camera.lookAt(0, 0, -1.5)
+        matPts.uniforms.uGather.value = THREE.MathUtils.smoothstep(p, 0.1, 0.85)
       }
-      matPts.uniforms.uGather.value = THREE.MathUtils.smoothstep(p, 0.1, 0.85)
       mat.uniforms.uTime.value = timeSec
       mat.uniforms.uScroll.value = Math.min(window.scrollY / 900, 2)
       ;(mat.uniforms.uMouse.value as THREE.Vector2).set(mouse.x, mouse.y)
@@ -286,7 +293,9 @@ export function ThreeHero() {
     let ticking = false
     let last = 0
     const tick = (time: number) => {
-      if (time - last < FRAME_INTERVAL) return
+      // 2ms slack: ticker deltas jitter around exact frame multiples (16.66 vs
+      // 16.67ms), and without it 60Hz displays drop to an erratic 16/33 cadence.
+      if (time - last < FRAME_INTERVAL - 0.002) return
       last = time
       render(time)
     }

@@ -25,14 +25,14 @@ export function WritingFeed() {
           href={featured.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="group mb-6 block border border-hairline bg-panel p-6 transition-colors duration-brand ease-brand hover:border-ink hover:bg-ink md:mb-8 md:p-10"
+          className="group mb-6 block border border-hairline bg-panel p-6 transition-colors duration-brand ease-brand hover:border-ink hover:bg-ink focus-within:border-ink focus-within:bg-ink md:mb-8 md:p-10"
         >
           <span className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-mono-label uppercase">
             <span aria-hidden="true" className="h-2.5 w-2.5 bg-signal-graphic" />
             <span className="inline-block -rotate-2 border border-signal px-2 py-1 font-semibold text-signal transition-colors duration-brand ease-brand group-hover:border-signal-deep group-hover:text-signal-deep group-focus-within:border-signal-deep group-focus-within:text-signal-deep">
               Featured essay
             </span>
-            <span className="text-label transition-colors duration-brand ease-brand group-hover:text-cream2/70">
+            <span className="text-label transition-colors duration-brand ease-brand group-hover:text-cream2/70 group-focus-within:text-cream2/70">
               {featured.date}
               {featured.tag ? ` · ${featured.tag}` : ''}
             </span>
@@ -45,12 +45,12 @@ export function WritingFeed() {
           <span className="mt-6 flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
             {/* When there's no dek the quote IS the title — show meta instead of
                 repeating the same line twice. */}
-            <span className="max-w-[58ch] font-mono text-mono-label uppercase leading-relaxed text-label transition-colors duration-brand ease-brand group-hover:text-cream2/70">
+            <span className="max-w-[58ch] font-mono text-mono-label uppercase leading-relaxed text-label transition-colors duration-brand ease-brand group-hover:text-cream2/70 group-focus-within:text-cream2/70">
               {featured.dek
                 ? featured.title
                 : `Latest${featured.tag ? ` · ${featured.tag}` : ''} · ${featured.date}`}
             </span>
-            <span className="inline-flex items-center gap-1 font-mono text-mono-label uppercase text-ink transition-colors duration-brand ease-brand group-hover:text-pulse-deep group-focus-within:text-pulse">
+            <span className="inline-flex items-center gap-1 font-mono text-mono-label uppercase text-ink transition-colors duration-brand ease-brand group-hover:text-pulse-deep group-focus-within:text-pulse-deep">
               <span className="u-draw">Read the story</span>
               <ExternalLinkIcon />
             </span>

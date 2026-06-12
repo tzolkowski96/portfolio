@@ -81,13 +81,15 @@ export function Loader({ onDone }: { onDone: () => void }) {
       </span>
       <div>
         <span className="block font-display text-metric font-extrabold tabular-nums text-ink">{count}%</span>
+        {/* bars are rAF-driven — no CSS transition, or they'd lag the count and
+            still be moving when the curtain starts */}
         <span className="mt-4 block h-px w-full bg-rule-strong/50">
-          <span className="block h-full origin-left bg-signal transition-transform" style={{ transform: `scaleX(${count / 100})` }} />
+          <span className="block h-full origin-left bg-signal" style={{ transform: `scaleX(${count / 100})` }} />
         </span>
         {/* blue drains right-to-left as red fills left-to-right — they pass mid-count */}
         <span className="mt-[3px] block h-px w-full">
           <span
-            className="block h-full origin-right bg-pulse-graphic transition-transform"
+            className="block h-full origin-right bg-pulse-graphic"
             style={{ transform: `scaleX(${(100 - count) / 100})` }}
           />
         </span>

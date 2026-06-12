@@ -45,7 +45,7 @@ html.lenis body {
   }
 
   /* A single, consistent, high-contrast focus ring on every interactive element.
-     Deliberately blue (#60a5fa, ≈7.3:1 on the dark canvas) so keyboard focus is
+     Deliberately blue (#5BA8FF, ≈7.6:1 on the dark canvas) so keyboard focus is
      never confused with the red accent / active-nav marker. */
   :focus-visible {
     outline: 3px solid theme('colors.focus');
@@ -57,6 +57,11 @@ html.lenis body {
     /* collision pink: selection IS user × content — cream2 on #FF91EF = 9.10:1 */
     background: theme('colors.collide');
     color: theme('colors.cream2');
+  }
+  /* on light grounds collisions multiply toward ink (collide is banned there) */
+  footer ::selection {
+    background: theme('colors.cream2');
+    color: theme('colors.ink');
   }
 
   /* Autofill: override the UA's blue tint with the brand panel. */
@@ -122,18 +127,31 @@ html.lenis body {
   }
 
   /* Featured-quote duotone knockout on the light invert; cream2 fallback where
-     background-clip:text is unsupported. All stops AA on #f3f3ef. */
-  .group:hover .quote-duotone,
+     background-clip:text is unsupported. All stops AA on #f3f3ef. The gradient
+     RESTS under the opaque ink fill (background-image isn't in transition-colors,
+     so toggling it on hover would snap/flash); hover is gated like .u-draw so a
+     tap can't stick the on-light voice on the dark panel. */
+  @media (hover: hover) {
+    .group:hover .quote-duotone {
+      color: theme('colors.cream2');
+    }
+  }
   .group:focus-within .quote-duotone {
     color: theme('colors.cream2');
   }
   @supports (-webkit-background-clip: text) {
-    .group:hover .quote-duotone,
-    .group:focus-within .quote-duotone {
-      color: transparent;
+    .quote-duotone {
+      background-image: linear-gradient(95deg, #c81f0b 0%, #0e5fbe 100%);
       -webkit-background-clip: text;
       background-clip: text;
-      background-image: linear-gradient(95deg, #c81f0b 0%, #0e5fbe 100%);
+    }
+    @media (hover: hover) {
+      .group:hover .quote-duotone {
+        color: transparent;
+      }
+    }
+    .group:focus-within .quote-duotone {
+      color: transparent;
     }
   }
 
@@ -183,6 +201,11 @@ html.lenis body {
   a[aria-current='page'] span {
     text-decoration: underline;
     text-underline-offset: 4px;
+  }
+  /* the knockout stroke isn't a forced property — without this, a ghost cream
+     outline paints around the forced glyphs of the page's only h1 mid-scrub */
+  [data-nameplate] {
+    -webkit-text-stroke-width: 0 !important;
   }
 }
 

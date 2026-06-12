@@ -76,7 +76,7 @@ export function Loader({ onDone }: { onDone: () => void }) {
       style={{ transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)', transitionDuration: `${EXIT_MS}ms` }}
     >
       <span className="font-mono text-sm font-bold tracking-[0.18em] text-ink">
-        T<span className="text-accent">/</span>Z
+        T<span className="text-label">/</span>Z
       </span>
       <div>
         <span className="block font-display text-metric font-extrabold tabular-nums text-ink">{count}%</span>

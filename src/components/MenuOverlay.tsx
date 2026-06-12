@@ -99,7 +99,7 @@ export function MenuOverlay({ sections, activeId, onClose }: MenuOverlayProps) {
     >
       <div className="flex h-14 shrink-0 items-center justify-between border-b border-rule-strong px-4 sm:px-6 lg:px-8 xl:px-12">
         <span aria-hidden="true" className="font-mono text-sm font-bold tracking-[0.18em] text-ink">
-          T<span className="text-accent">/</span>Z
+          T<span className="text-label">/</span>Z
         </span>
         <button
           ref={closeRef}

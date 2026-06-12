@@ -30,7 +30,7 @@ export function AppHeader({ sections, activeId }: AppHeaderProps) {
           className="inline-flex min-h-tap items-center font-mono text-sm font-bold tracking-[0.18em] text-ink"
         >
           T
-          <span aria-hidden="true" className="text-accent">
+          <span aria-hidden="true" className="text-label">
             /
           </span>
           Z

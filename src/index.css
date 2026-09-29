@@ -1,0 +1,368 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Lenis smooth scroll (only active when the .lenis class is on <html>) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer base {
+  :root {
+    /* dark UA chrome (scrollbars, form controls, autofill) to match the canvas */
+    color-scheme: dark;
+    /* one interaction voice — every hover/press shares this duration + curve */
+    --dur: 200ms;
+    --ease: cubic-bezier(0.33, 0, 0.2, 1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* matches the JS anchor offset (sticky header height) */
+    scroll-padding-top: 56px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-cream text-ink font-display text-body antialiased;
+  }
+
+  /* White ring: hovers change what's INSIDE an element (underline, fill);
+     focus strokes OUTSIDE it, with the 2px gap showing the canvas. */
+  :focus-visible {
+    outline: 3px solid theme('colors.focus');
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+  /* Programmatic focus targets (sections reached via anchors / the skip link)
+     don't need a page-sized ring — the next Tab shows the real one. */
+  [tabindex='-1']:focus {
+    outline: none;
+  }
+
+  ::selection {
+    /* B&W inversion: white ground, near-black text (≈16:1) */
+    background: theme('colors.ink');
+    color: theme('colors.cream2');
+  }
+
+  /* Autofill: keep the underlined fields on the canvas instead of the UA tint. */
+  input:-webkit-autofill,
+  textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px theme('colors.cream') inset;
+    -webkit-text-fill-color: theme('colors.ink');
+    caret-color: theme('colors.ink');
+  }
+
+  /* Instant pressed-state feedback on every link/button — fires on tap too,
+     where :hover does not. Disabled controls don't match :active. */
+  a:active,
+  button:active {
+    opacity: 0.85;
+  }
+}
+
+@layer components {
+  /* Buttons: colors + a 1px press dip, all on the brand voice. */
+  .btn-press {
+    transition:
+      background-color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease),
+      color var(--dur) var(--ease),
+      transform var(--dur) var(--ease);
+  }
+  .btn-press:active {
+    transform: translateY(1px);
+    transition-duration: 40ms;
+  }
+
+  /* Entrance signatures, keyed off the Reveal observer via [data-revealed].
+     Final state is the default, so reduced-motion / no-JS render complete. */
+  .mask-line {
+    display: block;
+    transform: translateY(0);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-revealed='false'] .mask-line {
+    transform: translateY(110%);
+  }
+  .rule-draw {
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-revealed='false'] .rule-draw {
+    transform: scaleX(0);
+  }
+
+  /* The analyst circles the word that matters — a pen ellipse drawn on the
+     footer's Reveal; final state default (reduced-motion/no-JS = complete). */
+  .annotate-draw {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.6s;
+  }
+  [data-revealed='false'] .annotate-draw {
+    stroke-dashoffset: 100;
+  }
+
+  /* Drawn underline: grows left-to-right on hover/focus instead of snapping. */
+  .u-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 calc(100% - 0.06em);
+    background-size: 0% 1px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition: background-size 0.35s var(--ease);
+  }
+  @media (hover: hover) {
+    a:hover .u-draw,
+    .group:hover .u-draw {
+      background-size: 100% 1px;
+    }
+  }
+  a:focus-visible .u-draw,
+  .group:focus-within .u-draw {
+    background-size: 100% 1px;
+  }
+  @media (forced-colors: active) {
+    a:hover .u-draw,
+    a:focus-visible .u-draw,
+    .group:hover .u-draw,
+    .group:focus-within .u-draw {
+      text-decoration: underline;
+    }
+  }
+
+  /* Inverted rows (ink fill on hover/focus): focus rings and bolded figures
+     flip to dark so they stay visible on the light fill. */
+  .row-invert:focus-within :focus-visible {
+    outline-color: theme('colors.cream2');
+  }
+  @media (hover: hover) {
+    .row-invert:hover strong {
+      color: theme('colors.cream2');
+    }
+  }
+  .row-invert:focus-within strong {
+    color: theme('colors.cream2');
+  }
+
+  /* Outlined display type (the type band). Solid label-gray where text-stroke
+     is unsupported. */
+  .text-outline {
+    color: theme('colors.label');
+  }
+  @supports (-webkit-text-stroke: 1px #fff) {
+    .text-outline {
+      color: transparent;
+      -webkit-text-stroke: 1px theme('colors.ink');
+    }
+  }
+
+  /* The pinned "How I work" story (class added by HowIWork on desktop). The
+     default markup is the readable three-column list; this re-stages it. */
+  .how.is-pinned {
+    background: transparent;
+  }
+  .how.is-pinned .how-scrim {
+    display: block;
+    /* keeps the step text legible over the terrain: AA against the canvas */
+    background: linear-gradient(90deg, rgb(18 18 17 / 0.94) 0%, rgb(18 18 17 / 0.82) 42%, rgb(18 18 17 / 0) 80%);
+  }
+  .how.is-pinned .how-stage {
+    display: flex;
+    height: 100svh;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 56px;
+    padding-bottom: 0;
+  }
+  .how.is-pinned .how-progress {
+    display: flex;
+  }
+  .how.is-pinned .how-steps {
+    position: relative;
+    display: block;
+    height: min(62vh, 36rem);
+    margin-top: 2.5rem;
+  }
+  .how.is-pinned .how-step {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .how.is-pinned .how-rule {
+    display: none;
+  }
+  .how.is-pinned .how-title {
+    max-width: 11ch;
+    font-size: clamp(3.5rem, 7.6vw, 8.25rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+  .how.is-pinned .how-caption {
+    max-width: 34ch;
+    font-size: 1.125rem;
+    line-height: 1.55;
+  }
+  .how.is-pinned .how-num {
+    position: absolute;
+    right: -0.04em;
+    top: 50%;
+    display: block;
+    /* centering lives on this outer span only; GSAP animates .how-num-inner */
+    transform: translateY(-50%);
+    font-family: theme('fontFamily.serif');
+    font-size: clamp(12rem, 30vw, 30rem);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(243 243 239 / 0.22);
+    pointer-events: none;
+  }
+
+  /* Film grain: a static noise layer over everything for depth. */
+  .grain {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Cursor halo (see Cursor.tsx): trails the pointer; over interactive things
+     it swells into a difference-blended lens with a one-word label. */
+  .cursor-ring {
+    pointer-events: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 70;
+    display: flex;
+    height: 2.5rem;
+    width: 2.5rem;
+    margin: -1.25rem 0 0 -1.25rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid theme('colors.ink');
+    border-radius: 9999px;
+    opacity: 0;
+    mix-blend-mode: difference;
+    transition:
+      width 0.35s var(--ease),
+      height 0.35s var(--ease),
+      margin 0.35s var(--ease),
+      background-color 0.35s var(--ease),
+      opacity 0.3s var(--ease),
+      transform 0.15s var(--ease);
+  }
+  .cursor-ring.is-visible {
+    opacity: 1;
+  }
+  .cursor-ring.is-active {
+    height: 4.5rem;
+    width: 4.5rem;
+    margin: -2.25rem 0 0 -2.25rem;
+    background-color: theme('colors.ink');
+  }
+  .cursor-ring.is-pressed .cursor-label {
+    transform: scale(0.9);
+  }
+  .cursor-label {
+    font-family: theme('fontFamily.mono');
+    font-size: 0.625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #000;
+    opacity: 0;
+    transition: opacity 0.2s var(--ease), transform 0.15s var(--ease);
+  }
+  .cursor-ring.is-active .cursor-label {
+    opacity: 1;
+  }
+}
+
+/* Windows High Contrast: the menu's active marker is a background (stripped
+   under forced colors) — give the current section a real underline there. */
+@media (forced-colors: active) {
+  /* only the active label (the <em>) — not the aria-hidden index beside it */
+  a[aria-current] em {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+  .grain,
+  .cursor-ring {
+    display: none;
+  }
+  .text-outline,
+  .how.is-pinned .how-num {
+    -webkit-text-stroke-width: 0 !important;
+    color: CanvasText !important;
+  }
+}
+
+/* Print: the dark canvas would print as near-blank — flip to plain ink-on-paper
+   and drop the decorative fixed/canvas layers. */
+@media print {
+  body {
+    background: #fff !important;
+  }
+  * {
+    color: #000 !important;
+    background: transparent !important;
+    border-color: #777 !important;
+  }
+  .fixed,
+  canvas,
+  .grain,
+  .cursor-ring {
+    display: none !important;
+  }
+  /* IntersectionObserver doesn't run for print layout — show every entrance in
+     its final state instead of printing blank sections. */
+  [data-revealed] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .mask-line,
+  .rule-draw,
+  .split-char,
+  [data-hero-fade] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .annotate-draw {
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+/* Honor reduced-motion: kill the dot pulse, smooth scroll, hovers, transitions. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,10 @@
+.DS_Store
+.claude/
+
+# build / deps
+node_modules/
+dist/
+
+# generated at build time by scripts/build_feed.py
+public/feed.json
+__pycache__/
